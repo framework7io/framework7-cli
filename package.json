@@ -1,0 +1,33 @@
+{
+  "name": "framework7-cli",
+  "version": "1.0.0",
+  "description": "Framework7 CLI",
+  "main": "index.js",
+  "bin": {
+    "f7": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nolimits4web/framework7-cli.git"
+  },
+  "keywords": [
+    "framework7",
+    "cli",
+    "mobile",
+    "cordova",
+    "ios",
+    "android"
+  ],
+  "author": "Vladimir Kharlampidi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nolimits4web/framework7-cli/issues"
+  },
+  "homepage": "https://github.com/nolimits4web/framework7-cli#readme",
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
+}
