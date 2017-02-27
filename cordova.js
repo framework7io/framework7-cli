@@ -2,13 +2,15 @@
     Cordova Wrapper
 ============================================= */ 
 var exec = require('./utils/exec.js');
+var fs = require('fs');
+var xml2js = require('xml2js');
 module.exports = {
-// -----> Cordova Create
+    // -----> Cordova Create
     create: function (args, options) {
         args = args || [];
         options = options ||{};
-        var path = args[0], id, name;
-        if (path) {
+        var folder = args[0], id, name;
+        if (folder) {
             id = args[1] || 'io.framework7.helloframework7';
             name = args[2] || 'HelloFramework7';
             if (name.indexOf('"') === 0 && name.split('"') === 2) {
@@ -19,8 +21,30 @@ module.exports = {
             }
             if (name.indexOf(' ') > 0) name = '"' + name + '"';
         }
-        var cmd = `cordova create ${[path, id, name].join(' ')}`;
-        exec(cmd);
+        var cmd = `cordova create ${[folder, id, name].join(' ')}`;
+        exec(cmd, function () {
+            // Clear www folder
+            exec('rm -rf ' + folder + '/www');
+            // Create empty folders
+            exec('mkdir ' + folder + '/src');
+            exec('mkdir ' + folder + '/www');
+            // Modify XML
+            var xmlPath = process.cwd() + '/' + folder + '/config.xml';
+            var xmlContent = fs.readFileSync(xmlPath);
+            xml2js.parseString(xmlContent, function (error, result) {
+                result.widget.preference = [];
+                [['webviewbounce', 'false'], ['UIWebViewBounce', 'false'], ['DisallowOverscroll', 'true']].forEach(function (el) {
+                    result.widget.preference.push({
+                        '$': {
+                            name: el[0],
+                            value: el[1]
+                        }
+                    });
+                });
+                var newXmlContent = (new xml2js.Builder()).buildObject(result);
+                fs.writeFileSync(xmlPath, newXmlContent);
+            });
+        });
     },
     // -----> Cordova Platform
     platform: function (args, options) {
