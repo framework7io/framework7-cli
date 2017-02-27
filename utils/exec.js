@@ -3,11 +3,15 @@ var child_process = require('child_process');
 /* =============================================
     Exec
 ============================================= */ 
-module.exports = function exec(command) {
+module.exports = function exec(command, callbackOk, callbackError) {
     console.log('F7 CLI Executing:', command);
     var cp = child_process.exec(command, function (err, stdout, stderr) {
-        // if (stdout) log.text('stdout');
-        // if (stderr) log.error(stderr);
+        if ((err || stderr) && callbackError) {
+            callbackError(err, stderr);
+        }
+        if (!err && !stderr && callbackOk) {
+            callbackOk();
+        }
     });
     cp.stdout.on('data', function (data) {
         log.text(data.toString());
