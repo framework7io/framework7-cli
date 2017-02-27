@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/nolimits4web/framework7-cli#readme",
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "xml2js": "^0.4.17"
   }
 }
