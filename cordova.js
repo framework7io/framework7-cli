@@ -34,8 +34,11 @@ module.exports = {
             // Create empty folders
             exec('mkdir ' + folder + '/src');
             exec('mkdir ' + folder + '/www');
+            // Paths
+            var projectRoot = process.cwd() + '/' + folder;
+            var projectSrc = process.cwd() + '/' + folder + '/src/';
             // Modify XML
-            var xmlPath = process.cwd() + '/' + folder + '/config.xml';
+            var xmlPath = projectRoot + '/config.xml';
             var xmlContent = fs.readFileSync(xmlPath);
             xml2js.parseString(xmlContent, function (error, result) {
                 result.widget.preference = [];
@@ -51,8 +54,8 @@ module.exports = {
                 fs.writeFileSync(xmlPath, newXmlContent);
             });
             // Download Template
-            log.text('Donwloading template');
-            ghdownload(templates[template], process.cwd() + '/' + folder + '/src')
+            log.text('Downloading template');
+            ghdownload(templates[template], projectSrc)
                 .on('dir', function (dir) {
                     // console.log('dir', dir);
                 })
@@ -68,9 +71,9 @@ module.exports = {
                 .on('end', function () {
                     // Download latest version of Framework7
                     log.text('Template OK');
-                    log.text('Downloading latest version of Framework7');
+                    log.text('Downloading latest version of Framework7 and icon fonts');
                     // Read manifest
-                    var manifest = require(process.cwd() + '/' + folder + '/src/manifest.json');
+                    var manifest = require(projectSrc + '/manifest.json');
                     
                     var cssFiles = [
                         'framework7.ios.min.css',
@@ -83,27 +86,89 @@ module.exports = {
                     var jsFiles = [
                         'framework7.min.js'
                     ];
+                    var f7FontFiles = [
+                        'Framework7Icons-Regular.eot',
+                        'Framework7Icons-Regular.ttf',
+                        'Framework7Icons-Regular.woff',
+                        'Framework7Icons-Regular.woff2'
+                    ];
+                    var materialFontFiles = [
+                        'MaterialIcons-Regular.eot',
+                        'MaterialIcons-Regular.ttf',
+                        'MaterialIcons-Regular.woff',
+                        'MaterialIcons-Regular.woff2'
+                    ];
                     var newFile, request;
-                    cssFiles.forEach(function (filename) {
+                    if (manifest.css) {
+                        cssFiles.forEach(function (filename) {
+                            download(
+                                'https://raw.githubusercontent.com/nolimits4web/Framework7/master/dist/css/' + filename, 
+                                projectSrc + manifest.css + filename,
+                                function (error) {
+                                    if (error) log.error(error);
+                                    else log.text(filename + ' OK');
+                                }
+                            );
+                        });
+                    }
+                    if (manifest.js) {
+                        jsFiles.forEach(function (filename) {
+                            download(
+                                'https://raw.githubusercontent.com/nolimits4web/Framework7/master/dist/js/' + filename, 
+                                projectSrc + manifest.js + filename,
+                                function (error) {
+                                    if (error) log.error(error);
+                                    else log.text(filename + ' OK');
+                                }
+                            );
+                        });
+                    }
+                    if (manifest.fonts) {
+                        f7FontFiles.forEach(function (filename) {
+                            download(
+                                'https://raw.githubusercontent.com/nolimits4web/Framework7-Icons/master/fonts/' + filename, 
+                                projectSrc + manifest.fonts + filename,
+                                function (error) {
+                                    if (error) log.error(error);
+                                    else log.text(filename + ' OK');
+                                }
+                            );
+                        });
                         download(
-                            'https://raw.githubusercontent.com/nolimits4web/Framework7/master/dist/css/' + filename, 
-                            process.cwd() + '/' + folder + '/src/' + manifest.css + filename,
+                            'https://raw.githubusercontent.com/nolimits4web/Framework7-Icons/master/css/framework7-icons.css', 
+                            projectSrc + manifest.css + 'framework7-icons.css',
                             function (error) {
                                 if (error) log.error(error);
-                                else log.text(filename + ' OK');
+                                else {
+                                    log.text('framework7-icons.css' + ' OK');
+                                }
                             }
                         );
-                    });
-                    jsFiles.forEach(function (filename) {
+                        materialFontFiles.forEach(function (filename) {
+                            download(
+                                'https://raw.githubusercontent.com/google/material-design-icons/master/iconfont/' + filename, 
+                                projectSrc + manifest.fonts + filename,
+                                function (error) {
+                                    if (error) log.error(error);
+                                    else log.text(filename + ' OK');
+                                }
+                            );
+                        });
                         download(
-                            'https://raw.githubusercontent.com/nolimits4web/Framework7/master/dist/js/' + filename, 
-                            process.cwd() + '/' + folder + '/src/' + manifest.js + filename,
+                            'https://raw.githubusercontent.com/google/material-design-icons/master/iconfont/material-icons.css', 
+                            projectSrc + manifest.css + 'material-icons.css',
                             function (error) {
                                 if (error) log.error(error);
-                                else log.text(filename + ' OK');
+                                else {
+                                    var materialIconsCSS = fs.readFileSync(projectSrc + manifest.css + 'material-icons.css', 'utf-8');
+                                    materialIconsCSS = materialIconsCSS.replace(/url\(MaterialIcons/g, 'url(../fonts/MaterialIcons');
+                                    fs.writeFileSync(projectSrc + manifest.css + 'material-icons.css', materialIconsCSS);
+                                    log.text('material-icons.css' + ' OK');
+                                }
                             }
                         );
-                    });
+                    }
+                        
                 });
         });
     },
