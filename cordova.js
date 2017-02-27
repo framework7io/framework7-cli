@@ -2,8 +2,13 @@
     Cordova Wrapper
 ============================================= */ 
 var exec = require('./utils/exec.js');
+var log = require('./utils/log.js');
 var fs = require('fs');
 var xml2js = require('xml2js');
+var templates = require('./templates.js');
+var ghdownload = require('github-download');
+var download = require('./utils/download.js');
+
 module.exports = {
     // -----> Cordova Create
     create: function (args, options) {
@@ -21,6 +26,7 @@ module.exports = {
             }
             if (name.indexOf(' ') > 0) name = '"' + name + '"';
         }
+        var template = options.template || 'singleview';
         var cmd = `cordova create ${[folder, id, name].join(' ')}`;
         exec(cmd, function () {
             // Clear www folder
@@ -44,6 +50,61 @@ module.exports = {
                 var newXmlContent = (new xml2js.Builder()).buildObject(result);
                 fs.writeFileSync(xmlPath, newXmlContent);
             });
+            // Download Template
+            log.text('Donwloading template');
+            ghdownload(templates[template], process.cwd() + '/' + folder + '/src')
+                .on('dir', function (dir) {
+                    // console.log('dir', dir);
+                })
+                .on('file', function (file) {
+                    // console.log('file', file);
+                })
+                .on('zip', function (zip) {
+                    // console.log('zip', zip);
+                })
+                .on('error', function (error) {
+                    log.error('Error while downloading template: ' + error);
+                })
+                .on('end', function () {
+                    // Download latest version of Framework7
+                    log.text('Template OK');
+                    log.text('Downloading latest version of Framework7');
+                    // Read manifest
+                    var manifest = require(process.cwd() + '/' + folder + '/src/manifest.json');
+                    
+                    var cssFiles = [
+                        'framework7.ios.min.css',
+                        'framework7.ios.colors.min.css',
+                        'framework7.ios.rtl.min.css',
+                        'framework7.material.min.css',
+                        'framework7.material.colors.min.css',
+                        'framework7.material.rtl.min.css'
+                    ];
+                    var jsFiles = [
+                        'framework7.min.js'
+                    ];
+                    var newFile, request;
+                    cssFiles.forEach(function (filename) {
+                        download(
+                            'https://raw.githubusercontent.com/nolimits4web/Framework7/master/dist/css/' + filename, 
+                            process.cwd() + '/' + folder + '/src/' + manifest.css + filename,
+                            function (error) {
+                                if (error) log.error(error);
+                                else log.text(filename + ' OK');
+                            }
+                        );
+                    });
+                    jsFiles.forEach(function (filename) {
+                        download(
+                            'https://raw.githubusercontent.com/nolimits4web/Framework7/master/dist/js/' + filename, 
+                            process.cwd() + '/' + folder + '/src/' + manifest.js + filename,
+                            function (error) {
+                                if (error) log.error(error);
+                                else log.text(filename + ' OK');
+                            }
+                        );
+                    });
+                });
         });
     },
     // -----> Cordova Platform
