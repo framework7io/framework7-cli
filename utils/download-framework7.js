@@ -28,7 +28,7 @@ module.exports = function (cssPath, jsPath, fontsPath, cb) {
     var downloaded = 0;
     var toDownload = 0;
     function onFileDownload(filename) {
-        log.text('--' + filename + ' OK', 'gray');
+        log.text('  ' + filename + ' \u2713', 'gray');
         downloaded++;
         if (downloaded === toDownload && cb) cb();
     }
