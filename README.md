@@ -26,5 +26,57 @@ Where:
 * `com.example.myapp` - app id (optional). 
 * `MyApp` - app title (optional). Use double quotes if you have spaces in title, e.g. `"My App"`
 * `--template [template]` - specify app template (optional). The following templates are available:
-    * `singleview` (by default)
-    * `tabs`
+    * [singleview](https://github.com/nolimits4web/framework7-cli-template-singleview) (by default)
+    * [tabs](https://github.com/nolimits4web/framework7-cli-template-tabs)
+
+## Adding platform target
+
+To add iOS target platform:
+```
+$ f7 platform add ios
+```
+
+To add Android target platform:
+```
+$ f7 platform add android
+```
+
+## Run app in Browser
+
+Use `f7 serve` command to run the app locally (in browser). App will be hosted at `http://localhost/www/ios/` (for iOS platform) and `http://localhost/www/android/` (for Android platform):
+
+```
+$ f7 serve
+```
+
+## Build the App
+
+```
+$ f7 build
+```
+
+## Emulating the App
+
+```
+$ f7 emulate ios
+```
+
+## Running the App
+
+Deploys the app on specified platform devices. If a device is not found it'll then deploy to an emulator/simulator
+
+```
+$ f7 run ios [options]
+```
+
+## Manage Cordova Plugins
+
+Install plugin:
+```
+$ f7 plugin add cordova-plugin-splashscreen
+```
+
+Remove plugin:
+```
+$ f7 plugin rm cordova-plugin-splashscreen
+```
