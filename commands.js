@@ -8,6 +8,7 @@ var download = require('./utils/download.js');
 var downloadFramework7 = require('./utils/download-framework7.js');
 var downloadGithub = require('./utils/download-github.js');
 var configXml = require('./utils/config-xml.js');
+var async = require('async');
 
 module.exports = {
     // -----> Create
@@ -30,58 +31,110 @@ module.exports = {
         var template = options.template || 'singleview';
         var cmd = 'cordova create ' + [folder, id, name].join(' ');
         exec(cmd, function () {
-            // Clear www folder
             var projectRoot = path.join(process.cwd(), folder);
             var projectTmp = path.join(projectRoot, 'tmp');
-            fse.emptyDirSync(path.join(projectRoot, 'www'));
-            // Create src folder
-            fse.ensureDirSync(path.join(projectRoot, 'src'));
-            // Create tmp folder
-            fse.ensureDirSync(projectTmp);
-            // Download template from GitHub
-            log.text('Downloading template', 'green');
-            downloadGithub(templates[template], projectTmp, function (error) {
-                if (error) return log.error(error);
-                log.text('Downloading template OK');
-                // Read template manifest
-                var manifest = require(path.join(projectTmp, 'manifest.json'));
-                var projectSrc = path.join(projectRoot, manifest.src);
-                // Modify XML
-                if (manifest.xml) {
-                    log.text('Modify config.xml', 'green');
-                    configXml(path.join(projectRoot, 'config.xml'), manifest.xml, function (error) {
-                        if (error) return log.error(error);
-                        log.text('Modify config.xml OK');
+            var projectScripts = path.join(projectRoot, 'scripts');
+            var projectSrc,
+                hooks = [], 
+                manifest = {};
+            async.series([
+                // 1. Clear/create folders
+                function (callback) {
+                    // Clear www folder
+                    fse.emptyDirSync(path.join(projectRoot, 'www'));
+                    // Create src folder
+                    fse.ensureDirSync(path.join(projectRoot, 'src'));
+                    // Create tmp folder
+                    fse.ensureDirSync(projectTmp);
+                    // Create scripts folder
+                    fse.ensureDirSync(projectScripts);
+                    callback();
+                },
+                // 2. Download scripts & read hooks
+                function (callback) {
+                    log.text('Downloading scripts & hooks', 'green');
+                    downloadGithub('https://github.com/nolimits4web/framework7-cli-scripts', projectScripts, function (error) {
+                        if (error) {
+                            callback(error);
+                            return log.error(error);
+                        }
+                        log.text('  Downloading scripts & hooks \u2713');
+                        // Read hooks
+                        hooks = require(path.join(projectScripts, 'hooks.json'));
+                        callback();
                     });
-                }
-                // Check for scripts
-                if (manifest.scripts) {
-                    if (Array.isArray(manifest.scripts)) {
-                        manifest.scripts.forEach(function (script) {
-                            fse.copySync(path.join(projectTmp, script), path.join(projectRoot, script));
-                            fse.removeSync(path.join(projectTmp, script));
-                        });
-                    }
-                    else {
-                        fse.copySync(path.join(projectTmp, manifest.scripts), path.join(projectRoot, 'scripts'));
-                        fse.removeSync(path.join(projectTmp, manifest.scripts));
-                    }
-                }
-                // Copy folder
-                fse.copy(projectTmp, projectSrc, {overwrite: true}, function (error) {
-                    if (error) return log.error(error);
-                    // Remove Temp Folder
-                    fse.removeSync(projectTmp);
-                    // Download latest version of Framework7
+                },
+                // 3. Download template & read manifest
+                function (callback) {
+                    log.text('Downloading template "' + template + '"', 'green');
+                    downloadGithub(templates[template], projectTmp, function (error) {
+                        if (error) {
+                            callback(error);
+                            return log.error(error);
+                        }
+                        log.text('  Downloading template "' + template + '" \u2713');
+                        // Read template manifest
+                        manifest = require(path.join(projectTmp, 'manifest.json'));
+                        projectSrc = path.join(projectRoot, manifest.src);
+                        callback();
+                    });
+                },
+                // 4. Copy tmp to src
+                function (callback) {
+                    fse.copy(projectTmp, projectSrc, {overwrite: true}, function (error) {
+                        if (error) {
+                            callback(error);
+                            return log.error(error);
+                        }
+                        // Remove Temp Folder
+                        fse.removeSync(projectTmp);
+                        callback();
+                    });
+                },
+                // 5. Download F7 files and fonts
+                function (callback) {
                     log.text('Downloading latest version of Framework7 and icon fonts', 'green');
                     var cssPath = manifest.css ? path.join(projectSrc, manifest.css) : undefined;
-                    var jsPath = manifest.css ? path.join(projectSrc, manifest.js) : undefined;
-                    var fontsPath = manifest.css ? path.join(projectSrc, manifest.fonts) : undefined;
+                    var jsPath = manifest.js ? path.join(projectSrc, manifest.js) : undefined;
+                    var fontsPath = manifest.fonts ? path.join(projectSrc, manifest.fonts) : undefined;
                     downloadFramework7(cssPath, jsPath, fontsPath, function (error) {
-                        if (error) return log.error(error);
-                        log.text('All done! Now go to "' + folder + '" folder and add platforms by running "f7 platform add ios" and/or "f7 platform add android"', 'green');
+                        if (error) {
+                            callback(error);
+                            return log.error(error);
+                        }
+                        log.text('  Downloading latest version of Framework7 and icon fonts \u2713');
+                        callback();
                     });
-                });
+                },
+                // 6. Modify XML
+                function (callback) {
+                    log.text('Modify config.xml', 'green');
+                    var xmlProps = manifest.xml || {};
+                    if (xmlProps.hook) xmlProps.hook = xmlProps.hook.concat(hooks);
+                    else xmlProps.hook = hooks;
+                    configXml(path.join(projectRoot, 'config.xml'), xmlProps, function (error) {
+                        if (error) {
+                            callback(error);
+                            return log.error(error);
+                        }
+                        log.text('  Modify config.xml \u2713');
+                        callback();
+                    });
+                }
+                
+            ], function (error, results) {
+                if (error) {
+                    return;
+                }
+                log.text([
+                    '',
+                    '************************',
+                    'All Done!',
+                    'Now go to the "' + folder + '" folder and add target platforms:',
+                    '"f7 platform add ios" - to add iOS platform',
+                    '"f7 platform add android" - to add Android platform',
+                    '************************',
+                ].join('\n'), 'green');
             });
         });
     },
