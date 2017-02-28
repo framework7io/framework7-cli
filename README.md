@@ -46,13 +46,13 @@ $ f7 platform add android
 Use `f7 serve` command to run the app locally (in browser). App will be hosted at `http://localhost/www/ios/` (for iOS platform) and `http://localhost/www/android/` (for Android platform):
 
 ```
-$ f7 serve
+$ f7 serve [options]
 ```
 
 ## Build the App
 
 ```
-$ f7 build
+$ f7 build [options]
 ```
 
 ## Emulating the App
