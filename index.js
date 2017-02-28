@@ -39,7 +39,7 @@ program
 
 // Prepare
 program
-    .command('prepare <args...>')
+    .command('prepare [args...]')
     .description('Transforms config.xml metadata to platform-specific manifest files, copies icons & splashscreens, copies plugin files for specified platforms so that the project is ready to build with each native SDK')
     .option('--browserify')
     .option('--fetch')
@@ -90,6 +90,12 @@ program
     .command('clean [args...]')
     .description('Cleans the build artifacts for the specified platform, or all platforms by running platform-specific build cleanup')
     .action(cordova.clean);
+
+// Serve
+program
+    .command('serve [args...]')
+    .description('Run a local web server for www/ assets using specified port or default of 8000. Access projects at: http://HOST_IP:PORT/PLATFORM/www')
+    .action(cordova.serve);
 
 /* =============================================
     Cordova Commands
