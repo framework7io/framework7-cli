@@ -1,11 +1,10 @@
 #!/usr/bin/env node
-console.log('F7 CLI Running');
 
 var program = require('commander');
-var cordova = require('./cordova.js');
+var commands = require('./commands.js');
 
 /* =============================================
-    Cordova Commands
+    Commands
 ============================================= */ 
 
 // Create
@@ -13,7 +12,7 @@ program
     .command('create [args...]')
     .description('create project')
     .option('-t, --template <template>', 'Use a custom template located locally, in NPM, or GitHub.')
-    .action(cordova.create);
+    .action(commands.create);
 
 // Platform
 program
@@ -22,7 +21,7 @@ program
     .option('--save', 'Save <platform-spec> into config.xml after installing them using <engine> tag')
     .option('--link <path>', 'When <platform-spec> is a local path, links the platform library directly instead of making a copy of it (support varies by platform; useful for platform development)')
     .option('--fetch', 'Fetches the platform using npm install and stores it into the apps node_modules directory')
-    .action(cordova.platform);
+    .action(commands.platform);
 
 // Plugin
 program
@@ -35,7 +34,7 @@ program
     .option('--browserify')
     .option('--force')
     .option('--fetch')
-    .action(cordova.plugin);
+    .action(commands.plugin);
 
 // Prepare
 program
@@ -43,13 +42,13 @@ program
     .description('Transforms config.xml metadata to platform-specific manifest files, copies icons & splashscreens, copies plugin files for specified platforms so that the project is ready to build with each native SDK')
     .option('--browserify')
     .option('--fetch')
-    .action(cordova.prepare);
+    .action(commands.prepare);
 
 // Compile
 program
     .command('compile <args...>')
     .description('Compilation the app')
-    .action(cordova.compile);
+    .action(commands.compile);
 
 // Build
 program
@@ -61,7 +60,7 @@ program
     .option('--emulator')
     .option('--buildConfig <configFile>')
     .option('--browserify <platformOpts>')
-    .action(cordova.build);
+    .action(commands.build);
 
 // Run
 program
@@ -77,27 +76,25 @@ program
     .option('--target')
     .option('--buildConfig <configFile>')
     .option('--browserify <platformOpts>')
-    .action(cordova.run);
+    .action(commands.run);
 
 // Clean
 program
     .command('emulate [args...]')
     .description('Alias for f7 run --emulator. Launches the emulator instead of device')
-    .action(cordova.emulate);
+    .action(commands.emulate);
 
 // Clean
 program
     .command('clean [args...]')
     .description('Cleans the build artifacts for the specified platform, or all platforms by running platform-specific build cleanup')
-    .action(cordova.clean);
+    .action(commands.clean);
 
 // Serve
 program
     .command('serve [args...]')
     .description('Run a local web server for www/ assets using specified port or default of 8000. Access projects at: http://HOST_IP:PORT/PLATFORM/www')
-    .action(cordova.serve);
+    .action(commands.serve);
 
-/* =============================================
-    Cordova Commands
-============================================= */ 
+
 program.parse(process.argv);

@@ -1,20 +1,18 @@
-/* =============================================
-    Cordova Wrapper
-============================================= */ 
 var path = require('path');
 var exec = require('./utils/exec.js');
 var log = require('./utils/log.js');
 var fs = require('fs');
 var fse = require('fs-extra');
-var templates = require('./templates.js');
+var templates = require('./templates.json');
 var download = require('./utils/download.js');
 var downloadFramework7 = require('./utils/download-framework7.js');
 var downloadGithub = require('./utils/download-github.js');
 var configXml = require('./utils/config-xml.js');
 
 module.exports = {
-    // -----> Cordova Create
+    // -----> Create
     create: function (args, options) {
+        log.text('Creating new Framework7 app', 'green');
         args = args || [];
         options = options ||{};
         var folder = args[0], id, name;
@@ -30,7 +28,7 @@ module.exports = {
             if (name.indexOf(' ') > 0) name = '"' + name + '"';
         }
         var template = options.template || 'singleview';
-        var cmd = `cordova create ${[folder, id, name].join(' ')}`;
+        var cmd = 'cordova create ' + [folder, id, name].join(' ');
         exec(cmd, function () {
             // Clear www folder
             var projectRoot = path.join(process.cwd(), folder);
@@ -41,16 +39,16 @@ module.exports = {
             // Create tmp folder
             fse.ensureDirSync(projectTmp);
             // Download template from GitHub
-            log.text('Downloading template');
+            log.text('Downloading template', 'green');
             downloadGithub(templates[template], projectTmp, function (error) {
                 if (error) return log.error(error);
-                log.text('Template OK');
+                log.text('Downloading template OK');
                 // Read template manifest
                 var manifest = require(path.join(projectTmp, 'manifest.json'));
                 var projectSrc = path.join(projectRoot, manifest.src);
                 // Modify XML
                 if (manifest.xml) {
-                    log.text('Modify config.xml');
+                    log.text('Modify config.xml', 'green');
                     configXml(path.join(projectRoot, 'config.xml'), manifest.xml, function (error) {
                         if (error) return log.error(error);
                         log.text('Modify config.xml OK');
@@ -75,33 +73,33 @@ module.exports = {
                     // Remove Temp Folder
                     fse.removeSync(projectTmp);
                     // Download latest version of Framework7
-                    log.text('Downloading latest version of Framework7 and icon fonts');
+                    log.text('Downloading latest version of Framework7 and icon fonts', 'green');
                     var cssPath = manifest.css ? path.join(projectSrc, manifest.css) : undefined;
                     var jsPath = manifest.css ? path.join(projectSrc, manifest.js) : undefined;
                     var fontsPath = manifest.css ? path.join(projectSrc, manifest.fonts) : undefined;
                     downloadFramework7(cssPath, jsPath, fontsPath, function (error) {
                         if (error) return log.error(error);
-                        log.text('Downloading latest version of Framework7 and icon fonts OK');
+                        log.text('All done! Now go to "' + folder + '" folder and add platforms by running "f7 platform add ios" and/or "f7 platform add android"', 'green');
                     });
                 });
             });
         });
     },
-    // -----> Cordova Platform
+    // -----> Platform
     platform: function (args, options) {
         args = args || [];
         options = options ||{};
-        var cmd = `cordova platform ${args.join(' ')}`;
+        var cmd = 'cordova platform ' + args.join(' ');
         if (options.save) cmd += ' --save';
         if (options.fetch) cmd += ' --fetch';
         if (options.link) cmd += ' --link ' + options.link;
         exec(cmd);
     },
-    // -----> Cordova Plugin
+    // -----> Plugin
     plugin: function (args, options) {
         args = args || [];
         options = options ||{};
-        var cmd = `cordova plugin ${args.join(' ')}`;
+        var cmd = 'cordova plugin ' + args.join(' ');
         if (options.searchpath) cmd += ' --searchpath ' + options.searchpath;
         if (options.noregistry) cmd += ' --noregistry';
         if (options.link) cmd += ' --link';
@@ -111,27 +109,27 @@ module.exports = {
         if (options.fetch) cmd += ' --fetch';
         exec(cmd);
     },
-    // -----> Cordova Prepare
+    // -----> Prepare
     prepare: function (args, options) {
         args = args || [];
         options = options ||{};
-        var cmd = `cordova prepare ${args.join(' ')}`;
+        var cmd = 'cordova prepare ' + args.join(' ');
         if (options.browserify) cmd += ' --browserify';
         if (options.fetch) cmd += ' --fetch';
         exec(cmd);
     },
-    // -----> Cordova Build
+    // -----> Build
     compile: function (args, options) {
         args = args || [];
         options = options ||{};
-        var cmd = `cordova compile ${args.join(' ')}`;
+        var cmd = 'cordova compile ' + args.join(' ');
         exec(cmd);
     },
-    // -----> Cordova Build
+    // -----> Build
     build: function (args, options) {
         args = args || [];
         options = options ||{};
-        var cmd = `cordova build ${args.join(' ')}`;
+        var cmd = 'cordova build ' + args.join(' ');
         if (options.release) cmd += ' --release';
         if (options.device) cmd += ' --device';
         if (options.emulator) cmd += ' --emulator';
@@ -139,11 +137,11 @@ module.exports = {
         if (options.browserify) cmd += ' --browserify ' + options.browserify;
         exec(cmd);
     },
-    // -----> Cordova Run
+    // -----> Run
     run: function (args, options) {
         args = args || [];
         options = options ||{};
-        var cmd = `cordova run ${args.join(' ')}`;
+        var cmd = 'cordova run ' + args.join(' ');
 
         ('list debug release noprepare nobuild device emulator target buildConfig: browserify')
             .split(' ')
@@ -158,25 +156,25 @@ module.exports = {
             });
         exec(cmd);
     },
-    // -----> Cordova Clean
+    // -----> Clean
     emulate: function (args, options) {
         args = args || [];
         options = options ||{};
-        var cmd = `cordova emulate ${args.join(' ')}`;
+        var cmd = 'cordova emulate ' + args.join(' ');
         exec(cmd);
     },
-    // -----> Cordova Clean
+    // -----> Clean
     clean: function (args, options) {
         args = args || [];
         options = options ||{};
-        var cmd = `cordova clean ${args.join(' ')}`;
+        var cmd = 'cordova clean ' + args.join(' ');
         exec(cmd);
     },
-    // -----> Cordova Clean
+    // -----> Clean
     serve: function (args, options) {
         args = args || [];
         options = options ||{};
-        var cmd = `cordova serve ${args.join(' ')}`;
+        var cmd = 'cordova serve ' + args.join(' ');
         exec(cmd);
     }
 };
