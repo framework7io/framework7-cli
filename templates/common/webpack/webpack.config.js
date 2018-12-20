@@ -157,7 +157,9 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(env),
       'process.env.TARGET': JSON.stringify(target),
     }),
+    // new VueLoaderPlugin(),
     ...(env === 'production' ? [
+      // Production only plugins
       new UglifyJsPlugin({
         uglifyOptions: {
           compress: {
@@ -173,14 +175,12 @@ module.exports = {
           map: { inline: false },
         },
       }),
-    ] : [
-      new webpack.HotModuleReplacementPlugin(),
-    ]),
-    new webpack.NamedModulesPlugin(),
-    // new VueLoaderPlugin(),
-    ...(process.env === 'production' ? [
       new webpack.optimize.ModuleConcatenationPlugin(),
-    ] : []),
+    ] : [
+      // Development only plugins
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NamedModulesPlugin(),
+    ]),
     new MiniCssExtractPlugin({
       filename: 'css/app.css',
     }),
