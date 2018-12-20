@@ -1,0 +1,30 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="back link">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">{{user.firstName}} {{user.lastName}}</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="block block-strong">
+        {{user.about}}
+      </div>
+      <div class="list links-list">
+        <ul>
+          {{#each user.links}}
+            <li><a class="external" target="_blank" href="{{url}}">{{title}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  return {}
+</script>
