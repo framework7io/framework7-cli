@@ -74,7 +74,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          (env === 'production' ? 'style-loader' : {
+          (env === 'development' ? 'style-loader' : {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: '../'
@@ -87,7 +87,7 @@ module.exports = {
       {
         test: /\.styl(us)?$/,
         use: [
-          (env === 'production' ? 'style-loader' : {
+          (env === 'development' ? 'style-loader' : {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: '../'
@@ -101,7 +101,7 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          (env === 'production' ? 'style-loader' : {
+          (env === 'development' ? 'style-loader' : {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: '../'
@@ -115,7 +115,7 @@ module.exports = {
       {
         test: /\.(sa|sc)ss$/,
         use: [
-          (env === 'production' ? 'style-loader' : {
+          (env === 'development' ? 'style-loader' : {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: '../'
@@ -173,8 +173,9 @@ module.exports = {
           map: { inline: false },
         },
       }),
-    ] : []),
-    new webpack.HotModuleReplacementPlugin(),
+    ] : [
+      new webpack.HotModuleReplacementPlugin(),
+    ]),
     new webpack.NamedModulesPlugin(),
     // new VueLoaderPlugin(),
     ...(process.env === 'production' ? [
