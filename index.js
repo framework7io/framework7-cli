@@ -148,23 +148,21 @@ program
 
     // Create Project Files
     spinner.start(chalk.bold('Creating project files'));
-    if (opts.framework === 'core') {
-      const filesToCopy = copyAssets(opts);
-      try {
-        // eslint-disable-next-line
-        await Promise.all(filesToCopy.map((f) => {
-          if (f.type === 'copy') {
-            return copyFileAsync(f.from, f.to);
-          }
-          if (f.type === 'create') {
-            return writeFileAsync(f.to, f.content);
-          }
-        }));
-      } catch (err) {
-        spinner.error(chalk.bold('Error creating project files'));
-        log.error(err.stderr);
-        return;
-      }
+    const filesToCopy = copyAssets(opts);
+    try {
+      // eslint-disable-next-line
+      await Promise.all(filesToCopy.map((f) => {
+        if (f.type === 'copy') {
+          return copyFileAsync(f.from, f.to);
+        }
+        if (f.type === 'create') {
+          return writeFileAsync(f.to, f.content);
+        }
+      }));
+    } catch (err) {
+      spinner.error(chalk.bold('Error creating project files'));
+      log.error(err.stderr || err);
+      return;
     }
     spinner.done(chalk.bold('Creating project files'));
   });

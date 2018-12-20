@@ -150,7 +150,7 @@ const questions = [
 
   // Color
   {
-    type: 'confirm',
+    type: 'list',
     name: 'customColor',
     message: 'Do you want to specify custom theme color?',
     choices: [

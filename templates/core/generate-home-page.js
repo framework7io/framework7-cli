@@ -108,8 +108,7 @@ module.exports = (options) => {
           </div>
         </div>
 
-        <div class="block-title searchbar-hide-on-search">Page Loaders & Router</div>
-        <div class="list links-list searchbar-hide-on-search">
+        <div class="list links-list">
           <ul>
             <li>
               <a href="/dynamic-route/blog/45/post/125/?foo=bar#about">Dynamic (Component) Route</a>

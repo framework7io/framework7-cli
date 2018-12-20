@@ -9,13 +9,6 @@ module.exports = (options) => {
   const { template, bundler } = options;
   const toCopy = [];
 
-  // Copy Icons
-  toCopy.push({
-    type: 'copy',
-    from: path.resolve(__dirname, 'css', 'icons.css'),
-    to: path.resolve(cwd, 'src', 'css', 'icons.css'),
-  });
-
   // Copy Pages
   const pages = [
     '404',
@@ -47,6 +40,8 @@ module.exports = (options) => {
       let content = fs.readFileSync(src, 'utf-8');
       if (content.trim().indexOf('<template') !== 0) {
         content = `<template>\n${content.trim()}\n</template>\n<script>\nexport default {};\n</script>`;
+      } else {
+        content = content.replace(/<script>([ \n]*)return {/, '<script>$1export default {');
       }
       toCopy.push({
         type: 'create',
@@ -61,22 +56,21 @@ module.exports = (options) => {
       content: `<template>\n${indent(2, generateHomePage(options).trim())}\n</template>\n<script>\nexport default {}\n</script>`,
       to: path.resolve(cwd, 'src', 'pages', 'home.f7.html'),
     });
+    toCopy.push({
+      type: 'copy',
+      from: path.resolve(__dirname, 'template7-helpers-list.js'),
+      to: path.resolve(cwd, 'src', 'js', 'template7-helpers-list.js'),
+    });
   }
-  // Copy Fonts
-  toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
-    return {
+
+  if (bundler === 'rollup') {
+    // Copy F7 Styles
+    toCopy.push({
       type: 'copy',
-      from: path.resolve(__dirname, '../material-icons-font', `MaterialIcons-Regular.${ext}`),
-      to: path.resolve(cwd, 'src', 'fonts', `MaterialIcons-Regular.${ext}`),
-    };
-  }));
-  toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
-    return {
-      type: 'copy',
-      from: path.resolve(cwd, 'node_modules', 'framework7-icons', 'fonts', `Framework7Icons-Regular.${ext}`),
-      to: path.resolve(cwd, 'src', 'fonts', `Framework7Icons-Regular.${ext}`),
-    };
-  }));
+      from: path.resolve(cwd, 'node_modules/framework7/css/framework7.bundle.min.css'),
+      to: path.resolve(cwd, 'src/css/framework7.bundle.min.css'),
+    });
+  }
 
   // Copy F7
   if (!bundler) {
@@ -95,7 +89,15 @@ module.exports = (options) => {
         to: path.resolve(cwd, 'src/framework7/css', f),
       });
     });
+  } else {
+    toCopy.push({
+      type: 'copy',
+      from: path.resolve(__dirname, 'babel.config.js'),
+      to: path.resolve(cwd, 'babel.config.js'),
+    });
   }
+
+
 
   return toCopy;
 };

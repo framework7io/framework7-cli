@@ -1,4 +1,4 @@
-const generateRoot = require('./core/generate-root.js');
+const generateCoreRoot = require('./core/generate-root.js');
 
 module.exports = (options) => {
   const {
@@ -25,13 +25,13 @@ module.exports = (options) => {
   const styles = bundler === 'webpack' ? `
   <link rel="stylesheet" href="css/app.css">
   `.trim() : `
-  <link rel="stylesheet" href="framework7/css/framework7.bundle.min.css">
+  <link rel="stylesheet" href="${bundler === 'rollup' ? '' : 'framework7/'}css/framework7.bundle.min.css">
   <link rel="stylesheet" href="css/icons.css">
   <link rel="stylesheet" href="css/app.css">
   `.trim();
 
   const rootContent = framework === 'core'
-    ? generateRoot(options)
+    ? generateCoreRoot(options)
     : '';
 
   const cordovaScript = type.indexOf('cordova') >= 0 ? `
