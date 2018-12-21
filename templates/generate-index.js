@@ -1,4 +1,5 @@
 const generateCoreRoot = require('./core/generate-root.js');
+const templateIf = require('../utils/template-if');
 
 module.exports = (options) => {
   const {
@@ -47,6 +48,10 @@ module.exports = (options) => {
   `.trim() : `
   <!-- Framework7 library -->
   <script src="framework7/js/framework7.bundle.min.js"></script>
+  ${templateIf(type.indexOf('cordova') >= 0, () => `
+  <!-- Cordova APIs -->
+  <script src="js/cordova-app.js"></script>
+  `)}
   <!-- App routes -->
   <script src="js/routes.js"></script>
   <!-- App scripts -->

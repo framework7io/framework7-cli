@@ -3,7 +3,7 @@ const indent = require('../../utils/indent');
 
 module.exports = (options) => {
   const {
-    bundler, template, pkg, name,
+    bundler, template, pkg, name, type,
   } = options;
 
   let scripts = '';
@@ -21,7 +21,10 @@ module.exports = (options) => {
       import '../css/icons.css';
       import '../css/app.css';
       `)}
-
+      ${templateIf(type.indexOf('cordova') >= 0, () => `
+      // Import Cordova APIs
+      import cordovaApp './cordova-app.js';
+      `)}
       // Import Routes
       import routes from './routes.js';
     `);
@@ -35,7 +38,7 @@ module.exports = (options) => {
     var app = new Framework7({
       root: '#app', // App root element
       ${templateIf(pkg, () => `
-      id: ${pkg} // App bundle ID{{/if}}
+      id: '${pkg}' // App bundle ID{{/if}}
       `)}
       name: '${name}', // App name
       theme: 'auto', // Automatic theme detection
@@ -80,6 +83,14 @@ module.exports = (options) => {
       // Enable panel left visibility breakpoint
       panel: {
         leftBreakpoint: 960,
+      },
+      `)}
+      ${templateIf(type.indexOf('cordova') >= 0, () => `
+      on: {
+        init: function () {
+          // Init cordova APIs (see cordova-app.js)
+          cordovaApp.init();
+        },
       },
       `)}
     });

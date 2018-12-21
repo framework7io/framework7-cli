@@ -3,6 +3,9 @@ const templateIf = require('../utils/template-if');
 
 module.exports = (options) => {
   const { framework, type } = options;
+  // eslint-disable-next-line
+  const hasCordova = type.indexOf('cordova') >= 0;
+
   return indent(0, `
     const webpack = require('webpack');
     const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -22,6 +25,9 @@ module.exports = (options) => {
 
     const env = process.env.NODE_ENV || 'development';
     const target = process.env.TARGET || 'web';
+    ${templateIf(hasCordova, () => `
+    const isCordova =  target === 'cordova';
+    `)}
 
     module.exports = {
       mode: env,
@@ -29,7 +35,11 @@ module.exports = (options) => {
         './src/js/app.js',
       ],
       output: {
+        ${templateIf(hasCordova, () => `
+        path: resolvePath(isCordova ? 'cordova/www' : 'www'),
+        `, () => `
         path: resolvePath('www'),
+        `)}
         filename: 'js/app.js',
         publicPath: '',
       },
@@ -209,7 +219,11 @@ module.exports = (options) => {
         new CopyWebpackPlugin([
           {
             from: resolvePath('src/static'),
+            ${templateIf(hasCordova, () => `
+            to: resolvePath(isCordova ? 'cordova/www/static' : 'www/static'),
+            `, () => `
             to: resolvePath('www/static'),
+            `)}
           },
           ${templateIf(type.indexOf('pwa') >= 0, () => `
           {

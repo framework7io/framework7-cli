@@ -11,11 +11,14 @@ const generatePackageJson = require('./utils/generate-package-json');
 const getOptions = require('./utils/get-options');
 const spinner = require('./utils/spinner');
 const log = require('./utils/log');
+const templateIf = require('./utils/template-if');
 
 const copyFileAsync = require('./utils/copy-file-async');
 const writeFileAsync = require('./utils/write-file-async');
 
+const createFolders = require('./templates/create-folders');
 const copyAssets = require('./templates/copy-assets');
+const createCordova = require('./templates/create-cordova');
 
 // CWD
 const cwd = process.cwd();
@@ -60,59 +63,12 @@ program
 
     // Create Folders
     spinner.start('Creating required folders structure');
-    const folders = [
-      './src',
-      './www',
-      './src/assets',
-      './src/css',
-      './src/fonts',
-      './src/pages',
-      './src/js',
-    ];
-    if (opts.framework !== 'core' && opts.bundler) {
-      folders.push(...[
-        './src/components',
-      ]);
-    }
-    if (opts.bundler) {
-      folders.push(...[
-        './build',
-      ]);
-      if (opts.bundler === 'webpack') {
-        folders.push(...[
-          './src/static',
-        ]);
-      }
-    } else {
-      folders.push(...[
-        './src/framework7',
-        './src/framework7/js',
-        './src/framework7/css',
-      ]);
-    }
-    if (opts.type.indexOf('cordova') >= 0) {
-      folders.push(...[
-        './src/cordova',
-      ]);
-    }
-    if (opts.type.indexOf('web') >= 0 || opts.type.indexOf('pwa') >= 0) {
-      if (opts.bundler === 'webpack') {
-        folders.push('./src/static/icons');
-      } else {
-        folders.push('./src/assets/icons');
-      }
-    }
     try {
-      folders.forEach((f) => {
-        if (!fs.existsSync(path.resolve(cwd, f))) {
-          fs.mkdirSync(path.resolve(cwd, f));
-        }
-      });
+      createFolders(opts);
     } catch (err) {
       spinner.error('Error creating required folders structure');
       log.error(err.stderr);
       process.exit(1);
-      return;
     }
     spinner.done('Creating required folders structure');
 
@@ -157,15 +113,7 @@ program
     if (opts.type.indexOf('cordova') >= 0) {
       spinner.start(`${'Creating Cordova project'} ${waitText}`);
       try {
-        await exec.promise(`cordova create cordova ${opts.pkg} "${opts.name}"`, true);
-      } catch (err) {
-        spinner.error('Error creating Cordova project');
-        log.error(err.stderr);
-        process.exit(1);
-        return;
-      }
-      try {
-        await exec.promise(`cd cordova && cordova platform add ${opts.platform.join(' ')}`, true);
+        await createCordova(opts);
       } catch (err) {
         spinner.error('Error creating Cordova project');
         log.error(err.stderr);
@@ -204,10 +152,13 @@ ${chalk.bold(logSymbols.success)} ${chalk.bold('Done!')} 💪
 ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
   - 🔥 Run ${chalk.green('npm start')} to run development server
   - 🔧 Run ${chalk.green('npm run build-prod')} to build web app for production
+  ${templateIf(opts.type.indexOf('cordova') >= 0, () => `
+  - 📱 Run ${chalk.green('npm run build-cordova-prod')} to build cordova app
+  `.trim())}
   - 📖 Visit documentation at ${chalk.bold('https://framework7.io/docs/')}
   - 🧾 Check ${chalk.bold('README.md')} in project root folder with further instructions
 
-${chalk.cyan('Love Framework7? Support project by donating or pledging on patreon:')}
+${chalk.cyan.bold('Love Framework7? Support project by donating or pledging on patreon:')}
 ${chalk.cyan.bold('https://patreon.com/vladimirkharlampidi')}
     `.trim());
     process.exit(0);

@@ -6,6 +6,7 @@ module.exports = (options) => {
     template,
     pkg,
     name,
+    type,
   } = options;
 
   // Panels
@@ -111,6 +112,9 @@ module.exports = (options) => {
       BlockFooter
     } from 'framework7-react';
 
+    ${templateIf(type.indexOf('cordova') >= 0, () => `
+    import cordovaApp from '../js/cordova-app';
+    `)}
     import routes from '../js/routes';
 
     export default class extends React.Component {
@@ -121,7 +125,7 @@ module.exports = (options) => {
           // Framework7 Parameters
           f7params: {
             ${templateIf(pkg, () => `
-            id: ${pkg} // App bundle ID{{/if}}
+            id: '${pkg}', // App bundle ID{{/if}}
             `)}
             name: '${name}', // App name
             theme: 'auto', // Automatic theme detection
@@ -224,6 +228,14 @@ module.exports = (options) => {
       alertLoginData() {
         this.$f7.dialog.alert('Username: ' + this.state.username + '<br>Password: ' + this.state.password);
       }
+      ${templateIf(type.indexOf('cordova') >= 0, () => `
+      componentDidMount() {
+        // Init cordova APIs (see cordova-app.js)
+        this.$f7ready(() => {
+          cordovaApp.init();
+        });
+      }
+      `)}
     }
   `).trim();
 };

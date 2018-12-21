@@ -6,6 +6,7 @@ module.exports = (options) => {
     template,
     pkg,
     name,
+    type,
   } = options;
 
   // Panels
@@ -144,6 +145,9 @@ module.exports = (options) => {
     </f7-app>
     </template>
     <script>
+      ${templateIf(type.indexOf('cordova') >= 0, () => `
+      import cordovaApp from '../js/cordova-app.js';
+      `)}
       import routes from '../js/routes.js';
 
       export default {
@@ -152,7 +156,7 @@ module.exports = (options) => {
             // Framework7 Parameters
             f7params: {
               ${templateIf(pkg, () => `
-              id: ${pkg} // App bundle ID{{/if}}
+              id: '${pkg}', // App bundle ID{{/if}}
               `)}
               name: '${name}', // App name
               theme: 'auto', // Automatic theme detection
@@ -200,6 +204,14 @@ module.exports = (options) => {
             this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password);
           }
         },
+        ${templateIf(type.indexOf('cordova') >= 0, () => `
+        mounted() {
+          this.$f7ready(() => {
+            // Init cordova APIs (see cordova-app.js)
+            cordovaApp.init();
+          });
+        },
+        `)}
       }
     </script>
   `).trim();

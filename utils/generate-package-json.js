@@ -17,6 +17,7 @@ module.exports = function generatePackageJson(options) {
       'framework7-react@beta',
       'react',
       'react-dom',
+      'prop-types',
     ] : []),
   ];
 
@@ -78,6 +79,10 @@ module.exports = function generatePackageJson(options) {
   if (bundler === 'webpack') {
     scripts['build-dev'] = 'cross-env NODE_ENV=development node ./build/build.js';
     scripts['build-prod'] = 'cross-env NODE_ENV=production node ./build/build.js';
+    if (type.indexOf('cordova') >= 0) {
+      scripts['build-cordova-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
+      scripts['build-cordova-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build';
+    }
     scripts.dev = 'cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js';
     scripts.prod = 'cross-env NODE_ENV=production webpack-dev-server --config ./build/webpack.config.js';
     scripts.start = 'npm run dev';
@@ -85,6 +90,7 @@ module.exports = function generatePackageJson(options) {
   if (bundler !== 'webpack') {
     scripts.serve = 'http-server ./www/ -o -c 1 -a localhost -p 8080';
   }
+
 
   if (postInstall.length) {
     scripts.postinstall = postInstall.join(' && ');
@@ -96,10 +102,7 @@ module.exports = function generatePackageJson(options) {
   "name": "${name.toLowerCase().replace((/[ ]{2,}/), ' ').replace(/ /g, '-')}",
   "private": true,
   "version": "1.0.0",
-  ${type.indexOf('cordova') >= 0 ? `
-  "iosBuild": "100",
-  ` : ''}
-  "description": "My awesome Framework7 app",
+  "description": "${name}",
   "repository" : "",
   "license" : "UNLICENSED",
   "framework7-cli": ${JSON.stringify(options)},
