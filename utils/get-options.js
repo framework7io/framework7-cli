@@ -12,7 +12,7 @@ const questions = [
       },
       {
         name: 'PWA (Progressive Web App)',
-        value: ['pwa'],
+        value: ['web', 'pwa'],
       },
       {
         name: 'Cordova app (target native iOS and Android)',
@@ -24,7 +24,7 @@ const questions = [
       },
       {
         name: 'Cordova + PWA (Progressive Web App)',
-        value: ['cordova', 'pwa'],
+        value: ['cordova', 'web', 'pwa'],
       },
     ],
   },
@@ -87,11 +87,11 @@ const questions = [
     message: 'What type of framework do you prefer?',
     choices: [
       {
-        name: 'Core Framework7',
+        name: 'Framework7 Core',
         value: 'core',
       },
       {
-        name: 'Framework7 with Vue',
+        name: 'Framework7 with Vue.js',
         value: 'vue',
       },
       {
@@ -112,11 +112,11 @@ const questions = [
         value: 'single-view',
       },
       {
-        name: 'Tabbed Views',
+        name: 'Tabbed Views (Tabs)',
         value: 'tabs',
       },
       {
-        name: 'Split View',
+        name: 'Split View (Split Panel)',
         value: 'split-view',
       },
     ],
@@ -127,16 +127,21 @@ const questions = [
     type: 'list',
     name: 'bundler',
     message: 'Should we setup project with bundler?',
+    when: opts => opts.framework === 'core',
+    default(opts) {
+      if (opts.framework === 'core') return false;
+      return 'webpack';
+    },
     choices(opts) {
       const choices = [
         {
           name: 'Webpack (recommended)',
           value: 'webpack',
         },
-        {
-          name: 'Rollup',
-          value: 'rollup',
-        },
+        // {
+        //   name: 'Rollup',
+        //   value: 'rollup',
+        // },
       ];
       if (opts.framework === 'core') {
         choices.unshift({
@@ -155,11 +160,11 @@ const questions = [
     message: 'Do you want to specify custom theme color?',
     choices: [
       {
-        name: 'No',
+        name: 'No, use default color theme',
         value: false,
       },
       {
-        name: 'Yes',
+        name: 'Yes, i want to specify my brand color',
         value: true,
       },
     ],
@@ -183,5 +188,10 @@ const questions = [
 ];
 
 module.exports = function getOptions() {
-  return inquirer.prompt(questions);
+  return inquirer.prompt(questions).then((options) => {
+    if (options.framework !== 'core' && !options.bundler) {
+      options.bundler = 'webpack'; // eslint-disable-line
+    }
+    return Promise.resolve(options);
+  });
 };

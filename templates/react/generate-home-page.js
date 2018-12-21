@@ -36,6 +36,7 @@ module.exports = (options) => {
       Navbar,
       NavLeft,
       NavTitle,
+      NavTitleLarge,
       NavRight,
       Link,
       Toolbar,
@@ -51,14 +52,15 @@ module.exports = (options) => {
     export default () => (
       <Page name="home">
         {/* Top Navbar */}
-        <Navbar>
+        <Navbar sliding={false} large>
           <NavLeft>
             <Link iconIos="f7:menu" iconMd="material:menu" panelOpen="left" />
           </NavLeft>
-          <NavTitle>${name}</NavTitle>
+          <NavTitle sliding>${name}</NavTitle>
           <NavRight>
             <Link iconIos="f7:menu" iconMd="material:menu" panelOpen="right" />
           </NavRight>
+          <NavTitleLarge>${name}</NavTitleLarge>
         </Navbar>
         ${template !== 'tabs' ? `
         {/* Toolbar */}

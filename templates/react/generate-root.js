@@ -222,7 +222,7 @@ module.exports = (options) => {
         )
       }
       alertLoginData() {
-        this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password);
+        this.$f7.dialog.alert('Username: ' + this.state.username + '<br>Password: ' + this.state.password);
       }
     }
   `).trim();

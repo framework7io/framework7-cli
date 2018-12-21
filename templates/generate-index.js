@@ -5,25 +5,27 @@ module.exports = (options) => {
     name, framework, type, bundler,
   } = options;
 
+  const iconsAssetsFolder = bundler === 'webpack' ? 'static' : 'assets';
   const metaTags = type.indexOf('pwa') >= 0 || type.indexOf('web') >= 0 ? `
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- include icons -->
+  <link rel="apple-touch-icon" href="${iconsAssetsFolder}/icons/apple-touch-icon.png">
+  <link rel="icon" href="${iconsAssetsFolder}/icons/favicon.png">
   `.trim() : '';
 
   const manifest = type.indexOf('pwa') >= 0 ? `
-  <!-- include manifest -->
+  <link rel="manifest" href="manifest.json">
   `.trim() : '';
 
   const webStart = type.indexOf('cordova') >= 0 && (metaTags || manifest) ? `
-  <!-- web-start -->
-  ` : '';
+  <% if (process.env.TARGET === 'web') { %>
+  `.trim() : '';
   const webEnd = webStart ? `
-  <!-- web-end -->
-  ` : '';
+  <% } %>
+  `.trim() : '';
 
   const styles = bundler === 'webpack' ? `
-  <link rel="stylesheet" href="css/app.css">
+  <!-- built styles file will be auto injected -->
   `.trim() : `
   <link rel="stylesheet" href="${bundler === 'rollup' ? '' : 'framework7/'}css/framework7.bundle.min.css">
   <link rel="stylesheet" href="css/icons.css">
@@ -35,14 +37,13 @@ module.exports = (options) => {
     : '';
 
   const cordovaScript = type.indexOf('cordova') >= 0 ? `
-  <!-- cordova-start -->
+  <% if (process.env.TARGET === 'cordova') { %>
   <script src="cordova.js"></script>
-  <!-- cordova-end -->
+  <% } %>
   `.trim() : '';
 
   const scripts = bundler ? `
-  <!-- App scripts -->
-  <script src="js/app.js"></script>
+  <!-- built script files will be auto injected -->
   `.trim() : `
   <!-- Framework7 library -->
   <script src="framework7/js/framework7.bundle.min.js"></script>

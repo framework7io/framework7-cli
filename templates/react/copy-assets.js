@@ -30,25 +30,21 @@ module.exports = (options) => {
     const src = path.resolve(__dirname, 'pages', `${p}.jsx`);
     const dest = path.resolve(cwd, 'src', 'pages', `${p}.jsx`);
     toCopy.push({
-      type: 'copy',
       from: src,
       to: dest,
     });
   });
   toCopy.push({
-    type: 'create',
     content: generateHomePage(options),
     to: path.resolve(cwd, 'src', 'pages', 'home.jsx'),
   });
   toCopy.push({
-    type: 'create',
     content: generateRoot(options),
     to: path.resolve(cwd, 'src', 'components', 'app.jsx'),
   });
 
   if (bundler) {
     toCopy.push({
-      type: 'copy',
       from: path.resolve(__dirname, 'babel.config.js'),
       to: path.resolve(cwd, 'babel.config.js'),
     });
@@ -56,7 +52,6 @@ module.exports = (options) => {
 
   if (bundler === 'rollup') {
     toCopy.push({
-      type: 'copy',
       from: path.resolve(cwd, 'node_modules/framework7/css/framework7.bundle.min.css'),
       to: path.resolve(cwd, 'src/css/framework7.bundle.min.css'),
     });

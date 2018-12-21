@@ -2,7 +2,7 @@
 const chalk = require('chalk');
 
 module.exports = {
-  text(text, color, bold) {
+  text(text, bold, color) {
     // if (text === '\n'
     //   || text === '\r\n'
     //   || text === '\r'

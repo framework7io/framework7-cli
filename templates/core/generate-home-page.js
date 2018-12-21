@@ -47,6 +47,9 @@ module.exports = (options) => {
               <i class="icon material-icons md-only">menu</i>
             </a>
           </div>
+          <div class="title-large">
+            <div class="title-large-text">${name}</div>
+          </div>
         </div>
       </div>
       ${template !== 'tabs' ? `

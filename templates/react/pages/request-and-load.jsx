@@ -2,11 +2,11 @@ import React from 'react';
 import { Page, Navbar, Block, List, ListItem } from 'framework7-react';
 
 export default class extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      user: this.$f7route.context.user,
+      user: props.f7route.context.user,
     };
 
   }

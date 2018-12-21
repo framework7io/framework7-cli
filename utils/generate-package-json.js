@@ -34,7 +34,7 @@ module.exports = function generatePackageJson(options) {
       'cross-env',
       'css-loader',
       'file-loader',
-      // 'html-webpack-plugin',
+      'html-webpack-plugin',
       // 'less', // when prepreocessor selected
       // 'less-loader', // when prepreocessor selected
       'mini-css-extract-plugin',
@@ -80,6 +80,7 @@ module.exports = function generatePackageJson(options) {
     scripts['build-prod'] = 'cross-env NODE_ENV=production node ./build/build.js';
     scripts.dev = 'cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js';
     scripts.prod = 'cross-env NODE_ENV=production webpack-dev-server --config ./build/webpack.config.js';
+    scripts.start = 'npm run dev';
   }
   if (bundler !== 'webpack') {
     scripts.serve = 'http-server ./www/ -o -c 1 -a localhost -p 8080';

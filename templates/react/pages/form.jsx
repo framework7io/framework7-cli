@@ -4,6 +4,7 @@ import {
   Navbar,
   List,
   ListInput,
+  ListItem,
   Toggle,
   BlockTitle,
   Row,
@@ -63,11 +64,11 @@ export default () => (
         defaultValue="2014-04-30"
       ></ListInput>
 
-      <List-item
+      <ListItem
         title="Toggle"
       >
         <Toggle slot="after" />
-      </List-item>
+      </ListItem>
 
       <ListInput
         label="Range"
@@ -127,46 +128,46 @@ export default () => (
 
     <BlockTitle>Checkbox group</BlockTitle>
     <List>
-      <List-item
+      <ListItem
         checkbox
         name="my-checkbox"
         value="Books"
         title="Books"
-      ></List-item>
-      <List-item
+      ></ListItem>
+      <ListItem
         checkbox
         name="my-checkbox"
         value="Movies"
         title="Movies"
-      ></List-item>
-      <List-item
+      ></ListItem>
+      <ListItem
         checkbox
         name="my-checkbox"
         value="Food"
         title="Food"
-      ></List-item>
+      ></ListItem>
     </List>
 
     <BlockTitle>Radio buttons group</BlockTitle>
     <List>
-      <List-item
+      <ListItem
         radio
         name="radio"
         value="Books"
         title="Books"
-      ></List-item>
-      <List-item
+      ></ListItem>
+      <ListItem
         radio
         name="radio"
         value="Movies"
         title="Movies"
-      ></List-item>
-      <List-item
+      ></ListItem>
+      <ListItem
         radio
         name="radio"
         value="Food"
         title="Food"
-      ></List-item>
+      ></ListItem>
     </List>
   </Page>
 );
