@@ -3,7 +3,12 @@ const templateIf = require('../utils/template-if');
 
 module.exports = (options) => {
   const {
-    name, framework, type, bundler,
+    name,
+    framework,
+    type,
+    bundler,
+    customColor,
+    color,
   } = options;
 
   const iconsAssetsFolder = bundler === 'webpack' ? 'static' : 'assets';
@@ -75,7 +80,7 @@ module.exports = (options) => {
   <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
 
-  <meta name="theme-color" content="#2196f3">
+  <meta name="theme-color" content="${customColor && color ? `#${color}` : '#007aff'}">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <title>${name}</title>
