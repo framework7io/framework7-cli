@@ -94,5 +94,20 @@ module.exports = (options) => {
     });
   }
 
+  if (type.indexOf('cordova') >= 0) {
+    if (!bundler) {
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'cordova-app.js'),
+        to: path.resolve(cwd, 'www', 'js', 'cordova-app.js'),
+      });
+    } else {
+      const cordovaAppContent = fs.readFileSync(path.resolve(__dirname, 'common', 'cordova-app.js'), 'utf-8');
+      toCopy.push({
+        content: `${cordovaAppContent}\nexport default cordovaApp;\n`,
+        to: path.resolve(cwd, 'src', 'js', 'cordova-app.js'),
+      });
+    }
+  }
+
   return toCopy;
 };

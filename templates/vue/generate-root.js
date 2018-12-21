@@ -1,11 +1,10 @@
 const indent = require('../../utils/indent');
 const templateIf = require('../../utils/template-if');
+const appParameters = require('../app-parameters');
 
 module.exports = (options) => {
   const {
     template,
-    pkg,
-    name,
     type,
   } = options;
 
@@ -153,47 +152,7 @@ module.exports = (options) => {
       export default {
         data() {
           return {
-            // Framework7 Parameters
-            f7params: {
-              ${templateIf(pkg, () => `
-              id: '${pkg}', // App bundle ID{{/if}}
-              `)}
-              name: '${name}', // App name
-              theme: 'auto', // Automatic theme detection
-              // App routes
-              routes: routes,
-              ${templateIf(template === 'split-view', () => `
-              // Enable panel left visibility breakpoint
-              panel: {
-                leftBreakpoint: 960,
-              },
-              `)}
-              ${templateIf(template === 'tabs', () => `
-              // App root data
-              data() {
-                return {
-                  // Demo products for Catalog section
-                  products: [
-                    {
-                      id: '1',
-                      title: 'Apple iPhone 8',
-                      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
-                    },
-                    {
-                      id: '2',
-                      title: 'Apple iPhone 8 Plus',
-                      description: 'Velit odit autem modi saepe ratione totam minus, aperiam, labore quia provident temporibus quasi est ut aliquid blanditiis beatae suscipit odio vel! Nostrum porro sunt sint eveniet maiores, dolorem itaque!'
-                    },
-                    {
-                      id: '3',
-                      title: 'Apple iPhone X',
-                      description: 'Expedita sequi perferendis quod illum pariatur aliquam, alias laboriosam! Vero blanditiis placeat, mollitia necessitatibus reprehenderit. Labore dolores amet quos, accusamus earum asperiores officiis assumenda optio architecto quia neque, quae eum.'
-                    },
-                  ]
-                }
-              }
-              `)}
-            },
+            ${indent(12, appParameters(options)).trim()}
             // Login screen data
             username: '',
             password: '',
@@ -206,9 +165,9 @@ module.exports = (options) => {
         },
         ${templateIf(type.indexOf('cordova') >= 0, () => `
         mounted() {
-          this.$f7ready(() => {
+          this.$f7ready((f7) => {
             // Init cordova APIs (see cordova-app.js)
-            cordovaApp.init();
+            cordovaApp.init(f7);
           });
         },
         `)}
