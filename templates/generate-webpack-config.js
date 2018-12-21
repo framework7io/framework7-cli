@@ -200,6 +200,7 @@ module.exports = (options) => {
           filename: './index.html',
           template: './src/index.html',
           inject: true,
+          minify: env === 'production',
         }),
         new MiniCssExtractPlugin({
           filename: 'css/app.css',
