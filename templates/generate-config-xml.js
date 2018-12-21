@@ -6,9 +6,6 @@ module.exports = (options) => {
     <allow-navigation href="*" />
     <platform name="android">
       <preference name="StatusBarOverlaysWebView" value="false" />
-      ${templateIf(options.customColor && options.color, () => `
-      <preference name="StatusBarBackgroundColor" value="#${options.color}" />
-      `)}
       <preference name="android-minSdkVersion" value="21" />
       <splash density="land-hdpi" src="res/screen/android/drawable-hdpi/background.9.png" />
       <splash density="land-mdpi" src="res/screen/android/drawable-mdpi/background.9.png" />
