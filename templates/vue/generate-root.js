@@ -152,7 +152,11 @@ module.exports = (options) => {
       export default {
         data() {
           return {
-            ${indent(12, appParameters(options)).trim()}
+            // Framework7 Parameters
+            f7params: {
+              ${indent(14, appParameters(options)).trim()}
+            },
+
             // Login screen data
             username: '',
             password: '',

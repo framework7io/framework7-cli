@@ -64,7 +64,7 @@ module.exports = function generatePackageJson(options) {
       ] : []),
       ...(framework === 'vue' ? [
         'babel-helper-vue-jsx-merge-props',
-        'babel-plugin-transform-vue-jsx',
+        'babel-plugin-transform-vue-jsx@next',
         '@babel/plugin-syntax-jsx',
         'vue-loader',
         'vue-style-loader',
