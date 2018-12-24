@@ -89,15 +89,23 @@ module.exports = (options) => {
       });
     });
   }
+  // Service worker
   if (type.indexOf('pwa') >= 0) {
     toCopy.push({
       content: generateManifest(options),
       to: path.resolve(cwd, srcFolder, 'manifest.json'),
     });
-    toCopy.push({
-      from: path.resolve(__dirname, 'common', 'service-worker.js'),
-      to: path.resolve(cwd, srcFolder, 'service-worker.js'),
-    });
+    if (bundler === 'webpack') {
+      toCopy.push({
+        content: 'workbox.precaching.precacheAndRoute(self.__precacheManifest || []);',
+        to: path.resolve(cwd, srcFolder, 'service-worker.js'),
+      });
+    } else {
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'service-worker.js'),
+        to: path.resolve(cwd, srcFolder, 'service-worker.js'),
+      });
+    }
   }
 
   if (type.indexOf('cordova') >= 0) {

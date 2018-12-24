@@ -86,14 +86,14 @@ module.exports = function generatePackageJson(options) {
   const scripts = {};
   const postInstall = [];
   if (bundler === 'webpack') {
-    scripts['build-dev'] = 'cross-env NODE_ENV=development node ./build/build.js';
+    // scripts['build-dev'] = 'cross-env NODE_ENV=development node ./build/build.js';
     scripts['build-prod'] = 'cross-env NODE_ENV=production node ./build/build.js';
     if (type.indexOf('cordova') >= 0) {
-      scripts['build-cordova-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
+      // scripts['build-cordova-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
       scripts['build-cordova-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build';
     }
     scripts.dev = 'cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js';
-    scripts.prod = 'cross-env NODE_ENV=production webpack-dev-server --config ./build/webpack.config.js';
+    // scripts.prod = 'cross-env NODE_ENV=production webpack-dev-server --config ./build/webpack.config.js';
     scripts.start = 'npm run dev';
   }
   if (bundler !== 'webpack') {

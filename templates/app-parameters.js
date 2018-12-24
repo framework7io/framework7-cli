@@ -10,6 +10,9 @@ module.exports = (options) => {
     template,
   } = options;
 
+  const hasCordova = type.indexOf('cordova') >= 0;
+
+  const deviceVar = framework === 'core' ? 'Framework7.device' : 'this.$device';
   const cordovaOverlayParams = framework === 'core'
     ? 'Framework7.device.cordova && Framework7.device.ios || \'auto\''
     : 'this.$device.cordova && this.$device.ios || \'auto\'';
@@ -68,7 +71,19 @@ module.exports = (options) => {
       leftBreakpoint: 960,
     },
     `)}
-    ${templateIf(type.indexOf('cordova') >= 0, () => `
+    ${templateIf(type.indexOf('pwa') >= 0 && !hasCordova, () => `
+    // Register service worker
+    serviceWorker: {
+      path: '/service-worker.js',
+    },
+    `)}
+    ${templateIf(type.indexOf('pwa') >= 0 && hasCordova, () => `
+    // Register service worker
+    serviceWorker: ${deviceVar}.cordova ? {} : {
+      path: '/service-worker.js',
+    },
+    `)}
+    ${templateIf(hasCordova, () => `
     // Input settings
     input: {
       scrollIntoViewOnFocus: !!window.cordova,
@@ -76,7 +91,7 @@ module.exports = (options) => {
     },
     // Cordova Statusbar settings
     statusbar: {
-      overlay: ${cordovaOverlayParams},
+      overlay: ${deviceVar}.cordova && ${deviceVar}.ios || 'auto',
       iosOverlaysWebView: true,
       androidOverlaysWebView: false,
     },
