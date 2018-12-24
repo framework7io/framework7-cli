@@ -6,8 +6,9 @@ const indent = require('../../utils/indent');
 const cwd = process.cwd();
 
 module.exports = (options) => {
-  const { template, bundler } = options;
+  const { template, bundler, type } = options;
   const toCopy = [];
+  const srcFolder = bundler ? 'src' : 'www';
 
   // Copy Pages
   const pages = [
@@ -29,7 +30,7 @@ module.exports = (options) => {
 
   pages.forEach((p) => {
     const src = path.resolve(__dirname, 'pages', `${p}.html`);
-    const dest = path.resolve(cwd, 'src', 'pages');
+    const dest = path.resolve(cwd, srcFolder, 'pages');
     if (bundler !== 'webpack') {
       toCopy.push({
         from: src,
@@ -52,19 +53,19 @@ module.exports = (options) => {
     if (bundler === 'webpack') {
       toCopy.push({
         content: `<template>\n${indent(2, generateHomePage(options).trim())}\n</template>\n<script>\nexport default {}\n</script>`,
-        to: path.resolve(cwd, 'src', 'pages', 'home.f7.html'),
+        to: path.resolve(cwd, srcFolder, 'pages', 'home.f7.html'),
       });
       toCopy.push({
         from: path.resolve(__dirname, 'template7-helpers-list.js'),
-        to: path.resolve(cwd, 'src', 'js', 'template7-helpers-list.js'),
+        to: path.resolve(cwd, srcFolder, 'js', 'template7-helpers-list.js'),
       });
     }
 
     if (bundler === 'rollup') {
       // Copy F7 Styles
       toCopy.push({
-        from: path.resolve(cwd, 'node_modules/framework7/css/framework7.bundle.min.css'),
-        to: path.resolve(cwd, 'src', 'css', 'framework7.bundle.min.css'),
+        from: path.resolve(cwd, 'node_modules', 'framework7', 'css', 'framework7.bundle.min.css'),
+        to: path.resolve(cwd, srcFolder, 'css', 'framework7.bundle.min.css'),
       });
     }
 
@@ -78,15 +79,21 @@ module.exports = (options) => {
     fs.readdirSync(path.resolve(cwd, 'node_modules', 'framework7', 'js')).forEach((f) => {
       toCopy.push({
         from: path.resolve(cwd, 'node_modules', 'framework7', 'js', f),
-        to: path.resolve(cwd, 'src', 'framework7', 'js', f),
+        to: path.resolve(cwd, srcFolder, 'framework7', 'js', f),
       });
     });
     fs.readdirSync(path.resolve(cwd, 'node_modules', 'framework7', 'css')).forEach((f) => {
       toCopy.push({
         from: path.resolve(cwd, 'node_modules', 'framework7', 'css', f),
-        to: path.resolve(cwd, 'src', 'framework7', 'css', f),
+        to: path.resolve(cwd, srcFolder, 'framework7', 'css', f),
       });
     });
+    if (type.indexOf('cordova') >= 0) {
+      toCopy.push({
+        from: path.resolve(__dirname, 'cordova-plain-build', 'build.js'),
+        to: path.resolve(cwd, 'build', 'build.js'),
+      });
+    }
   }
 
   return toCopy;

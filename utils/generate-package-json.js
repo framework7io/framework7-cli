@@ -75,6 +75,12 @@ module.exports = function generatePackageJson(options) {
   if (bundler !== 'webpack') {
     devDependencies.push('http-server');
   }
+  if (!bundler && type.indexOf('cordova') >= 0) {
+    devDependencies.push(...[
+      'cpy',
+      'rimraf',
+    ]);
+  }
 
   // Scripts
   const scripts = {};
@@ -93,7 +99,12 @@ module.exports = function generatePackageJson(options) {
   if (bundler !== 'webpack') {
     scripts.serve = 'http-server ./www/ -o -c 1 -a localhost -p 8080';
   }
-
+  if (!bundler) {
+    scripts.start = 'npm run serve';
+    if (type.indexOf('cordova') >= 0) {
+      scripts['build-cordova'] = 'node ./build/build.js && cd cordova && cordova build';
+    }
+  }
 
   if (postInstall.length) {
     scripts.postinstall = postInstall.join(' && ');

@@ -1,3 +1,4 @@
+/* eslint curly: off */
 const generateCoreRoot = require('./core/generate-root.js');
 const templateIf = require('../utils/template-if');
 
@@ -20,15 +21,19 @@ module.exports = (options) => {
   `.trim() : '';
 
   const manifest = type.indexOf('pwa') >= 0 ? `
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/manifest.json">
   `.trim() : '';
 
-  const webStart = type.indexOf('cordova') >= 0 && (metaTags || manifest) ? `
-  <% if (process.env.TARGET === 'web') { %>
-  `.trim() : '';
-  const webEnd = webStart ? `
-  <% } %>
-  `.trim() : '';
+  let webStart = '';
+  if (type.indexOf('cordova') >= 0 && (metaTags || manifest)) {
+    if (bundler) webStart = '<% if (process.env.TARGET === \'web\') { %>';
+    else webStart = '<!-- web-start -->';
+  }
+  let webEnd = '';
+  if (type.indexOf('cordova') >= 0 && (metaTags || manifest)) {
+    if (bundler) webEnd = '<% } %>';
+    else webEnd = '<!-- web-end -->';
+  }
 
   const styles = bundler === 'webpack' ? `
   <!-- built styles file will be auto injected -->
@@ -42,11 +47,15 @@ module.exports = (options) => {
     ? generateCoreRoot(options)
     : '';
 
-  const cordovaScript = type.indexOf('cordova') >= 0 ? `
+  let cordovaScript;
+  if (type.indexOf('cordova') >= 0) {
+    if (bundler) cordovaScript = `
   <% if (process.env.TARGET === 'cordova') { %>
   <script src="cordova.js"></script>
   <% } %>
-  `.trim() : '';
+  `.trim();
+    else cordovaScript = '<!-- CORDOVA_PLACEHOLDER_DONT_REMOVE -->';
+  }
 
   const scripts = bundler ? `
   <!-- built script files will be auto injected -->
@@ -84,15 +93,15 @@ module.exports = (options) => {
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <title>${name}</title>
-  ${webStart}
-  ${metaTags}
-  ${manifest}
-  ${webEnd}
+  ${webStart || ''}
+  ${metaTags || ''}
+  ${manifest || ''}
+  ${webEnd || ''}
   ${styles}
 </head>
 <body>
   <div id="app">${rootContent}</div>
-  ${cordovaScript}
+  ${cordovaScript || ''}
   ${scripts}
 </body>
 </html>

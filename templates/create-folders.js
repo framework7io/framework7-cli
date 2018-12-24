@@ -10,24 +10,30 @@ module.exports = (options) => {
     type,
   } = options;
 
+  const srcFolder = bundler ? 'src' : 'www';
+
   const folders = [
-    './src',
-    './www',
-    './src/assets',
-    './src/css',
-    './src/fonts',
-    './src/pages',
-    './src/js',
+    `./${srcFolder}`,
+    `./${srcFolder}/assets`,
+    `./${srcFolder}/css`,
+    `./${srcFolder}/fonts`,
+    `./${srcFolder}/pages`,
+    `./${srcFolder}/js`,
   ];
+  if (folders.indexOf('./www') < 0) {
+    folders.push('./www');
+  }
   if (framework !== 'core' && bundler) {
     folders.push(...[
       './src/components',
     ]);
   }
-  if (bundler) {
+  if (bundler || (!bundler && type.indexOf('cordova') >= 0)) {
     folders.push(...[
       './build',
     ]);
+  }
+  if (bundler) {
     if (bundler === 'webpack') {
       folders.push(...[
         './src/static',
@@ -35,16 +41,18 @@ module.exports = (options) => {
     }
   } else {
     folders.push(...[
-      './src/framework7',
-      './src/framework7/js',
-      './src/framework7/css',
+      './www/framework7',
+      './www/framework7/js',
+      './www/framework7/css',
     ]);
   }
   if (type.indexOf('web') >= 0 || type.indexOf('pwa') >= 0) {
     if (bundler === 'webpack') {
       folders.push('./src/static/icons');
-    } else {
+    } else if (bundler === 'rollup') {
       folders.push('./src/assets/icons');
+    } else {
+      folders.push('./www/assets/icons');
     }
   }
   folders.forEach((f) => {

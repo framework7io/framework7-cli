@@ -28,9 +28,9 @@ const waitText = chalk.gray('(Please wait, it can take a while)');
 Commands
 ============================================= */
 program
-  .command('create [args...]')
+  .command('create')
   .description('Create a new Framework7 project')
-  .action(async (/* args, options */) => {
+  .action(async () => {
     // Check update
     spinner.start('Checking for avialable updates...');
     try {
@@ -145,22 +145,32 @@ program
     }
     spinner.done('Creating project files');
 
+    const finalScripts = opts.bundler
+      ? `
+  - 🔧 Run ${chalk.green('npm run build-prod')} to build web app for production
+  ${templateIf(opts.type.indexOf('cordova') >= 0, () => `
+  - 📱 Run ${chalk.green('npm run build-cordova-prod')} to build cordova app
+  `)}
+      ` : `
+  ${templateIf(opts.type.indexOf('cordova') >= 0, () => `
+  - 📱 Run ${chalk.green('npm run build-cordova')} to build cordova app
+  `)}
+      `;
+
     // Final Text
     console.log(`
 ${chalk.bold(logSymbols.success)} ${chalk.bold('Done!')} 💪
 
 ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
   - 🔥 Run ${chalk.green('npm start')} to run development server
-  - 🔧 Run ${chalk.green('npm run build-prod')} to build web app for production
-  ${templateIf(opts.type.indexOf('cordova') >= 0, () => `
-  - 📱 Run ${chalk.green('npm run build-cordova-prod')} to build cordova app
-  `.trim())}
+  ${finalScripts.trim()}
   - 📖 Visit documentation at ${chalk.bold('https://framework7.io/docs/')}
   - 🧾 Check ${chalk.bold('README.md')} in project root folder with further instructions
 
 ${chalk.cyan.bold('Love Framework7? Support project by donating or pledging on patreon:')}
 ${chalk.cyan.bold('https://patreon.com/vladimirkharlampidi')}
     `.trim());
+
     process.exit(0);
   });
 

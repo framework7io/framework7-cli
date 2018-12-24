@@ -15,28 +15,30 @@ const cwd = process.cwd();
 module.exports = (options) => {
   const { framework, bundler, type } = options;
 
+  const srcFolder = bundler ? 'src' : 'www';
+
   const toCopy = [];
   if (framework === 'core') toCopy.push(...copyCoreAssets(options));
   if (framework === 'vue') toCopy.push(...copyVueAssets(options));
   if (framework === 'react') toCopy.push(...copyReactAssets(options));
 
-  // Copy Icons
+  // Copy Icons CSS
   toCopy.push({
     from: path.resolve(__dirname, 'common', 'css', 'icons.css'),
-    to: path.resolve(cwd, 'src', 'css', 'icons.css'),
+    to: path.resolve(cwd, srcFolder, 'css', 'icons.css'),
   });
 
   // Copy Fonts
   toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
     return {
       from: path.resolve(__dirname, 'common', 'material-icons-font', `MaterialIcons-Regular.${ext}`),
-      to: path.resolve(cwd, 'src', 'fonts', `MaterialIcons-Regular.${ext}`),
+      to: path.resolve(cwd, srcFolder, 'fonts', `MaterialIcons-Regular.${ext}`),
     };
   }));
   toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
     return {
       from: path.resolve(cwd, 'node_modules', 'framework7-icons', 'fonts', `Framework7Icons-Regular.${ext}`),
-      to: path.resolve(cwd, 'src', 'fonts', `Framework7Icons-Regular.${ext}`),
+      to: path.resolve(cwd, srcFolder, 'fonts', `Framework7Icons-Regular.${ext}`),
     };
   }));
 
@@ -44,19 +46,19 @@ module.exports = (options) => {
   toCopy.push(...[
     {
       content: generateIndex(options),
-      to: path.resolve(cwd, 'src', 'index.html'),
+      to: path.resolve(cwd, srcFolder, 'index.html'),
     },
     {
       content: generateStyles(options),
-      to: path.resolve(cwd, 'src', 'css', 'app.css'),
+      to: path.resolve(cwd, srcFolder, 'css', 'app.css'),
     },
     {
       content: generateRoutes(options),
-      to: path.resolve(cwd, 'src', 'js', 'routes.js'),
+      to: path.resolve(cwd, srcFolder, 'js', 'routes.js'),
     },
     {
       content: generateScripts(options),
-      to: path.resolve(cwd, 'src', 'js', 'app.js'),
+      to: path.resolve(cwd, srcFolder, 'js', 'app.js'),
     },
   ]);
 
@@ -83,18 +85,18 @@ module.exports = (options) => {
       if (f.indexOf('.') === 0) return;
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'icons', f),
-        to: path.resolve(cwd, 'src', assetsFolder, 'icons', f),
+        to: path.resolve(cwd, srcFolder, assetsFolder, 'icons', f),
       });
     });
   }
   if (type.indexOf('pwa') >= 0) {
     toCopy.push({
       content: generateManifest(options),
-      to: path.resolve(cwd, 'src', 'manifest.json'),
+      to: path.resolve(cwd, srcFolder, 'manifest.json'),
     });
     toCopy.push({
       from: path.resolve(__dirname, 'common', 'service-worker.js'),
-      to: path.resolve(cwd, 'src', 'service-worker.js'),
+      to: path.resolve(cwd, srcFolder, 'service-worker.js'),
     });
   }
 
