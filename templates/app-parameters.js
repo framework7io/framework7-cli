@@ -10,12 +10,16 @@ module.exports = (options) => {
     template,
   } = options;
 
+  const cordovaOverlayParams = framework === 'core'
+    ? 'Framework7.device.cordova && Framework7.device.ios || \'auto\''
+    : 'this.$device.cordova && this.$device.ios || \'auto\'';
+
   return indent(0, `
     ${templateIf(framework === 'core', () => `
     root: '#app', // App root element
     `)}
     ${templateIf(pkg, () => `
-    id: '${pkg}' // App bundle ID{{/if}}
+    id: '${pkg}', // App bundle ID{{/if}}
     `)}
     name: '${name}', // App name
     theme: 'auto', // Automatic theme detection
@@ -72,14 +76,16 @@ module.exports = (options) => {
     },
     // Cordova Statusbar settings
     statusbar: {
-      overlay: 'auto',
+      overlay: ${cordovaOverlayParams},
       iosOverlaysWebView: true,
       androidOverlaysWebView: false,
     },
     on: {
       init: function () {
-        // Init cordova APIs (see cordova-app.js)
-        cordovaApp.init(this);
+        if (window.cordova) {
+          // Init cordova APIs (see cordova-app.js)
+          cordovaApp.init(this);
+        }
       },
     },
     `)}

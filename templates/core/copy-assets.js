@@ -64,7 +64,7 @@ module.exports = (options) => {
       // Copy F7 Styles
       toCopy.push({
         from: path.resolve(cwd, 'node_modules/framework7/css/framework7.bundle.min.css'),
-        to: path.resolve(cwd, 'src/css/framework7.bundle.min.css'),
+        to: path.resolve(cwd, 'src', 'css', 'framework7.bundle.min.css'),
       });
     }
 
@@ -75,16 +75,16 @@ module.exports = (options) => {
   } else {
     // Copy F7
     toCopy.push(...[]);
-    fs.readdirSync(path.resolve(cwd, 'node_modules/framework7/js')).forEach((f) => {
+    fs.readdirSync(path.resolve(cwd, 'node_modules', 'framework7', 'js')).forEach((f) => {
       toCopy.push({
-        from: path.resolve(cwd, 'node_modules/framework7/js', f),
-        to: path.resolve(cwd, 'src/framework7/js', f),
+        from: path.resolve(cwd, 'node_modules', 'framework7', 'js', f),
+        to: path.resolve(cwd, 'src', 'framework7', 'js', f),
       });
     });
-    fs.readdirSync(path.resolve(cwd, 'node_modules/framework7/css')).forEach((f) => {
+    fs.readdirSync(path.resolve(cwd, 'node_modules', 'framework7', 'css')).forEach((f) => {
       toCopy.push({
-        from: path.resolve(cwd, 'node_modules/framework7/css', f),
-        to: path.resolve(cwd, 'src/framework7/css', f),
+        from: path.resolve(cwd, 'node_modules', 'framework7', 'css', f),
+        to: path.resolve(cwd, 'src', 'framework7', 'css', f),
       });
     });
   }

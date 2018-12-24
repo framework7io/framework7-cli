@@ -43,20 +43,20 @@ module.exports = (options) => {
   // Copy Main Assets
   toCopy.push(...[
     {
-      to: path.resolve(cwd, 'src/index.html'),
       content: generateIndex(options),
+      to: path.resolve(cwd, 'src', 'index.html'),
     },
     {
-      to: path.resolve(cwd, 'src/css/app.css'),
       content: generateStyles(options),
+      to: path.resolve(cwd, 'src', 'css', 'app.css'),
     },
     {
-      to: path.resolve(cwd, 'src/js/routes.js'),
       content: generateRoutes(options),
+      to: path.resolve(cwd, 'src', 'js', 'routes.js'),
     },
     {
-      to: path.resolve(cwd, 'src/js/app.js'),
       content: generateScripts(options),
+      to: path.resolve(cwd, 'src', 'js', 'app.js'),
     },
   ]);
 
@@ -91,6 +91,10 @@ module.exports = (options) => {
     toCopy.push({
       content: generateManifest(options),
       to: path.resolve(cwd, 'src', 'manifest.json'),
+    });
+    toCopy.push({
+      from: path.resolve(__dirname, 'common', 'service-worker.js'),
+      to: path.resolve(cwd, 'src', 'service-worker.js'),
     });
   }
 

@@ -53,6 +53,9 @@ module.exports = function generatePackageJson(options) {
       'webpack',
       'webpack-cli',
       'webpack-dev-server',
+      ...(type.indexOf('pwa') >= 0 ? [
+        'workbox-webpack-plugin',
+      ] : []),
       ...(framework === 'core' ? [
         'framework7-component-loader',
       ] : []),

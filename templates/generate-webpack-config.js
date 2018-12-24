@@ -16,6 +16,9 @@ module.exports = (options) => {
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
     const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
     const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+    ${templateIf(type.indexOf('pwa') >= 0, () => `
+    const WorkboxPlugin = require('workbox-webpack-plugin');
+    `)}
 
     const path = require('path');
 
@@ -56,6 +59,7 @@ module.exports = (options) => {
         open: true,
         compress: true,
         contentBase: '/www/',
+        disableHostCheck: true,
         watchOptions: {
           poll: true,
         },
@@ -211,7 +215,14 @@ module.exports = (options) => {
           filename: './index.html',
           template: './src/index.html',
           inject: true,
-          minify: env === 'production',
+          minify: env === 'production' ? {
+            collapseWhitespace: true,
+            removeComments: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            useShortDoctype: true
+          } : false,
         }),
         new MiniCssExtractPlugin({
           filename: 'css/app.css',
@@ -232,6 +243,19 @@ module.exports = (options) => {
           },
           `)}
         ]),
+        ${templateIf(type.indexOf('pwa') >= 0 && hasCordova, () => `
+        ...(!isCordova ? [
+          new WorkboxPlugin.InjectManifest({
+            swSrc: resolvePath('src/service-worker.js'),
+          })
+        ] : []),
+        `, () => `
+        `)}
+        ${templateIf(type.indexOf('pwa') >= 0 && !hasCordova, () => `
+        new WorkboxPlugin.InjectManifest({
+          swSrc: resolvePath('src/service-worker.js'),
+        }),
+        `)}
       ],
     };
   `).trim();

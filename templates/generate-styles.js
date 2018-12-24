@@ -6,9 +6,19 @@ module.exports = (options) => {
     template,
     customColor,
     color,
+    type,
   } = options;
 
   let styles = '';
+
+  if (type.indexOf('cordova') >= 0) {
+    styles += indent(0, `
+      /* iOS Cordova Tweak */
+      .device-cordova.device-ios {
+        height: 100vh;
+      }
+    `);
+  }
 
   if (customColor && color) {
     const customProps = colorThemeCSSProperties(`#${color}`);

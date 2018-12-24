@@ -5,11 +5,10 @@ var cordovaApp = {
   This method hides splashscreen after 2 seconds
   */
   handleSplashscreen: function() {
-    if (window.navigator.splashscreen) {
-      setTimeout(() => {
-        window.navigator.splashscreen.hide();
-      }, 2000);
-    }
+    if (!window.navigator.splashscreen) return;
+    setTimeout(() => {
+      window.navigator.splashscreen.hide();
+    }, 2000);
   },
   /*
   This method prevents back button tap to exit from app on android.
@@ -36,7 +35,7 @@ var cordovaApp = {
     - hides keyboard accessory bar for all inputs except where it required
   */
   handleKeyboard: function () {
-    if (!window.Keyboard) return;
+    if (!window.Keyboard || !window.Keyboard.shrinkView) return;
     var f7 = cordovaApp.f7;
     var $ = f7.$;
     window.Keyboard.shrinkView(false);
