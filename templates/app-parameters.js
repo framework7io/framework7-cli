@@ -13,9 +13,6 @@ module.exports = (options) => {
   const hasCordova = type.indexOf('cordova') >= 0;
 
   const deviceVar = framework === 'core' ? 'Framework7.device' : 'this.$device';
-  const cordovaOverlayParams = framework === 'core'
-    ? 'Framework7.device.cordova && Framework7.device.ios || \'auto\''
-    : 'this.$device.cordova && this.$device.ios || \'auto\'';
 
   return indent(0, `
     ${templateIf(framework === 'core', () => `
