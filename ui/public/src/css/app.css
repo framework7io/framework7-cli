@@ -46,3 +46,25 @@
 .title-large-text {
   max-width: 800px;
 }
+.block-title {
+  white-space: normal;
+}
+.block.theme-dark {
+  color: #fff;
+}
+pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-weight: bold;
+}
+.button.loading .icon {
+  animation: rotate 2s infinite linear;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

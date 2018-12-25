@@ -5,7 +5,6 @@ const exec = require('exec-sh');
 const path = require('path');
 const fs = require('fs');
 const logSymbols = require('log-symbols');
-const opn = require('opn');
 const checkUpdate = require('./utils/check-update');
 const getOptions = require('./utils/get-options');
 const spinner = require('./utils/spinner');
@@ -45,17 +44,14 @@ program
     if (options.ui) {
       spinner.start('Launching Framework7 UI server');
       server();
-      opn('http://localhost:3000');
       spinner.end('Launching Framework7 UI server');
-      return;
+    } else {
+      // Options
+      const opts = await getOptions();
+      // Create app
+      await createApp(opts);
+      process.exit(0);
     }
-    // Options
-    const opts = await getOptions();
-
-    // Create app
-    await createApp(opts);
-
-    process.exit(0);
   });
 
 program

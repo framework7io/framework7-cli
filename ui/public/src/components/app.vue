@@ -16,6 +16,9 @@
           theme: 'auto', // Automatic theme detection
           // App routes
           routes: routes,
+          navbar: {
+            mdCenterTitle: true,
+          },
         },
       }
     },

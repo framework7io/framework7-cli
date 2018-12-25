@@ -21,79 +21,88 @@ const createCordova = require('../templates/create-cordova');
 const cwd = process.cwd();
 const waitText = chalk.gray('(Please wait, it can take a while)');
 
-module.exports = async (opts) => {
+module.exports = async (opts, logCallback) => {
+  let logStart = text => spinner.start(text);
+  let logDone = text => spinner.done(text);
+  let logError = text => spinner.error(text);
+  if (logCallback) {
+    logStart = text => logCallback(text);
+    logDone = text => logCallback(`✔ ${text}`);
+    logError = text => logCallback(`✖ ${text}`);
+  }
+
   // Package
-  spinner.start('Generating package.json');
+  logStart('Generating package.json');
   const packageJson = generatePackageJson(opts);
 
   // Write Package.json
   fs.writeFileSync(path.join(cwd, 'package.json'), packageJson.content);
-  spinner.done('Generating package.json');
+  logDone('Generating package.json');
 
   // Create Folders
-  spinner.start('Creating required folders structure');
+  logStart('Creating required folders structure');
   try {
     createFolders(opts);
   } catch (err) {
-    spinner.error('Error creating required folders structure');
+    logError('Error creating required folders structure');
     log.error(err.stderr);
     process.exit(1);
   }
-  spinner.done('Creating required folders structure');
+  logDone('Creating required folders structure');
 
   // Install NPM depenencies
-  spinner.start(`${'Installing NPM Dependencies'} ${waitText}`);
+  logStart(`${'Installing NPM Dependencies'} ${waitText}`);
   try {
     await exec.promise(`npm install ${packageJson.dependencies.join(' ')} --save`, true);
   } catch (err) {
-    spinner.error('Error installing NPM Dependencies');
+    logError('Error installing NPM Dependencies');
     log.error(err.stderr);
     process.exit(1);
     return;
   }
-  spinner.done('Installing NPM Dependencies');
+  logDone('Installing NPM Dependencies');
 
   // Install NPM dev depenencies
-  spinner.start(`${'Installing NPM Dev Dependencies'} ${waitText}`);
+  logStart(`${'Installing NPM Dev Dependencies'} ${waitText}`);
   try {
     await exec.promise(`npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
   } catch (err) {
-    spinner.error('Error installing NPM Dev Dependencies');
+    logError('Error installing NPM Dev Dependencies');
     log.error(err.stderr);
     process.exit(1);
     return;
   }
-  spinner.done('Installing NPM Dev Dependencies');
+  logDone('Installing NPM Dev Dependencies');
 
   if (packageJson.postInstall && packageJson.postInstall.length) {
-    spinner.start('Executing NPM Scripts');
+    logStart('Executing NPM Scripts');
     try {
       await exec.promise('npm run postinstall', true);
     } catch (err) {
-      spinner.error('Error executing NPM Scripts');
+      logError('Error executing NPM Scripts');
       log.error(err.stderr);
       process.exit(1);
       return;
     }
-    spinner.done('Executing NPM Scripts');
+    logDone('Executing NPM Scripts');
   }
 
   // Create Cordova project
   if (opts.type.indexOf('cordova') >= 0) {
-    spinner.start(`${'Creating Cordova project'} ${waitText}`);
+    logStart(`${'Creating Cordova project'} ${waitText}`);
     try {
       await createCordova(opts);
     } catch (err) {
-      spinner.error('Error creating Cordova project');
+      logError('Error creating Cordova project');
       log.error(err.stderr);
       process.exit(1);
       return;
     }
-    spinner.done('Creating Cordova project');
+    logDone('Creating Cordova project');
   }
 
   // Create Project Files
-  spinner.start('Creating project files');
+  logStart('Creating project files');
   const filesToCopy = copyAssets(opts);
   try {
     // eslint-disable-next-line
@@ -107,12 +116,12 @@ module.exports = async (opts) => {
       return Promise.resolve();
     }));
   } catch (err) {
-    spinner.error('Error creating project files');
+    logError('Error creating project files');
     log.error(err.stderr || err);
     process.exit(1);
     return;
   }
-  spinner.done('Creating project files');
+  logDone('Creating project files');
 
   const finalScripts = opts.bundler
     ? `
@@ -127,7 +136,7 @@ module.exports = async (opts) => {
       `;
 
   // Final Text
-  console.log(`
+  const finalText = `
 ${chalk.bold(logSymbols.success)} ${chalk.bold('Done!')} 💪
 
 ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
@@ -138,5 +147,8 @@ ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
 
 ${chalk.cyan.bold('Love Framework7? Support project by donating or pledging on patreon:')}
 ${chalk.cyan.bold('https://patreon.com/vladimirkharlampidi')}
-    `.trim());
+    `.trim();
+
+  if (logCallback) logCallback(finalText);
+  else console.log(finalText);
 };
