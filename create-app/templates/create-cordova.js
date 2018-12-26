@@ -14,7 +14,7 @@ module.exports = (options) => {
   } = options;
   return new Promise(async (resolve, reject) => {
     try {
-      await exec.promise(`cordova create cordova ${pkg} "${name}"`, true);
+      await exec.promise(`cd ${cwd} && cordova create cordova ${pkg} "${name}"`, true);
     } catch (err) {
       reject(err.stderr);
       return;
@@ -27,7 +27,7 @@ module.exports = (options) => {
       'cordova-plugin-splashscreen',
     ];
     // Install cordova plugins
-    await exec.promise(`cd cordova && cordova plugin add ${plugins.join(' ')}`, true);
+    await exec.promise(`cd ${cwd} && cd cordova && cordova plugin add ${plugins.join(' ')}`, true);
 
     // Modify config.xml
     let configXmlContent = fs.readFileSync(path.resolve(cwd, 'cordova', 'config.xml'), 'utf-8');
@@ -58,7 +58,7 @@ module.exports = (options) => {
 
     // Add cordova platforms
     try {
-      await exec.promise(`cd cordova && cordova platform add ${platform.join(' ')}`, true);
+      await exec.promise(`cd ${cwd} && cd cordova && cordova platform add ${platform.join(' ')}`, true);
     } catch (err) {
       reject(err.stderr);
       return;
