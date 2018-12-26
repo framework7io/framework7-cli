@@ -9,7 +9,7 @@ const checkUpdate = require('./utils/check-update');
 const getOptions = require('./utils/get-options');
 const spinner = require('./utils/spinner');
 const log = require('./utils/log');
-const createApp = require('./commands/create-app');
+const createApp = require('./scripts/create-app');
 const server = require('./ui/server');
 
 const cwd = process.cwd();
@@ -46,9 +46,7 @@ program
       server();
       spinner.end('Launching Framework7 UI server');
     } else {
-      // Options
       const opts = await getOptions();
-      // Create app
       await createApp(opts);
       process.exit(0);
     }

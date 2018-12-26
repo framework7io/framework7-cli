@@ -5,10 +5,13 @@
   </f7-app>
 </template>
 <script>
-
+  import { f7App, f7View } from 'framework7-vue';
   import routes from '../js/routes.js';
 
   export default {
+    components: {
+      f7App, f7View,
+    },
     data() {
       return {
         f7params: {

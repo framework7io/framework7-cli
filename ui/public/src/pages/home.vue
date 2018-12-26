@@ -161,23 +161,29 @@
         ></f7-list-input>
       </f7-list>
       <f7-block strong inset theme-dark v-if="log && log.length">
-        <pre>{{log.join('\n')}}</pre>
+        <pre v-html="logText()"></pre>
       </f7-block>
       <f7-block inset class="display-flex justify-content-center">
-        <f7-button v-if="!done" :class="{loading: loading}" class="display-inline-flex align-items-center justify-content-center" style="width: 300px;" large fill round @click="createApp" icon-f7="gear_fill" :text="loading ? 'Creating app...' : 'Create App'"></f7-button>
+        <f7-button v-if="!done && !error" :class="{loading: loading}" class="display-inline-flex align-items-center justify-content-center" style="width: 300px;" large fill round @click="createApp" icon-f7="gear_fill" :text="loading ? 'Creating app...' : 'Create App'"></f7-button>
         <f7-button v-if="done" class="display-inline-flex align-items-center justify-content-center" style="width: 300px;" large fill round icon-f7="check" text="Done" color="green"></f7-button>
+        <f7-button v-if="error" class="display-inline-flex align-items-center justify-content-center" style="width: 300px;" large fill round icon-f7="close" text="Error" color="red"></f7-button>
       </f7-block>
     </div>
   </f7-page>
 </template>
 <script>
+  import { f7Page, f7Navbar, f7BlockTitle, f7BlockHeader, f7Block, f7List, f7ListInput, f7ListItem, f7Button } from 'framework7-vue';
   export default {
+    components: {
+      f7Page, f7Navbar, f7BlockTitle, f7BlockHeader, f7Block, f7List, f7ListInput, f7ListItem, f7Button,
+    },
     data() {
       return {
         BUILD_PATH: this.$f7route.query.path,
         loading: false,
         log: [],
         done: false,
+        error: false,
 
         name: 'My App',
         type: [],
@@ -191,6 +197,24 @@
       };
     },
     methods: {
+      logText() {
+        const self = this;
+        return self.log
+          .map((l) => {
+            return l
+              .replace(/\[1m/g, '')
+              .replace(/\[22m/g, '')
+              .replace(/\[32m/g, '')
+              .replace(/\[34m/g, '')
+              .replace(/\[36m/g, '')
+              .replace(/\[39m/g, '')
+              .replace(/\[90m/g, '')
+              .replace(/↵/g, '\n')
+              .trim();
+          })
+          .join('\n')
+          .replace('https://patreon.com/vladimirkharlampidi', '<a href="https://patreon.com/vladimirkharlampidi" class="external" target="_blank">https://patreon.com/vladimirkharlampidi</a>')
+      },
       toggleType(type, checked) {
         if (checked && this.type.indexOf(type) < 0) {
           this.type.push(type);
@@ -247,19 +271,11 @@
           if (data.done) {
             self.done = true;
           }
-
-          self.log = data.log.map((l) => {
-            return l
-              .replace(/\[1m/g, '')
-              .replace(/\[22m/g, '')
-              .replace(/\[32m/g, '')
-              .replace(/\[34m/g, '')
-              .replace(/\[36m/g, '')
-              .replace(/\[39m/g, '')
-              .replace(/\[90m/g, '')
-              .replace(/↵/g, '\n');
-          });
-          if (self.done) return;
+          if (data.error) {
+            self.error = true;
+          }
+          self.log = data.log;
+          if (self.done || self.error) return;
           setTimeout(() => {
             self.getLog();
           }, 1000);
@@ -288,10 +304,9 @@
           return;
         }
         self.loading = true;
-        self.$f7.request.postJSON('/create/', {
-          options,
+        self.$f7.request.postJSON('/create/', { options }, () => {
+          self.getLog();
         });
-        self.getLog();
       },
     }
   }

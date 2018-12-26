@@ -145,8 +145,8 @@ ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
   - 📖 Visit documentation at ${chalk.bold('https://framework7.io/docs/')}
   - 🧾 Check ${chalk.bold('README.md')} in project root folder with further instructions
 
-${chalk.cyan.bold('Love Framework7? Support project by donating or pledging on patreon:')}
-${chalk.cyan.bold('https://patreon.com/vladimirkharlampidi')}
+${chalk.bold('Love Framework7? Support project by donating or pledging on patreon:')}
+${chalk.bold('https://patreon.com/vladimirkharlampidi')}
     `.trim();
 
   if (logCallback) logCallback(finalText);

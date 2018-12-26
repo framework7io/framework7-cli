@@ -4,36 +4,41 @@ const chalk = require('chalk');
 const path = require('path');
 const opn = require('opn');
 const bodyParser = require('body-parser');
-const createApp = require('../commands/create-app');
+const createApp = require('../scripts/create-app');
 
 module.exports = () => {
   const app = express();
+  const port = 3001;
   app.use(express.static(path.resolve(__dirname, 'public', 'www')));
   app.use(bodyParser.json());
 
   let log = [];
   let done = false;
-  let doneResponded = false;
+  let error = false;
 
   app.get('/create/', (req, res) => {
-    if (doneResponded) {
+    res.json({ log, done, error });
+    if (done) {
       process.exit(0);
     }
-    res.json({ log, done });
-    if (done) doneResponded = true;
   });
 
   app.post('/create/', (req, res) => {
     log = [];
     const options = req.body && req.body.options;
-    createApp(options, message => log.push(message)).then(() => {
-      done = true;
-      console.log(`${chalk.bold('Done!')}`);
-    });
+    res.json({});
+    createApp(options, message => log.push(message))
+      .then(() => {
+        done = true;
+      })
+      .catch((err) => {
+        error = true;
+        console.log(err);
+      });
   });
-  app.listen(3000, () => {
-    console.log(`${chalk.bold('\nFramework7 UI is running on http://localhost:3000')} ${chalk.gray('(CTRL + C to exit)')}`);
+  app.listen(port, () => {
+    console.log(`${chalk.bold(`\nFramework7 CLI UI is running on http://localhost:${port}`)} ${chalk.gray('(CTRL + C to exit)')}`);
   });
 
-  opn(`http://localhost:3000?path=${process.cwd()}`);
+  opn(`http://localhost:${port}?path=${process.cwd()}`);
 };
