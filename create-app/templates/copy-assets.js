@@ -10,9 +10,8 @@ const generateRoutes = require('./generate-routes');
 const generateWebpackConfig = require('./generate-webpack-config');
 const generateManifest = require('./generate-manifest');
 
-const cwd = process.cwd();
-
 module.exports = (options) => {
+  const cwd = options.cwd || process.cwd();
   const { framework, bundler, type } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
@@ -112,13 +111,13 @@ module.exports = (options) => {
     if (!bundler) {
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'cordova-app.js'),
-        to: path.resolve(cwd, 'www', 'js', 'cordova-app.js'),
+        to: path.resolve(cwd, srcFolder, 'js', 'cordova-app.js'),
       });
     } else {
       const cordovaAppContent = fs.readFileSync(path.resolve(__dirname, 'common', 'cordova-app.js'), 'utf-8');
       toCopy.push({
         content: `${cordovaAppContent}\nexport default cordovaApp;\n`,
-        to: path.resolve(cwd, 'src', 'js', 'cordova-app.js'),
+        to: path.resolve(cwd, srcFolder, 'js', 'cordova-app.js'),
       });
     }
   }

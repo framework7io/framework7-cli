@@ -2,9 +2,8 @@ const path = require('path');
 const generateHomePage = require('./generate-home-page');
 const generateRoot = require('./generate-root');
 
-const cwd = process.cwd();
-
 module.exports = (options) => {
+  const cwd = options.cwd || process.cwd();
   const { template, bundler } = options;
   const toCopy = [];
 
@@ -27,8 +26,8 @@ module.exports = (options) => {
   ];
 
   pages.forEach((p) => {
-    const src = path.resolve(__dirname, 'pages', `${p}.vue`);
-    const dest = path.resolve(cwd, 'src', 'pages', `${p}.vue`);
+    const src = path.resolve(__dirname, 'pages', `${p}.jsx`);
+    const dest = path.resolve(cwd, 'src', 'pages', `${p}.jsx`);
     toCopy.push({
       from: src,
       to: dest,
@@ -36,11 +35,11 @@ module.exports = (options) => {
   });
   toCopy.push({
     content: generateHomePage(options),
-    to: path.resolve(cwd, 'src', 'pages', 'home.vue'),
+    to: path.resolve(cwd, 'src', 'pages', 'home.jsx'),
   });
   toCopy.push({
     content: generateRoot(options),
-    to: path.resolve(cwd, 'src', 'components', 'app.vue'),
+    to: path.resolve(cwd, 'src', 'components', 'app.jsx'),
   });
 
   if (bundler) {
@@ -49,6 +48,7 @@ module.exports = (options) => {
       to: path.resolve(cwd, 'babel.config.js'),
     });
   }
+
   if (bundler === 'rollup') {
     toCopy.push({
       from: path.resolve(cwd, 'node_modules/framework7/css/framework7.bundle.min.css'),

@@ -8,9 +8,12 @@ module.exports = () => {
       .then((res) => {
         const latestVersion = res.data.version.split('.').map(n => parseInt(n, 10));
         const currentVersion = pkg.version.split('.').map(n => parseInt(n, 10));
-        let hasUpdate;
+        let hasUpdate = false;
+        let currentIsHigher = false;
         latestVersion.forEach((n, index) => {
+          if (currentIsHigher) return;
           if (latestVersion[index] > currentVersion[index]) hasUpdate = true;
+          else if (latestVersion[index] < currentVersion[index]) currentIsHigher = true;
         });
         resolve(hasUpdate);
       })

@@ -1,7 +1,6 @@
 const indent = require('../utils/indent');
-const templateIf = require('../utils/template-if');
 
-module.exports = (options) => {
+module.exports = () => {
   return indent(4, `
     <allow-navigation href="*" />
     <platform name="android">

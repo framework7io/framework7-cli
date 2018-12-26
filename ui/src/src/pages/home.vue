@@ -6,7 +6,7 @@
       <f7-block-title medium>Destination</f7-block-title>
       <f7-block-header>New Framework7 app will be created in following directory:</f7-block-header>
       <f7-block strong inset theme-dark>
-        <pre>{{BUILD_PATH}}</pre>
+        <pre>{{cwd}}</pre>
       </f7-block>
       <f7-block-title medium>App Type</f7-block-title>
       <f7-block-header>What types of the app are you targeting? (multiple allowed)</f7-block-header>
@@ -179,7 +179,7 @@
     },
     data() {
       return {
-        BUILD_PATH: this.$f7route.query.path,
+        cwd: this.$f7route.query.cwd,
         loading: false,
         log: [],
         done: false,

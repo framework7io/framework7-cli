@@ -23,7 +23,7 @@ module.exports = {
     './src/js/app.js',
   ],
   output: {
-    path: resolvePath('www'),
+    path: resolvePath('../public'),
     filename: 'js/app.js',
     publicPath: '',
   },
@@ -39,7 +39,7 @@ module.exports = {
     hot: true,
     open: true,
     compress: true,
-    contentBase: '/www/',
+    contentBase: '../public/',
     disableHostCheck: true,
     watchOptions: {
       poll: true,
@@ -194,11 +194,8 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: resolvePath('src/static'),
-        to: resolvePath('www/static'),
+        to: resolvePath('../public/static'),
       },
-
     ]),
-
-
   ],
 };

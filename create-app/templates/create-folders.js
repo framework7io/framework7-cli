@@ -1,9 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const cwd = process.cwd();
-
 module.exports = (options) => {
+  const cwd = options.cwd || process.cwd();
   const {
     framework,
     bundler,

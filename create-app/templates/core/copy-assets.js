@@ -3,9 +3,8 @@ const path = require('path');
 const generateHomePage = require('./generate-home-page');
 const indent = require('../../utils/indent');
 
-const cwd = process.cwd();
-
 module.exports = (options) => {
+  const cwd = options.cwd || process.cwd();
   const { template, bundler, type } = options;
   const toCopy = [];
   const srcFolder = bundler ? 'src' : 'www';

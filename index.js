@@ -6,10 +6,10 @@ const path = require('path');
 const fs = require('fs');
 const logSymbols = require('log-symbols');
 const checkUpdate = require('./utils/check-update');
-const getOptions = require('./utils/get-options');
 const spinner = require('./utils/spinner');
 const log = require('./utils/log');
-const createApp = require('./scripts/create-app');
+const getOptions = require('./create-app/utils/get-options');
+const createApp = require('./create-app/index');
 const server = require('./ui/server');
 
 const cwd = process.cwd();
@@ -47,7 +47,22 @@ program
       spinner.end('Launching Framework7 UI server');
     } else {
       const opts = await getOptions();
-      await createApp(opts);
+      await createApp(
+        {
+          cwd,
+          ...opts,
+        },
+        {
+          statusStart: text => spinner.start(text),
+          statusDone: text => spinner.done(text),
+          statusError: text => spinner.error(text),
+          text: text => log.text(text),
+          error: text => log.error(text),
+        },
+        {
+          exitOnError: true,
+        },
+      );
       process.exit(0);
     }
   });

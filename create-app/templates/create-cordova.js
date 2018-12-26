@@ -5,9 +5,8 @@ const rm = require('rimraf');
 const cpy = require('cpy');
 const generateConfigXml = require('./generate-config-xml');
 
-const cwd = process.cwd();
-
 module.exports = (options) => {
+  const cwd = options.cwd || process.cwd();
   const {
     pkg,
     name,
