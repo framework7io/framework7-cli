@@ -1,6 +1,6 @@
 # Framework7 CLI
 
-Framework7 command line utility makes easier to create, build, run and emulate mobile [Framework7](http://framework7.io) Cordova apps. Basically it is a wrapper around "cordova cli" but with some nice additions and ready to use Framework7 templates.
+Framework7 command line utility makes easier to create [Framework7](http://framework7.io) apps. Since Framework7 v4 release, CLI the most recommended way to start Framework7 app development.
 
 ## Install
 
@@ -14,69 +14,35 @@ Then install framework7-cli (may require "sudo"):
 $ npm install -g framework7-cli
 ```
 
-## Creating an Framework7 App
+## Creating Framework7 app
 
-To create Framework7 app, run:
+To create Framework7 app, run the following command in directory where you want to create app:
 ```
-$ f7 create myapp com.example.myapp MyApp --template [template]
-```
-Where:
-
-* `myapp` - project folder
-* `com.example.myapp` - app id (optional). 
-* `MyApp` - app title (optional). Use double quotes if you have spaces in title, e.g. `"My App"`
-* `--template [template]` - specify app template (optional). The following templates are available:
-    * [singleview](https://github.com/nolimits4web/framework7-cli-template-singleview) (by default)
-    * [tabs](https://github.com/nolimits4web/framework7-cli-template-tabs)
-
-## Adding platform target
-
-To add iOS target platform:
-```
-$ f7 platform add ios
+$ framework7 create
 ```
 
-To add Android target platform:
-```
-$ f7 platform add android
-```
+Programm will prompt for few questions about framework and template you want to start with.
 
-## Run app in Browser
+## Creating Framework7 app with user interface
 
-Use `f7 serve` command to run the app locally (in browser). App will be hosted at `http://localhost:8000/www/ios/` (for iOS platform) and `http://localhost:8000/www/android/` (for Android platform):
-
+Run the following command in directory where you want to create app:
 ```
-$ f7 serve [options]
+$ framework7 create --ui
 ```
 
-## Build the App
+It will launch UI where you will be able to configure the project.
 
-```
-$ f7 build [options]
-```
+## Cordova APIs
 
-## Emulating the App
-
+To run cordova related commands run the following command in the project root directory:
 ```
-$ f7 emulate ios
+$ framework7 cordova [..args]
 ```
 
-## Running the App
-
-Deploys the app on specified platform devices. If a device is not found it'll then deploy to an emulator/simulator
-
+For example:
 ```
-$ f7 run ios [options]
-```
-
-## Manage Cordova Plugins
-
-Install plugin:
-```
-$ f7 plugin add cordova-plugin-splashscreen
-```
-
-Remove plugin:
-```
-$ f7 plugin rm cordova-plugin-splashscreen
+$ framework7 cordova plugin add cordova-plugin-statusbar
+$ framework7 cordova plugin add cordova-plugin-splashscreen
+$ framework7 cordova build ios
+...
 ```

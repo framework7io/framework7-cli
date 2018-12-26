@@ -1,6 +1,6 @@
 {
   "name": "framework7-cli",
-  "version": "0.2.0",
+  "version": "2.0.0-beta.1",
   "description": "Framework7 command line utility (CLI)",
   "main": "index.js",
   "bin": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nolimits4web/framework7-cli.git"
+    "url": "git+https://github.com/framework7io/framework7-cli.git"
   },
   "keywords": [
     "framework7",
@@ -22,9 +22,9 @@
   "author": "Vladimir Kharlampidi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nolimits4web/framework7-cli/issues"
+    "url": "https://github.com/framework7io/framework7-cli/issues"
   },
-  "homepage": "https://github.com/nolimits4web/framework7-cli#readme",
+  "homepage": "https://github.com/framework7io/framework7-cli#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
