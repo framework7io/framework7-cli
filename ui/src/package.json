@@ -1,11 +1,11 @@
 {
-  "name": "framework7-cli",
+  "name": "framework7-cli-ui",
   "private": true,
   "version": "1.0.0",
-  "description": "Framework7 CLI",
+  "description": "Framework7 CLI UI",
   "repository": "",
   "license": "UNLICENSED",
-  "framework7-cli": {
+  "framework7": {
     "type": [
       "web"
     ],
