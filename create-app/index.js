@@ -47,7 +47,7 @@ module.exports = async (options, logger, exit = true) => {
     createFolders(options);
   } catch (err) {
     logger.statusError('Error creating required folders structure');
-    logger.error(err.stderr);
+    if (err) logger.error(err.stderr);
     errorExit();
   }
   logger.statusDone('Creating required folders structure');
@@ -58,7 +58,7 @@ module.exports = async (options, logger, exit = true) => {
     await exec.promise(`cd ${cwd} && npm install ${packageJson.dependencies.join(' ')} --save`, true);
   } catch (err) {
     logger.statusError('Error installing NPM Dependencies');
-    logger.error(err.stderr);
+    if (err) logger.error(err.stderr);
     errorExit();
     return;
   }
@@ -67,10 +67,10 @@ module.exports = async (options, logger, exit = true) => {
   // Install NPM dev depenencies
   logger.statusStart(`${'Installing NPM Dev Dependencies'} ${waitText}`);
   try {
-    await exec.promise(`cd ${cwd} npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
+    await exec.promise(`cd ${cwd} && npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
   } catch (err) {
     logger.statusError('Error installing NPM Dev Dependencies');
-    logger.error(err.stderr);
+    if (err) logger.error(err.stderr);
     errorExit();
     return;
   }
@@ -79,10 +79,10 @@ module.exports = async (options, logger, exit = true) => {
   if (packageJson.postInstall && packageJson.postInstall.length) {
     logger.statusStart('Executing NPM Scripts');
     try {
-      await exec.promise(`cd ${cwd} npm run postinstall`, true);
+      await exec.promise(`cd ${cwd} && npm run postinstall`, true);
     } catch (err) {
       logger.statusError('Error executing NPM Scripts');
-      logger.error(err.stderr);
+      if (err) logger.error(err.stderr);
       errorExit();
       return;
     }
@@ -96,7 +96,7 @@ module.exports = async (options, logger, exit = true) => {
       await createCordova(options);
     } catch (err) {
       logger.statusError('Error creating Cordova project');
-      logger.error(err.stderr);
+      if (err) logger.error(err.stderr);
       errorExit();
       return;
     }
@@ -119,7 +119,7 @@ module.exports = async (options, logger, exit = true) => {
     }));
   } catch (err) {
     logger.statusError('Error creating project files');
-    logger.error(err.stderr || err);
+    if (err) logger.error(err.stderr || err);
     errorExit();
     return;
   }
