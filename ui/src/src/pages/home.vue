@@ -209,7 +209,10 @@
               .replace(/\[36m/g, '')
               .replace(/\[39m/g, '')
               .replace(/\[90m/g, '')
+              .replace(/\[94m/g, '')
+              .replace(/(\[[0-9]?[0-9][m])/g,'')
               .replace(/↵/g, '\n')
+              .replace(/[\x1b]/g,"")
               .trim();
           })
           .join('\n')
