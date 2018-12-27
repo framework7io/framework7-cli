@@ -14,11 +14,16 @@ module.exports = (options) => {
   } = options;
   return new Promise(async (resolve, reject) => {
     try {
-      await exec.promise(`cd ${cwd} && cordova create cordova ${pkg} "${name}"`, true);
+      await exec.promise(`cd ${cwd} && cordova create cordova ${pkg} XXXXXX`, true);
     } catch (err) {
-      reject(err.stderr);
+      reject(err);
       return;
     }
+    // Modify Name
+    ['package.json', 'config.xml'].forEach((f) => {
+      const contents = fs.readFileSync(path.resolve(cwd, 'cordova', f), 'utf-8');
+      fs.writeFileSync(path.resolve(cwd, 'cordova', f), contents.replace(/XXXXXX/g, name));
+    });
     // Install plugins
     const plugins = [
       'cordova-plugin-statusbar',
@@ -60,7 +65,7 @@ module.exports = (options) => {
     try {
       await exec.promise(`cd ${cwd} && cd cordova && cordova platform add ${platform.join(' ')}`, true);
     } catch (err) {
-      reject(err.stderr);
+      reject(err);
       return;
     }
     resolve();
