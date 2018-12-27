@@ -18,6 +18,8 @@ module.exports = (options) => {
     `./${srcFolder}/fonts`,
     `./${srcFolder}/pages`,
     `./${srcFolder}/js`,
+    './assets-src',
+
   ];
   if (folders.indexOf('./www') < 0) {
     folders.push('./www');
@@ -56,7 +58,7 @@ module.exports = (options) => {
   }
   folders.forEach((f) => {
     if (!fs.existsSync(path.resolve(cwd, f))) {
-      fs.mkdirSync(path.resolve(cwd, f));
+      fs.mkdirSync(path.resolve(cwd, f), { recursive: true });
     }
   });
 };

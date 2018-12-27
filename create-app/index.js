@@ -17,10 +17,10 @@ const createCordova = require('./templates/create-cordova');
 
 const waitText = chalk.gray('(Please wait, it can take a while)');
 
-module.exports = async (options, logger, exit = true) => {
+module.exports = async (options, logger, { exitOnError = true } = {}) => {
   const cwd = options.cwd || process.cwd();
   function errorExit() {
-    if (exit) process.exit(1);
+    if (exitOnError) process.exit(1);
   }
   if (!logger) {
     // eslint-disable-next-line

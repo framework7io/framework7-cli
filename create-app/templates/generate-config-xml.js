@@ -6,16 +6,17 @@ module.exports = () => {
     <platform name="android">
       <preference name="StatusBarOverlaysWebView" value="false" />
       <preference name="android-minSdkVersion" value="21" />
-      <splash density="land-hdpi" src="res/screen/android/drawable-hdpi/background.9.png" />
-      <splash density="land-mdpi" src="res/screen/android/drawable-mdpi/background.9.png" />
-      <splash density="land-xhdpi" src="res/screen/android/drawable-xhdpi/background.9.png" />
-      <splash density="land-xxhdpi" src="res/screen/android/drawable-xxhdpi/background.9.png" />
-      <splash density="land-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/background.9.png" />
-      <splash density="port-hdpi" src="res/screen/android/drawable-hdpi/background.9.png" />
-      <splash density="port-mdpi" src="res/screen/android/drawable-mdpi/background.9.png" />
-      <splash density="port-xhdpi" src="res/screen/android/drawable-xhdpi/background.9.png" />
-      <splash density="port-xxhdpi" src="res/screen/android/drawable-xxhdpi/background.9.png" />
-      <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/background.9.png" />
+      <preference name="SplashMaintainAspectRatio" value="true" />
+      <splash density="land-hdpi" src="res/screen/android/drawable-hdpi/screen.png" />
+      <splash density="land-mdpi" src="res/screen/android/drawable-mdpi/screen.png" />
+      <splash density="land-xhdpi" src="res/screen/android/drawable-xhdpi/screen.png" />
+      <splash density="land-xxhdpi" src="res/screen/android/drawable-xxhdpi/screen.png" />
+      <splash density="land-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/screen.png" />
+      <splash density="port-hdpi" src="res/screen/android/drawable-hdpi/screen.png" />
+      <splash density="port-mdpi" src="res/screen/android/drawable-mdpi/screen.png" />
+      <splash density="port-xhdpi" src="res/screen/android/drawable-xhdpi/screen.png" />
+      <splash density="port-xxhdpi" src="res/screen/android/drawable-xxhdpi/screen.png" />
+      <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/screen.png" />
       <icon density="ldpi" src="res/icon/android/mipmap-ldpi/ic_launcher.png" />
       <icon density="mdpi" src="res/icon/android/mipmap-mdpi/ic_launcher.png" />
       <icon density="hdpi" src="res/icon/android/mipmap-hdpi/ic_launcher.png" />

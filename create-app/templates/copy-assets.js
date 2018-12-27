@@ -12,9 +12,17 @@ const generateManifest = require('./generate-manifest');
 
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
-  const { framework, bundler, type } = options;
+  const {
+    framework, bundler, type, platform,
+  } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
+  const isWeb = type.indexOf('web') >= 0;
+  const isPwa = type.indexOf('pwa') >= 0;
+  const isCordova = type.indexOf('cordova') >= 0;
+  const isWebpack = bundler === 'webpack';
+  const isIos = platform.indexOf('ios') >= 0;
+  const isAndroid = platform.indexOf('android') >= 0;
 
   const toCopy = [];
   if (framework === 'core') toCopy.push(...copyCoreAssets(options));
@@ -62,7 +70,7 @@ module.exports = (options) => {
   ]);
 
   // Copy Bundlers
-  if (bundler === 'webpack') {
+  if (isWebpack) {
     toCopy.push({
       from: path.resolve(__dirname, 'common', 'webpack', 'build.js'),
       to: path.resolve(cwd, 'build', 'build.js'),
@@ -78,8 +86,8 @@ module.exports = (options) => {
   }
 
   // Copy Web Images & Icons
-  if (type.indexOf('web') >= 0 || type.indexOf('pwa') >= 0) {
-    const assetsFolder = bundler === 'webpack' ? 'static' : 'assets';
+  if (isWeb || isPwa) {
+    const assetsFolder = isWebpack ? 'static' : 'assets';
     fs.readdirSync(path.resolve(__dirname, 'common', 'icons')).forEach((f) => {
       if (f.indexOf('.') === 0) return;
       toCopy.push({
@@ -89,12 +97,12 @@ module.exports = (options) => {
     });
   }
   // Service worker
-  if (type.indexOf('pwa') >= 0) {
+  if (isPwa) {
     toCopy.push({
       content: generateManifest(options),
       to: path.resolve(cwd, srcFolder, 'manifest.json'),
     });
-    if (bundler === 'webpack') {
+    if (isWebpack) {
       toCopy.push({
         content: 'workbox.precaching.precacheAndRoute(self.__precacheManifest || []);',
         to: path.resolve(cwd, srcFolder, 'service-worker.js'),
@@ -107,7 +115,8 @@ module.exports = (options) => {
     }
   }
 
-  if (type.indexOf('cordova') >= 0) {
+  // Cordova App
+  if (isCordova) {
     if (!bundler) {
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'cordova-app.js'),
@@ -120,6 +129,36 @@ module.exports = (options) => {
         to: path.resolve(cwd, srcFolder, 'js', 'cordova-app.js'),
       });
     }
+  }
+
+  // Assets Source
+  if (isCordova) {
+    toCopy.push({
+      from: path.resolve(__dirname, 'cordova-res', 'screen', 'ios', 'Default@2x~universal~anyany.png'),
+      to: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
+    });
+    if (isIos) {
+      toCopy.push({
+        from: path.resolve(__dirname, 'cordova-res', 'icon', 'ios', 'icon-512x512@2x.png'),
+        to: path.resolve(cwd, 'assets-src', 'cordova-icon-ios.png'),
+      });
+    }
+    if (isAndroid) {
+      toCopy.push({
+        from: path.resolve(__dirname, 'cordova-res', 'icon', 'android', 'playstore-icon.png'),
+        to: path.resolve(cwd, 'assets-src', 'cordova-icon-android.png'),
+      });
+    }
+  }
+  if (isWeb || isPwa) {
+    toCopy.push({
+      from: path.resolve(__dirname, 'common', 'icons', '512x512.png'),
+      to: path.resolve(cwd, 'assets-src', 'web-icon.png'),
+    });
+    toCopy.push({
+      from: path.resolve(__dirname, 'common', 'icons', 'apple-touch-icon.png'),
+      to: path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'),
+    });
   }
 
   return toCopy;

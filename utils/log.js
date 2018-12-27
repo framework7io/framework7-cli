@@ -3,12 +3,6 @@ const chalk = require('chalk');
 
 module.exports = {
   text(text, bold, color) {
-    // if (text === '\n'
-    //   || text === '\r\n'
-    //   || text === '\r'
-    //   || text === ''
-    //   || (text.trim && text.trim() === '')
-    // ) return;
     if (color && bold) {
       console.log(chalk[color].bold(text));
     } else if (color) {
@@ -20,12 +14,6 @@ module.exports = {
     }
   },
   error(text) {
-    // if (text === '\n'
-    //   || text === '\r\n'
-    //   || text === '\r'
-    //   || text === ''
-    //   || (text.trim && text.trim() === '')
-    // ) return;
     console.error(chalk.red(text));
   },
 };

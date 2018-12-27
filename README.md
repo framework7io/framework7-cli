@@ -32,6 +32,15 @@ $ framework7 create --ui
 
 It will launch UI where you will be able to configure the project.
 
+## Generate assets
+
+In created project there is an `assets-src` directory. It contains required icons and splash screens source images. To generate your own icons and splash screen images, you will need to replace all assets in this directory with your own images (pay attention to image size and format), and run the following command in the project directory:
+```
+$ framework7 generate-assets
+```
+
+That is all, script will generate all required sizes of icons and splash screens and place them automatically where they need to be.
+
 ## Cordova APIs
 
 To run cordova related commands run the following command in the project root directory:
