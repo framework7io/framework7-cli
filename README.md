@@ -14,18 +14,18 @@ Then install framework7-cli (may require "sudo"):
 $ npm install -g framework7-cli
 ```
 
-## Creating Framework7 app
+## Create Framework7 app
 
-To create Framework7 app, run the following command in directory where you want to create app:
+To create Framework7 app, run the following command in the directory where you want to create app:
 ```
 $ framework7 create
 ```
 
-Programm will prompt for few questions about framework and template you want to start with.
+Program will prompt for few questions about framework and template you want to start with.
 
-## Creating Framework7 app with user interface
+## Create Framework7 app with user interface
 
-Run the following command in directory where you want to create app:
+Run the following command in the directory where you want to create app:
 ```
 $ framework7 create --ui
 ```
