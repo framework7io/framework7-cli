@@ -167,14 +167,17 @@ module.exports = (options) => {
             this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password);
           }
         },
-        ${templateIf(type.indexOf('cordova') >= 0, () => `
         mounted() {
           this.$f7ready((f7) => {
+            ${templateIf(type.indexOf('cordova') >= 0, () => `
             // Init cordova APIs (see cordova-app.js)
-            cordovaApp.init(f7);
+            if (window.cordova) {
+              cordovaApp.init(f7);
+            }
+            `)}
+            // Call F7 APIs here
           });
-        },
-        `)}
+        }
       }
     </script>
   `).trim();

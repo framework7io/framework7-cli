@@ -10,6 +10,9 @@
   --f7-navbar-large-title-font-size: 29px;
   --f7-progressbar-bg-color: rgba(255,255,255,0.2);
   --f7-progressbar-progress-color: #fff;
+  --f7-block-header-text-color: #555;
+  --f7-bars-shadow-bottom-image: none;
+  --f7-font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 :root,
 :root.theme-dark,
@@ -35,6 +38,30 @@
   --f7-button-text-color: #fff;
   --f7-button-pressed-bg-color: rgba(255,255,255,0.1);
 }
+.home-cards {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  .card {
+    width: 250px;
+    margin: 0;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+    overflow: hidden;
+    height: 100px;
+  }
+}
 .center-content {
   max-width: 800px;
   margin-left: auto;
@@ -49,16 +76,56 @@
 .block-title {
   white-space: normal;
 }
-.block.theme-dark {
-  color: #fff;
-}
 pre {
+  padding: var(--f7-block-padding);
+  color: #fff;
   white-space: pre-wrap;
   word-break: break-all;
   font-weight: bold;
+  background: #1c1c1d;
+  &.round {
+    border-radius: var(--f7-block-inset-border-radius);
+  }
+}
+.drag-area {
+  border: 2px dashed #aaa;
+  display: block;
+  cursor: pointer;
+  input {
+    position: absolute;
+    visibility: hidden;
+  }
+  .block-header,
+  .block-footer {
+    text-align: center;
+  }
+  .asset-preview {
+    width: 150px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+  &.dragenter {
+    background-color: rgba(var(--f7-theme-color-rgb), 0.1);
+  }
 }
 .button.loading .icon {
   animation: rotate 2s infinite linear;
+}
+.button-block {
+  display: flex;
+  justify-content: center;
+}
+.button.button-center-content {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  max-width: 100%;
 }
 @keyframes rotate {
   from {

@@ -190,14 +190,17 @@ module.exports = (options) => {
       alertLoginData() {
         this.$f7.dialog.alert('Username: ' + this.state.username + '<br>Password: ' + this.state.password);
       }
-      ${templateIf(type.indexOf('cordova') >= 0, () => `
       componentDidMount() {
-        // Init cordova APIs (see cordova-app.js)
         this.$f7ready((f7) => {
-          cordovaApp.init(f7);
+          ${templateIf(type.indexOf('cordova') >= 0, () => `
+          // Init cordova APIs (see cordova-app.js)
+          if (window.cordova) {
+            cordovaApp.init(f7);
+          }
+          `)}
+          // Call F7 APIs here
         });
       }
-      `)}
     }
   `).trim();
 };

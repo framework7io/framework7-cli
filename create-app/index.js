@@ -145,7 +145,7 @@ ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
   - 🔥 Run ${chalk.green('npm start')} to run development server
   ${finalScripts.trim()}
   - 📖 Visit documentation at ${chalk.bold('https://framework7.io/docs/')}
-  - 🧾 Check ${chalk.bold('README.md')} in project root folder with further instructions
+  - 📖 Check ${chalk.bold('README.md')} in project root folder with further instructions
 
 ${chalk.bold('Love Framework7? Support project by donating or pledging on patreon:')}
 ${chalk.bold('https://patreon.com/vladimirkharlampidi')}

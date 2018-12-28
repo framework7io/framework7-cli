@@ -5,7 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 const path = require('path');
 
@@ -15,6 +15,7 @@ function resolvePath(dir) {
 
 const env = process.env.NODE_ENV || 'development';
 const target = process.env.TARGET || 'web';
+const isBuild = process.env.BUILD === 'true';
 
 
 module.exports = {
@@ -23,9 +24,11 @@ module.exports = {
     './src/js/app.js',
   ],
   output: {
-    path: resolvePath('../public'),
+    path: resolvePath('../www'),
     filename: 'js/app.js',
-    publicPath: '',
+    publicPath: '/',
+    hotUpdateChunkFilename: 'hot/hot-update.js',
+    hotUpdateMainFilename: 'hot/hot-update.json',
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -39,7 +42,7 @@ module.exports = {
     hot: true,
     open: true,
     compress: true,
-    contentBase: '../public/',
+    contentBase: '../www/',
     disableHostCheck: true,
     watchOptions: {
       poll: true,
@@ -68,7 +71,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          (env === 'development' ? 'style-loader' : {
+          (env === 'development' && !isBuild ? 'style-loader' : {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: '../'
@@ -81,7 +84,7 @@ module.exports = {
       {
         test: /\.styl(us)?$/,
         use: [
-          (env === 'development' ? 'style-loader' : {
+          (env === 'development' && !isBuild  ? 'style-loader' : {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: '../'
@@ -95,7 +98,7 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          (env === 'development' ? 'style-loader' : {
+          (env === 'development' && !isBuild  ? 'style-loader' : {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: '../'
@@ -109,7 +112,7 @@ module.exports = {
       {
         test: /\.(sa|sc)ss$/,
         use: [
-          (env === 'development' ? 'style-loader' : {
+          (env === 'development' && !isBuild  ? 'style-loader' : {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: '../'
@@ -194,8 +197,13 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: resolvePath('src/static'),
-        to: resolvePath('../public/static'),
+        to: resolvePath('../www/static'),
       },
     ]),
+    ...(env === 'development' ? [
+      new LiveReloadPlugin({
+        appendScriptTag: true,
+      }),
+    ] : []),
   ],
 };

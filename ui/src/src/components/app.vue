@@ -1,10 +1,10 @@
 <template>
   <f7-app :params="f7params">
-    <!-- Your main view, should have "view-main" class -->
-    <f7-view main class="ios-edges" url="/"></f7-view>
+    <f7-view main class="ios-edges" url="/" :push-state="true" push-state-separator=""></f7-view>
   </f7-app>
 </template>
 <script>
+  import { Utils } from 'framework7';
   import { f7App, f7View } from 'framework7-vue';
   import routes from '../js/routes.js';
 
@@ -15,9 +15,8 @@
     data() {
       return {
         f7params: {
-          name: 'Framework7 CLI', // App name
-          theme: 'auto', // Automatic theme detection
-          // App routes
+          name: 'Framework7 CLI',
+          theme: 'auto',
           routes: routes,
           navbar: {
             mdCenterTitle: true,

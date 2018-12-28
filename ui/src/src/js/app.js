@@ -14,7 +14,7 @@ import 'framework7/css/framework7.bundle.css';
 
 // Import Icons and App Custom Styles
 import '../css/icons.css';
-import '../css/app.css';
+import '../css/app.less';
 
 // Import App Component
 import App from '../components/app.vue';
@@ -24,12 +24,13 @@ Framework7.use(Framework7Vue);
 Framework7.use([Input, Dialog]);
 
 // Init App
-new Vue({
+const app = new Vue({
   el: '#app',
-  render: (h) => h(App),
-
+  render: h => h(App),
   // Register App Component
   components: {
-    app: App
+    app: App,
   },
 });
+
+export default app;

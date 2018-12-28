@@ -41,6 +41,15 @@ $ framework7 generate-assets
 
 That is all, script will generate all required sizes of icons and splash screens and place them automatically where they need to be.
 
+## Generate assets with user interface
+
+Run the following command in the directory with Framework7 project:
+```
+$ framework7 generate-assets --ui
+```
+
+It will launch UI where you will be able to change icons and splash screens.
+
 ## Cordova APIs
 
 To run cordova related commands run the following command in the project root directory:

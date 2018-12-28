@@ -92,6 +92,7 @@ module.exports = (options) => {
       iosOverlaysWebView: true,
       androidOverlaysWebView: false,
     },
+    ${templateIf(framework === 'core', () => `
     on: {
       init: function () {
         if (window.cordova) {
@@ -100,6 +101,7 @@ module.exports = (options) => {
         }
       },
     },
+    `)}
     `)}
   `).trim();
 };

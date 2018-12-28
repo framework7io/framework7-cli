@@ -35,7 +35,7 @@ program
 
     if (options.ui) {
       spinner.start('Launching Framework7 UI server');
-      server();
+      server('/create/');
       spinner.end('Launching Framework7 UI server');
     } else {
       const opts = await getOptions();
@@ -53,7 +53,7 @@ program
 program
   .command('generate-assets')
   .option('--ui', 'Launch assets generation UI')
-  .description('Generate Framework7 icons and splash screens')
+  .description('Generate Framework7 app icons and splash screens')
   .action(async (options) => {
     // Check update
     await checkUpdate();
@@ -69,7 +69,7 @@ program
 
     if (options.ui) {
       spinner.start('Launching Framework7 UI server');
-      server();
+      server('/generate-assets/');
       spinner.end('Launching Framework7 UI server');
     } else {
       await generateAssets({}, Object.assign(currentProject, { cwd }), logger);
