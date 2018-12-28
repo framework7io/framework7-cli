@@ -24,7 +24,7 @@ module.exports = (options) => {
       `)}
       ${templateIf(type.indexOf('cordova') >= 0, () => `
       // Import Cordova APIs
-      import cordovaApp './cordova-app.js';
+      import cordovaApp from './cordova-app.js';
       `)}
       // Import Routes
       import routes from './routes.js';
