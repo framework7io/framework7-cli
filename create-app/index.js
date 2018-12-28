@@ -55,7 +55,7 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
   // Install NPM depenencies
   logger.statusStart(`${'Installing NPM Dependencies'} ${waitText}`);
   try {
-    await exec.promise(`cd ${cwd} && npm install ${packageJson.dependencies.join(' ')} --save`, true);
+    await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.dependencies.join(' ')} --save`, true);
   } catch (err) {
     logger.statusError('Error installing NPM Dependencies');
     if (err) logger.error(err.stderr);
@@ -67,7 +67,7 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
   // Install NPM dev depenencies
   logger.statusStart(`${'Installing NPM Dev Dependencies'} ${waitText}`);
   try {
-    await exec.promise(`cd ${cwd} && npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
+    await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
   } catch (err) {
     logger.statusError('Error installing NPM Dev Dependencies');
     if (err) logger.error(err.stderr);
@@ -79,7 +79,7 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
   if (packageJson.postInstall && packageJson.postInstall.length) {
     logger.statusStart('Executing NPM Scripts');
     try {
-      await exec.promise(`cd ${cwd} && npm run postinstall`, true);
+      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm run postinstall`, true);
     } catch (err) {
       logger.statusError('Error executing NPM Scripts');
       if (err) logger.error(err.stderr);
