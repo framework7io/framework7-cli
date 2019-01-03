@@ -13,7 +13,7 @@ const generateManifest = require('./generate-manifest');
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
   const {
-    framework, bundler, type, platform,
+    framework, bundler, type = [], platform = [],
   } = options;
 
   const srcFolder = bundler ? 'src' : 'www';

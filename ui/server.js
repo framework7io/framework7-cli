@@ -11,9 +11,8 @@ const generateAssets = require('../generate-assets/index');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-module.exports = (startPage = '/') => {
+module.exports = (startPage = '/', port = 3001) => {
   const app = express();
-  const port = 3001;
   app.use(express.static(path.resolve(__dirname, 'www')));
   app.use(bodyParser.json());
 

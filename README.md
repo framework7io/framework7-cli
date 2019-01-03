@@ -30,7 +30,10 @@ Run the following command in the directory where you want to create app:
 $ framework7 create --ui
 ```
 
-It will launch UI where you will be able to configure the project.
+It will launch UI where you will be able to configure the project. By default it launches server on `localhost:3001` address. If you want to change the port then use `--port <n>` argument:
+```
+$ framework7 create --ui --port 8080
+```
 
 ## Generate assets
 
@@ -48,7 +51,10 @@ Run the following command in the directory with Framework7 project:
 $ framework7 generate-assets --ui
 ```
 
-It will launch UI where you will be able to change icons and splash screens.
+It will launch UI where you will be able to change icons and splash screens. By default it launches server on `localhost:3001` address. If you want to change the port then use `--port <n>` argument:
+```
+$ framework7 generate-assets --ui --port 8080
+```
 
 ## Cordova APIs
 

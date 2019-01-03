@@ -5,7 +5,6 @@ const exec = require('exec-sh');
 const path = require('path');
 const fs = require('fs');
 const logSymbols = require('log-symbols');
-const chalk = require('chalk');
 const checkUpdate = require('./utils/check-update');
 const spinner = require('./utils/spinner');
 const log = require('./utils/log');
@@ -13,6 +12,7 @@ const getOptions = require('./create-app/utils/get-options');
 const createApp = require('./create-app/index');
 const generateAssets = require('./generate-assets/index');
 const server = require('./ui/server');
+const pkg = require('./package.json');
 
 const cwd = process.cwd();
 const logger = {
@@ -26,8 +26,10 @@ const logger = {
 Commands
 ============================================= */
 program
+  .version(pkg.version)
   .command('create')
   .option('--ui', 'Launch new app creation UI')
+  .option('-P, --port <n>', 'Specify UI server port. By default it is 3001', parseInt)
   .description('Create a new Framework7 project')
   .action(async (options) => {
     // Check update
@@ -35,7 +37,7 @@ program
 
     if (options.ui) {
       spinner.start('Launching Framework7 UI server');
-      server('/create/');
+      server('/create/', options.port);
       spinner.end('Launching Framework7 UI server');
     } else {
       const opts = await getOptions();
@@ -53,6 +55,7 @@ program
 program
   .command('generate-assets')
   .option('--ui', 'Launch assets generation UI')
+  .option('-P, --port <n>', 'Specify UI server port. By default it is 3001', parseInt)
   .description('Generate Framework7 app icons and splash screens')
   .action(async (options) => {
     // Check update
@@ -69,7 +72,7 @@ program
 
     if (options.ui) {
       spinner.start('Launching Framework7 UI server');
-      server('/generate-assets/');
+      server('/generate-assets/', options.port);
       spinner.end('Launching Framework7 UI server');
     } else {
       await generateAssets({}, Object.assign(currentProject, { cwd }), logger);
