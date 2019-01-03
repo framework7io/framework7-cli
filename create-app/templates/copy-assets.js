@@ -9,6 +9,7 @@ const generateScripts = require('./generate-scripts');
 const generateRoutes = require('./generate-routes');
 const generateWebpackConfig = require('./generate-webpack-config');
 const generateManifest = require('./generate-manifest');
+const generateServiceWorker = require('./generate-service-worker');
 
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
@@ -102,17 +103,10 @@ module.exports = (options) => {
       content: generateManifest(options),
       to: path.resolve(cwd, srcFolder, 'manifest.json'),
     });
-    if (isWebpack) {
-      toCopy.push({
-        content: 'workbox.precaching.precacheAndRoute(self.__precacheManifest || []);',
-        to: path.resolve(cwd, srcFolder, 'service-worker.js'),
-      });
-    } else {
-      toCopy.push({
-        from: path.resolve(__dirname, 'common', 'service-worker.js'),
-        to: path.resolve(cwd, srcFolder, 'service-worker.js'),
-      });
-    }
+    toCopy.push({
+      content: generateServiceWorker(options),
+      to: path.resolve(cwd, srcFolder, 'service-worker.js'),
+    });
   }
 
   // Cordova App
