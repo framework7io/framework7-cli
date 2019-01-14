@@ -70,7 +70,7 @@ var cordovaApp = {
       var nodeName = e.target.nodeName.toLowerCase();
       var type = e.target.type;
       var showForTypes = ['datetime-local', 'time', 'date', 'datetime'];
-      if (nodeName === 'select' || showForTypes.indexOf(type)) {
+      if (nodeName === 'select' || showForTypes.indexOf(type) >= 0) {
         window.Keyboard.hideFormAccessoryBar(false);
       } else {
         window.Keyboard.hideFormAccessoryBar(true);
