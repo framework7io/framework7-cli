@@ -89,9 +89,9 @@ module.exports = (options) => {
     views = indent(4, `
       <!-- Your main view, should have "view-main" class -->
       ${templateIf(bundler === 'webpack', () => `
-      <div class="view view-main view-init ios-edges" data-url="/"></div>
+      <div class="view view-main view-init safe-areas" data-url="/"></div>
       `, () => `
-      <div class="view view-main view-init ios-edges">
+      <div class="view view-main view-init safe-areas">
         ${indent(8, generateHomePage(options)).trim()}
       </div>
       `)}
@@ -100,7 +100,7 @@ module.exports = (options) => {
   if (template === 'tabs') {
     views = indent(4, `
     <!-- Views/Tabs container -->
-    <div class="views tabs ios-edges">
+    <div class="views tabs safe-areas">
       <!-- Tabbar for switching views-tabs -->
       <div class="toolbar toolbar-bottom tabbar-labels">
         <div class="toolbar-inner">

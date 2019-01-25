@@ -60,13 +60,13 @@ module.exports = (options) => {
   if (template === 'single-view' || template === 'split-view') {
     views = indent(6, `
       <!-- Your main view, should have "view-main" class -->
-      <f7-view main class="ios-edges" url="/"></f7-view>
+      <f7-view main class="safe-areas" url="/"></f7-view>
     `);
   }
   if (template === 'tabs') {
     views = indent(6, `
       <!-- Views/Tabs container -->
-      <f7-views tabs class="ios-edges">
+      <f7-views tabs class="safe-areas">
         <!-- Tabbar for switching views-tabs -->
         <f7-toolbar tabbar labels bottom>
           <f7-link tab-link="#view-home" tab-link-active icon-ios="f7:home_fil" icon-md="material:home" text="Home"></f7-link>
