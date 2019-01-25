@@ -1,3 +1,5 @@
+const trimStart = require('lodash.trimstart');
+
 module.exports = (indent, str) => {
   if (typeof indent === 'undefined') return str.trim();
   let minIndent;
@@ -16,7 +18,7 @@ module.exports = (indent, str) => {
       const lineIndentMatch = l.match(/[ ]*/);
       let lineIndent = 0;
       if (lineIndentMatch) lineIndent = Math.max(lineIndentMatch[0].length - minIndent, 0);
-      return `${' '.repeat(indent + lineIndent)}${l.trimStart()}`;
+      return `${' '.repeat(indent + lineIndent)}${trimStart(l)}`;
     })
     .map((l) => {
       if (!l.trim().length && l.length) return l.trim();
