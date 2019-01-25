@@ -5,7 +5,7 @@ const spinner = require('./spinner');
 const log = require('./log');
 
 async function checkUpdate() {
-  spinner.start('Checking for avialable updates...');
+  spinner.start('Checking for available updates...');
 
   const hasUpdate = await new Promise((resolve, reject) => {
     axios
