@@ -134,12 +134,12 @@ module.exports = (options) => {
       `)}
 
       <!-- Catalog View -->
-      <div id="view-catalog" class="view view-init tab" data-view="catalog">
+      <div id="view-catalog" class="view view-init tab" data-view="catalog" data-url="/catalog/">
         <!-- Catalog page will be loaded here dynamically from /catalog/ route -->
       </div>
 
       <!-- Settings View -->
-      <div id="view-settings" class="view view-init tab" data-view="settings">
+      <div id="view-settings" class="view view-init tab" data-view="settings" data-url="/settings/">
         <!-- Settings page will be loaded here dynamically from /settings/ route -->
       </div>
     </div>
