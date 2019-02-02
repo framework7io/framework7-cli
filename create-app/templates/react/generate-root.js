@@ -60,13 +60,13 @@ module.exports = (options) => {
   if (template === 'single-view' || template === 'split-view') {
     views = indent(12, `
       {/* Your main view, should have "view-main" class */}
-      <View main className="ios-edges" url="/" />
+      <View main className="safe-areas" url="/" />
     `);
   }
   if (template === 'tabs') {
     views = indent(12, `
       {/* Views/Tabs container */}
-      <Views tabs className="ios-edges">
+      <Views tabs className="safe-areas">
         {/* Tabbar for switching views-tabs */}
         <Toolbar tabbar labels bottom>
           <Link tabLink="#view-home" tabLinkActive iconIos="f7:home_fil" iconMd="material:home" text="Home" />

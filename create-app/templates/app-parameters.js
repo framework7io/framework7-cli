@@ -19,7 +19,7 @@ module.exports = (options) => {
     root: '#app', // App root element
     `)}
     ${templateIf(pkg, () => `
-    id: '${pkg}', // App bundle ID{{/if}}
+    id: '${pkg}', // App bundle ID
     `)}
     name: '${name}', // App name
     theme: 'auto', // Automatic theme detection
