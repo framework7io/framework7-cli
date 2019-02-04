@@ -28,7 +28,7 @@ rm('./cordova/www', (removeErr) => {
       parents: true,
     },
   ).then(() => {
-    const index = fs.readFileSync('cordova/www/index.html', 'utf-8');
+    const index = fs.readFileSync('cordova/www/index.html', 'utf8');
     let newIndex = index.replace('<!-- CORDOVA_PLACEHOLDER_DONT_REMOVE -->', '<script src="cordova.js"></script>');
     newIndex = removeWebBlocks(newIndex);
     fs.writeFileSync('cordova/www/index.html', newIndex);

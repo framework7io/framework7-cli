@@ -3,8 +3,8 @@
 const program = require('commander');
 const exec = require('exec-sh');
 const path = require('path');
-const fs = require('fs');
 const logSymbols = require('log-symbols');
+const fse = require('./utils/fs-extra');
 const checkUpdate = require('./utils/check-update');
 const spinner = require('./utils/spinner');
 const log = require('./utils/log');
@@ -84,7 +84,7 @@ program
   .command('cordova [args...]')
   .description('Cordova CLI')
   .action(async (args) => {
-    if (!fs.existsSync(path.resolve(cwd, './cordova'))) {
+    if (!fse.existsSync(path.resolve(cwd, './cordova'))) {
       log.error('Looks like cordova project is not set up');
       process.exit(1);
       return;

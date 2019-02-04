@@ -83,8 +83,8 @@ module.exports = (options) => {
     ${templateIf(hasCordova, () => `
     // Input settings
     input: {
-      scrollIntoViewOnFocus: !!window.cordova,
-      scrollIntoViewCentered: !!window.cordova,
+      scrollIntoViewOnFocus: !!${deviceVar}.cordova,
+      scrollIntoViewCentered: !!${deviceVar}.cordova,
     },
     // Cordova Statusbar settings
     statusbar: {
@@ -95,9 +95,10 @@ module.exports = (options) => {
     ${templateIf(framework === 'core', () => `
     on: {
       init: function () {
-        if (window.cordova) {
+        var f7 = this;
+        if (f7.device.cordova) {
           // Init cordova APIs (see cordova-app.js)
-          cordovaApp.init(this);
+          cordovaApp.init(f7);
         }
       },
     },

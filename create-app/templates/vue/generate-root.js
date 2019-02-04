@@ -171,7 +171,7 @@ module.exports = (options) => {
           this.$f7ready((f7) => {
             ${templateIf(type.indexOf('cordova') >= 0, () => `
             // Init cordova APIs (see cordova-app.js)
-            if (window.cordova) {
+            if (f7.device.cordova) {
               cordovaApp.init(f7);
             }
             `)}

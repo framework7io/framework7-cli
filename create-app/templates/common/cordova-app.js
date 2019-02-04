@@ -1,4 +1,3 @@
-/* eslint-disable */
 var cordovaApp = {
   f7: null,
   /*

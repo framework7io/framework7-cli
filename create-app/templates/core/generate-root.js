@@ -29,7 +29,7 @@ module.exports = (options) => {
 
   const leftPanelWithView = `
     <!-- Left panel with cover effect when hidden -->
-    <div class="panel panel-left panel-cover">
+    <div class="panel panel-left panel-cover theme-dark">
       <div class="view view-init" data-view="left">
         <div class="page">
           <div class="navbar">
