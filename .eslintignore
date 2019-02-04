@@ -1,3 +1,6 @@
-react/pages
-vue/pages
-templates/common/webpack
+create-app/templates/react/pages
+create-app/templates/vue/pages
+create-app/templates/common
+ui/src
+ui/www
+node_modules
