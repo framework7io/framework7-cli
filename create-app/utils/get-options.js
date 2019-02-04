@@ -152,6 +152,30 @@ const questions = [
       return choices;
     },
   },
+  {
+    type: 'list',
+    name: 'cssPreProcessor',
+    message: 'Do you want to setup CSS Pre-Processor',
+    when: opts => opts.bundler === 'webpack' || opts.framework !== 'core',
+    choices: [
+      {
+        name: 'No, i am good with CSS',
+        value: false,
+      },
+      {
+        name: 'Less',
+        value: 'less',
+      },
+      {
+        name: 'Stylus',
+        value: 'stylus',
+      },
+      {
+        name: 'SCSS (SASS)',
+        value: 'scss',
+      },
+    ],
+  },
 
   // Color
   {

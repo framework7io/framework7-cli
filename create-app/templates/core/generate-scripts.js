@@ -1,10 +1,11 @@
 const templateIf = require('../../utils/template-if');
 const indent = require('../../utils/indent');
 const appParameters = require('../app-parameters');
+const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
   const {
-    bundler, type,
+    bundler, type, cssPreProcessor,
   } = options;
 
   let scripts = '';
@@ -20,7 +21,7 @@ module.exports = (options) => {
 
       // Import Icons and App Custom Styles
       import '../css/icons.css';
-      import '../css/app.css';
+      import '../css/app.${stylesExtension(cssPreProcessor)}';
       `)}
       ${templateIf(type.indexOf('cordova') >= 0, () => `
       // Import Cordova APIs

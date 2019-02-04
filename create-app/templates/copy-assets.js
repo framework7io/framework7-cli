@@ -1,5 +1,6 @@
 const path = require('path');
-const fs = require('fs');
+const fse = require('../../utils/fs-extra');
+const stylesExtension = require('../utils/styles-extension');
 const copyCoreAssets = require('./core/copy-assets');
 const copyVueAssets = require('./vue/copy-assets');
 const copyReactAssets = require('./react/copy-assets');
@@ -14,7 +15,7 @@ const generateServiceWorker = require('./generate-service-worker');
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
   const {
-    framework, bundler, type = [], platform = [],
+    framework, bundler, type = [], platform = [], cssPreProcessor,
   } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
@@ -58,7 +59,7 @@ module.exports = (options) => {
     },
     {
       content: generateStyles(options),
-      to: path.resolve(cwd, srcFolder, 'css', 'app.css'),
+      to: path.resolve(cwd, srcFolder, 'css', `app.${stylesExtension(cssPreProcessor)}`),
     },
     {
       content: generateRoutes(options),
@@ -89,7 +90,7 @@ module.exports = (options) => {
   // Copy Web Images & Icons
   if (isWeb || isPwa) {
     const assetsFolder = isWebpack ? 'static' : 'assets';
-    fs.readdirSync(path.resolve(__dirname, 'common', 'icons')).forEach((f) => {
+    fse.readdirSync(path.resolve(__dirname, 'common', 'icons')).forEach((f) => {
       if (f.indexOf('.') === 0) return;
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'icons', f),
@@ -117,7 +118,7 @@ module.exports = (options) => {
         to: path.resolve(cwd, srcFolder, 'js', 'cordova-app.js'),
       });
     } else {
-      const cordovaAppContent = fs.readFileSync(path.resolve(__dirname, 'common', 'cordova-app.js'), 'utf-8');
+      const cordovaAppContent = fse.readFileSync(path.resolve(__dirname, 'common', 'cordova-app.js'));
       toCopy.push({
         content: `${cordovaAppContent}\nexport default cordovaApp;\n`,
         to: path.resolve(cwd, srcFolder, 'js', 'cordova-app.js'),

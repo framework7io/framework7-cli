@@ -1,6 +1,6 @@
 module.exports = function generatePackageJson(options) {
   const {
-    type, name, framework, bundler,
+    type, name, framework, bundler, cssPreProcessor,
   } = options;
 
   // Dependencies
@@ -36,8 +36,6 @@ module.exports = function generatePackageJson(options) {
       'css-loader',
       'file-loader',
       'html-webpack-plugin',
-      // 'less', // when prepreocessor selected
-      // 'less-loader', // when prepreocessor selected
       'mini-css-extract-plugin',
       'optimize-css-assets-webpack-plugin',
       'ora',
@@ -45,9 +43,18 @@ module.exports = function generatePackageJson(options) {
       'postcss-preset-env',
       'rimraf',
       'style-loader',
-      // 'stylus', // when prepreocessor selected
-      // 'stylus-loader', // when prepreocessor selected
-      // 'sass-loader', // when prepreocessor selected
+      ...(cssPreProcessor === 'stylus' ? [
+        'stylus',
+        'stylus-loader',
+      ] : []),
+      ...(cssPreProcessor === 'less' ? [
+        'less',
+        'less-loader',
+      ] : []),
+      ...(cssPreProcessor === 'scss' ? [
+        'node-sass',
+        'sass-loader',
+      ] : []),
       'uglifyjs-webpack-plugin',
       'url-loader',
       'webpack',

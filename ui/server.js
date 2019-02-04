@@ -1,11 +1,14 @@
 /* eslint no-console: off */
+/* eslint global-require: off */
+/* eslint import/no-dynamic-require: off */
+
 const path = require('path');
 const express = require('express');
 const chalk = require('chalk');
 const opn = require('opn');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const fs = require('fs');
+const fse = require('../utils/fs-extra');
 const createApp = require('../create-app/index');
 const generateAssets = require('../generate-assets/index');
 
@@ -85,14 +88,14 @@ module.exports = (startPage = '/', port = 3001) => {
   // Generate Assets
   app.post('/api/generate-assets/upload/', upload.any(), (req, res) => {
     const file = req.files[0];
-    fs.writeFileSync(path.resolve(cwd, 'assets-src', `${file.fieldname}.png`), file.buffer);
+    fse.writeFileSync(path.resolve(cwd, 'assets-src', `${file.fieldname}.png`), file.buffer);
     res.send('Ok');
   });
   app.route('/api/generate-assets/generate/')
     .get((req, res) => {
       res.json({ log, done, error });
       if (done) {
-        clearLog()
+        clearLog();
         process.exit(0);
       }
     })
@@ -117,8 +120,8 @@ module.exports = (startPage = '/', port = 3001) => {
     '/create/',
     '/generate-assets/',
   ];
-  availablePaths.forEach((path) => {
-    app.get(path, (req, res) => {
+  availablePaths.forEach((availablePath) => {
+    app.get(availablePath, (req, res) => {
       res.sendFile('www/index.html', { root: __dirname });
     });
   });

@@ -1,9 +1,11 @@
 const templateIf = require('../../utils/template-if');
 const indent = require('../../utils/indent');
+const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
   const {
     bundler,
+    cssPreProcessor,
   } = options;
 
   let scripts = '';
@@ -25,7 +27,7 @@ module.exports = (options) => {
 
     // Import Icons and App Custom Styles
     import '../css/icons.css';
-    import '../css/app.css';
+    import '../css/app.${stylesExtension(cssPreProcessor)}';
     `)}
 
     // Import App Component

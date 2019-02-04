@@ -136,6 +136,38 @@
           :disabled="framework !== 'core'"
         ></f7-list-item>
       </f7-list>
+
+      <template v-if="bundler ==='webpack'">
+        <f7-block-title medium>Do you want to setup CSS Pre-Processor?</f7-block-title>
+        <f7-list inset>
+          <f7-list-item
+            radio
+            title="No, i am good with CSS"
+            @change="(e) => { if (e.target.checked) cssPreProcessor = false }"
+            :checked="cssPreProcessor === false"
+          ></f7-list-item>
+          <f7-list-item
+            radio
+            title="Less"
+            @change="(e) => { if (e.target.checked) cssPreProcessor = 'less' }"
+            :checked="cssPreProcessor === 'less'"
+          ></f7-list-item>
+          <f7-list-item
+            radio
+            title="Stylus"
+            @change="(e) => { if (e.target.checked) cssPreProcessor = 'stylus' }"
+            :checked="cssPreProcessor === 'stylus'"
+          ></f7-list-item>
+          <f7-list-item
+            radio
+            title="SCSS (SASS)"
+            @change="(e) => { if (e.target.checked) cssPreProcessor = 'scss' }"
+            :checked="cssPreProcessor === 'scss'"
+          ></f7-list-item>
+
+        </f7-list>
+      </template>
+
       <f7-block-title medium>Do you want to specify custom theme color?</f7-block-title>
       <f7-list inset>
         <f7-list-item
@@ -195,6 +227,7 @@
         framework: 'core',
         template: 'single-view',
         bundler: 'webpack',
+        cssPreProcessor: false,
         customColor: false,
         color: '',
       };
@@ -231,6 +264,7 @@
           framework,
           template,
           bundler,
+          cssPreProcessor,
           customColor,
           color,
         } = self;
@@ -240,8 +274,12 @@
           framework,
           template,
           bundler,
+          cssPreProcessor,
           customColor,
         };
+        if (options.bundler !== 'webpack') {
+          options.cssPreProcessor = false;
+        }
         if (type.indexOf('cordova') >= 0) {
           options.pkg = pkg;
           options.platform = platform;
