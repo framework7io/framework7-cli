@@ -1,8 +1,8 @@
 /* eslint no-param-reassign: off */
 const sharp = require('sharp');
-const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
+const fse = require('../utils/fs-extra');
 
 async function generateAssets(options, project, logger, { exitOnError = true } = {}) {
   if (!logger) {
@@ -138,8 +138,8 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
 
   function resizeImage(src, output, size) {
     const outputPath = path.parse(output);
-    if (!fs.existsSync(outputPath.dir)) {
-      fs.mkdirSync(outputPath.dir, { recursive: true });
+    if (!fse.existsSync(outputPath.dir)) {
+      fse.mkdirSync(outputPath.dir);
     }
     promises.push(sharp(src).resize(size).toFile(output));
   }

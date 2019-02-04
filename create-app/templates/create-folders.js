@@ -1,5 +1,5 @@
-const fs = require('fs');
 const path = require('path');
+const fse = require('../../utils/fs-extra');
 
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
@@ -57,8 +57,6 @@ module.exports = (options) => {
     }
   }
   folders.forEach((f) => {
-    if (!fs.existsSync(path.resolve(cwd, f))) {
-      fs.mkdirSync(path.resolve(cwd, f), { recursive: true });
-    }
+    fse.mkdirSync(path.resolve(cwd, f));
   });
 };

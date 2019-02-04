@@ -2,14 +2,11 @@
 /* eslint no-console: off */
 const exec = require('exec-sh');
 const path = require('path');
-const fs = require('fs');
 const chalk = require('chalk');
 const logSymbols = require('log-symbols');
+const fse = require('../utils/fs-extra');
 const generatePackageJson = require('./utils/generate-package-json');
 const templateIf = require('./utils/template-if');
-
-const copyFileAsync = require('./utils/copy-file-async');
-const writeFileAsync = require('./utils/write-file-async');
 
 const createFolders = require('./templates/create-folders');
 const copyAssets = require('./templates/copy-assets');
@@ -38,7 +35,7 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
   const packageJson = generatePackageJson(options);
 
   // Write Package.json
-  fs.writeFileSync(path.join(cwd, 'package.json'), packageJson.content);
+  fse.writeFileSync(path.join(cwd, 'package.json'), packageJson.content);
   logger.statusDone('Generating package.json');
 
   // Create Folders
@@ -110,10 +107,10 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
     // eslint-disable-next-line
     await Promise.all(filesToCopy.map((f) => {
       if (f.from) {
-        return copyFileAsync(f.from, f.to);
+        return fse.copyFileAsync(f.from, f.to);
       }
       if (f.content) {
-        return writeFileAsync(f.to, f.content);
+        return fse.writeFileAsync(f.to, f.content);
       }
       return Promise.resolve();
     }));
@@ -127,13 +124,13 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
 
   const finalScripts = options.bundler
     ? `
-  - 🔧 Run ${chalk.green('npm run build-prod')} to build web app for production
+  - 🔧 Run "${chalk.green('npm run build-prod')}" to build web app for production
   ${templateIf(options.type.indexOf('cordova') >= 0, () => `
-  - 📱 Run ${chalk.green('npm run build-cordova-prod')} to build cordova app
+  - 📱 Run "${chalk.green('npm run build-cordova-prod')}" to build cordova app
   `)}
       ` : `
   ${templateIf(options.type.indexOf('cordova') >= 0, () => `
-  - 📱 Run ${chalk.green('npm run build-cordova')} to build cordova app
+  - 📱 Run "${chalk.green('npm run build-cordova')}" to build cordova app
   `)}
       `;
 
@@ -142,7 +139,7 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
 ${chalk.bold(logSymbols.success)} ${chalk.bold('Done!')} 💪
 
 ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
-  - 🔥 Run ${chalk.green('npm start')} to run development server
+  - 🔥 Run "${chalk.green('npm start')}" to run development server
   ${finalScripts.trim()}
   - 📖 Visit documentation at ${chalk.bold('https://framework7.io/docs/')}
   - 📖 Check ${chalk.bold('README.md')} in project root folder with further instructions

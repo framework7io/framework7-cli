@@ -1,8 +1,8 @@
-const fs = require('fs');
 const exec = require('exec-sh');
 const path = require('path');
 const rm = require('rimraf');
 const cpy = require('cpy');
+const fse = require('../../utils/fs-extra');
 const generateConfigXml = require('./generate-config-xml');
 
 module.exports = (options) => {
@@ -21,8 +21,8 @@ module.exports = (options) => {
     }
     // Modify Name
     ['package.json', 'config.xml'].forEach((f) => {
-      const contents = fs.readFileSync(path.resolve(cwd, 'cordova', f), 'utf-8');
-      fs.writeFileSync(path.resolve(cwd, 'cordova', f), contents.replace(/XXXXXX/g, name));
+      const contents = fse.readFileSync(path.resolve(cwd, 'cordova', f));
+      fse.writeFileSync(path.resolve(cwd, 'cordova', f), contents.replace(/XXXXXX/g, name));
     });
     // Install plugins
     const plugins = [
@@ -35,9 +35,9 @@ module.exports = (options) => {
     await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd cordova && cordova plugin add ${plugins.join(' ')}`, true);
 
     // Modify config.xml
-    let configXmlContent = fs.readFileSync(path.resolve(cwd, 'cordova', 'config.xml'), 'utf-8');
+    let configXmlContent = fse.readFileSync(path.resolve(cwd, 'cordova', 'config.xml'));
     configXmlContent = `${configXmlContent.split('</widget>')[0]}${generateConfigXml(options)}</widget>`;
-    fs.writeFileSync(path.resolve(cwd, 'cordova', 'config.xml'), configXmlContent);
+    fse.writeFileSync(path.resolve(cwd, 'cordova', 'config.xml'), configXmlContent);
 
     // Upload res files
     try {

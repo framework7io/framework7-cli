@@ -1,5 +1,5 @@
-const fs = require('fs');
 const path = require('path');
+const fse = require('../../../utils/fs-extra');
 const generateHomePage = require('./generate-home-page');
 const indent = require('../../utils/indent');
 
@@ -36,7 +36,7 @@ module.exports = (options) => {
         to: path.resolve(dest, `${p}.html`),
       });
     } else {
-      let content = fs.readFileSync(src, 'utf-8');
+      let content = fse.readFileSync(src);
       if (content.trim().indexOf('<template') !== 0) {
         content = `<template>\n${content.trim()}\n</template>\n<script>\nexport default {};\n</script>`;
       } else {
@@ -75,13 +75,13 @@ module.exports = (options) => {
   } else {
     // Copy F7
     toCopy.push(...[]);
-    fs.readdirSync(path.resolve(cwd, 'node_modules', 'framework7', 'js')).forEach((f) => {
+    fse.readdirSync(path.resolve(cwd, 'node_modules', 'framework7', 'js')).forEach((f) => {
       toCopy.push({
         from: path.resolve(cwd, 'node_modules', 'framework7', 'js', f),
         to: path.resolve(cwd, srcFolder, 'framework7', 'js', f),
       });
     });
-    fs.readdirSync(path.resolve(cwd, 'node_modules', 'framework7', 'css')).forEach((f) => {
+    fse.readdirSync(path.resolve(cwd, 'node_modules', 'framework7', 'css')).forEach((f) => {
       toCopy.push({
         from: path.resolve(cwd, 'node_modules', 'framework7', 'css', f),
         to: path.resolve(cwd, srcFolder, 'framework7', 'css', f),
