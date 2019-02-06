@@ -129,18 +129,18 @@ module.exports = (options) => {
   // Assets Source
   if (isCordova) {
     toCopy.push({
-      from: path.resolve(__dirname, 'cordova-res', 'screen', 'ios', 'Default@2x~universal~anyany.png'),
+      from: path.resolve(__dirname, 'common', 'cordova-res', 'screen', 'ios', 'Default@2x~universal~anyany.png'),
       to: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
     });
     if (isIos) {
       toCopy.push({
-        from: path.resolve(__dirname, 'cordova-res', 'icon', 'ios', 'icon-512x512@2x.png'),
+        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'ios', 'icon-512x512@2x.png'),
         to: path.resolve(cwd, 'assets-src', 'cordova-icon-ios.png'),
       });
     }
     if (isAndroid) {
       toCopy.push({
-        from: path.resolve(__dirname, 'cordova-res', 'icon', 'android', 'playstore-icon.png'),
+        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'android', 'playstore-icon.png'),
         to: path.resolve(cwd, 'assets-src', 'cordova-icon-android.png'),
       });
     }

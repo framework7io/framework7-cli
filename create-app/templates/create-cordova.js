@@ -57,7 +57,7 @@ module.exports = (options) => {
       path.resolve(cwd, 'cordova', 'res'),
       {
         parents: true,
-        cwd: path.resolve(__dirname, 'cordova-res'),
+        cwd: path.resolve(__dirname, 'common', 'cordova-res'),
       },
     );
 

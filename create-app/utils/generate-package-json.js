@@ -103,10 +103,8 @@ module.exports = function generatePackageJson(options) {
     // scripts.prod = 'cross-env NODE_ENV=production webpack-dev-server --config ./build/webpack.config.js';
     scripts.start = 'npm run dev';
   }
-  if (bundler !== 'webpack') {
-    scripts.serve = 'http-server ./www/ -o -c 1 -a localhost -p 8080';
-  }
   if (!bundler) {
+    scripts.serve = 'http-server ./www/ -o -c 1 -a localhost -p 8080';
     scripts.start = 'npm run serve';
     if (type.indexOf('cordova') >= 0) {
       scripts['build-cordova'] = 'node ./build/build.js && cd cordova && cordova build';

@@ -35,6 +35,18 @@ program
     // Check update
     await checkUpdate();
 
+    let currentProject;
+    try {
+      // eslint-disable-next-line
+      currentProject = require(path.resolve(cwd, 'package.json')).framework7;
+    } catch (err) {
+      // all good
+    }
+    if (currentProject) {
+      log.text(`${logSymbols.error} Framework7 project already set up in current directory`);
+      process.exit(1);
+    }
+
     if (options.ui) {
       spinner.start('Launching Framework7 UI server');
       server('/create/', options.port);

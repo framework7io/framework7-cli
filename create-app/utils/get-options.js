@@ -157,6 +157,7 @@ const questions = [
     name: 'cssPreProcessor',
     message: 'Do you want to setup CSS Pre-Processor',
     when: opts => opts.bundler === 'webpack' || opts.framework !== 'core',
+    default: false,
     choices: [
       {
         name: 'No, i am good with CSS',
