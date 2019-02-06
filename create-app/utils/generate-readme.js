@@ -1,7 +1,9 @@
 const templateIf = require('./template-if');
 
 module.exports = (options) => {
-  const { framework, bundler, type, name } = options;
+  const {
+    framework, bundler, type, name,
+  } = options;
 
   return `
 
