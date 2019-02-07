@@ -5,16 +5,16 @@ module.exports = function generatePackageJson(options) {
 
   // Dependencies
   const dependencies = [
-    'framework7@beta',
+    'framework7',
     'dom7',
     'template7',
     'framework7-icons',
     ...(framework === 'vue' ? [
-      'framework7-vue@beta',
+      'framework7-vue',
       'vue',
     ] : []),
     ...(framework === 'react' ? [
-      'framework7-react@beta',
+      'framework7-react',
       'react',
       'react-dom',
       'prop-types',
