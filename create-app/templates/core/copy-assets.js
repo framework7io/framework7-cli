@@ -56,7 +56,7 @@ module.exports = (options) => {
       });
       toCopy.push({
         from: path.resolve(__dirname, 'template7-helpers-list.js'),
-        to: path.resolve(cwd, srcFolder, 'js', 'template7-helpers-list.js'),
+        to: path.resolve(cwd, srcFolder, 'template7-helpers-list.js'),
       });
     }
 
