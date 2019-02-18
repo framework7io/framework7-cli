@@ -15,8 +15,9 @@ const generateReadme = require('./utils/generate-readme');
 
 const waitText = chalk.gray('(Please wait, it can take a while)');
 
-module.exports = async (options, logger, { exitOnError = true } = {}) => {
+module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
   const cwd = options.cwd || process.cwd();
+  const isRunningInCwd = cwd === process.cwd();
   function errorExit() {
     if (exitOnError) process.exit(1);
   }
@@ -53,7 +54,11 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
   // Install NPM depenencies
   logger.statusStart(`${'Installing NPM Dependencies'} ${waitText}`);
   try {
-    await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.dependencies.join(' ')} --save`, true);
+    if (!isRunningInCwd) {
+      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.dependencies.join(' ')} --save`, true);
+    } else {
+      await exec.promise(`npm install ${packageJson.dependencies.join(' ')} --save`, true);
+    }
   } catch (err) {
     logger.statusError('Error installing NPM Dependencies');
     if (err) logger.error(err.stderr);
@@ -65,7 +70,11 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
   // Install NPM dev depenencies
   logger.statusStart(`${'Installing NPM Dev Dependencies'} ${waitText}`);
   try {
-    await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
+    if (!isRunningInCwd) {
+      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
+    } else {
+      await exec.promise(`npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
+    }
   } catch (err) {
     logger.statusError('Error installing NPM Dev Dependencies');
     if (err) logger.error(err.stderr);
@@ -77,7 +86,11 @@ module.exports = async (options, logger, { exitOnError = true } = {}) => {
   if (packageJson.postInstall && packageJson.postInstall.length) {
     logger.statusStart('Executing NPM Scripts');
     try {
-      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm run postinstall`, true);
+      if (!isRunningInCwd) {
+        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm run postinstall`, true);
+      } else {
+        await exec.promise('npm run postinstall', true);
+      }
     } catch (err) {
       logger.statusError('Error executing NPM Scripts');
       if (err) logger.error(err.stderr);

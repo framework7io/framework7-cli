@@ -7,6 +7,7 @@ const generateConfigXml = require('./generate-config-xml');
 
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
+  const isRunningInCwd = cwd === process.cwd();
   const {
     pkg,
     name,
@@ -14,7 +15,11 @@ module.exports = (options) => {
   } = options;
   return new Promise(async (resolve, reject) => {
     try {
-      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cordova create cordova ${pkg} XXXXXX`, true);
+      if (!isRunningInCwd) {
+        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cordova create cordova ${pkg} XXXXXX`, true);
+      } else {
+        await exec.promise(`cordova create cordova ${pkg} XXXXXX`, true);
+      }
     } catch (err) {
       reject(err);
       return;
@@ -32,7 +37,11 @@ module.exports = (options) => {
       'cordova-plugin-splashscreen',
     ];
     // Install cordova plugins
-    await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd cordova && cordova plugin add ${plugins.join(' ')}`, true);
+    if (!isRunningInCwd) {
+      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd cordova && cordova plugin add ${plugins.join(' ')}`, true);
+    } else {
+      await exec.promise(`cd cordova && cordova plugin add ${plugins.join(' ')}`, true);
+    }
 
     // Modify config.xml
     let configXmlContent = fse.readFileSync(path.resolve(cwd, 'cordova', 'config.xml'));
@@ -63,7 +72,11 @@ module.exports = (options) => {
 
     // Add cordova platforms
     try {
-      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd cordova && cordova platform add ${platform.join(' ')}`, true);
+      if (!isRunningInCwd) {
+        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd cordova && cordova platform add ${platform.join(' ')}`, true);
+      } else {
+        await exec.promise(`cd cordova && cordova platform add ${platform.join(' ')}`, true);
+      }
     } catch (err) {
       reject(err);
       return;
