@@ -6,6 +6,14 @@ module.exports = (options) => {
   // eslint-disable-next-line
   const hasCordova = type.indexOf('cordova') >= 0;
 
+  let resolveExtensions = "['.js', '.json']";
+  if (framework === 'vue') {
+    resolveExtensions = "['.js', '.vue', '.json']";
+  }
+  if (framework === 'react') {
+    resolveExtensions = "['.js', '.jsx', '.json']";
+  }
+
   return indent(0, `
     const webpack = require('webpack');
     const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -47,9 +55,11 @@ module.exports = (options) => {
         publicPath: '',
       },
       resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        extensions: ${resolveExtensions},
         alias: {
+          ${templateIf(framework === 'vue', () => `
           vue$: 'vue/dist/vue.esm.js',
+          `)}
           '@': resolvePath('src'),
         },
       },
@@ -72,8 +82,12 @@ module.exports = (options) => {
             include: [
               resolvePath('src'),
               resolvePath('node_modules/framework7'),
+              ${templateIf(framework === 'vue', () => `
               resolvePath('node_modules/framework7-vue'),
+              `)}
+              ${templateIf(framework === 'react', () => `
               resolvePath('node_modules/framework7-react'),
+              `)}
               resolvePath('node_modules/template7'),
               resolvePath('node_modules/dom7'),
               resolvePath('node_modules/ssr-window'),
