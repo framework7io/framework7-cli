@@ -4,9 +4,9 @@ var cordovaApp = {
   This method hides splashscreen after 2 seconds
   */
   handleSplashscreen: function() {
-    if (!window.navigator.splashscreen) return;
+    if (!navigator.splashscreen) return;
     setTimeout(() => {
-      window.navigator.splashscreen.hide();
+      navigator.splashscreen.hide();
     }, 2000);
   },
   /*
