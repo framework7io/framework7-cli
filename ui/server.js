@@ -103,10 +103,11 @@ module.exports = (startPage = '/', port = 3001) => {
       clearLog();
 
       const pkg = require(path.resolve(cwd, 'package.json'));
+      const currentProject = Object.assign({ cwd }, pkg.framework7);
 
       res.json({});
 
-      generateAssets({}, pkg.framework7, logger, { exitOnError: true })
+      generateAssets({}, currentProject, logger, { exitOnError: true })
         .then(() => {
           done = true;
         }).catch((err) => {

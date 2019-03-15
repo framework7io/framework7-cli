@@ -76,7 +76,7 @@ program
     let currentProject;
     try {
       // eslint-disable-next-line
-      currentProject = require(path.resolve(cwd, 'package.json')).framework7;
+      currentProject = Object.assign({ cwd }, require(path.resolve(cwd, 'package.json')).framework7);
     } catch (err) {
       log.text(`${logSymbols.error} Framework7 project not found in current directory`);
       process.exit(1);
@@ -87,7 +87,7 @@ program
       server('/generate-assets/', options.port);
       spinner.end('Launching Framework7 UI server');
     } else {
-      await generateAssets({}, Object.assign(currentProject, { cwd }), logger);
+      await generateAssets({}, currentProject, logger);
       process.exit(0);
     }
   });

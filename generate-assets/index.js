@@ -29,28 +29,28 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
   */
   if (project) {
     const {
-      type, platform, bundler, cwd,
-    } = project;
+      type, platform, bundler, cwd, cordovaFolder,
+    } = Object.assign({ cordovaFolder: 'cordova' }, project);
 
     if (type.indexOf('cordova') >= 0) {
       if (platform.indexOf('ios') >= 0) {
         options.cordovaIconIos = {
           src: path.resolve(cwd, 'assets-src', 'cordova-icon-ios.png'),
-          output: path.resolve(cwd, 'cordova/res/icon/ios'),
+          output: path.resolve(cwd, `${cordovaFolder}/res/icon/ios`),
         };
         options.cordovaSplashScreenIos = {
           src: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
-          output: path.resolve(cwd, 'cordova/res/screen/ios'),
+          output: path.resolve(cwd, `${cordovaFolder}/res/screen/ios`),
         };
       }
       if (platform.indexOf('android') >= 0) {
         options.cordovaIconAndroid = {
           src: path.resolve(cwd, 'assets-src', 'cordova-icon-android.png'),
-          output: path.resolve(cwd, 'cordova/res/icon/android'),
+          output: path.resolve(cwd, `${cordovaFolder}/res/icon/android`),
         };
         options.cordovaSplashScreenAndroid = {
           src: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
-          output: path.resolve(cwd, 'cordova/res/screen/android'),
+          output: path.resolve(cwd, `${cordovaFolder}/res/screen/android`),
         };
       }
     }
