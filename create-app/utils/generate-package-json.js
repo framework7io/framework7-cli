@@ -1,6 +1,6 @@
 module.exports = function generatePackageJson(options) {
   const {
-    type, name, framework, bundler, cssPreProcessor,
+    type, name, framework, bundler, cssPreProcessor, iconFonts, platform = [],
   } = options;
 
   // Dependencies
@@ -8,7 +8,9 @@ module.exports = function generatePackageJson(options) {
     'framework7',
     'dom7',
     'template7',
-    'framework7-icons',
+    ...(iconFonts ? [
+      'framework7-icons',
+    ] : []),
     ...(framework === 'vue' ? [
       'framework7-vue',
       'vue',
@@ -93,14 +95,21 @@ module.exports = function generatePackageJson(options) {
   const scripts = {};
   const postInstall = [];
   if (bundler === 'webpack') {
-    // scripts['build-dev'] = 'cross-env NODE_ENV=development node ./build/build.js';
+    scripts['build-dev'] = 'cross-env NODE_ENV=development node ./build/build.js';
     scripts['build-prod'] = 'cross-env NODE_ENV=production node ./build/build.js';
     if (type.indexOf('cordova') >= 0) {
-      // scripts['build-cordova-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
+      scripts['build-cordova-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
       scripts['build-cordova-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build';
+      if (platform.length > 1 && platform.indexOf('ios') >= 0) {
+        scripts['build-cordova-ios-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build ios';
+        scripts['build-cordova-ios-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios';
+      }
+      if (platform.length > 1 && platform.indexOf('android') >= 0) {
+        scripts['build-cordova-android-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build android';
+        scripts['build-cordova-android-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios';
+      }
     }
     scripts.dev = 'cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js';
-    // scripts.prod = 'cross-env NODE_ENV=production webpack-dev-server --config ./build/webpack.config.js';
     scripts.start = 'npm run dev';
   }
   if (!bundler) {
@@ -108,6 +117,12 @@ module.exports = function generatePackageJson(options) {
     scripts.start = 'npm run serve';
     if (type.indexOf('cordova') >= 0) {
       scripts['build-cordova'] = 'node ./build/build.js && cd cordova && cordova build';
+      if (platform.length > 1 && platform.indexOf('ios') >= 0) {
+        scripts['build-cordova-ios'] = 'node ./build/build.js && cd cordova && cordova build ios';
+      }
+      if (platform.length > 1 && platform.indexOf('android') >= 0) {
+        scripts['build-cordova-android'] = 'node ./build/build.js && cd cordova && cordova build android';
+      }
     }
   }
 

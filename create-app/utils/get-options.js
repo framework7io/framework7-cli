@@ -210,12 +210,32 @@ const questions = [
       return input.replace(/#/g, '');
     },
   },
+  // Bundler
+  {
+    type: 'list',
+    name: 'iconFonts',
+    message: 'Do you want to include Framework7 Icons and Material Icons icon fonts?',
+    default: true,
+    choices: [
+      {
+        name: 'Yes, include icon fonts',
+        value: true,
+      },
+      {
+        name: 'No, i want to use my own custom icons',
+        value: false,
+      },
+    ],
+  },
 ];
 
 module.exports = function getOptions() {
   return inquirer.prompt(questions).then((options) => {
     if (options.framework !== 'core' && !options.bundler) {
       options.bundler = 'webpack'; // eslint-disable-line
+    }
+    if (options.type.indexOf('cordova') >= 0) {
+      options.cordovaFolder = 'cordova'; // eslint-disable-line
     }
     return Promise.resolve(options);
   });

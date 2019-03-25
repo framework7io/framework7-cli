@@ -2,8 +2,51 @@ const templateIf = require('./template-if');
 
 module.exports = (options) => {
   const {
-    framework, bundler, type, name,
+    framework, bundler, type, name, platform = [],
   } = options;
+
+  const npmScripts = ['* `npm start` - run development server'];
+
+  if (bundler) {
+    npmScripts.push(...[
+      '* `npm run build-prod` - build web app for production',
+      '* `npm run build-dev` - build web app using development mode (faster build without minification and optimization)',
+    ]);
+    if (type.indexOf('cordova') >= 0) {
+      npmScripts.push(...[
+        '* `npm run build-cordova-prod` - build cordova\'s `www` folder from and build cordova app',
+        '* `npm run build-cordova-dev` - build cordova\'s `www` folder from and build cordova app using development mode (faster build without minification and optimization)',
+      ]);
+      if (platform.length > 1 && platform.indexOf('ios') >= 0) {
+        npmScripts.push(...[
+          '* `npm run build-cordova-ios-prod` - build cordova\'s `www` folder from and build cordova iOS app',
+          '* `npm run build-cordova-ios-dev` - build cordova\'s `www` folder from and build cordova iOS app using development mode (faster build without minification and optimization)',
+        ]);
+      }
+      if (platform.length > 1 && platform.indexOf('android') >= 0) {
+        npmScripts.push(...[
+          '* `npm run build-cordova-android-prod` - build cordova\'s `www` folder from and build cordova Android app',
+          '* `npm run build-cordova-android-dev` - build cordova\'s `www` folder from and build cordova Android app using development mode (faster build without minification and optimization)',
+        ]);
+      }
+    }
+  }
+
+  if (!bundler && type.indexOf('cordova') >= 0) {
+    npmScripts.push(...[
+      '* `npm run build-cordova` - build cordova app',
+    ]);
+    if (platform.length > 1 && platform.indexOf('ios') >= 0) {
+      npmScripts.push(...[
+        '* `npm run build-cordova-ios` - build cordova iOS app',
+      ]);
+    }
+    if (platform.length > 1 && platform.indexOf('android') >= 0) {
+      npmScripts.push(...[
+        '* `npm run build-cordova-android` - build cordova Android app',
+      ]);
+    }
+  }
 
   return `
 
@@ -19,16 +62,7 @@ ${JSON.stringify(options, null, 2)}
 
 ## NPM Scripts
 
-* \`npm start\` - run development server
-${templateIf(bundler, () => `
-* \`npm run build-prod\` - build web app for production
-${templateIf(type.indexOf('cordova') >= 0, () => `
-* \`npm run build-cordova-prod\` - build cordova's \`www\` folder from and build cordova app
-`)}
-`)}
-${templateIf(!bundler && type.indexOf('cordova') >= 0, () => `
-* \`npm run build-cordova\` - build cordova app
-`)}
+${npmScripts.join('\n')}
 
 ${templateIf(type.indexOf('pwa') >= 0, () => `
 ## PWA

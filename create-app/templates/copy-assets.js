@@ -15,7 +15,7 @@ const generateServiceWorker = require('./generate-service-worker');
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
   const {
-    framework, bundler, type = [], platform = [], cssPreProcessor,
+    framework, bundler, type = [], platform = [], cssPreProcessor, iconFonts,
   } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
@@ -31,25 +31,28 @@ module.exports = (options) => {
   if (framework === 'vue') toCopy.push(...copyVueAssets(options));
   if (framework === 'react') toCopy.push(...copyReactAssets(options));
 
-  // Copy Icons CSS
-  toCopy.push({
-    from: path.resolve(__dirname, 'common', 'css', 'icons.css'),
-    to: path.resolve(cwd, srcFolder, 'css', 'icons.css'),
-  });
 
-  // Copy Fonts
-  toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
-    return {
-      from: path.resolve(__dirname, 'common', 'material-icons-font', `MaterialIcons-Regular.${ext}`),
-      to: path.resolve(cwd, srcFolder, 'fonts', `MaterialIcons-Regular.${ext}`),
-    };
-  }));
-  toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
-    return {
-      from: path.resolve(cwd, 'node_modules', 'framework7-icons', 'fonts', `Framework7Icons-Regular.${ext}`),
-      to: path.resolve(cwd, srcFolder, 'fonts', `Framework7Icons-Regular.${ext}`),
-    };
-  }));
+  if (iconFonts) {
+    // Copy Icons CSS
+    toCopy.push({
+      from: path.resolve(__dirname, 'common', 'css', 'icons.css'),
+      to: path.resolve(cwd, srcFolder, 'css', 'icons.css'),
+    });
+
+    // Copy Fonts
+    toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
+      return {
+        from: path.resolve(__dirname, 'common', 'material-icons-font', `MaterialIcons-Regular.${ext}`),
+        to: path.resolve(cwd, srcFolder, 'fonts', `MaterialIcons-Regular.${ext}`),
+      };
+    }));
+    toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
+      return {
+        from: path.resolve(cwd, 'node_modules', 'framework7-icons', 'fonts', `Framework7Icons-Regular.${ext}`),
+        to: path.resolve(cwd, srcFolder, 'fonts', `Framework7Icons-Regular.${ext}`),
+      };
+    }));
+  }
 
   // Copy Main Assets
   toCopy.push(...[

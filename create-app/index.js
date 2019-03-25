@@ -148,25 +148,55 @@ module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
 
   logger.statusDone('Creating project files');
 
-  const finalScripts = options.bundler
-    ? `
-  - 🔧 Run "${chalk.green('npm run build-prod')}" to build web app for production
-  ${templateIf(options.type.indexOf('cordova') >= 0, () => `
-  - 📱 Run "${chalk.green('npm run build-cordova-prod')}" to build cordova app
-  `)}
-      ` : `
-  ${templateIf(options.type.indexOf('cordova') >= 0, () => `
-  - 📱 Run "${chalk.green('npm run build-cordova')}" to build cordova app
-  `)}
-      `;
+  const npmScripts = [
+    `- 🔥 Run "${chalk.green('npm start')}" to run development server`,
+  ];
+  if (options.bundler) {
+    npmScripts.push(...[
+      `- 🔧 Run "${chalk.green('npm run build-prod')}" to build web app for production`,
+      `- 🔧 Run "${chalk.green('npm run build-dev')}" to build web app using development mode (faster build without minification and optimization)`,
+    ]);
+    if (options.type.indexOf('cordova') >= 0) {
+      npmScripts.push(...[
+        `- 📱 Run "${chalk.green('npm run build-cordova-prod')}" to build cordova app`,
+        `- 📱 Run "${chalk.green('npm run build-cordova-dev')}" to build cordova app using development mode (faster build without minification and optimization)`,
+      ]);
+      if (options.platform && options.platform.length > 1 && options.platform.indexOf('ios') >= 0) {
+        npmScripts.push(...[
+          `- 📱 Run "${chalk.green('npm run build-cordova-ios-prod')}" to build cordova iOS app`,
+          `- 📱 Run "${chalk.green('npm run build-cordova-ios-dev')}" to build cordova iOS app using development mode (faster build without minification and optimization)`,
+        ]);
+      }
+      if (options.platform && options.platform.length > 1 && options.platform.indexOf('android') >= 0) {
+        npmScripts.push(...[
+          `- 📱 Run "${chalk.green('npm run build-cordova-android-prod')}" to build cordova Android app`,
+          `- 📱 Run "${chalk.green('npm run build-cordova-android-dev')}" to build cordova Android app using development mode (faster build without minification and optimization)`,
+        ]);
+      }
+    }
+  }
+  if (!options.bundler && options.type.indexOf('cordova') >= 0) {
+    npmScripts.push(...[
+      `- 📱 Run "${chalk.green('npm run build-cordova')}" to build cordova app`,
+    ]);
+    if (options.platform && options.platform.length > 1 && options.platform.indexOf('ios') >= 0) {
+      npmScripts.push(...[
+        `- 📱 Run "${chalk.green('npm run build-cordova-ios')}" to build cordova iOS app`,
+      ]);
+    }
+    if (options.platform && options.platform.length > 1 && options.platform.indexOf('android') >= 0) {
+      npmScripts.push(...[
+        `- 📱 Run "${chalk.green('npm run build-cordova-android')}" to build cordova Android app`,
+      ]);
+    }
+  }
 
   // Final Text
   const finalText = `
 ${chalk.bold(logSymbols.success)} ${chalk.bold('Done!')} 💪
 
 ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
-  - 🔥 Run "${chalk.green('npm start')}" to run development server
-  ${finalScripts.trim()}
+  ${npmScripts.join('\n  ')}
   - 📖 Visit documentation at ${chalk.bold('https://framework7.io/docs/')}
   - 📖 Check ${chalk.bold('README.md')} in project root folder with further instructions
 

@@ -5,7 +5,7 @@ const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
   const {
-    bundler, type, cssPreProcessor,
+    bundler, type, cssPreProcessor, iconFonts
   } = options;
 
   let scripts = '';
@@ -20,7 +20,9 @@ module.exports = (options) => {
       import 'framework7/css/framework7.bundle.css';
 
       // Import Icons and App Custom Styles
+      ${templateIf(iconFonts, () => `
       import '../css/icons.css';
+      `)}
       import '../css/app.${stylesExtension(cssPreProcessor)}';
       `)}
       ${templateIf(type.indexOf('cordova') >= 0, () => `
