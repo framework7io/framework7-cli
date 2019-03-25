@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v2.1.1](https://github.com/framework7io/framework7-cli/compare/v2.1.0...v2.1.1) - March 25, 2019
+  * Update Sharp lib to latest
+
 # [v2.1.0](https://github.com/framework7io/framework7-cli/compare/v2.0.4...v2.1.0) - March 25, 2019
   * Templates updated to be compatible with new Aurora theme
   * There is a new option on app creation that allows to exclude Framework7 Icons and Material Icons fonts
