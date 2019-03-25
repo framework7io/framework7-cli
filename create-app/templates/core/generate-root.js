@@ -105,18 +105,18 @@ module.exports = (options) => {
       <div class="toolbar toolbar-bottom tabbar-labels">
         <div class="toolbar-inner">
           <a href="#view-home" class="tab-link tab-link-active">
-            <i class="icon f7-icons ios-only">home_fill</i>
-            <i class="icon material-icons md-only">home</i>
+            <i class="icon f7-icons if-not-md">home_fill</i>
+            <i class="icon material-icons if-md">home</i>
             <span class="tabbar-label">Home</span>
           </a>
           <a href="#view-catalog" class="tab-link">
-            <i class="icon f7-icons ios-only">list_fill</i>
-            <i class="icon material-icons md-only">view_list</i>
+            <i class="icon f7-icons if-not-md">list_fill</i>
+            <i class="icon material-icons if-md">view_list</i>
             <span class="tabbar-label">Catalog</span>
           </a>
           <a href="#view-settings" class="tab-link">
-            <i class="icon f7-icons ios-only">settings_fill</i>
-            <i class="icon material-icons md-only">settings</i>
+            <i class="icon f7-icons if-not-md">settings_fill</i>
+            <i class="icon material-icons if-md">settings</i>
             <span class="tabbar-label">Settings</span>
           </a>
         </div>

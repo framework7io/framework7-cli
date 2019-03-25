@@ -54,11 +54,11 @@ module.exports = (options) => {
         {/* Top Navbar */}
         <Navbar sliding={false} large>
           <NavLeft>
-            <Link iconIos="f7:menu" iconMd="material:menu" panelOpen="left" />
+            <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
           </NavLeft>
           <NavTitle sliding>${name}</NavTitle>
           <NavRight>
-            <Link iconIos="f7:menu" iconMd="material:menu" panelOpen="right" />
+            <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="right" />
           </NavRight>
           <NavTitleLarge>${name}</NavTitleLarge>
         </Navbar>
