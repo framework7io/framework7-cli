@@ -16,11 +16,8 @@
       return {
         f7params: {
           name: 'Framework7 CLI',
-          theme: 'auto',
+          theme: 'aurora',
           routes: routes,
-          navbar: {
-            mdCenterTitle: true,
-          },
         },
       }
     },

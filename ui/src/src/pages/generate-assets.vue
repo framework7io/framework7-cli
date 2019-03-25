@@ -6,7 +6,7 @@
       <div class="row">
         <template v-if="project.type.indexOf('web') >= 0 || project.type.indexOf('pwa') >= 0">
           <div class="col-100 tablet-50">
-            <f7-block-title medium>Web Icon</f7-block-title>
+            <f7-block-title>Web Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 512x512 size</f7-block-header>
               <div class="asset-preview">
@@ -17,7 +17,7 @@
             </label>
           </div>
           <div class="col-100 tablet-50">
-            <f7-block-title medium>Apple Touch Icon</f7-block-title>
+            <f7-block-title>Apple Touch Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>Square PNG image 256x256 size</f7-block-header>
               <div class="asset-preview">
@@ -31,7 +31,7 @@
 
         <template v-if="project.type.indexOf('cordova') >= 0">
           <div class="col-100 tablet-50" v-if="project.platform.indexOf('ios') >= 0">
-            <f7-block-title medium>Cordova iOS Icon</f7-block-title>
+            <f7-block-title>Cordova iOS Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>Square PNG image 1024x1024 size</f7-block-header>
               <div class="asset-preview">
@@ -43,7 +43,7 @@
           </div>
 
           <div class="col-100 tablet-50" v-if="project.platform.indexOf('ios') >= 0">
-            <f7-block-title medium>Cordova Android Icon</f7-block-title>
+            <f7-block-title>Cordova Android Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 512x512 size</f7-block-header>
               <div class="asset-preview">
@@ -54,7 +54,7 @@
             </label>
           </div>
           <div class="col-100 tablet-50">
-            <f7-block-title medium>Cordova Splash Screen</f7-block-title>
+            <f7-block-title>Cordova Splash Screen</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 2732x2732 size</f7-block-header>
               <div class="asset-preview">

@@ -3,12 +3,12 @@
     <f7-navbar :sliding="false" large title="Create App"></f7-navbar>
 
     <div class="center-content">
-      <f7-block-title medium>Destination</f7-block-title>
+      <f7-block-title>Destination</f7-block-title>
       <f7-block-header>New Framework7 app will be created in the following directory:</f7-block-header>
       <f7-block inset class="no-padding">
         <pre class="round">{{cwd}}</pre>
       </f7-block>
-      <f7-block-title medium>App Type</f7-block-title>
+      <f7-block-title>App Type</f7-block-title>
       <f7-block-header>What types of the app are you targeting? (multiple allowed)</f7-block-header>
       <f7-list inset>
         <f7-list-item
@@ -31,7 +31,7 @@
         ></f7-list-item>
       </f7-list>
 
-      <f7-block-title medium>App (project) name</f7-block-title>
+      <f7-block-title>App (project) name</f7-block-title>
       <f7-list inset>
         <f7-list-input
           type="text"
@@ -44,7 +44,7 @@
       </f7-list>
 
       <template v-if="type.indexOf('cordova') >= 0">
-        <f7-block-title medium>App package (Bundle ID)</f7-block-title>
+        <f7-block-title>App package (Bundle ID)</f7-block-title>
         <f7-list inset>
           <f7-list-input
             type="text"
@@ -56,7 +56,7 @@
           ></f7-list-input>
         </f7-list>
 
-        <f7-block-title medium>Target Cordova platform</f7-block-title>
+        <f7-block-title>Target Cordova platform</f7-block-title>
         <f7-list inset>
           <f7-list-item
             checkbox
@@ -74,7 +74,7 @@
         </f7-list>
       </template>
 
-      <f7-block-title medium>What type of framework do you prefer?</f7-block-title>
+      <f7-block-title>What type of framework do you prefer?</f7-block-title>
       <f7-list inset>
         <f7-list-item
           radio
@@ -96,7 +96,7 @@
         ></f7-list-item>
       </f7-list>
 
-      <f7-block-title medium>Choose starter template</f7-block-title>
+      <f7-block-title>Choose starter template</f7-block-title>
       <f7-list inset>
         <f7-list-item
           radio
@@ -118,7 +118,7 @@
         ></f7-list-item>
       </f7-list>
 
-      <f7-block-title medium>Should we setup project with bundler?</f7-block-title>
+      <f7-block-title>Should we setup project with bundler?</f7-block-title>
       <f7-list inset>
         <f7-list-item
           :class="{disabled: framework !== 'core'}"
@@ -138,7 +138,7 @@
       </f7-list>
 
       <template v-if="bundler ==='webpack'">
-        <f7-block-title medium>Do you want to setup CSS Pre-Processor?</f7-block-title>
+        <f7-block-title>Do you want to setup CSS Pre-Processor?</f7-block-title>
         <f7-list inset>
           <f7-list-item
             radio
@@ -168,7 +168,7 @@
         </f7-list>
       </template>
 
-      <f7-block-title medium>Do you want to specify custom theme color?</f7-block-title>
+      <f7-block-title>Do you want to specify custom theme color?</f7-block-title>
       <f7-list inset>
         <f7-list-item
           radio
@@ -192,6 +192,24 @@
           validate
         ></f7-list-input>
       </f7-list>
+
+      <f7-block-title>Include Icon Fonts?</f7-block-title>
+      <f7-block-header>Do you want to include Framework7 Icons and Material Icons icon fonts?</f7-block-header>
+      <f7-list inset>
+        <f7-list-item
+          radio
+          title="Yes, include icon fonts"
+          @change="(e) => { if (e.target.checked) iconFonts = true }"
+          :checked="iconFonts === true"
+        ></f7-list-item>
+        <f7-list-item
+          radio
+          title="No, i want to use my own custom icons"
+          @change="(e) => { if (e.target.checked) iconFonts = false }"
+          :checked="iconFonts === false"
+        ></f7-list-item>
+      </f7-list>
+
       <f7-block inset class="no-padding" v-if="log && log.length">
         <pre class="round" v-html="logText(log)"></pre>
       </f7-block>
@@ -224,12 +242,14 @@
         type: [],
         pkg: 'io.framework7.myapp',
         platform: ['ios', 'android'],
+        cordovaFolder: 'cordova',
         framework: 'core',
         template: 'single-view',
         bundler: 'webpack',
         cssPreProcessor: false,
         customColor: false,
         color: '',
+        iconFonts: true,
       };
     },
     mounted() {
@@ -267,6 +287,8 @@
           cssPreProcessor,
           customColor,
           color,
+          cordovaFolder,
+          iconFonts,
         } = self;
         const options = {
           type,
@@ -276,6 +298,7 @@
           bundler,
           cssPreProcessor,
           customColor,
+          iconFonts,
         };
         if (options.bundler !== 'webpack') {
           options.cssPreProcessor = false;
@@ -283,6 +306,7 @@
         if (type.indexOf('cordova') >= 0) {
           options.pkg = pkg;
           options.platform = platform;
+          options.cordovaFolder = cordovaFolder;
         }
         if (customColor) {
           if (color.replace(/#/g, '').trim()) {

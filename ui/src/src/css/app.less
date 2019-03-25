@@ -2,17 +2,12 @@
 :root {
   --custom-color: #EE350F;
   --color-green: #4cd964;
-  --f7-list-button-text-color: var(--f7-theme-color);
-  --f7-page-bg-color: #efeff4;
   --f7-list-button-text-align: center;
   --f7-list-border-color: transparent;
   --f7-block-strong-border-color: transparent;
   --f7-navbar-large-title-font-size: 29px;
   --f7-progressbar-bg-color: rgba(255,255,255,0.2);
   --f7-progressbar-progress-color: #fff;
-  --f7-block-header-text-color: #555;
-  --f7-bars-shadow-bottom-image: none;
-  --f7-font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 :root,
 :root.theme-dark,
@@ -29,6 +24,7 @@
   --f7-tabbar-link-active-border-color: #fff;
 }
 .navbar,
+.appbar,
 .toolbar,
 .subnavbar,
 .calendar-header,
@@ -77,12 +73,13 @@
   white-space: normal;
 }
 pre {
-  padding: var(--f7-block-padding);
+  padding: 15px;
   color: #fff;
   white-space: pre-wrap;
   word-break: break-all;
   font-weight: bold;
   background: #1c1c1d;
+  font-size: 13px;
   &.round {
     border-radius: var(--f7-block-inset-border-radius);
   }
