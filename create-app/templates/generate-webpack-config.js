@@ -71,7 +71,7 @@ module.exports = (options) => {
         contentBase: '/www/',
         disableHostCheck: true,
         watchOptions: {
-          poll: true,
+          poll: 1000,
         },
       },
       module: {
