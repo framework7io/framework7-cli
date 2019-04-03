@@ -106,7 +106,7 @@ module.exports = function generatePackageJson(options) {
       }
       if (platform.length > 1 && platform.indexOf('android') >= 0) {
         scripts['build-cordova-android-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build android';
-        scripts['build-cordova-android-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios';
+        scripts['build-cordova-android-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build android';
       }
     }
     scripts.dev = 'cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js';
