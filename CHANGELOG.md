@@ -2,7 +2,10 @@
 
 # Change Log
 
-# [v2.1.2](https://github.com/framework7io/framework7-cli/compare/v2.1.2...v2.1.2) - April 8, 2019
+# [v2.1.3](https://github.com/framework7io/framework7-cli/compare/v2.1.2...v2.1.3) - April 8, 2019
+  * Fixed issue when webpack build could remove `type="text"` attributes from inputs
+
+# [v2.1.2](https://github.com/framework7io/framework7-cli/compare/v2.1.1...v2.1.2) - April 8, 2019
   * Fixed issue when `build-cordova-android-prod` script generated iOS app instead of Android
 
 # [v2.1.1](https://github.com/framework7io/framework7-cli/compare/v2.1.0...v2.1.1) - March 25, 2019

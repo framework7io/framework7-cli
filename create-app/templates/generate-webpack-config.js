@@ -232,7 +232,7 @@ module.exports = (options) => {
           minify: env === 'production' ? {
             collapseWhitespace: true,
             removeComments: true,
-            removeRedundantAttributes: true,
+            removeRedundantAttributes: ${framework === 'core' ? 'false' : 'true'},
             removeScriptTypeAttributes: true,
             removeStyleLinkTypeAttributes: true,
             useShortDoctype: true
