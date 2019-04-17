@@ -12,6 +12,7 @@ module.exports = (options) => {
     pkg,
     name,
     platform,
+    bundler,
   } = options;
   return new Promise(async (resolve, reject) => {
     try {
@@ -33,7 +34,7 @@ module.exports = (options) => {
     const plugins = [
       'cordova-plugin-statusbar',
       'cordova-plugin-keyboard',
-      'cordova-plugin-wkwebview-engine',
+      bundler ? 'cordova-plugin-wkwebview-engine' : 'cordova-plugin-wkwebview-file-xhr',
       'cordova-plugin-splashscreen',
     ];
     // Install cordova plugins
