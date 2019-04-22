@@ -8,6 +8,7 @@ import Dialog from 'framework7/components/dialog/dialog';
 import ColorPicker from 'framework7/components/color-picker/color-picker';
 import Popover from 'framework7/components/popover/popover';
 import Range from 'framework7/components/range/range';
+import Toggle from 'framework7/components/toggle/toggle';
 
 // Import Framework7-Vue Plugin
 import Framework7Vue from 'framework7-vue';
@@ -30,6 +31,7 @@ Framework7.use([
   ColorPicker,
   Popover,
   Range,
+  Toggle,
 ]);
 
 // Init App

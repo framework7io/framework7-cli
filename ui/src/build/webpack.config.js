@@ -63,7 +63,6 @@ module.exports = {
           resolvePath('node_modules/ssr-window'),
         ],
       },
-
       {
         test: /\.vue$/,
         use: 'vue-loader',

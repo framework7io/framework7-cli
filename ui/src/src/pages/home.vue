@@ -1,6 +1,15 @@
 <template>
   <f7-page name="home">
-    <f7-navbar :sliding="false" large title="Framework7 CLI"></f7-navbar>
+    <f7-navbar :sliding="false" large>
+      <f7-nav-title>
+        <i class="f7-navbar-logo"></i>
+        <span>Framework7 CLI</span>
+      </f7-nav-title>
+      <f7-nav-title-large>
+        <i class="f7-navbar-logo"></i>
+        <span>Framework7 CLI</span>
+      </f7-nav-title-large>
+    </f7-navbar>
 
     <div class="center-content">
       <div class="block padding home-cards">
@@ -21,10 +30,10 @@
   </f7-page>
 </template>
 <script>
-  import { f7Page, f7Navbar, f7BlockTitle, f7BlockHeader, f7Block, f7List, f7ListInput, f7ListItem, f7Button } from 'framework7-vue';
+  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7Block, f7List, f7ListInput, f7ListItem, f7Button } from 'framework7-vue';
   export default {
     components: {
-      f7Page, f7Navbar, f7BlockTitle, f7BlockHeader, f7Block, f7List, f7ListInput, f7ListItem, f7Button,
+      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7Block, f7List, f7ListInput, f7ListItem, f7Button,
     },
   }
 </script>
