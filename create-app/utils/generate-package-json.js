@@ -1,6 +1,6 @@
 module.exports = function generatePackageJson(options) {
   const {
-    type, name, framework, bundler, cssPreProcessor, iconFonts, platform = [],
+    type, name, framework, bundler, cssPreProcessor, iconFonts, cordovaPlatform = [],
   } = options;
 
   // Dependencies
@@ -33,6 +33,9 @@ module.exports = function generatePackageJson(options) {
       '@babel/runtime',
       'babel-loader',
       'chalk',
+      ...(type.indexOf('cordova') >= 0 && cordovaPlatform.indexOf('electron') >= 0 ? [
+        'concurrently',
+      ] : []),
       'copy-webpack-plugin',
       'cross-env',
       'css-loader',
@@ -90,6 +93,9 @@ module.exports = function generatePackageJson(options) {
       'rimraf',
     ]);
   }
+  if (iconFonts) {
+    devDependencies.push('cpy-cli');
+  }
 
   // Scripts
   const scripts = {};
@@ -100,13 +106,21 @@ module.exports = function generatePackageJson(options) {
     if (type.indexOf('cordova') >= 0) {
       scripts['build-cordova-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
       scripts['build-cordova-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build';
-      if (platform.length > 1 && platform.indexOf('ios') >= 0) {
+      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
         scripts['build-cordova-ios-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build ios';
         scripts['build-cordova-ios-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios';
       }
-      if (platform.length > 1 && platform.indexOf('android') >= 0) {
+      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
         scripts['build-cordova-android-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build android';
         scripts['build-cordova-android-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build android';
+      }
+      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+        // eslint-disable-next-line
+        scripts['build-cordova-electron-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build electron';
+        scripts['build-cordova-electron-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build electron';
+      }
+      if (cordovaPlatform.indexOf('electron') >= 0) {
+        scripts['cordova-electron'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && concurrently --kill-others "cross-env TARGET=cordova cross-env ELECTRON_WATCH=true cross-env NODE_ENV=development cross-env webpack --progress --config ./build/webpack.config.js --watch" "cd cordova && cordova run electron --nobuild"';
       }
     }
     scripts.dev = 'cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js';
@@ -117,13 +131,23 @@ module.exports = function generatePackageJson(options) {
     scripts.start = 'npm run serve';
     if (type.indexOf('cordova') >= 0) {
       scripts['build-cordova'] = 'node ./build/build.js && cd cordova && cordova build';
-      if (platform.length > 1 && platform.indexOf('ios') >= 0) {
+      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
         scripts['build-cordova-ios'] = 'node ./build/build.js && cd cordova && cordova build ios';
       }
-      if (platform.length > 1 && platform.indexOf('android') >= 0) {
+      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
         scripts['build-cordova-android'] = 'node ./build/build.js && cd cordova && cordova build android';
       }
+      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+        scripts['build-cordova-electron'] = 'node ./build/build.js && cd cordova && cordova build electron';
+      }
+      if (cordovaPlatform.indexOf('electron') >= 0) {
+        scripts['cordova-electron'] = 'node ./build/build.js && cd cordova && cordova run electron --nobuild';
+      }
     }
+  }
+
+  if (iconFonts) {
+    postInstall.push(`cpy './node_modules/framework7-icons/fonts/*.*' './${bundler ? 'src' : 'www'}/fonts/'`);
   }
 
   if (postInstall.length) {

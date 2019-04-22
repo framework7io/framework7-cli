@@ -2,7 +2,7 @@ const templateIf = require('./template-if');
 
 module.exports = (options) => {
   const {
-    framework, bundler, type, name, platform = [],
+    framework, bundler, type, name, cordovaPlatform = [], cordovaFolder,
   } = options;
 
   const npmScripts = ['* `npm start` - run development server'];
@@ -17,16 +17,27 @@ module.exports = (options) => {
         '* `npm run build-cordova-prod` - build cordova\'s `www` folder from and build cordova app',
         '* `npm run build-cordova-dev` - build cordova\'s `www` folder from and build cordova app using development mode (faster build without minification and optimization)',
       ]);
-      if (platform.length > 1 && platform.indexOf('ios') >= 0) {
+      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
         npmScripts.push(...[
           '* `npm run build-cordova-ios-prod` - build cordova\'s `www` folder from and build cordova iOS app',
           '* `npm run build-cordova-ios-dev` - build cordova\'s `www` folder from and build cordova iOS app using development mode (faster build without minification and optimization)',
         ]);
       }
-      if (platform.length > 1 && platform.indexOf('android') >= 0) {
+      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
         npmScripts.push(...[
           '* `npm run build-cordova-android-prod` - build cordova\'s `www` folder from and build cordova Android app',
           '* `npm run build-cordova-android-dev` - build cordova\'s `www` folder from and build cordova Android app using development mode (faster build without minification and optimization)',
+        ]);
+      }
+      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+        npmScripts.push(...[
+          '* `npm run build-cordova-electron-prod` - build cordova\'s `www` folder from and build cordova Electron app',
+          '* `npm run build-cordova-electron-dev` - build cordova\'s `www` folder from and build cordova Electron app using development mode (faster build without minification and optimization)',
+        ]);
+      }
+      if (cordovaPlatform.indexOf('electron') >= 0) {
+        npmScripts.push(...[
+          '* `npm run cordova-electron` - launch quick preview (without full build process) of Electron app in development mode',
         ]);
       }
     }
@@ -36,14 +47,24 @@ module.exports = (options) => {
     npmScripts.push(...[
       '* `npm run build-cordova` - build cordova app',
     ]);
-    if (platform.length > 1 && platform.indexOf('ios') >= 0) {
+    if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
       npmScripts.push(...[
         '* `npm run build-cordova-ios` - build cordova iOS app',
       ]);
     }
-    if (platform.length > 1 && platform.indexOf('android') >= 0) {
+    if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
       npmScripts.push(...[
         '* `npm run build-cordova-android` - build cordova Android app',
+      ]);
+    }
+    if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+      npmScripts.push(...[
+        '* `npm run build-cordova-electron` - build cordova Electron (desktop) app',
+      ]);
+    }
+    if (cordovaPlatform.indexOf('electron') >= 0) {
+      npmScripts.push(...[
+        '* `npm run cordova-electron` - launch quick preview (without full build process) of Electron app',
       ]);
     }
   }
@@ -64,6 +85,14 @@ ${JSON.stringify(options, null, 2)}
 
 ${npmScripts.join('\n')}
 
+${templateIf(bundler, () => `
+## WebPack
+
+There is a webpack bundler setup. It compiles and bundles all "front-end" resources. You should work only with files located in \`/src\` folder. Webpack config located in \`build/webpack.config.js\`.
+
+Webpack has specific way of handling static assets (CSS files, images, audios). You can learn more about correct way of doing things on [official webpack documentation](https://webpack.js.org/guides/asset-management/).
+`)}
+
 ${templateIf(type.indexOf('pwa') >= 0, () => `
 ## PWA
 
@@ -73,7 +102,16 @@ This is a PWA. Don't forget to check what is inside of your \`service-worker.js\
 ${templateIf(type.indexOf('cordova') >= 0, () => `
 ## Cordova
 
-Cordova project located in \`cordova\` folder. You shouldn't modify content of \`cordova/www\` folder. Its content will be correctly generated when you call \`npm run cordova-build-prod\`.
+Cordova project located in \`${cordovaFolder}\` folder. You shouldn't modify content of \`${cordovaFolder}/www\` folder. Its content will be correctly generated when you call \`npm run cordova-build-prod\`.
+`)}
+
+${templateIf(cordovaPlatform.indexOf('electron') >= 0, () => `
+## Cordova Electron
+
+There is also cordova Electron platform installed. To learn more about it and Electron check this guides:
+
+* [Cordova Electron Platform Guide](https://cordova.apache.org/docs/en/latest/guide/platforms/electron/index.html)
+* [Official Electron Documentation](https://electronjs.org/docs)
 `)}
 
 ## Assets

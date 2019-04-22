@@ -1,8 +1,10 @@
 const indent = require('../utils/indent');
 
-module.exports = () => {
+module.exports = (options) => {
+  const { cordovaPlatform } = options;
   return indent(4, `
     <allow-navigation href="*" />
+    ${cordovaPlatform.indexOf('android') >= 0 ? `
     <platform name="android">
       <preference name="StatusBarOverlaysWebView" value="false" />
       <preference name="android-minSdkVersion" value="21" />
@@ -24,9 +26,11 @@ module.exports = () => {
       <icon density="xxhdpi" src="res/icon/android/mipmap-xxhdpi/ic_launcher.png" />
       <icon density="xxxhdpi" src="res/icon/android/mipmap-xxxhdpi/ic_launcher.png" />
     </platform>
+    ` : ''}
+    ${cordovaPlatform.indexOf('ios') >= 0 ? `
     <platform name="ios">
       <config-file parent="CFBundleAllowMixedLocalizations" platform="ios" target="*-Info.plist">
-          <true />
+        <true />
       </config-file>
       <preference name="StatusBarOverlaysWebView" value="true" />
       <splash src="res/screen/ios/Default@2x~universal~anyany.png" />
@@ -51,6 +55,14 @@ module.exports = () => {
       <icon height="167" src="res/icon/ios/icon-83.5x83.5@2x.png" width="167" />
       <icon height="1024" src="res/icon/ios/icon-512x512@2x.png" width="1024" />
     </platform>
+    ` : ''}
+    ${cordovaPlatform.indexOf('electron') >= 0 ? `
+    <platform name="electron">
+      <preference name="ElectronSettingsFilePath" value="electron-settings.json" />
+      <icon src="res/icon/electron/app.png" target="app" />
+      <icon src="res/icon/electron/installer.png" target="installer" />
+    </platform>
+    ` : ''}
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="local" />

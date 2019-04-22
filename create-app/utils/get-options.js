@@ -2,31 +2,30 @@ const inquirer = require('inquirer');
 
 const questions = [
   {
-    type: 'list',
+    type: 'checkbox',
     name: 'type',
     message: 'What type of the app are you targeting?',
     choices: [
       {
         name: 'Simple web app',
-        value: ['web'],
+        value: 'web',
+        checked: true,
       },
       {
         name: 'PWA (Progressive Web App)',
-        value: ['web', 'pwa'],
+        value: 'pwa',
       },
       {
-        name: 'Cordova app (target native iOS and Android)',
-        value: ['cordova'],
-      },
-      {
-        name: 'Cordova + Simple web app',
-        value: ['cordova', 'web'],
-      },
-      {
-        name: 'Cordova + PWA (Progressive Web App)',
-        value: ['cordova', 'web', 'pwa'],
+        name: 'Cordova app (targets native iOS and Android apps, or native desktop app with Electron)',
+        value: 'cordova',
       },
     ],
+    validate(input) {
+      return new Promise((resolve, reject) => {
+        if (!input || !input.length) reject(new Error('App type is required!'));
+        else resolve(true);
+      });
+    },
   },
   {
     type: 'input',
@@ -57,7 +56,7 @@ const questions = [
   },
   {
     type: 'checkbox',
-    name: 'platform',
+    name: 'cordovaPlatform',
     message: 'Target Cordova platform:',
     when: opts => opts.type.indexOf('cordova') >= 0,
     choices: [
@@ -70,6 +69,11 @@ const questions = [
         name: 'Android',
         value: 'android',
         checked: true,
+      },
+      {
+        name: 'Electron (native desktop app)',
+        value: 'electron',
+        checked: false,
       },
     ],
     validate(input) {
@@ -236,6 +240,9 @@ module.exports = function getOptions() {
     }
     if (options.type.indexOf('cordova') >= 0) {
       options.cordovaFolder = 'cordova'; // eslint-disable-line
+    }
+    if (options.type.indexOf('pwa') >= 0 && options.type.indexOf('web') < 0) {
+      options.type.push('web');
     }
     return Promise.resolve(options);
   });

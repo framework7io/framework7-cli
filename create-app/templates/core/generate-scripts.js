@@ -5,7 +5,7 @@ const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
   const {
-    bundler, type, cssPreProcessor, iconFonts
+    bundler, type, cssPreProcessor, iconFonts,
   } = options;
 
   let scripts = '';

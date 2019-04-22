@@ -25,7 +25,7 @@
         ></f7-list-item>
         <f7-list-item
           checkbox
-          title="Cordova app (target native iOS and Android)"
+          title="Cordova app (targets native iOS and Android apps, or native desktop app with Electron)"
           @change="toggleType('cordova', $event.target.checked)"
           :checked="type.indexOf('cordova') >= 0"
         ></f7-list-item>
@@ -62,13 +62,19 @@
             checkbox
             title="iOS"
             @change="togglePlatform('ios', $event.target.checked)"
-            :checked="platform.indexOf('ios') >= 0"
+            :checked="cordovaPlatform.indexOf('ios') >= 0"
           ></f7-list-item>
           <f7-list-item
             checkbox
             title="Android"
             @change="togglePlatform('android', $event.target.checked)"
-            :checked="platform.indexOf('android') >= 0"
+            :checked="cordovaPlatform.indexOf('android') >= 0"
+          ></f7-list-item>
+          <f7-list-item
+            checkbox
+            title="Electron (native desktop app)"
+            @change="togglePlatform('electron', $event.target.checked)"
+            :checked="cordovaPlatform.indexOf('electron') >= 0"
           ></f7-list-item>
 
         </f7-list>
@@ -184,13 +190,34 @@
         ></f7-list-item>
         <f7-list-input
           v-if="customColor"
-          label="Enter custom theme color in HEX format"
+          type="colorpicker"
+          label="Enter custom theme color"
           placeholder="e.g. #ff0000"
-          :value="color"
-          @input="color = $event.target.value"
           required
           validate
-        ></f7-list-input>
+          :value="{ hex:color }"
+          :colorPickerParams="{
+            backdrop: false,
+            targetEl: '.color-picker-target',
+            targetElSetBackgroundColor: true,
+            routableModals: false,
+            modules: ['sb-spectrum', 'hue-slider', 'hex'],
+            hexLabel: true,
+            hexValueEditable: true,
+          }"
+          @colorpicker:change="(v) => color = v.hex"
+        >
+          <i
+            slot="media"
+            class="icon color-picker-target"
+            :style="{
+              'border-radius': '4px',
+              width: '18px',
+              height: '18px',
+            }"
+
+          ></i>
+        </f7-list-input>
       </f7-list>
 
       <f7-block-title>Include Icon Fonts?</f7-block-title>
@@ -241,14 +268,14 @@
         name: 'My App',
         type: [],
         pkg: 'io.framework7.myapp',
-        platform: ['ios', 'android'],
+        cordovaPlatform: ['ios', 'android'],
         cordovaFolder: 'cordova',
         framework: 'core',
         template: 'single-view',
         bundler: 'webpack',
         cssPreProcessor: false,
         customColor: false,
-        color: '',
+        color: '#007aff',
         iconFonts: true,
       };
     },
@@ -268,10 +295,10 @@
         }
       },
       togglePlatform(platform, checked) {
-        if (checked && this.platform.indexOf(platform) < 0) {
-          this.platform.push(platform);
-        } else if (!checked && this.platform.indexOf(platform) >= 0) {
-          this.platform.splice(this.platform.indexOf(platform), 1);
+        if (checked && this.cordovaPlatform.indexOf(platform) < 0) {
+          this.cordovaPlatform.push(platform);
+        } else if (!checked && this.cordovaPlatform.indexOf(platform) >= 0) {
+          this.cordovaPlatform.splice(this.cordovaPlatform.indexOf(platform), 1);
         }
       },
       getOptions() {
@@ -280,7 +307,7 @@
           name,
           type,
           pkg,
-          platform,
+          cordovaPlatform,
           framework,
           template,
           bundler,
@@ -305,7 +332,7 @@
         }
         if (type.indexOf('cordova') >= 0) {
           options.pkg = pkg;
-          options.platform = platform;
+          options.cordovaPlatform = cordovaPlatform;
           options.cordovaFolder = cordovaFolder;
         }
         if (customColor) {
@@ -336,7 +363,7 @@
             self.showError('You must specify app package (bundle ID)');
             return;
           }
-          if (!options.platform.length) {
+          if (!options.cordovaPlatform.length) {
             self.showError('You must specify target cordova platform');
             return;
           }

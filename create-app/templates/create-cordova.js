@@ -11,15 +11,16 @@ module.exports = (options) => {
   const {
     pkg,
     name,
-    platform,
+    cordovaPlatform,
+    cordovaFolder,
     bundler,
   } = options;
   return new Promise(async (resolve, reject) => {
     try {
       if (!isRunningInCwd) {
-        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cordova create cordova ${pkg} XXXXXX`, true);
+        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cordova create ${cordovaFolder} ${pkg} XXXXXX`, true);
       } else {
-        await exec.promise(`cordova create cordova ${pkg} XXXXXX`, true);
+        await exec.promise(`cordova create ${cordovaFolder} ${pkg} XXXXXX`, true);
       }
     } catch (err) {
       reject(err);
@@ -27,8 +28,8 @@ module.exports = (options) => {
     }
     // Modify Name
     ['package.json', 'config.xml'].forEach((f) => {
-      const contents = fse.readFileSync(path.resolve(cwd, 'cordova', f));
-      fse.writeFileSync(path.resolve(cwd, 'cordova', f), contents.replace(/XXXXXX/g, name));
+      const contents = fse.readFileSync(path.resolve(cwd, cordovaFolder, f));
+      fse.writeFileSync(path.resolve(cwd, cordovaFolder, f), contents.replace(/XXXXXX/g, name));
     });
     // Install plugins
     const plugins = [
@@ -39,20 +40,20 @@ module.exports = (options) => {
     ];
     // Install cordova plugins
     if (!isRunningInCwd) {
-      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd cordova && cordova plugin add ${plugins.join(' ')}`, true);
+      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd ${cordovaFolder} && cordova plugin add ${plugins.join(' ')}`, true);
     } else {
-      await exec.promise(`cd cordova && cordova plugin add ${plugins.join(' ')}`, true);
+      await exec.promise(`cd ${cordovaFolder} && cordova plugin add ${plugins.join(' ')}`, true);
     }
 
     // Modify config.xml
-    let configXmlContent = fse.readFileSync(path.resolve(cwd, 'cordova', 'config.xml'));
+    let configXmlContent = fse.readFileSync(path.resolve(cwd, cordovaFolder, 'config.xml'));
     configXmlContent = `${configXmlContent.split('</widget>')[0]}${generateConfigXml(options)}</widget>`;
-    fse.writeFileSync(path.resolve(cwd, 'cordova', 'config.xml'), configXmlContent);
+    fse.writeFileSync(path.resolve(cwd, cordovaFolder, 'config.xml'), configXmlContent);
 
     // Upload res files
     try {
       await new Promise((subResolve, subReject) => {
-        rm(path.resolve(cwd, 'cordova', 'res'), (err) => {
+        rm(path.resolve(cwd, cordovaFolder, 'res'), (err) => {
           if (err) subReject(err);
           else subResolve();
         });
@@ -64,19 +65,29 @@ module.exports = (options) => {
 
     await cpy(
       '**/*.*',
-      path.resolve(cwd, 'cordova', 'res'),
+      path.resolve(cwd, cordovaFolder, 'res'),
       {
         parents: true,
         cwd: path.resolve(__dirname, 'common', 'cordova-res'),
       },
     );
 
+    // Add electron settings
+    if (cordovaPlatform.indexOf('electron') >= 0) {
+      const electronConfig = {
+        browserWindow: {
+          nodeIntegration: true,
+        },
+      };
+      fse.writeFileSync(path.resolve(cwd, cordovaFolder, 'electron-config.json'), JSON.stringify(electronConfig, '', 2));
+    }
+
     // Add cordova platforms
     try {
       if (!isRunningInCwd) {
-        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd cordova && cordova platform add ${platform.join(' ')}`, true);
+        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd ${cordovaFolder} && cordova platform add ${cordovaPlatform.join(' ')}`, true);
       } else {
-        await exec.promise(`cd cordova && cordova platform add ${platform.join(' ')}`, true);
+        await exec.promise(`cd ${cordovaFolder} && cordova platform add ${cordovaPlatform.join(' ')}`, true);
       }
     } catch (err) {
       reject(err);

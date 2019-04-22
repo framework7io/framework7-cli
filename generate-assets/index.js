@@ -21,36 +21,49 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
     favicon: { src, output },
     pwaIcon: { src, output },
     appleTouchIcon: { src, output },
-    cordovaIconIos: { src, output },
-    cordovaSplashScreenIos: { src, output },
-    cordovaIconAndroid: { src, output },
-    cordovaSplashScreenAndroid: { src, output },
+    cordovaIosIcon: { src, output },
+    cordovaIosSplashScreen: { src, output },
+    cordovaAndroidIcon: { src, output },
+    cordovaAndroidSplashScreen: { src, output },
+    cordovaElectronAppIcon: { src, output },
+    cordovaElectronInstallerIcon: { src, output },
+
   };
   */
   if (project) {
     const {
-      type, platform, bundler, cwd, cordovaFolder,
+      type, cordovaPlatform, bundler, cwd, cordovaFolder,
     } = Object.assign({ cordovaFolder: 'cordova' }, project);
 
     if (type.indexOf('cordova') >= 0) {
-      if (platform.indexOf('ios') >= 0) {
-        options.cordovaIconIos = {
-          src: path.resolve(cwd, 'assets-src', 'cordova-icon-ios.png'),
+      if (cordovaPlatform.indexOf('ios') >= 0) {
+        options.cordovaIosIcon = {
+          src: path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'),
           output: path.resolve(cwd, `${cordovaFolder}/res/icon/ios`),
         };
-        options.cordovaSplashScreenIos = {
+        options.cordovaIosSplashScreen = {
           src: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
           output: path.resolve(cwd, `${cordovaFolder}/res/screen/ios`),
         };
       }
-      if (platform.indexOf('android') >= 0) {
-        options.cordovaIconAndroid = {
-          src: path.resolve(cwd, 'assets-src', 'cordova-icon-android.png'),
+      if (cordovaPlatform.indexOf('android') >= 0) {
+        options.cordovaAndroidIcon = {
+          src: path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'),
           output: path.resolve(cwd, `${cordovaFolder}/res/icon/android`),
         };
-        options.cordovaSplashScreenAndroid = {
+        options.cordovaAndroidSplashScreen = {
           src: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
           output: path.resolve(cwd, `${cordovaFolder}/res/screen/android`),
+        };
+      }
+      if (cordovaPlatform.indexOf('electron') >= 0) {
+        options.cordovaElectronAppIcon = {
+          src: path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
+          output: path.resolve(cwd, `${cordovaFolder}/res/icon/electron`),
+        };
+        options.cordovaElectronInstallerIcon = {
+          src: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
+          output: path.resolve(cwd, `${cordovaFolder}/res/icon/electron`),
         };
       }
     }
@@ -92,7 +105,7 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
       ],
       fileName: '{{size}}x{{size}}.png',
     },
-    cordovaIconIos: {
+    cordovaIosIcon: {
       size: {
         1: [20, 29, 40, 50, 57, 60, 72, 76, 512],
         2: [20, 29, 40, 50, 57, 60, 72, 76, 83.5, 512],
@@ -100,7 +113,7 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
       },
       fileName: 'icon-{{size}}x{{size}}@{{ratio}}x.png',
     },
-    cordovaIconAndroid: [
+    cordovaAndroidIcon: [
       {
         size: {
           ldpi: 36,
@@ -117,11 +130,11 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
         fileName: 'playstore-icon.png',
       },
     ],
-    cordovaSplashScreenIos: {
+    cordovaIosSplashScreen: {
       size: 2732,
       fileName: 'Default@2x~universal~anyany.png',
     },
-    cordovaSplashScreenAndroid: {
+    cordovaAndroidSplashScreen: {
       size: {
         ldpi: 242,
         mdpi: 322,
@@ -131,6 +144,14 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
         xxxhdpi: 1282,
       },
       fileName: 'drawable-{{key}}/screen.png',
+    },
+    cordovaElectronAppIcon: {
+      size: 1024,
+      fileName: 'app.png',
+    },
+    cordovaElectronInstallerIcon: {
+      size: 1024,
+      fileName: 'installer.png',
     },
   };
 

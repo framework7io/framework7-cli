@@ -5,6 +5,9 @@ import Vue from 'vue';
 import Framework7 from 'framework7/framework7.esm';
 import Input from 'framework7/components/input/input';
 import Dialog from 'framework7/components/dialog/dialog';
+import ColorPicker from 'framework7/components/color-picker/color-picker';
+import Popover from 'framework7/components/popover/popover';
+import Range from 'framework7/components/range/range';
 
 // Import Framework7-Vue Plugin
 import Framework7Vue from 'framework7-vue';
@@ -21,7 +24,13 @@ import App from '../components/app.vue';
 
 // Init Framework7-Vue Plugin
 Framework7.use(Framework7Vue);
-Framework7.use([Input, Dialog]);
+Framework7.use([
+  Input,
+  Dialog,
+  ColorPicker,
+  Popover,
+  Range,
+]);
 
 // Init App
 const app = new Vue({

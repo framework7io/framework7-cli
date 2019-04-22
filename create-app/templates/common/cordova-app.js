@@ -4,7 +4,8 @@ var cordovaApp = {
   This method hides splashscreen after 2 seconds
   */
   handleSplashscreen: function() {
-    if (!window.navigator.splashscreen) return;
+    var f7 = cordovaApp.f7;
+    if (!window.navigator.splashscreen || f7.device.electron) return;
     setTimeout(() => {
       window.navigator.splashscreen.hide();
     }, 2000);
@@ -14,6 +15,8 @@ var cordovaApp = {
   And allows to exit app on backbutton double tap
   */
   handleAndroidBackButton: function () {
+    var f7 = cordovaApp.f7;
+    if (f7.device.electron) return;
     cordovaApp.backButtonTimestamp = new Date().getTime();
     document.addEventListener('backbutton', function (e) {
       if (new Date().getTime() - cordovaApp.backButtonTimestamp < 250) {
@@ -34,8 +37,8 @@ var cordovaApp = {
     - hides keyboard accessory bar for all inputs except where it required
   */
   handleKeyboard: function () {
-    if (!window.Keyboard || !window.Keyboard.shrinkView) return;
     var f7 = cordovaApp.f7;
+    if (!window.Keyboard || !window.Keyboard.shrinkView || f7.device.electron) return;
     var $ = f7.$;
     window.Keyboard.shrinkView(false);
     window.Keyboard.disableScrollingInShrinkView(true);

@@ -2,7 +2,12 @@ const indent = require('../utils/indent');
 const templateIf = require('../utils/template-if');
 
 module.exports = (options) => {
-  const { framework, type } = options;
+  const {
+    framework,
+    type,
+    cordovaFolder,
+    cordovaPlatform,
+  } = options;
   // eslint-disable-next-line
   const hasCordova = type.indexOf('cordova') >= 0;
 
@@ -12,6 +17,11 @@ module.exports = (options) => {
   }
   if (framework === 'react') {
     resolveExtensions = "['.js', '.jsx', '.json']";
+  }
+
+  let cordovaOutput = `isCordova ? '${cordovaFolder}/www' : 'www'`;
+  if (hasCordova && cordovaPlatform.indexOf('electron') >= 0) {
+    cordovaOutput = `isCordova ? (isElectronWatch ? '${cordovaFolder}/platforms/electron/www' : '${cordovaFolder}/www') : 'www'`;
   }
 
   return indent(0, `
@@ -37,7 +47,10 @@ module.exports = (options) => {
     const env = process.env.NODE_ENV || 'development';
     const target = process.env.TARGET || 'web';
     ${templateIf(hasCordova, () => `
-    const isCordova =  target === 'cordova';
+    const isCordova = target === 'cordova';
+    `)}
+    ${templateIf(hasCordova && cordovaPlatform.indexOf('electron') >= 0, () => `
+    const isElectronWatch = process.env.ELECTRON_WATCH || false;
     `)}
 
     module.exports = {
@@ -47,12 +60,14 @@ module.exports = (options) => {
       ],
       output: {
         ${templateIf(hasCordova, () => `
-        path: resolvePath(isCordova ? 'cordova/www' : 'www'),
+        path: resolvePath(${cordovaOutput}),
         `, () => `
         path: resolvePath('www'),
         `)}
         filename: 'js/app.js',
         publicPath: '',
+        hotUpdateChunkFilename: 'hot/hot-update.js',
+        hotUpdateMainFilename: 'hot/hot-update.json',
       },
       resolve: {
         extensions: ${resolveExtensions},
@@ -245,7 +260,7 @@ module.exports = (options) => {
           {
             from: resolvePath('src/static'),
             ${templateIf(hasCordova, () => `
-            to: resolvePath(isCordova ? 'cordova/www/static' : 'www/static'),
+            to: resolvePath(isCordova ? '${cordovaFolder}/www/static' : 'www/static'),
             `, () => `
             to: resolvePath('www/static'),
             `)}

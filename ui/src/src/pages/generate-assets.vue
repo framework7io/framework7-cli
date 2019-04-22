@@ -30,30 +30,55 @@
         </template>
 
         <template v-if="project.type.indexOf('cordova') >= 0">
-          <div class="col-100 tablet-50" v-if="project.platform.indexOf('ios') >= 0">
+          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('ios') >= 0">
             <f7-block-title>Cordova iOS Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>Square PNG image 1024x1024 size</f7-block-header>
               <div class="asset-preview">
-                <img :src="getImage('/cwd/assets-src/cordova-icon-ios.png')">
+                <img :src="getImage('/cwd/assets-src/cordova-ios-icon.png')">
               </div>
               <f7-block-footer>{{dragText}}</f7-block-footer>
-              <input type="file" name="cordova-icon-ios" @change="setImage('cordova-icon-ios', $event.target.files[0])">
+              <input type="file" name="cordova-ios-icon" @change="setImage('cordova-ios-icon', $event.target.files[0])">
             </label>
           </div>
 
-          <div class="col-100 tablet-50" v-if="project.platform.indexOf('ios') >= 0">
+          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('android') >= 0">
             <f7-block-title>Cordova Android Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 512x512 size</f7-block-header>
               <div class="asset-preview">
-                <img :src="getImage('/cwd/assets-src/cordova-icon-android.png')">
+                <img :src="getImage('/cwd/assets-src/cordova-android-icon.png')">
               </div>
               <f7-block-footer>{{dragText}}</f7-block-footer>
-              <input type="file" name="cordova-icon-android" @change="setImage('cordova-icon-android', $event.target.files[0])">
+              <input type="file" name="cordova-android-icon" @change="setImage('cordova-android-icon', $event.target.files[0])">
             </label>
           </div>
-          <div class="col-100 tablet-50">
+
+          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('electron') >= 0">
+            <f7-block-title>Cordova Electron App Icon</f7-block-title>
+            <label class="block block-strong inset drag-area">
+              <f7-block-header>PNG image 1024x1024 size</f7-block-header>
+              <div class="asset-preview">
+                <img :src="getImage('/cwd/assets-src/cordova-electron-app-icon.png')">
+              </div>
+              <f7-block-footer>{{dragText}}</f7-block-footer>
+              <input type="file" name="cordova-electron-app-icon" @change="setImage('cordova-electron-app-icon', $event.target.files[0])">
+            </label>
+          </div>
+
+          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('electron') >= 0">
+            <f7-block-title>Cordova Electron Installer Icon</f7-block-title>
+            <label class="block block-strong inset drag-area">
+              <f7-block-header>PNG image 1024x1024 size</f7-block-header>
+              <div class="asset-preview">
+                <img :src="getImage('/cwd/assets-src/cordova-electron-installer-icon.png')">
+              </div>
+              <f7-block-footer>{{dragText}}</f7-block-footer>
+              <input type="file" name="cordova-electron-installer-icon" @change="setImage('cordova-electron-installer-icon', $event.target.files[0])">
+            </label>
+          </div>
+
+          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('android') >= 0 || project.cordovaPlatform.indexOf('ios') >= 0">
             <f7-block-title>Cordova Splash Screen</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 2732x2732 size</f7-block-header>

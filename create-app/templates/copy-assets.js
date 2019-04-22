@@ -15,7 +15,7 @@ const generateServiceWorker = require('./generate-service-worker');
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
   const {
-    framework, bundler, type = [], platform = [], cssPreProcessor, iconFonts,
+    framework, bundler, type = [], cordovaPlatform = [], cssPreProcessor, iconFonts,
   } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
@@ -23,8 +23,9 @@ module.exports = (options) => {
   const isPwa = type.indexOf('pwa') >= 0;
   const isCordova = type.indexOf('cordova') >= 0;
   const isWebpack = bundler === 'webpack';
-  const isIos = platform.indexOf('ios') >= 0;
-  const isAndroid = platform.indexOf('android') >= 0;
+  const isIos = cordovaPlatform.indexOf('ios') >= 0;
+  const isAndroid = cordovaPlatform.indexOf('android') >= 0;
+  const isElectron = cordovaPlatform.indexOf('electron') >= 0;
 
   const toCopy = [];
   if (framework === 'core') toCopy.push(...copyCoreAssets(options));
@@ -138,13 +139,23 @@ module.exports = (options) => {
     if (isIos) {
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'ios', 'icon-512x512@2x.png'),
-        to: path.resolve(cwd, 'assets-src', 'cordova-icon-ios.png'),
+        to: path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'),
       });
     }
     if (isAndroid) {
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'android', 'playstore-icon.png'),
-        to: path.resolve(cwd, 'assets-src', 'cordova-icon-android.png'),
+        to: path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'),
+      });
+    }
+    if (isElectron) {
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'app.png'),
+        to: path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
+      });
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'installer.png'),
+        to: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
       });
     }
   }

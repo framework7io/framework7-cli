@@ -83,8 +83,8 @@ module.exports = (options) => {
     ${templateIf(hasCordova, () => `
     // Input settings
     input: {
-      scrollIntoViewOnFocus: !!${deviceVar}.cordova,
-      scrollIntoViewCentered: !!${deviceVar}.cordova,
+      scrollIntoViewOnFocus: ${deviceVar}.cordova && !${deviceVar}.electron,
+      scrollIntoViewCentered: ${deviceVar}.cordova && !${deviceVar}.electron,
     },
     // Cordova Statusbar settings
     statusbar: {
