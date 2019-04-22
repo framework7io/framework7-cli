@@ -2,6 +2,11 @@
 
 # Change Log
 
+# [v2.2.0](https://github.com/framework7io/framework7-cli/compare/v2.1.3...v2.2.0) - April 22, 2019
+  * Electron build 🖥🎉
+  * Now it uses `cordova-plugin-wkwebview-file-xhr` (where local XHR works) iOS plugin when no-bundler used
+  * Lots of minor improvements
+
 # [v2.1.3](https://github.com/framework7io/framework7-cli/compare/v2.1.2...v2.1.3) - April 8, 2019
   * Fixed issue when webpack build could remove `type="text"` attributes from inputs
 
