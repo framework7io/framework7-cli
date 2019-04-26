@@ -428,6 +428,109 @@
         </f7-list>
       </f7-block>
 
+      <f7-block tablet-inset strong class="content-block">
+        <f7-block-title large>
+          <i class="f7-icons block-icon">data_fill</i>
+          <span>Custom Build</span>
+        </f7-block-title>
+
+        <f7-block-title>Core components (required)</f7-block-title>
+        <div class="row">
+          <div class="col-50">
+            <f7-list class="no-margin-top">
+              <f7-list-item checked checkbox disabled title="App" />
+              <f7-list-item checked checkbox disabled title="Statusbar" />
+              <f7-list-item checked checkbox disabled title="View" />
+              <f7-list-item checked checkbox disabled title="Navbar" />
+              <f7-list-item checked checkbox disabled title="Toolbar" />
+              <f7-list-item checked checkbox disabled title="Subnavbar" />
+              <f7-list-item checked checkbox disabled title="Touch Ripple" />
+              <f7-list-item checked checkbox disabled title="Modal" />
+            </f7-list>
+          </div>
+          <div class="col-50">
+            <f7-list class="no-margin-top">
+              <f7-list-item checked checkbox disabled title="Page" />
+              <f7-list-item checked checkbox disabled title="Link" />
+              <f7-list-item checked checkbox disabled title="Block" />
+              <f7-list-item checked checkbox disabled title="List" />
+              <f7-list-item checked checkbox disabled title="Badge" />
+              <f7-list-item checked checkbox disabled title="Button" />
+              <f7-list-item checked checkbox disabled title="Icon" />
+            </f7-list>
+          </div>
+        </div>
+
+        <f7-block-title>Core components (required)</f7-block-title>
+        <div class="row">
+          <div class="col-33">
+            <f7-list class="no-margin-top">
+              <f7-list-item checkbox :checked="!!('accordion')" title="Accordion" />
+              <f7-list-item checkbox :checked="!!('actions')" title="Actions" />
+              <f7-list-item checkbox :checked="!!('appbar')" title="Appbar" />
+              <f7-list-item checkbox :checked="!!('autocomplete')" title="Autocomplete" />
+              <f7-list-item checkbox :checked="!!('calendar')" title="Calendar" />
+              <f7-list-item checkbox :checked="!!('card')" title="Card" />
+              <f7-list-item checkbox :checked="!!('checkbox')" title="Checkbox" />
+              <f7-list-item checkbox :checked="!!('chip')" title="Chip" />
+              <f7-list-item checkbox :checked="!!('color-picker')" title="Color Picker" />
+              <f7-list-item checkbox :checked="!!('contacts-list')" title="Contacts List" />
+              <f7-list-item checkbox :checked="!!('data-table')" title="Data Table" />
+              <f7-list-item checkbox :checked="!!('dialog')" title="Dialog" />
+              <f7-list-item checkbox :checked="!!('elevation')" title="Elevation" />
+              <f7-list-item checkbox :checked="!!('fab')" title="FAB" />
+              <f7-list-item checkbox :checked="!!('form')" title="Form" />
+              <f7-list-item checkbox :checked="!!('gauge')" title="Gauge" />
+              <f7-list-item checkbox :checked="!!('grid')" title="Grid" />
+            </f7-list>
+          </div>
+          <div class="col-33">
+            <f7-list class="no-margin-top">
+              <f7-list-item checkbox :checked="!!('infinite-scroll')" title="Infinite Scroll" />
+              <f7-list-item checkbox :checked="!!('input')" title="Input" />
+              <f7-list-item checkbox :checked="!!('lazy')" title="Lazy" />
+              <f7-list-item checkbox :checked="!!('list-index')" title="List Index" />
+              <f7-list-item checkbox :checked="!!('login-screen')" title="Login Screen" />
+              <f7-list-item checkbox :checked="!!('menu')" title="Menu" />
+              <f7-list-item checkbox :checked="!!('messagebar')" title="Messagebar" />
+              <f7-list-item checkbox :checked="!!('messages')" title="Messages" />
+              <f7-list-item checkbox :checked="!!('notification')" title="Notification" />
+              <f7-list-item checkbox :checked="!!('panel')" title="Panel" />
+              <f7-list-item checkbox :checked="!!('photo-browser')" title="Photo Browser" />
+              <f7-list-item checkbox :checked="!!('picker')" title="Picker" />
+              <f7-list-item checkbox :checked="!!('popover')" title="Popover" />
+              <f7-list-item checkbox :checked="!!('popup')" title="Popup" />
+              <f7-list-item checkbox :checked="!!('preloader')" title="Preloader" />
+              <f7-list-item checkbox :checked="!!('progressbar')" title="Progressbar" />
+              <f7-list-item checkbox :checked="!!('pull-to-refresh')" title="Pull To Refresh" />
+            </f7-list>
+          </div>
+          <div class="col-33">
+            <f7-list class="no-margin-top">
+              <f7-list-item checkbox :checked="!!('radio')" title="Radio" />
+              <f7-list-item checkbox :checked="!!('range')" title="Range" />
+              <f7-list-item checkbox :checked="!!('searchbar')" title="Searchbar" />
+              <f7-list-item checkbox :checked="!!('sheet')" title="Sheet" />
+              <f7-list-item checkbox :checked="!!('skeleton')" title="Skeleton" />
+              <f7-list-item checkbox :checked="!!('smart-select')" title="Smart Select" />
+              <f7-list-item checkbox :checked="!!('sortable')" title="Sortable" />
+              <f7-list-item checkbox :checked="!!('stepper')" title="Stepper" />
+              <f7-list-item checkbox :checked="!!('swipeout')" title="Swipeout" />
+              <f7-list-item checkbox :checked="!!('swiper')" title="Swiper" />
+              <f7-list-item checkbox :checked="!!('tabs')" title="Tabs" />
+              <f7-list-item checkbox :checked="!!('timeline')" title="Timeline" />
+              <f7-list-item checkbox :checked="!!('toast')" title="Toast" />
+              <f7-list-item checkbox :checked="!!('toggle')" title="Toggle" />
+              <f7-list-item checkbox :checked="!!('tooltip')" title="Tooltip" />
+              <f7-list-item checkbox :checked="!!('typography')" title="Typography" />
+              <f7-list-item checkbox :checked="!!('virtual-list')" title="Virtual List" />
+            </f7-list>
+          </div>
+        </div>
+      </f7-block>
+
+
+
       <f7-popup class="popup-log" :closeByBackdropClick="false" :opened="log && log.length > 0">
         <pre ref="logEl" v-html="logText(log)"></pre>
       </f7-popup>
