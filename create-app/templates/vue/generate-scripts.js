@@ -6,7 +6,7 @@ module.exports = (options) => {
   const {
     bundler,
     cssPreProcessor,
-    iconFonts,
+    theming,
   } = options;
 
   let scripts = '';
@@ -26,7 +26,7 @@ module.exports = (options) => {
     import 'framework7/css/framework7.bundle.css';
 
     // Import Icons and App Custom Styles
-    ${templateIf(iconFonts, () => `
+    ${templateIf(theming.iconFonts, () => `
     import '../css/icons.css';
     `)}
     import '../css/app.${stylesExtension(cssPreProcessor)}';

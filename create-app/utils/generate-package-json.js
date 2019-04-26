@@ -1,6 +1,6 @@
 module.exports = function generatePackageJson(options) {
   const {
-    type, name, framework, bundler, cssPreProcessor, iconFonts, cordovaPlatform = [],
+    type, name, framework, bundler, cssPreProcessor, cordova, theming,
   } = options;
 
   // Dependencies
@@ -8,7 +8,7 @@ module.exports = function generatePackageJson(options) {
     'framework7',
     'dom7',
     'template7',
-    ...(iconFonts ? [
+    ...(theming.iconFonts ? [
       'framework7-icons',
     ] : []),
     ...(framework === 'vue' ? [
@@ -33,7 +33,7 @@ module.exports = function generatePackageJson(options) {
       '@babel/runtime',
       'babel-loader',
       'chalk',
-      ...(type.indexOf('cordova') >= 0 && cordovaPlatform.indexOf('electron') >= 0 ? [
+      ...(type.indexOf('cordova') >= 0 && cordova.platforms.indexOf('electron') >= 0 ? [
         'concurrently',
       ] : []),
       'copy-webpack-plugin',
@@ -93,7 +93,7 @@ module.exports = function generatePackageJson(options) {
       'rimraf',
     ]);
   }
-  if (iconFonts) {
+  if (theming.iconFonts) {
     devDependencies.push('cpy-cli');
   }
 
@@ -106,20 +106,20 @@ module.exports = function generatePackageJson(options) {
     if (type.indexOf('cordova') >= 0) {
       scripts['build-cordova-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
       scripts['build-cordova-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build';
-      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
         scripts['build-cordova-ios-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build ios';
         scripts['build-cordova-ios-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios';
       }
-      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
         scripts['build-cordova-android-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build android';
         scripts['build-cordova-android-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build android';
       }
-      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         // eslint-disable-next-line
         scripts['build-cordova-electron-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build electron';
         scripts['build-cordova-electron-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build electron';
       }
-      if (cordovaPlatform.indexOf('electron') >= 0) {
+      if (cordova.platforms.indexOf('electron') >= 0) {
         scripts['cordova-electron'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && concurrently --kill-others "cross-env TARGET=cordova cross-env ELECTRON_WATCH=true cross-env NODE_ENV=development cross-env webpack --progress --config ./build/webpack.config.js --watch" "cd cordova && cordova run electron --nobuild"';
       }
     }
@@ -131,22 +131,22 @@ module.exports = function generatePackageJson(options) {
     scripts.start = 'npm run serve';
     if (type.indexOf('cordova') >= 0) {
       scripts['build-cordova'] = 'node ./build/build.js && cd cordova && cordova build';
-      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
         scripts['build-cordova-ios'] = 'node ./build/build.js && cd cordova && cordova build ios';
       }
-      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
         scripts['build-cordova-android'] = 'node ./build/build.js && cd cordova && cordova build android';
       }
-      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         scripts['build-cordova-electron'] = 'node ./build/build.js && cd cordova && cordova build electron';
       }
-      if (cordovaPlatform.indexOf('electron') >= 0) {
+      if (cordova.platforms.indexOf('electron') >= 0) {
         scripts['cordova-electron'] = 'node ./build/build.js && cd cordova && cordova run electron --nobuild';
       }
     }
   }
 
-  if (iconFonts) {
+  if (theming.iconFonts) {
     postInstall.push(`cpy './node_modules/framework7-icons/fonts/*.*' './${bundler ? 'src' : 'www'}/fonts/'`);
   }
 

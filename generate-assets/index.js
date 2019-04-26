@@ -32,38 +32,38 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
   */
   if (project) {
     const {
-      type, cordovaPlatform, bundler, cwd, cordovaFolder,
-    } = Object.assign({ cordovaFolder: 'cordova' }, project);
+      type, bundler, cwd, cordova,
+    } = project;
 
     if (type.indexOf('cordova') >= 0) {
-      if (cordovaPlatform.indexOf('ios') >= 0) {
+      if (cordova.platforms.indexOf('ios') >= 0) {
         options.cordovaIosIcon = {
           src: path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'),
-          output: path.resolve(cwd, `${cordovaFolder}/res/icon/ios`),
+          output: path.resolve(cwd, `${cordova.folder}/res/icon/ios`),
         };
         options.cordovaIosSplashScreen = {
           src: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
-          output: path.resolve(cwd, `${cordovaFolder}/res/screen/ios`),
+          output: path.resolve(cwd, `${cordova.folder}/res/screen/ios`),
         };
       }
-      if (cordovaPlatform.indexOf('android') >= 0) {
+      if (cordova.platforms.indexOf('android') >= 0) {
         options.cordovaAndroidIcon = {
           src: path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'),
-          output: path.resolve(cwd, `${cordovaFolder}/res/icon/android`),
+          output: path.resolve(cwd, `${cordova.folder}/res/icon/android`),
         };
         options.cordovaAndroidSplashScreen = {
           src: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
-          output: path.resolve(cwd, `${cordovaFolder}/res/screen/android`),
+          output: path.resolve(cwd, `${cordova.folder}/res/screen/android`),
         };
       }
-      if (cordovaPlatform.indexOf('electron') >= 0) {
+      if (cordova.platforms.indexOf('electron') >= 0) {
         options.cordovaElectronAppIcon = {
           src: path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
-          output: path.resolve(cwd, `${cordovaFolder}/res/icon/electron`),
+          output: path.resolve(cwd, `${cordova.folder}/res/icon/electron`),
         };
         options.cordovaElectronInstallerIcon = {
           src: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
-          output: path.resolve(cwd, `${cordovaFolder}/res/icon/electron`),
+          output: path.resolve(cwd, `${cordova.folder}/res/icon/electron`),
         };
       }
     }

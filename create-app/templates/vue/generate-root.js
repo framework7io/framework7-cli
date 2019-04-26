@@ -6,6 +6,7 @@ module.exports = (options) => {
   const {
     template,
     type,
+    theming,
   } = options;
 
   // Panels
@@ -89,7 +90,7 @@ module.exports = (options) => {
 
   return indent(0, `
     <template>
-    <f7-app :params="f7params">
+    <f7-app :params="f7params" ${theming.darkTheme ? 'theme-dark' : ''}>
       <!-- Status bar overlay for fullscreen mode-->
       <f7-statusbar></f7-statusbar>
       ${leftPanel}

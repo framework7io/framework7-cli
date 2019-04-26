@@ -39,7 +39,7 @@
         </template>
 
         <template v-if="project.type.indexOf('cordova') >= 0">
-          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('ios') >= 0">
+          <div class="col-100 tablet-50" v-if="project.cordova.platforms.indexOf('ios') >= 0">
             <f7-block-title>Cordova iOS Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>Square PNG image 1024x1024 size</f7-block-header>
@@ -51,7 +51,7 @@
             </label>
           </div>
 
-          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('android') >= 0">
+          <div class="col-100 tablet-50" v-if="project.cordova.platforms.indexOf('android') >= 0">
             <f7-block-title>Cordova Android Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 512x512 size</f7-block-header>
@@ -63,7 +63,7 @@
             </label>
           </div>
 
-          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('electron') >= 0">
+          <div class="col-100 tablet-50" v-if="project.cordova.platforms.indexOf('electron') >= 0">
             <f7-block-title>Cordova Electron App Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 1024x1024 size</f7-block-header>
@@ -75,7 +75,7 @@
             </label>
           </div>
 
-          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('electron') >= 0">
+          <div class="col-100 tablet-50" v-if="project.cordova.platforms.indexOf('electron') >= 0">
             <f7-block-title>Cordova Electron Installer Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 1024x1024 size</f7-block-header>
@@ -87,7 +87,7 @@
             </label>
           </div>
 
-          <div class="col-100 tablet-50" v-if="project.cordovaPlatform.indexOf('android') >= 0 || project.cordovaPlatform.indexOf('ios') >= 0">
+          <div class="col-100 tablet-50" v-if="project.cordova.platforms.indexOf('android') >= 0 || project.cordova.platforms.indexOf('ios') >= 0">
             <f7-block-title>Cordova Splash Screen</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 2732x2732 size</f7-block-header>

@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Framework7 CLI UI",
   "repository": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "framework7": {
     "type": [
       "web"

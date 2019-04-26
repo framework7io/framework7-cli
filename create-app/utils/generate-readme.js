@@ -2,7 +2,7 @@ const templateIf = require('./template-if');
 
 module.exports = (options) => {
   const {
-    framework, bundler, type, name, cordovaPlatform = [], cordovaFolder,
+    framework, bundler, type, name, cordova,
   } = options;
 
   const npmScripts = ['* `npm start` - run development server'];
@@ -17,25 +17,25 @@ module.exports = (options) => {
         '* `npm run build-cordova-prod` - build cordova\'s `www` folder from and build cordova app',
         '* `npm run build-cordova-dev` - build cordova\'s `www` folder from and build cordova app using development mode (faster build without minification and optimization)',
       ]);
-      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
         npmScripts.push(...[
           '* `npm run build-cordova-ios-prod` - build cordova\'s `www` folder from and build cordova iOS app',
           '* `npm run build-cordova-ios-dev` - build cordova\'s `www` folder from and build cordova iOS app using development mode (faster build without minification and optimization)',
         ]);
       }
-      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
         npmScripts.push(...[
           '* `npm run build-cordova-android-prod` - build cordova\'s `www` folder from and build cordova Android app',
           '* `npm run build-cordova-android-dev` - build cordova\'s `www` folder from and build cordova Android app using development mode (faster build without minification and optimization)',
         ]);
       }
-      if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         npmScripts.push(...[
           '* `npm run build-cordova-electron-prod` - build cordova\'s `www` folder from and build cordova Electron app',
           '* `npm run build-cordova-electron-dev` - build cordova\'s `www` folder from and build cordova Electron app using development mode (faster build without minification and optimization)',
         ]);
       }
-      if (cordovaPlatform.indexOf('electron') >= 0) {
+      if (cordova.platforms.indexOf('electron') >= 0) {
         npmScripts.push(...[
           '* `npm run cordova-electron` - launch quick preview (without full build process) of Electron app in development mode',
         ]);
@@ -47,22 +47,22 @@ module.exports = (options) => {
     npmScripts.push(...[
       '* `npm run build-cordova` - build cordova app',
     ]);
-    if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
+    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
       npmScripts.push(...[
         '* `npm run build-cordova-ios` - build cordova iOS app',
       ]);
     }
-    if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
+    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
       npmScripts.push(...[
         '* `npm run build-cordova-android` - build cordova Android app',
       ]);
     }
-    if (cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
       npmScripts.push(...[
         '* `npm run build-cordova-electron` - build cordova Electron (desktop) app',
       ]);
     }
-    if (cordovaPlatform.indexOf('electron') >= 0) {
+    if (cordova.platforms.indexOf('electron') >= 0) {
       npmScripts.push(...[
         '* `npm run cordova-electron` - launch quick preview (without full build process) of Electron app',
       ]);
@@ -102,10 +102,10 @@ This is a PWA. Don't forget to check what is inside of your \`service-worker.js\
 ${templateIf(type.indexOf('cordova') >= 0, () => `
 ## Cordova
 
-Cordova project located in \`${cordovaFolder}\` folder. You shouldn't modify content of \`${cordovaFolder}/www\` folder. Its content will be correctly generated when you call \`npm run cordova-build-prod\`.
+Cordova project located in \`${cordova.folder}\` folder. You shouldn't modify content of \`${cordova.folder}/www\` folder. Its content will be correctly generated when you call \`npm run cordova-build-prod\`.
 `)}
 
-${templateIf(cordovaPlatform.indexOf('electron') >= 0, () => `
+${templateIf(type.indexOf('cordova') >= 0 && cordova.platforms.indexOf('electron') >= 0, () => `
 ## Cordova Electron
 
 There is also cordova Electron platform installed. To learn more about it and Electron check this guides:

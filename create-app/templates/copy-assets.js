@@ -15,7 +15,7 @@ const generateServiceWorker = require('./generate-service-worker');
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
   const {
-    framework, bundler, type = [], cordovaPlatform = [], cssPreProcessor, iconFonts,
+    framework, bundler, type = [], cordova, theming, cssPreProcessor,
   } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
@@ -23,9 +23,9 @@ module.exports = (options) => {
   const isPwa = type.indexOf('pwa') >= 0;
   const isCordova = type.indexOf('cordova') >= 0;
   const isWebpack = bundler === 'webpack';
-  const isIos = cordovaPlatform.indexOf('ios') >= 0;
-  const isAndroid = cordovaPlatform.indexOf('android') >= 0;
-  const isElectron = cordovaPlatform.indexOf('electron') >= 0;
+  const isIos = cordova && cordova.platforms.indexOf('ios') >= 0;
+  const isAndroid = cordova && cordova.platforms.indexOf('android') >= 0;
+  const isElectron = cordova && cordova.platforms.indexOf('electron') >= 0;
 
   const toCopy = [];
   if (framework === 'core') toCopy.push(...copyCoreAssets(options));
@@ -33,7 +33,7 @@ module.exports = (options) => {
   if (framework === 'react') toCopy.push(...copyReactAssets(options));
 
 
-  if (iconFonts) {
+  if (theming.iconFonts) {
     // Copy Icons CSS
     toCopy.push({
       from: path.resolve(__dirname, 'common', 'css', 'icons.css'),

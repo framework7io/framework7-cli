@@ -1,5 +1,5 @@
 module.exports = (options) => {
-  const { name, customColor, color } = options;
+  const { name, theming } = options;
 
   const manifest = {
     name,
@@ -8,8 +8,8 @@ module.exports = (options) => {
     lang: 'en-US',
     start_url: '/',
     display: 'standalone',
-    background_color: customColor && color ? `#${color}` : '#EE350F',
-    theme_color: customColor && color ? `#${color}` : '#EE350F',
+    background_color: theming.customColor && theming.color ? `${theming.color}` : '#EE350F',
+    theme_color: theming.customColor && theming.color ? `${theming.color}` : '#EE350F',
     icons: [
       {
         src: '/static/icons/128x128.png',

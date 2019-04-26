@@ -6,6 +6,7 @@ module.exports = (options) => {
   const {
     template,
     type,
+    theming,
   } = options;
 
   // Panels
@@ -133,7 +134,7 @@ module.exports = (options) => {
       }
       render() {
         return (
-          <App params={ this.state.f7params }>
+          <App params={ this.state.f7params } ${theming.darkTheme ? 'themeDark' : ''}>
             {/* Status bar overlay for fullscreen mode*/}
             <Statusbar></Statusbar>
             ${leftPanel}

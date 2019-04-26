@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: ["off"] */
 const inquirer = require('inquirer');
 
 const questions = [
@@ -56,7 +57,7 @@ const questions = [
   },
   {
     type: 'checkbox',
-    name: 'cordovaPlatform',
+    name: 'cordovaPlatforms',
     message: 'Target Cordova platform:',
     when: opts => opts.type.indexOf('cordova') >= 0,
     choices: [
@@ -185,7 +186,7 @@ const questions = [
   // Color
   {
     type: 'list',
-    name: 'customColor',
+    name: 'themingCustomColor',
     message: 'Do you want to specify custom theme color?',
     choices: [
       {
@@ -200,9 +201,9 @@ const questions = [
   },
   {
     type: 'input',
-    name: 'color',
+    name: 'themingColor',
     message: 'Enter custom theme color in HEX format (e.g. ff0000)',
-    when: opts => opts.customColor === true,
+    when: opts => opts.themingCustomColor === true,
     validate(input) {
       return new Promise((resolve, reject) => {
         const num = input.replace(/#/g, '');
@@ -217,7 +218,7 @@ const questions = [
   // Bundler
   {
     type: 'list',
-    name: 'iconFonts',
+    name: 'themingIconFonts',
     message: 'Do you want to include Framework7 Icons and Material Icons icon fonts?',
     default: true,
     choices: [
@@ -239,8 +240,38 @@ module.exports = function getOptions() {
       options.bundler = 'webpack'; // eslint-disable-line
     }
     if (options.type.indexOf('cordova') >= 0) {
-      options.cordovaFolder = 'cordova'; // eslint-disable-line
+      options.cordova = {
+        folder: 'cordova',
+        platforms: options.cordovaPlatforms,
+        plugins: [
+          'cordova-plugin-statusbar',
+          'cordova-plugin-keyboard',
+          'cordova-plugin-splashscreen',
+          'cordova-plugin-wkwebview-engine',
+        ],
+      };
+      delete options.cordovaPlatforms;
     }
+    if (options.bundler === 'webpack') {
+      options.webpack = {
+        developmentSourceMap: true,
+        productionSourceMap: true,
+        hashAssets: false,
+        preserveAssetsPaths: false,
+        inlineAssets: true,
+      };
+    }
+    options.theming = {
+      customColor: options.themingCustomColor,
+      color: options.themingCustomColor && options.themingColor ? `#${options.themingColor}` : '#007aff',
+      darkTheme: false,
+      iconFonts: options.themingIconFonts,
+      fillBars: false,
+    };
+    delete options.themingCustomColor;
+    delete options.themingColor;
+    delete options.themingIconFonts;
+
     if (options.type.indexOf('pwa') >= 0 && options.type.indexOf('web') < 0) {
       options.type.push('web');
     }

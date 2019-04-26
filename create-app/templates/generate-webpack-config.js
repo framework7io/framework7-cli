@@ -5,8 +5,8 @@ module.exports = (options) => {
   const {
     framework,
     type,
-    cordovaFolder,
-    cordovaPlatform,
+    cordova,
+    webpack,
   } = options;
   // eslint-disable-next-line
   const hasCordova = type.indexOf('cordova') >= 0;
@@ -19,10 +19,19 @@ module.exports = (options) => {
     resolveExtensions = "['.js', '.jsx', '.json']";
   }
 
-  let cordovaOutput = `isCordova ? '${cordovaFolder}/www' : 'www'`;
-  if (hasCordova && cordovaPlatform.indexOf('electron') >= 0) {
-    cordovaOutput = `isCordova ? (isElectronWatch ? '${cordovaFolder}/platforms/electron/www' : '${cordovaFolder}/www') : 'www'`;
+  let cordovaOutput;
+  if (hasCordova) {
+    cordovaOutput = `isCordova ? '${cordova.folder}/www' : 'www'`;
   }
+  if (hasCordova && cordova.platforms.indexOf('electron') >= 0) {
+    cordovaOutput = `isCordova ? (isElectronWatch ? '${cordova.folder}/platforms/electron/www' : '${cordova.folder}/www') : 'www'`;
+  }
+
+  const productionDevtool = webpack.productionSourceMap ? '\'source-map\'' : false;
+  const developmentDevtool = webpack.developmentSourceMap ? '\'eval\'' : false;
+  const hashName = webpack.hashAssets ? '.[hash:6]' : '';
+  const assetsLoader = webpack.inlineAssets ? 'url-loader' : 'file-loader';
+  const preserveAssetsPaths = webpack.preserveAssetsPaths; // eslint-disable-line
 
   return indent(0, `
     const webpack = require('webpack');
@@ -49,7 +58,7 @@ module.exports = (options) => {
     ${templateIf(hasCordova, () => `
     const isCordova = target === 'cordova';
     `)}
-    ${templateIf(hasCordova && cordovaPlatform.indexOf('electron') >= 0, () => `
+    ${templateIf(hasCordova && cordova.platforms.indexOf('electron') >= 0, () => `
     const isElectronWatch = process.env.ELECTRON_WATCH || false;
     `)}
 
@@ -64,7 +73,7 @@ module.exports = (options) => {
         `, () => `
         path: resolvePath('www'),
         `)}
-        filename: 'js/app.js',
+        filename: 'js/app${hashName}.js',
         publicPath: '',
         hotUpdateChunkFilename: 'hot/hot-update.js',
         hotUpdateMainFilename: 'hot/hot-update.json',
@@ -78,7 +87,7 @@ module.exports = (options) => {
           '@': resolvePath('src'),
         },
       },
-      devtool: env === 'production' ? 'source-map' : 'eval',
+      devtool: env === 'production' ? ${productionDevtool} : ${developmentDevtool},
       devServer: {
         hot: true,
         open: true,
@@ -185,26 +194,35 @@ module.exports = (options) => {
           },
           {
             test: /\\.(png|jpe?g|gif|svg)(\\?.*)?$/,
-            loader: 'url-loader',
+            loader: '${assetsLoader}',
             options: {
               limit: 10000,
-              name: 'images/[name].[ext]',
+              name: '${preserveAssetsPaths ? '[path]' : 'images'}/[name]${hashName}.[ext]',
+              ${templateIf(preserveAssetsPaths, () => `
+              context: path.resolve(__dirname, '../src'),
+              `)}
             },
           },
           {
             test: /\\.(mp4|webm|ogg|mp3|wav|flac|aac|m4a)(\\?.*)?$/,
-            loader: 'url-loader',
+            loader: '${assetsLoader}',
             options: {
               limit: 10000,
-              name: 'media/[name].[ext]',
+              name: '${preserveAssetsPaths ? '[path]' : 'media'}/[name]${hashName}.[ext]',
+              ${templateIf(preserveAssetsPaths, () => `
+              context: path.resolve(__dirname, '../src'),
+              `)}
             },
           },
           {
             test: /\\.(woff2?|eot|ttf|otf)(\\?.*)?$/,
-            loader: 'url-loader',
+            loader: '${assetsLoader}',
             options: {
               limit: 10000,
-              name: 'fonts/[name].[ext]',
+              name: '${preserveAssetsPaths ? '[path]' : 'fonts'}/[name]${hashName}.[ext]',
+              ${templateIf(preserveAssetsPaths, () => `
+              context: path.resolve(__dirname, '../src'),
+              `)}
             },
           },
         ],
@@ -254,13 +272,13 @@ module.exports = (options) => {
           } : false,
         }),
         new MiniCssExtractPlugin({
-          filename: 'css/app.css',
+          filename: 'css/app${hashName}.css',
         }),
         new CopyWebpackPlugin([
           {
             from: resolvePath('src/static'),
             ${templateIf(hasCordova, () => `
-            to: resolvePath(isCordova ? '${cordovaFolder}/www/static' : 'www/static'),
+            to: resolvePath(isCordova ? '${cordova.folder}/www/static' : 'www/static'),
             `, () => `
             to: resolvePath('www/static'),
             `)}

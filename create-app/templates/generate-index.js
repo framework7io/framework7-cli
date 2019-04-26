@@ -8,9 +8,7 @@ module.exports = (options) => {
     framework,
     type,
     bundler,
-    customColor,
-    color,
-    iconFonts,
+    theming,
   } = options;
 
   const iconsAssetsFolder = bundler === 'webpack' ? 'static' : 'assets';
@@ -40,7 +38,7 @@ module.exports = (options) => {
   <!-- built styles file will be auto injected -->
   `.trim() : `
   <link rel="stylesheet" href="${bundler === 'rollup' ? '' : 'framework7/'}css/framework7.bundle.min.css">
-  ${iconFonts ? '<link rel="stylesheet" href="css/icons.css">' : ''}
+  ${theming.iconFonts ? '<link rel="stylesheet" href="css/icons.css">' : ''}
   <link rel="stylesheet" href="css/app.css">
   `.trim();
 
@@ -90,7 +88,7 @@ module.exports = (options) => {
   <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
 
-  <meta name="theme-color" content="${customColor && color ? `#${color}` : '#007aff'}">
+  <meta name="theme-color" content="${theming.customColor && theming.color ? `${theming.color}` : '#007aff'}">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <title>${name}</title>
@@ -101,7 +99,7 @@ module.exports = (options) => {
   ${styles}
 </head>
 <body>
-  <div id="app">${rootContent}</div>
+  <div id="app"${framework === 'core' && theming.darkTheme ? 'class="theme-dark"' : ''}>${rootContent}</div>
   ${cordovaScript || ''}
   ${scripts}
 </body>

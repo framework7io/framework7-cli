@@ -1,10 +1,10 @@
 const indent = require('../utils/indent');
 
 module.exports = (options) => {
-  const { cordovaPlatform } = options;
+  const { cordova } = options;
   return indent(4, `
     <allow-navigation href="*" />
-    ${cordovaPlatform.indexOf('android') >= 0 ? `
+    ${cordova.platforms.indexOf('android') >= 0 ? `
     <platform name="android">
       <preference name="StatusBarOverlaysWebView" value="false" />
       <preference name="android-minSdkVersion" value="21" />
@@ -27,7 +27,7 @@ module.exports = (options) => {
       <icon density="xxxhdpi" src="res/icon/android/mipmap-xxxhdpi/ic_launcher.png" />
     </platform>
     ` : ''}
-    ${cordovaPlatform.indexOf('ios') >= 0 ? `
+    ${cordova.platforms.indexOf('ios') >= 0 ? `
     <platform name="ios">
       <config-file parent="CFBundleAllowMixedLocalizations" platform="ios" target="*-Info.plist">
         <true />
@@ -56,7 +56,7 @@ module.exports = (options) => {
       <icon height="1024" src="res/icon/ios/icon-512x512@2x.png" width="1024" />
     </platform>
     ` : ''}
-    ${cordovaPlatform.indexOf('electron') >= 0 ? `
+    ${cordova.platforms.indexOf('electron') >= 0 ? `
     <platform name="electron">
       <preference name="ElectronSettingsFilePath" value="electron-settings.json" />
       <icon src="res/icon/electron/app.png" target="app" />

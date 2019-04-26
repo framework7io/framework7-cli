@@ -32,7 +32,7 @@ module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
   }
 
   // Options
-  const { type, bundler, cordovaPlatform } = options;
+  const { type, bundler, cordova } = options;
 
   // Package
   logger.statusStart('Generating package.json');
@@ -163,25 +163,25 @@ module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
         `- 📱 Run "${chalk.green('npm run build-cordova-prod')}" to build cordova app`,
         `- 📱 Run "${chalk.green('npm run build-cordova-dev')}" to build cordova app using development mode (faster build without minification and optimization)`,
       ]);
-      if (cordovaPlatform && cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
         npmScripts.push(...[
           `- 📱 Run "${chalk.green('npm run build-cordova-ios-prod')}" to build cordova iOS app`,
           `- 📱 Run "${chalk.green('npm run build-cordova-ios-dev')}" to build cordova iOS app using development mode (faster build without minification and optimization)`,
         ]);
       }
-      if (cordovaPlatform && cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
         npmScripts.push(...[
           `- 📱 Run "${chalk.green('npm run build-cordova-android-prod')}" to build cordova Android app`,
           `- 📱 Run "${chalk.green('npm run build-cordova-android-dev')}" to build cordova Android app using development mode (faster build without minification and optimization)`,
         ]);
       }
-      if (cordovaPlatform && cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         npmScripts.push(...[
           `- 🖥 Run "${chalk.green('npm run build-cordova-electron-prod')}" to build cordova Electron app`,
           `- 🖥 Run "${chalk.green('npm run build-cordova-electron-dev')}" to build cordova Electron app using development mode (faster build without minification and optimization)`,
         ]);
       }
-      if (cordovaPlatform.indexOf('electron') >= 0) {
+      if (cordova.platforms.indexOf('electron') >= 0) {
         npmScripts.push(
           `- 🖥 Run "${chalk.green('npm run cordova-electron')}" to launch quick preview (without full build process) of Electron app in development mode`,
         );
@@ -192,22 +192,22 @@ module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
     npmScripts.push(...[
       `- 📱 Run "${chalk.green('npm run build-cordova')}" to build cordova app`,
     ]);
-    if (cordovaPlatform && cordovaPlatform.length > 1 && cordovaPlatform.indexOf('ios') >= 0) {
+    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
       npmScripts.push(...[
         `- 📱 Run "${chalk.green('npm run build-cordova-ios')}" to build cordova iOS app`,
       ]);
     }
-    if (cordovaPlatform && cordovaPlatform.length > 1 && cordovaPlatform.indexOf('android') >= 0) {
+    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
       npmScripts.push(...[
         `- 📱 Run "${chalk.green('npm run build-cordova-android')}" to build cordova Android app`,
       ]);
     }
-    if (cordovaPlatform && cordovaPlatform.length > 1 && cordovaPlatform.indexOf('electron') >= 0) {
+    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
       npmScripts.push(...[
         `- 🖥 Run "${chalk.green('npm run build-cordova-electron')}" to build cordova Electron app`,
       ]);
     }
-    if (cordovaPlatform.indexOf('electron') >= 0) {
+    if (cordova.platforms.indexOf('electron') >= 0) {
       npmScripts.push(
         `- 🖥 Run "${chalk.green('npm run cordova-electron')}" to launch quick preview (without full build process) of Electron app in development mode`,
       );
