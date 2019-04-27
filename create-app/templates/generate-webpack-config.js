@@ -197,7 +197,7 @@ module.exports = (options) => {
             loader: '${assetsLoader}',
             options: {
               limit: 10000,
-              name: '${preserveAssetsPaths ? '[path]' : 'images'}/[name]${hashName}.[ext]',
+              name: '${preserveAssetsPaths ? '[path]' : 'images/'}[name]${hashName}.[ext]',
               ${templateIf(preserveAssetsPaths, () => `
               context: path.resolve(__dirname, '../src'),
               `)}
@@ -208,7 +208,7 @@ module.exports = (options) => {
             loader: '${assetsLoader}',
             options: {
               limit: 10000,
-              name: '${preserveAssetsPaths ? '[path]' : 'media'}/[name]${hashName}.[ext]',
+              name: '${preserveAssetsPaths ? '[path]' : 'media/'}[name]${hashName}.[ext]',
               ${templateIf(preserveAssetsPaths, () => `
               context: path.resolve(__dirname, '../src'),
               `)}
@@ -219,7 +219,7 @@ module.exports = (options) => {
             loader: '${assetsLoader}',
             options: {
               limit: 10000,
-              name: '${preserveAssetsPaths ? '[path]' : 'fonts'}/[name]${hashName}.[ext]',
+              name: '${preserveAssetsPaths ? '[path]' : 'fonts/'}[name]${hashName}.[ext]',
               ${templateIf(preserveAssetsPaths, () => `
               context: path.resolve(__dirname, '../src'),
               `)}
