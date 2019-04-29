@@ -74,7 +74,9 @@ module.exports = (options) => {
     if (cordova.platforms.indexOf('electron') >= 0) {
       const electronConfig = {
         browserWindow: {
-          nodeIntegration: true,
+          webPreferences: {
+            nodeIntegration: true,
+          },
         },
       };
       fse.writeFileSync(path.resolve(cwd, cordova.folder, 'electron-config.json'), JSON.stringify(electronConfig, '', 2));

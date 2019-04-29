@@ -5,7 +5,7 @@ const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
   const {
-    bundler, type, cssPreProcessor, theming,
+    bundler, type, cssPreProcessor, theming, customBuild,
   } = options;
 
   let scripts = '';
@@ -13,11 +13,19 @@ module.exports = (options) => {
   if (bundler) {
     scripts += indent(0, `
       import $$ from 'dom7';
+      ${templateIf(customBuild, () => `
+      import Framework7 from './framework7-custom.js';
+      `, () => `
       import Framework7 from 'framework7/framework7.esm.bundle.js';
+      `)}
 
       ${templateIf(bundler === 'webpack', () => `
       // Import F7 Styles
+      ${templateIf(customBuild, () => `
+      import '../css/framework7-custom.less';
+      `, () => `
       import 'framework7/css/framework7.bundle.css';
+      `)}
 
       // Import Icons and App Custom Styles
       ${templateIf(theming.iconFonts, () => `

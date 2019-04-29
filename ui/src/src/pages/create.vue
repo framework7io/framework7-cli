@@ -119,7 +119,16 @@
           </div>
           <div class="col-33 checkbox-col" :class="{checked: cordova.platforms.indexOf('electron') >= 0}">
             <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'electron')">
-              <i class="icon f7-icons">device_desktop</i>
+              <!-- <i class="icon f7-icons">device_desktop</i> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="46" height="50" viewBox="0 0 46 50">
+                <g fill="var(--checkbox-col-text-color)" transform="translate(.232 .132)">
+                  <path d="M16.26709,10.8502718 C9.80877563,9.67399702 4.70244235,10.9051268 2.66730029,14.4300962 C1.14863171,17.0605074 1.5827308,20.5479943 3.72007728,24.2759036 C3.90199702,24.5932037 4.30669467,24.7029512 4.62399477,24.5210315 C4.94129487,24.3391118 5.05104235,23.9344141 4.86912262,23.617114 C2.94377645,20.2589706 2.56913221,17.249135 3.81435381,15.0923479 C5.504955,12.1641407 10.0597158,11.0659943 16.029758,12.1533384 C16.3895899,12.2188758 16.7344199,11.9803029 16.7999573,11.620471 C16.8654947,11.2606391 16.6269219,10.9158092 16.26709,10.8502718 Z M7.07861563,28.8071517 C9.68999775,31.6768672 13.0826192,34.3685159 16.9517131,36.6023384 C26.3201118,42.0111858 36.2934338,43.4569053 41.2087007,40.105396 C41.5108891,39.8993467 41.5888252,39.4873387 41.3827762,39.1851503 C41.1767268,38.8829619 40.7647185,38.8050255 40.4625301,39.0110748 C36.0634245,42.0106361 26.5894906,40.6373073 17.6139648,35.4552848 C13.8605087,33.2882262 10.5753367,30.6818258 8.05823533,27.9157179 C7.81207268,27.6452034 7.39322308,27.6254623 7.12270858,27.871625 C6.85219407,28.1177876 6.83245298,28.5366372 7.07861563,28.8071517 Z"/>
+                  <path d="M39.6407377,28.0015087 C43.8694858,23.0059033 45.3460182,17.9814478 43.3150669,14.4637368 C41.8206546,11.8753386 38.6614245,10.508773 34.4628576,10.4541703 C34.0971371,10.4494141 33.7968063,10.7420335 33.79205,11.107754 C33.7872937,11.4734746 34.0799132,11.7738054 34.4456338,11.7785616 C38.2217152,11.8276699 40.943457,13.0049943 42.1680132,15.1259884 C43.8549613,18.0478679 42.5382228,22.528564 38.6297993,27.145756 C38.3934897,27.4249189 38.4282291,27.8427919 38.7073921,28.0791015 C38.986555,28.3154111 39.4044281,28.2806716 39.6407377,28.0015087 Z M28.7729049,11.0707934 C24.9494197,11.8899918 20.8796646,13.4916898 16.9711355,15.7482801 C7.30003301,21.3318937 0.991353487,29.5651322 1.86752366,35.5349762 C1.92063458,35.896851 2.25704699,36.1471536 2.61892181,36.0940427 C2.98079663,36.0409318 3.23109922,35.7045192 3.17798829,35.3426444 C2.40004159,30.0420527 8.38005162,22.2377494 17.6333872,16.8953336 C21.424971,14.7062617 25.3655808,13.1553903 29.0503881,12.3659042 C29.4080231,12.2892794 29.6358268,11.9372422 29.559202,11.5796073 C29.4825771,11.2219723 29.1305399,10.9941685 28.7729049,11.0707934 Z"/>
+                  <path d="M13.1053499 39.6738308C15.3163366 45.847701 18.9335091 49.6489149 23.0008948 49.6489149 25.9673153 49.6489149 28.7118359 47.626797 30.851997 44.0667086 31.0404405 43.7532391 30.9390868 43.3463579 30.6256172 43.1579146 30.3121476 42.9694712 29.9052666 43.0708248 29.7168231 43.3842944 27.7934636 46.5837404 25.4309366 48.3244116 23.0008948 48.3244116 19.6222193 48.3244116 16.3960206 44.9340642 14.3523037 39.2272715 14.2289898 38.8829348 13.849884 38.7037603 13.5055472 38.8270742 13.1612104 38.9503881 12.982036 39.329494 13.1053499 39.6738308zM33.301094 38.466153C34.4456795 34.8084911 35.0604132 30.5890416 35.0604132 26.1921295 35.0604132 15.2205809 31.2204221 5.76269344 25.7508624 3.33404268 25.4165831 3.18561253 25.0252698 3.33627301 24.8768396 3.67055228 24.7284095 4.00483159 24.87907 4.3961449 25.2133492 4.54457507 30.0915353 6.71063791 33.7359099 15.6867225 33.7359099 26.1921295 33.7359099 30.4578502 33.1405877 34.5440609 32.0370364 38.0705937 31.9278057 38.4196536 32.1222257 38.7911715 32.4712856 38.900402 32.8203455 39.0096328 33.1918636 38.8152129 33.301094 38.466153zM45.7738444 37.8173417C45.7738444 36.0667924 44.3547434 34.6476914 42.604194 34.6476914 40.8536444 34.6476914 39.4345434 36.0667924 39.4345434 37.8173417 39.4345434 39.5678914 40.8536444 40.9869921 42.604194 40.9869921 44.3547434 40.9869921 45.7738444 39.5678914 45.7738444 37.8173417zM44.4493411 37.8173417C44.4493411 38.8363884 43.6232404 39.6624887 42.604194 39.6624887 41.5851474 39.6624887 40.7590467 38.8363884 40.7590467 37.8173417 40.7590467 36.7982954 41.5851474 35.9721947 42.604194 35.9721947 43.6232404 35.9721947 44.4493411 36.7982954 44.4493411 37.8173417zM3.35200735 40.9869921C5.10255692 40.9869921 6.52165772 39.5678914 6.52165772 37.8173417 6.52165772 36.0667924 5.10255692 34.6476914 3.35200735 34.6476914 1.60145778 34.6476914.182356966 36.0667924.182356966 37.8173417.182356966 39.5678914 1.60145778 40.9869921 3.35200735 40.9869921zM3.35200735 39.6624887C2.33296076 39.6624887 1.50686028 38.8363884 1.50686028 37.8173417 1.50686028 36.7982954 2.33296076 35.9721947 3.35200735 35.9721947 4.37105394 35.9721947 5.1971544 36.7982954 5.1971544 37.8173417 5.1971544 38.8363884 4.37105394 39.6624887 3.35200735 39.6624887z"/>
+                  <path d="M23.0008948 6.56724609C24.7514444 6.56724609 26.1705452 5.14814526 26.1705452 3.39759573 26.1705452 1.64704615 24.7514444.227945338 23.0008948.227945338 21.2503452.227945338 19.8312444 1.64704615 19.8312444 3.39759573 19.8312444 5.14814526 21.2503452 6.56724609 23.0008948 6.56724609zM23.0008948 5.24274278C21.9818482 5.24274278 21.1557477 4.41664228 21.1557477 3.39759573 21.1557477 2.37854913 21.9818482 1.55244865 23.0008948 1.55244865 24.0199414 1.55244865 24.8460419 2.37854913 24.8460419 3.39759573 24.8460419 4.41664228 24.0199414 5.24274278 23.0008948 5.24274278zM23.4850352 28.4336682C22.2470065 28.7011662 21.0272995 27.9143767 20.7592781 26.676348 20.4923036 25.4383192 21.2785696 24.2186123 22.5165984 23.9505908 23.7546271 23.6830929 24.9743341 24.4698824 25.2423555 25.7079111 25.5098535 26.9459398 24.723064 28.1656468 23.4850352 28.4336682z"/>
+                </g>
+              </svg>
+
             </div>
             <div class="col-label">Electron</div>
           </div>
@@ -274,18 +283,18 @@
         <f7-block-title>Should we setup project with bundler?</f7-block-title>
         <f7-list tablet-inset no-hairlines-between>
           <f7-list-item
-            :class="{disabled: framework !== 'core'}"
+            :class="{disabled: framework !== 'core' || customBuild}"
             radio
             title="No bundler"
             @change="bundler = false"
             :checked="bundler === false && framework === 'core'"
-            :disabled="framework !== 'core'"
+            :disabled="framework !== 'core' || customBuild"
           ></f7-list-item>
           <f7-list-item
             radio
             title="Webpack (recommended)"
             @change="bundler = 'webpack'"
-            :checked="bundler === 'webpack' || framework !== 'core'"
+            :checked="bundler === 'webpack' || framework !== 'core' || customBuild"
             :disabled="framework !== 'core'"
           ></f7-list-item>
         </f7-list>
@@ -294,28 +303,34 @@
           <f7-block-title>Do you want to setup CSS Pre-Processor?</f7-block-title>
           <f7-list no-hairlines-between>
             <f7-list-item
+              :class="{disabled: customBuild}"
               radio
               title="No, i am good with CSS"
               @change="cssPreProcessor = false"
-              :checked="cssPreProcessor === false"
+              :checked="cssPreProcessor === false && customBuild"
+              :disabled="customBuild"
             ></f7-list-item>
             <f7-list-item
               radio
               title="Less"
               @change="cssPreProcessor = 'less'"
-              :checked="cssPreProcessor === 'less'"
+              :checked="cssPreProcessor === 'less' || customBuild"
             ></f7-list-item>
             <f7-list-item
+              :class="{disabled: customBuild}"
               radio
               title="Stylus"
               @change="cssPreProcessor = 'stylus'"
-              :checked="cssPreProcessor === 'stylus'"
+              :checked="cssPreProcessor === 'stylus' && customBuild"
+              :disabled="customBuild"
             ></f7-list-item>
             <f7-list-item
+              :class="{disabled: customBuild}"
               radio
               title="SCSS (SASS)"
               @change="cssPreProcessor = 'scss'"
-              :checked="cssPreProcessor === 'scss'"
+              :checked="cssPreProcessor === 'scss' && customBuild"
+              :disabled="customBuild"
             ></f7-list-item>
           </f7-list>
         </template>
@@ -358,6 +373,7 @@
         </template>
       </f7-block>
 
+      <!-- THEMING -->
       <f7-block tablet-inset strong class="content-block">
         <f7-block-title large>
           <i class="f7-icons block-icon">color_filter</i>
@@ -424,112 +440,126 @@
             :checked="theming.fillBars === true"
             @change="theming.fillBars = $event.target.checked"
           />
-
         </f7-list>
       </f7-block>
 
+      <!-- Framework7 CUSTOM BUILD -->
       <f7-block tablet-inset strong class="content-block">
         <f7-block-title large>
           <i class="f7-icons block-icon">data_fill</i>
-          <span>Custom Build</span>
+          <span>Framework7 Custom Build</span>
+          <div class="right">
+            <span class="toggle-label disabled">Enable</span>
+            <f7-toggle :checked="customBuild" @change="customBuild = !customBuild" color="green" />
+          </div>
         </f7-block-title>
+        <template v-if="!customBuild">
+          <p class="text-align-center"><i class="f7-icons text-color-orange">alert_fill</i><br>Enabling custom build will automatically enable Webpack bundler with Less pre-processor</p>
+        </template>
+        <template v-if="customBuild">
+          <f7-block-title medium>Core components (required)</f7-block-title>
+          <div class="row">
+            <div class="col-50">
+              <f7-list class="no-margin-top" no-hairlines-between>
+                <f7-list-item
+                  v-for="(coreComponent, index) in coreComponentsList"
+                  :key="index"
+                  v-if="index < 7"
+                  checked
+                  checkbox
+                  disabled
+                  :title="coreComponent"
+                />
 
-        <f7-block-title>Core components (required)</f7-block-title>
-        <div class="row">
-          <div class="col-50">
-            <f7-list class="no-margin-top">
-              <f7-list-item checked checkbox disabled title="App" />
-              <f7-list-item checked checkbox disabled title="Statusbar" />
-              <f7-list-item checked checkbox disabled title="View" />
-              <f7-list-item checked checkbox disabled title="Navbar" />
-              <f7-list-item checked checkbox disabled title="Toolbar" />
-              <f7-list-item checked checkbox disabled title="Subnavbar" />
-              <f7-list-item checked checkbox disabled title="Touch Ripple" />
-              <f7-list-item checked checkbox disabled title="Modal" />
-            </f7-list>
+              </f7-list>
+            </div>
+            <div class="col-50">
+              <f7-list class="no-margin-top" no-hairlines-between>
+                <f7-list-item
+                  v-for="(coreComponent, index) in coreComponentsList"
+                  :key="index"
+                  v-if="index >= 7"
+                  checked
+                  checkbox
+                  disabled
+                  :title="coreComponent"
+                />
+              </f7-list>
+            </div>
           </div>
-          <div class="col-50">
-            <f7-list class="no-margin-top">
-              <f7-list-item checked checkbox disabled title="Page" />
-              <f7-list-item checked checkbox disabled title="Link" />
-              <f7-list-item checked checkbox disabled title="Block" />
-              <f7-list-item checked checkbox disabled title="List" />
-              <f7-list-item checked checkbox disabled title="Badge" />
-              <f7-list-item checked checkbox disabled title="Button" />
-              <f7-list-item checked checkbox disabled title="Icon" />
-            </f7-list>
-          </div>
-        </div>
 
-        <f7-block-title>Core components (required)</f7-block-title>
-        <div class="row">
-          <div class="col-33">
-            <f7-list class="no-margin-top">
-              <f7-list-item checkbox :checked="!!('accordion')" title="Accordion" />
-              <f7-list-item checkbox :checked="!!('actions')" title="Actions" />
-              <f7-list-item checkbox :checked="!!('appbar')" title="Appbar" />
-              <f7-list-item checkbox :checked="!!('autocomplete')" title="Autocomplete" />
-              <f7-list-item checkbox :checked="!!('calendar')" title="Calendar" />
-              <f7-list-item checkbox :checked="!!('card')" title="Card" />
-              <f7-list-item checkbox :checked="!!('checkbox')" title="Checkbox" />
-              <f7-list-item checkbox :checked="!!('chip')" title="Chip" />
-              <f7-list-item checkbox :checked="!!('color-picker')" title="Color Picker" />
-              <f7-list-item checkbox :checked="!!('contacts-list')" title="Contacts List" />
-              <f7-list-item checkbox :checked="!!('data-table')" title="Data Table" />
-              <f7-list-item checkbox :checked="!!('dialog')" title="Dialog" />
-              <f7-list-item checkbox :checked="!!('elevation')" title="Elevation" />
-              <f7-list-item checkbox :checked="!!('fab')" title="FAB" />
-              <f7-list-item checkbox :checked="!!('form')" title="Form" />
-              <f7-list-item checkbox :checked="!!('gauge')" title="Gauge" />
-              <f7-list-item checkbox :checked="!!('grid')" title="Grid" />
-            </f7-list>
+          <f7-block-title medium>Customizable list of components / <a class="link" @click="toggleComponents">Toggle all</a></f7-block-title>
+
+          <div class="row">
+            <div class="col-33">
+              <f7-list class="no-margin-top" no-hairlines-between>
+                <f7-list-item
+                  v-for="(component, index) in componentsListComputed"
+                  :key="index"
+                  v-if="index < 17"
+                  :checked="customBuildConfig.components.indexOf(component.component) >= 0"
+                  @change="toggleArrayValue(customBuildConfig.components, component.component)"
+                  checkbox
+                  :title="component.name"
+                />
+              </f7-list>
+            </div>
+            <div class="col-33">
+              <f7-list class="no-margin-top" no-hairlines-between>
+                <f7-list-item
+                  v-for="(component, index) in componentsListComputed"
+                  :key="index"
+                  v-if="index >= 17 && index < 34"
+                  :checked="customBuildConfig.components.indexOf(component.component) >= 0"
+                  @change="toggleArrayValue(customBuildConfig.components, component.component)"
+                  checkbox
+                  :title="component.name"
+                />
+              </f7-list>
+            </div>
+            <div class="col-33">
+              <f7-list class="no-margin-top" no-hairlines-between>
+                <f7-list-item
+                  v-for="(component, index) in componentsListComputed"
+                  :key="index"
+                  v-if="index >= 34"
+                  :checked="customBuildConfig.components.indexOf(component.component) >= 0"
+                  @change="toggleArrayValue(customBuildConfig.components, component.component)"
+                  checkbox
+                  :title="component.name"
+                />
+              </f7-list>
+            </div>
           </div>
-          <div class="col-33">
-            <f7-list class="no-margin-top">
-              <f7-list-item checkbox :checked="!!('infinite-scroll')" title="Infinite Scroll" />
-              <f7-list-item checkbox :checked="!!('input')" title="Input" />
-              <f7-list-item checkbox :checked="!!('lazy')" title="Lazy" />
-              <f7-list-item checkbox :checked="!!('list-index')" title="List Index" />
-              <f7-list-item checkbox :checked="!!('login-screen')" title="Login Screen" />
-              <f7-list-item checkbox :checked="!!('menu')" title="Menu" />
-              <f7-list-item checkbox :checked="!!('messagebar')" title="Messagebar" />
-              <f7-list-item checkbox :checked="!!('messages')" title="Messages" />
-              <f7-list-item checkbox :checked="!!('notification')" title="Notification" />
-              <f7-list-item checkbox :checked="!!('panel')" title="Panel" />
-              <f7-list-item checkbox :checked="!!('photo-browser')" title="Photo Browser" />
-              <f7-list-item checkbox :checked="!!('picker')" title="Picker" />
-              <f7-list-item checkbox :checked="!!('popover')" title="Popover" />
-              <f7-list-item checkbox :checked="!!('popup')" title="Popup" />
-              <f7-list-item checkbox :checked="!!('preloader')" title="Preloader" />
-              <f7-list-item checkbox :checked="!!('progressbar')" title="Progressbar" />
-              <f7-list-item checkbox :checked="!!('pull-to-refresh')" title="Pull To Refresh" />
-            </f7-list>
-          </div>
-          <div class="col-33">
-            <f7-list class="no-margin-top">
-              <f7-list-item checkbox :checked="!!('radio')" title="Radio" />
-              <f7-list-item checkbox :checked="!!('range')" title="Range" />
-              <f7-list-item checkbox :checked="!!('searchbar')" title="Searchbar" />
-              <f7-list-item checkbox :checked="!!('sheet')" title="Sheet" />
-              <f7-list-item checkbox :checked="!!('skeleton')" title="Skeleton" />
-              <f7-list-item checkbox :checked="!!('smart-select')" title="Smart Select" />
-              <f7-list-item checkbox :checked="!!('sortable')" title="Sortable" />
-              <f7-list-item checkbox :checked="!!('stepper')" title="Stepper" />
-              <f7-list-item checkbox :checked="!!('swipeout')" title="Swipeout" />
-              <f7-list-item checkbox :checked="!!('swiper')" title="Swiper" />
-              <f7-list-item checkbox :checked="!!('tabs')" title="Tabs" />
-              <f7-list-item checkbox :checked="!!('timeline')" title="Timeline" />
-              <f7-list-item checkbox :checked="!!('toast')" title="Toast" />
-              <f7-list-item checkbox :checked="!!('toggle')" title="Toggle" />
-              <f7-list-item checkbox :checked="!!('tooltip')" title="Tooltip" />
-              <f7-list-item checkbox :checked="!!('typography')" title="Typography" />
-              <f7-list-item checkbox :checked="!!('virtual-list')" title="Virtual List" />
-            </f7-list>
-          </div>
-        </div>
+          <f7-block-title medium>CSS</f7-block-title>
+          <f7-list no-hairlines-between>
+            <f7-list-item
+              :checked="customBuildConfig.themes.indexOf('ios') >= 0"
+              @change="toggleArrayValue(customBuildConfig.themes, 'ios')"
+              checkbox
+              title="Include iOS theme"
+            />
+            <f7-list-item
+              :checked="customBuildConfig.themes.indexOf('md') >= 0"
+              @change="toggleArrayValue(customBuildConfig.themes, 'md')"
+              checkbox
+              title="Include MD theme"
+            />
+            <f7-list-item
+              :checked="customBuildConfig.themes.indexOf('aurora') >= 0"
+              @change="toggleArrayValue(customBuildConfig.themes, 'aurora')"
+              checkbox
+              title="Include Aurora theme"
+            />
+            <f7-list-item
+              :checked="customBuildConfig.rtl"
+              @change="customBuildConfig.rtl = !customBuildConfig.rtl"
+              checkbox
+              title="RTL Layout"
+            />
+          </f7-list>
+        </template>
       </f7-block>
-
-
 
       <f7-popup class="popup-log" :closeByBackdropClick="false" :opened="log && log.length > 0">
         <pre ref="logEl" v-html="logText(log)"></pre>
@@ -547,6 +577,7 @@
   import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Toggle, f7Checkbox, f7Radio, f7Popup } from 'framework7-vue';
   import logText from '../utils/log-text';
   import getLog from '../utils/get-log';
+  import componentsList from '../utils/components-list';
 
   export default {
     components: {
@@ -560,6 +591,23 @@
         error: false,
         bundlerAdvanced: false,
         cordovaAdvanced: false,
+        coreComponentsList: [
+          'Statusbar',
+          'View',
+          'Navbar',
+          'Toolbar',
+          'Subnavbar',
+          'Touch Ripple',
+          'Modal',
+          'Page',
+          'Link',
+          'Block',
+          'List',
+          'Badge',
+          'Button',
+          'Icon',
+        ].sort(),
+        componentsList: [...componentsList],
 
         cwd: '',
         name: 'My App',
@@ -593,8 +641,37 @@
           darkTheme: false,
           iconFonts: true,
           fillBars: false,
-        }
+        },
+
+        customBuild: false,
+        customBuildConfig: {
+          rtl: false,
+          themes: [
+            'ios',
+            'md',
+            'aurora',
+          ],
+          components: [...componentsList],
+        },
       };
+    },
+    computed: {
+      componentsListComputed() {
+        const self = this;
+        const list = self.componentsList.sort().map((c) => {
+          const name = c
+            .split('-')
+            .map((word) => {
+              return word[0].toUpperCase() + word.substring(1);
+            })
+            .join(' ')
+          return {
+            component: c,
+            name,
+          };
+        });
+        return list;
+      },
     },
     watch: {
       'theming.fillBars': function (fillBars) {
@@ -669,6 +746,11 @@
           html.style.setProperty(key, cssVars[key]);
         });
       },
+      customBuild() {
+        const self = this;
+        self.bundler = 'webpack';
+        self.cssPreProcessor = 'less';
+      },
       log() {
         const self = this;
         self.$nextTick(() => {
@@ -686,6 +768,14 @@
     },
     methods: {
       logText,
+      toggleComponents() {
+        const self = this;
+        if (self.customBuildConfig.components.length === self.componentsList.length) {
+          self.customBuildConfig.components = [];
+        } else {
+          self.customBuildConfig.components = [...self.componentsList];
+        }
+      },
       toggleArrayValue(arr, value) {
         if (arr.indexOf(value) < 0) {
           arr.push(value);
@@ -707,6 +797,8 @@
           cordova,
           webpack,
           theming,
+          customBuild,
+          customBuildConfig,
         } = self;
         const options = {
           type,
@@ -716,13 +808,20 @@
           bundler,
           cssPreProcessor,
           theming,
+          customBuild,
         };
+        if (options.customBuild) {
+          options.bundler = 'webpack';
+          options.cssPreProcessor = 'less';
+          options.customBuildConfig = customBuildConfig;
+        }
         if (options.bundler !== 'webpack') {
           options.cssPreProcessor = false;
         }
         if (options.bundler === 'webpack') {
           options.webpack = webpack;
         }
+
         if (type.indexOf('cordova') >= 0) {
           options.pkg = pkg;
           options.cordova = cordova;

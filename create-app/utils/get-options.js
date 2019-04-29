@@ -268,6 +268,7 @@ module.exports = function getOptions() {
       iconFonts: options.themingIconFonts,
       fillBars: false,
     };
+    options.customBuild = false;
     delete options.themingCustomColor;
     delete options.themingColor;
     delete options.themingIconFonts;

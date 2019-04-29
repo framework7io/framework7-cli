@@ -7,6 +7,7 @@ module.exports = (options) => {
     bundler,
     cssPreProcessor,
     theming,
+    customBuild,
   } = options;
 
   let scripts = '';
@@ -16,14 +17,22 @@ module.exports = (options) => {
     import Vue from 'vue';
 
     // Import Framework7
+    ${templateIf(customBuild, () => `
+    import Framework7 from './framework7-custom.js';
+    `, () => `
     import Framework7 from 'framework7/framework7.esm.bundle.js';
+    `)}
 
     // Import Framework7-Vue Plugin
     import Framework7Vue from 'framework7-vue/framework7-vue.esm.bundle.js';
 
     ${templateIf(bundler === 'webpack', () => `
     // Import Framework7 Styles
+    ${templateIf(customBuild, () => `
+    import '../css/framework7-custom.less';
+    `, () => `
     import 'framework7/css/framework7.bundle.css';
+    `)}
 
     // Import Icons and App Custom Styles
     ${templateIf(theming.iconFonts, () => `

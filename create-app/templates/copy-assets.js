@@ -11,11 +11,12 @@ const generateRoutes = require('./generate-routes');
 const generateWebpackConfig = require('./generate-webpack-config');
 const generateManifest = require('./generate-manifest');
 const generateServiceWorker = require('./generate-service-worker');
+const generateFramework7Custom = require('./generate-framework7-custom');
 
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
   const {
-    framework, bundler, type = [], cordova, theming, cssPreProcessor,
+    framework, bundler, type = [], cordova, theming, cssPreProcessor, customBuild,
   } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
@@ -74,6 +75,21 @@ module.exports = (options) => {
       to: path.resolve(cwd, srcFolder, 'js', 'app.js'),
     },
   ]);
+
+  // Copy Custom Build
+  if (customBuild) {
+    const customBuildAssets = generateFramework7Custom(options);
+    toCopy.push(...[
+      {
+        content: customBuildAssets.styles,
+        to: path.resolve(cwd, srcFolder, 'css', 'framework7-custom.less'),
+      },
+      {
+        content: customBuildAssets.scripts,
+        to: path.resolve(cwd, srcFolder, 'js', 'framework7-custom.js'),
+      },
+    ]);
+  }
 
   // Copy Bundlers
   if (isWebpack) {
