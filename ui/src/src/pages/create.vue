@@ -19,10 +19,21 @@
         </f7-block-title>
 
         <f7-block-title medium>Destination</f7-block-title>
-        <f7-block-header>New Framework7 app will be created in the following directory:</f7-block-header>
-        <f7-block class="no-padding">
-          <pre class="round">{{cwd}}</pre>
-        </f7-block>
+        <f7-block-header>New Framework7 app will be created in the following directory.</f7-block-header>
+        <f7-list no-hairlines-between class="inputs-list">
+          <f7-list-input
+            class="col-100 tablet-50"
+            type="text"
+            outline
+            clear-button
+            required
+            validate
+            validate-on-blur
+            :value="cwd"
+            @input="cwd = $event.target.value"
+          ></f7-list-input>
+        </f7-list>
+        <f7-block-footer><i class="f7-icons text-color-orange">alert_fill</i> Make sure this folder is empty, the project will be created in the root of this folder.</f7-block-footer>
 
         <f7-block-title medium>App Type</f7-block-title>
         <f7-block-header>What types of the app are you targeting? (multiple allowed)</f7-block-header>
@@ -307,7 +318,7 @@
               radio
               title="No, i am good with CSS"
               @change="cssPreProcessor = false"
-              :checked="cssPreProcessor === false && customBuild"
+              :checked="cssPreProcessor === false && !customBuild"
               :disabled="customBuild"
             ></f7-list-item>
             <f7-list-item
@@ -321,7 +332,7 @@
               radio
               title="Stylus"
               @change="cssPreProcessor = 'stylus'"
-              :checked="cssPreProcessor === 'stylus' && customBuild"
+              :checked="cssPreProcessor === 'stylus' && !customBuild"
               :disabled="customBuild"
             ></f7-list-item>
             <f7-list-item
@@ -329,7 +340,7 @@
               radio
               title="SCSS (SASS)"
               @change="cssPreProcessor = 'scss'"
-              :checked="cssPreProcessor === 'scss' && customBuild"
+              :checked="cssPreProcessor === 'scss' && !customBuild"
               :disabled="customBuild"
             ></f7-list-item>
           </f7-list>
@@ -574,14 +585,14 @@
   </f7-page>
 </template>
 <script>
-  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Toggle, f7Checkbox, f7Radio, f7Popup } from 'framework7-vue';
+  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Toggle, f7Checkbox, f7Radio, f7Popup } from 'framework7-vue';
   import logText from '../utils/log-text';
   import getLog from '../utils/get-log';
   import componentsList from '../utils/components-list';
 
   export default {
     components: {
-      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Toggle, f7Checkbox, f7Radio, f7Popup
+      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Toggle, f7Checkbox, f7Radio, f7Popup
     },
     data() {
       return {
@@ -787,6 +798,7 @@
       getOptions() {
         const self = this;
         const {
+          cwd,
           name,
           type,
           pkg,
@@ -801,6 +813,7 @@
           customBuildConfig,
         } = self;
         const options = {
+          cwd,
           type,
           name,
           framework,

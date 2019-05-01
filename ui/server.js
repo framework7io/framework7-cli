@@ -66,11 +66,9 @@ module.exports = (startPage = '/', port = 3001) => {
       clearLog();
       const options = req.body && req.body.options;
       res.json({});
+      if (!options.cwd) options.cwd = cwd;
       createApp(
-        {
-          ...options,
-          cwd,
-        },
+        options,
         logger,
         {
           exitOnError: true,
@@ -96,7 +94,6 @@ module.exports = (startPage = '/', port = 3001) => {
       res.json({ log, done, error });
       if (done) {
         clearLog();
-        process.exit(0);
       }
     })
     .post((req, res) => {
