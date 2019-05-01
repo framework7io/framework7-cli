@@ -2,6 +2,16 @@
 
 # Change Log
 
+# [v2.3.0](https://github.com/framework7io/framework7-cli/compare/v2.2.0...v2.3.0) - May 1, 2019
+  * All new UI 🎉
+    * Now it is possible to change `cwd` (project destination)
+    * Advanced webpack configuration
+    * Advanced pre-installed Cordova plugins configuration
+    * More theming options with instant theming preview - dark mode, fill-style navigation bars
+    * New custom build section (for webpack + Less only)
+  * Fixed electron settings file reference
+  * Minor fixes
+
 # [v2.2.0](https://github.com/framework7io/framework7-cli/compare/v2.1.3...v2.2.0) - April 22, 2019
   * Electron build 🖥🎉
   * Now it uses `cordova-plugin-wkwebview-file-xhr` (where local XHR works) iOS plugin when no-bundler used
