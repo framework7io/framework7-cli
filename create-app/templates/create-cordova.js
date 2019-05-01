@@ -79,7 +79,7 @@ module.exports = (options) => {
           },
         },
       };
-      fse.writeFileSync(path.resolve(cwd, cordova.folder, 'electron-config.json'), JSON.stringify(electronConfig, '', 2));
+      fse.writeFileSync(path.resolve(cwd, cordova.folder, 'electron-settings.json'), JSON.stringify(electronConfig, '', 2));
     }
 
     // Add cordova platforms
