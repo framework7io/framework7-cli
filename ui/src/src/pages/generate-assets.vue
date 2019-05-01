@@ -100,9 +100,11 @@
           </div>
         </template>
       </div>
-      <f7-block inset class="no-padding" v-if="log && log.length">
-        <pre class="round" v-html="logText(log)"></pre>
-      </f7-block>
+
+      <f7-popup class="popup-log" :closeByBackdropClick="false" :opened="log && log.length > 0">
+        <pre ref="logEl" v-html="logText(log)"></pre>
+      </f7-popup>
+
       <f7-block inset class="no-padding button-block">
         <f7-button v-if="!done && !error" :class="{loading: loading}" class="button-center-content" large fill round @click="generateAssets" icon-f7="gear_fill" :text="loading ? 'Generating assets...' : 'Generate Assets'"></f7-button>
         <f7-button v-if="done" class="button-center-content" large fill round icon-f7="check" text="Done" color="green"></f7-button>
@@ -112,13 +114,13 @@
   </f7-page>
 </template>
 <script>
-  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button } from 'framework7-vue';
+  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Popup } from 'framework7-vue';
   import logText from '../utils/log-text';
   import getLog from '../utils/get-log';
 
   export default {
     components: {
-      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button,
+      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Popup
     },
     data() {
       return {
@@ -132,6 +134,7 @@
         dragText: 'Drag & drop new image or click to choose file'
       };
     },
+
     mounted() {
       const self = this;
       const $$ = self.$$;
