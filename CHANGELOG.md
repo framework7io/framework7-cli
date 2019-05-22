@@ -2,6 +2,11 @@
 
 # Change Log
 
+# [v2.3.1](https://github.com/framework7io/framework7-cli/compare/v2.3.0...v2.3.1) - May 22, 2019
+  * Now created project will contain default `.gitignore` file
+  * Added Treeview component to the custom build components list
+  * `cordova-plugin-wkwebview-file-xhr` plugin will be always used instead of `cordova-plugin-wkwebview-engine`
+
 # [v2.3.0](https://github.com/framework7io/framework7-cli/compare/v2.2.0...v2.3.0) - May 1, 2019
   * All new UI 🎉
     * Now it is possible to change `cwd` (project destination)
