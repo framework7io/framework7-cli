@@ -507,7 +507,7 @@
                 <f7-list-item
                   v-for="(component, index) in componentsListComputed"
                   :key="index"
-                  v-if="index < 17"
+                  v-if="index < 18"
                   :checked="customBuildConfig.components.indexOf(component.component) >= 0"
                   @change="toggleArrayValue(customBuildConfig.components, component.component)"
                   checkbox
@@ -520,7 +520,7 @@
                 <f7-list-item
                   v-for="(component, index) in componentsListComputed"
                   :key="index"
-                  v-if="index >= 17 && index < 34"
+                  v-if="index >= 18 && index < 36"
                   :checked="customBuildConfig.components.indexOf(component.component) >= 0"
                   @change="toggleArrayValue(customBuildConfig.components, component.component)"
                   checkbox
@@ -533,7 +533,7 @@
                 <f7-list-item
                   v-for="(component, index) in componentsListComputed"
                   :key="index"
-                  v-if="index >= 34"
+                  v-if="index >= 36"
                   :checked="customBuildConfig.components.indexOf(component.component) >= 0"
                   @change="toggleArrayValue(customBuildConfig.components, component.component)"
                   checkbox

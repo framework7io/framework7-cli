@@ -48,6 +48,7 @@ export default [
   'skeleton',
   'menu',
   'color-picker',
+  'treeview',
   'elevation',
   'typography',
 ];
