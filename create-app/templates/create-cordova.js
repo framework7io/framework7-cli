@@ -12,7 +12,6 @@ module.exports = (options) => {
     pkg,
     name,
     cordova,
-    bundler,
   } = options;
   return new Promise(async (resolve, reject) => {
     try {
@@ -32,7 +31,7 @@ module.exports = (options) => {
     });
     // Install plugins
     const plugins = cordova.plugins; // eslint-disable-line
-    if (plugins.indexOf('cordova-plugin-wkwebview-engine') >= 0 && !bundler) {
+    if (plugins.indexOf('cordova-plugin-wkwebview-engine') >= 0) {
       plugins[plugins.indexOf('cordova-plugin-wkwebview-engine')] = 'cordova-plugin-wkwebview-file-xhr';
     }
 
