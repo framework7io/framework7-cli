@@ -11,6 +11,7 @@ const createFolders = require('./templates/create-folders');
 const copyAssets = require('./templates/copy-assets');
 const createCordova = require('./templates/create-cordova');
 const generateReadme = require('./utils/generate-readme');
+const generateGitignore = require('./utils/generate-gitignore');
 
 const waitText = chalk.gray('(Please wait, it can take a while)');
 
@@ -141,6 +142,17 @@ module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
   const readMeContent = generateReadme(options);
   try {
     fse.writeFileSync(path.join(cwd, 'README.md'), readMeContent);
+  } catch (err) {
+    logger.statusError('Error creating project files');
+    if (err) logger.error(err.stderr || err);
+    errorExit();
+    return;
+  }
+
+  // Generate .gitignore
+  const gitignoreContent = generateGitignore(options);
+  try {
+    fse.writeFileSync(path.join(cwd, '.gitignore'), gitignoreContent);
   } catch (err) {
     logger.statusError('Error creating project files');
     if (err) logger.error(err.stderr || err);
