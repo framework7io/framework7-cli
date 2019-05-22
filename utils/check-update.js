@@ -34,7 +34,7 @@ async function checkUpdate() {
     spinner.error('Update available');
     log.text(`\n${logSymbols.warning} Please update framework7-cli to latest version before continue.`, true);
     log.text(`${logSymbols.warning} To update framework7-cli, run in terminal:`, true);
-    log.text('\nnpm install framework7-cli -g', true);
+    log.text('\nnpm install framework7-cli -g\n', true);
     process.exit(1);
   } else {
     spinner.done('All good, you have latest framework7-cli version.');
