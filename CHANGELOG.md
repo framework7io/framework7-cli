@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v2.3.2](https://github.com/framework7io/framework7-cli/compare/v2.3.1...v2.3.2) - May 25, 2019
+  * UglifyJS webpack plugin replaced with Terser
+
 # [v2.3.1](https://github.com/framework7io/framework7-cli/compare/v2.3.0...v2.3.1) - May 22, 2019
   * Now created project will contain default `.gitignore` file
   * Added Treeview component to the custom build components list
