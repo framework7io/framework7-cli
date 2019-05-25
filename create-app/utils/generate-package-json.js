@@ -60,7 +60,7 @@ module.exports = function generatePackageJson(options) {
         'node-sass',
         'sass-loader',
       ] : []),
-      'uglifyjs-webpack-plugin',
+      'terser-webpack-plugin',
       'url-loader',
       'webpack',
       'webpack-cli',

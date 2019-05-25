@@ -42,7 +42,7 @@ module.exports = (options) => {
     `)}
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
     const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-    const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+    const TerserPlugin = require('terser-webpack-plugin');
     ${templateIf(type.indexOf('pwa') >= 0, () => `
     const WorkboxPlugin = require('workbox-webpack-plugin');
     `)}
@@ -97,6 +97,11 @@ module.exports = (options) => {
         watchOptions: {
           poll: 1000,
         },
+      },
+      optimization: {
+        minimizer: [new TerserPlugin({
+          sourceMap: true,
+        })],
       },
       module: {
         rules: [
@@ -236,16 +241,6 @@ module.exports = (options) => {
         new VueLoaderPlugin(),
         `)}
         ...(env === 'production' ? [
-          // Production only plugins
-          new UglifyJsPlugin({
-            uglifyOptions: {
-              compress: {
-                warnings: false,
-              },
-            },
-            sourceMap: true,
-            parallel: true,
-          }),
           new OptimizeCSSPlugin({
             cssProcessorOptions: {
               safe: true,
