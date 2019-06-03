@@ -28,12 +28,15 @@ Commands
 program
   .version(pkg.version)
   .command('create')
+  .option('--skipUpdate', 'Skip checking for update of framework7-cli')
   .option('--ui', 'Launch new app creation UI')
   .option('-P, --port <n>', 'Specify UI server port. By default it is 3001', parseInt)
   .description('Create a new Framework7 project')
   .action(async (options) => {
     // Check update
-    await checkUpdate();
+    if(options.skipUpdate === undefined) {
+      await checkUpdate();
+    }
 
     let currentProject;
     try {
@@ -66,12 +69,15 @@ program
 
 program
   .command('generate-assets')
+  .option('--skipUpdate', 'Skip checking for update of framework7-cli')
   .option('--ui', 'Launch assets generation UI')
   .option('-P, --port <n>', 'Specify UI server port. By default it is 3001', parseInt)
   .description('Generate Framework7 app icons and splash screens')
   .action(async (options) => {
     // Check update
-    await checkUpdate();
+    if(options.skipUpdate === undefined) {
+      await checkUpdate();
+    }
 
     let currentProject;
     try {
