@@ -2,6 +2,10 @@
 
 # Change Log
 
+# [v2.3.3](https://github.com/framework7io/framework7-cli/compare/v2.3.2...v2.3.3) - July 5, 2019
+  * Added `--skipUpdate` parameter to `create` and `generate-assets` commands to skip update check
+  * Fixed CLI usage text
+
 # [v2.3.2](https://github.com/framework7io/framework7-cli/compare/v2.3.1...v2.3.2) - May 25, 2019
   * UglifyJS webpack plugin replaced with Terser
 
