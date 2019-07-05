@@ -27,6 +27,7 @@ Commands
 ============================================= */
 program
   .version(pkg.version)
+  .usage('<command> [options]')
   .command('create')
   .option('--skipUpdate', 'Skip checking for update of framework7-cli')
   .option('--ui', 'Launch new app creation UI')
