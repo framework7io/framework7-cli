@@ -35,7 +35,7 @@ program
   .description('Create a new Framework7 project')
   .action(async (options) => {
     // Check update
-    if(options.skipUpdate === undefined) {
+    if (options.skipUpdate === undefined) {
       await checkUpdate();
     }
 
@@ -76,7 +76,7 @@ program
   .description('Generate Framework7 app icons and splash screens')
   .action(async (options) => {
     // Check update
-    if(options.skipUpdate === undefined) {
+    if (options.skipUpdate === undefined) {
       await checkUpdate();
     }
 
