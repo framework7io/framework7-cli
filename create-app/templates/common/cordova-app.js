@@ -12,23 +12,53 @@ var cordovaApp = {
   },
   /*
   This method prevents back button tap to exit from app on android.
-  And allows to exit app on backbutton double tap
+  In case there is an opened modal it will close that modal instead.
+  In case there is a current view with navigation history, it will go back instead.
   */
   handleAndroidBackButton: function () {
     var f7 = cordovaApp.f7;
+    const $ = f7.$;
     if (f7.device.electron) return;
-    cordovaApp.backButtonTimestamp = new Date().getTime();
+
     document.addEventListener('backbutton', function (e) {
-      if (new Date().getTime() - cordovaApp.backButtonTimestamp < 250) {
-        cordovaApp.backButtonTimestamp = new Date().getTime();
-        if (window.navigator.app && window.navigator.app.exitApp) {
-          window.navigator.app.exitApp();
-        }
-        return true;
+      if ($('.actions-modal.modal-in').length) {
+        f7.actions.close('.actions-modal.modal-in');
+        e.preventDefault();
+        return false;
       }
-      cordovaApp.backButtonTimestamp = new Date().getTime();
-      e.preventDefault();
-      return false;
+      if ($('.dialog.modal-in').length) {
+        f7.dialog.close('.dialog.modal-in');
+        e.preventDefault();
+        return false;
+      }
+      if ($('.sheet-modal.modal-in').length) {
+        f7.sheet.close('.sheet-modal.modal-in');
+        e.preventDefault();
+        return false;
+      }
+      if ($('.popover.modal-in').length) {
+        f7.popover.close('.popover.modal-in');
+        e.preventDefault();
+        return false;
+      }
+      if ($('.popup.modal-in').length) {
+        f7.popup.close('.popup.modal-in');
+        e.preventDefault();
+        return false;
+      }
+
+      const currentView = f7.views.current;
+      if (currentView && currentView.router && currentView.router.history.length > 1) {
+        currentView.router.back();
+        e.preventDefault();
+        return false;
+      }
+
+      if ($('.panel.panel-in').length) {
+        f7.panel.close('.panel.panel-in');
+        e.preventDefault();
+        return false;
+      }
     }, false);
   },
   /*
@@ -86,7 +116,7 @@ var cordovaApp = {
     // Handle Android back button
     cordovaApp.handleAndroidBackButton();
 
-    // Handle Statusbar
+    // Handle Splash Screen
     cordovaApp.handleSplashscreen();
 
     // Handle Keyboard
