@@ -49,6 +49,7 @@ export default [
   'menu',
   'color-picker',
   'treeview',
+  'text-editor',
   'elevation',
   'typography',
 ];

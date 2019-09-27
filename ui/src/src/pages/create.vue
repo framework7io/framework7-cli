@@ -12,9 +12,9 @@
     </f7-navbar>
 
     <div class="center-content">
-      <f7-block tablet-inset strong class="content-block">
+      <f7-block medium-inset strong class="content-block">
         <f7-block-title large>
-          <i class="f7-icons block-icon">info_round</i>
+          <i class="f7-icons block-icon">info_circle</i>
           <span>General</span>
         </f7-block-title>
 
@@ -33,7 +33,7 @@
             @input="cwd = $event.target.value"
           ></f7-list-input>
         </f7-list>
-        <f7-block-footer><i class="f7-icons text-color-orange">alert_fill</i> Make sure this folder is empty, the project will be created in the root of this folder.</f7-block-footer>
+        <f7-block-footer><i class="f7-icons text-color-orange">exclamationmark_triangle_fill</i> Make sure this folder is empty, the project will be created in the root of this folder.</f7-block-footer>
 
         <f7-block-title medium>App Type</f7-block-title>
         <f7-block-header>What types of the app are you targeting? (multiple allowed)</f7-block-header>
@@ -104,7 +104,7 @@
 
 
       <!-- CORDOVA -->
-      <f7-block v-if="type.indexOf('cordova') >= 0" tablet-inset strong class="content-block">
+      <f7-block v-if="type.indexOf('cordova') >= 0" medium-inset strong class="content-block">
         <f7-block-title large>
           <i class="block-icon block-icon-cordova"></i>
           <span>Cordova</span>
@@ -218,9 +218,9 @@
 
 
       <!-- FRAMEWORK -->
-      <f7-block tablet-inset strong class="content-block">
+      <f7-block medium-inset strong class="content-block">
         <f7-block-title large>
-          <i class="f7-icons block-icon">settings_fill</i>
+          <i class="f7-icons block-icon">gear</i>
           <span>Framework</span>
         </f7-block-title>
 
@@ -251,7 +251,7 @@
 
 
       <!-- TEMPLATE -->
-      <f7-block tablet-inset strong class="content-block">
+      <f7-block medium-inset strong class="content-block">
         <f7-block-title large>
           <i class="f7-icons block-icon">rocket_fill</i>
           <span>Starter template</span>
@@ -281,7 +281,7 @@
       </f7-block>
 
       <!-- BUNDLER -->
-      <f7-block tablet-inset strong class="content-block">
+      <f7-block medium-inset strong class="content-block">
         <f7-block-title large>
           <i class="block-icon block-icon-webpack"></i>
           <span>Bundler</span>
@@ -292,7 +292,7 @@
         </f7-block-title>
 
         <f7-block-title>Should we setup project with bundler?</f7-block-title>
-        <f7-list tablet-inset no-hairlines-between>
+        <f7-list medium-inset no-hairlines-between>
           <f7-list-item
             :class="{disabled: framework !== 'core' || customBuild}"
             radio
@@ -385,7 +385,7 @@
       </f7-block>
 
       <!-- THEMING -->
-      <f7-block tablet-inset strong class="content-block">
+      <f7-block medium-inset strong class="content-block">
         <f7-block-title large>
           <i class="f7-icons block-icon">color_filter</i>
           <span>Theming</span>
@@ -446,7 +446,7 @@
           />
           <f7-list-item
             title="Fill style navigation bars"
-            text="Enables dark theme by default"
+            text="Enables navigation bars to be fill with color"
             checkbox
             :checked="theming.fillBars === true"
             @change="theming.fillBars = $event.target.checked"
@@ -455,9 +455,9 @@
       </f7-block>
 
       <!-- Framework7 CUSTOM BUILD -->
-      <f7-block tablet-inset strong class="content-block">
+      <f7-block medium-inset strong class="content-block">
         <f7-block-title large>
-          <i class="f7-icons block-icon">data_fill</i>
+          <i class="f7-icons block-icon">square_grid_2x2_fill</i>
           <span>Framework7 Custom Build</span>
           <div class="right">
             <span class="toggle-label disabled">Enable</span>
@@ -465,7 +465,7 @@
           </div>
         </f7-block-title>
         <template v-if="!customBuild">
-          <p class="text-align-center"><i class="f7-icons text-color-orange">alert_fill</i><br>Enabling custom build will automatically enable Webpack bundler with Less pre-processor</p>
+          <p class="text-align-center"><i class="f7-icons text-color-orange">exclamationmark_triangle_fill</i><br>Enabling custom build will automatically enable Webpack bundler with Less pre-processor</p>
         </template>
         <template v-if="customBuild">
           <f7-block-title medium>Core components (required)</f7-block-title>
@@ -563,6 +563,18 @@
               title="Include Aurora theme"
             />
             <f7-list-item
+              :checked="customBuildConfig.darkTheme"
+              @change="customBuildConfig.darkTheme = $event.target.checked"
+              checkbox
+              title="Include Dark theme"
+            />
+            <f7-list-item
+              :checked="customBuildConfig.lightTheme"
+              @change="customBuildConfig.lightTheme = $event.target.checked"
+              checkbox
+              title="Include Light theme"
+            />
+            <f7-list-item
               :checked="customBuildConfig.rtl"
               @change="customBuildConfig.rtl = !customBuildConfig.rtl"
               checkbox
@@ -576,10 +588,10 @@
         <pre ref="logEl" v-html="logText(log)"></pre>
       </f7-popup>
 
-      <f7-block tablet-inset class="no-padding button-block">
-        <f7-button v-if="!done && !error" :class="{loading: loading}" class="button-center-content" style="width: 300px;" large fill round @click="createApp" icon-f7="gear_fill" :text="loading ? 'Creating app...' : 'Create App'"></f7-button>
-        <f7-button v-if="done" class="button-center-content" style="width: 300px;" large fill round icon-f7="check" text="Done" color="green"></f7-button>
-        <f7-button v-if="error" class="button-center-content" style="width: 300px;" large fill round icon-f7="close" text="Error" color="red"></f7-button>
+      <f7-block medium-inset class="no-padding button-block">
+        <f7-button v-if="!done && !error" :class="{loading: loading}" class="button-center-content" style="width: 300px;" large fill round @click="createApp" icon-f7="gear_alt_fill" :text="loading ? 'Creating app...' : 'Create App'"></f7-button>
+        <f7-button v-if="done" class="button-center-content" style="width: 300px;" large fill round icon-f7="checkmark_alt" text="Done" color="green"></f7-button>
+        <f7-button v-if="error" class="button-center-content" style="width: 300px;" large fill round icon-f7="xmark" text="Error" color="red"></f7-button>
       </f7-block>
     </div>
   </f7-page>
@@ -657,6 +669,8 @@
         customBuild: false,
         customBuildConfig: {
           rtl: false,
+          darkTheme: true,
+          lightTheme: true,
           themes: [
             'ios',
             'md',

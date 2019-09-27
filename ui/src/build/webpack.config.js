@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 const path = require('path');
@@ -47,6 +47,11 @@ module.exports = {
     watchOptions: {
       poll: true,
     },
+  },
+  optimization: {
+    minimizer: [new TerserPlugin({
+      sourceMap: true,
+    })],
   },
   module: {
     rules: [
@@ -156,15 +161,6 @@ module.exports = {
     new VueLoaderPlugin(),
     ...(env === 'production' ? [
       // Production only plugins
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          compress: {
-            warnings: false,
-          },
-        },
-        sourceMap: true,
-        parallel: true,
-      }),
       new OptimizeCSSPlugin({
         cssProcessorOptions: {
           safe: true,

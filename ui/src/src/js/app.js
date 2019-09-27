@@ -2,7 +2,7 @@
 import Vue from 'vue';
 
 // Import Framework7
-import Framework7 from 'framework7/framework7.esm';
+import Framework7 from 'framework7/framework7-lite.esm.js';
 import Input from 'framework7/components/input/input';
 import Dialog from 'framework7/components/dialog/dialog';
 import ColorPicker from 'framework7/components/color-picker/color-picker';

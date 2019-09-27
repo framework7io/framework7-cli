@@ -1,6 +1,6 @@
 <template>
   <f7-page name="home">
-    <f7-navbar :sliding="false" large>
+    <f7-navbar :sliding="false" large large-transparent>
       <f7-nav-title>
         <i class="f7-navbar-logo"></i>
         <span>Framework7 CLI</span>
@@ -15,13 +15,13 @@
       <div class="block padding home-cards">
         <div class="card">
           <a href="/create/" class="card-content card-content-padding link">
-            <i class="f7-icons">add_round_fill</i>
+            <i class="f7-icons">plus_circle_fill</i>
             <span>Create App</span>
           </a>
         </div>
         <div class="card">
           <a href="/generate-assets/" class="card-content card-content-padding link">
-            <i class="f7-icons">images_fill</i>
+            <i class="f7-icons">photo_fill_on_rectangle_fill</i>
             <span>Generate Assets</span>
           </a>
         </div>
