@@ -4,10 +4,9 @@ module.exports = {
       modules: false,
       targets: {
         browsers: [
-          'Android >= 5',
-          'IOS >= 9.3',
-          'Edge >= 15',
-          'Safari >= 9.1',
+          'Android >= 7',
+          'IOS >= 11',
+          'Safari >= 11',
           'Chrome >= 49',
           'Firefox >= 31',
           'Samsung >= 5',
@@ -17,7 +16,6 @@ module.exports = {
   ],
   plugins: [
     'transform-vue-jsx',
-    // "@babel/plugin-transform-runtime",
     '@babel/plugin-syntax-dynamic-import',
   ],
 };
