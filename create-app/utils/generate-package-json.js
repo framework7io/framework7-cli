@@ -104,20 +104,20 @@ module.exports = function generatePackageJson(options) {
     scripts['build-dev'] = 'cross-env NODE_ENV=development node ./build/build.js';
     scripts['build-prod'] = 'cross-env NODE_ENV=production node ./build/build.js';
     if (type.indexOf('cordova') >= 0) {
-      scripts['build-cordova-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
-      scripts['build-cordova-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build';
+      scripts['build-dev-cordova'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
+      scripts['build-prod-cordova'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build';
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
-        scripts['build-cordova-ios-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build ios';
-        scripts['build-cordova-ios-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios';
+        scripts['build-dev-cordova-ios'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build ios';
+        scripts['build-prod-cordova-ios'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios';
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
-        scripts['build-cordova-android-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build android';
-        scripts['build-cordova-android-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build android';
+        scripts['build-dev-cordova-android'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build android';
+        scripts['build-prod-cordova-android'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build android';
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         // eslint-disable-next-line
-        scripts['build-cordova-electron-dev'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build electron';
-        scripts['build-cordova-electron-prod'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build electron';
+        scripts['build-dev-cordova-electron'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build electron';
+        scripts['build-prod-cordova-electron'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build electron';
       }
       if (cordova.platforms.indexOf('electron') >= 0) {
         scripts['cordova-electron'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && concurrently --kill-others "cross-env TARGET=cordova cross-env ELECTRON_WATCH=true cross-env NODE_ENV=development cross-env webpack --progress --config ./build/webpack.config.js --watch" "cd cordova && cordova run electron --nobuild"';
@@ -166,10 +166,9 @@ module.exports = function generatePackageJson(options) {
   "framework7": ${JSON.stringify(options)},
   "scripts" : ${JSON.stringify(scripts)},
   "browserslist": [
-    "Android >= 5",
-    "IOS >= 9.3",
-    "Edge >= 15",
-    "Safari >= 9.1",
+    "Android >= 7",
+    "IOS >= 11",
+    "Safari >= 11",
     "Chrome >= 49",
     "Firefox >= 31",
     "Samsung >= 5"

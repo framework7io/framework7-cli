@@ -14,25 +14,25 @@ module.exports = (options) => {
     ]);
     if (type.indexOf('cordova') >= 0) {
       npmScripts.push(...[
-        '* `npm run build-cordova-prod` - build cordova\'s `www` folder from and build cordova app',
-        '* `npm run build-cordova-dev` - build cordova\'s `www` folder from and build cordova app using development mode (faster build without minification and optimization)',
+        '* `npm run build-prod-cordova` - build cordova\'s `www` folder from and build cordova app',
+        '* `npm run build-dev-cordova` - build cordova\'s `www` folder from and build cordova app using development mode (faster build without minification and optimization)',
       ]);
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
         npmScripts.push(...[
-          '* `npm run build-cordova-ios-prod` - build cordova\'s `www` folder from and build cordova iOS app',
-          '* `npm run build-cordova-ios-dev` - build cordova\'s `www` folder from and build cordova iOS app using development mode (faster build without minification and optimization)',
+          '* `npm run build-prod-cordova-ios` - build cordova\'s `www` folder from and build cordova iOS app',
+          '* `npm run build-dev-cordova-ios` - build cordova\'s `www` folder from and build cordova iOS app using development mode (faster build without minification and optimization)',
         ]);
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
         npmScripts.push(...[
-          '* `npm run build-cordova-android-prod` - build cordova\'s `www` folder from and build cordova Android app',
-          '* `npm run build-cordova-android-dev` - build cordova\'s `www` folder from and build cordova Android app using development mode (faster build without minification and optimization)',
+          '* `npm run build-prod-cordova-android` - build cordova\'s `www` folder from and build cordova Android app',
+          '* `npm run build-dev-cordova-android` - build cordova\'s `www` folder from and build cordova Android app using development mode (faster build without minification and optimization)',
         ]);
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         npmScripts.push(...[
-          '* `npm run build-cordova-electron-prod` - build cordova\'s `www` folder from and build cordova Electron app',
-          '* `npm run build-cordova-electron-dev` - build cordova\'s `www` folder from and build cordova Electron app using development mode (faster build without minification and optimization)',
+          '* `npm run build-prod-cordova-electron` - build cordova\'s `www` folder from and build cordova Electron app',
+          '* `npm run build-dev-cordova-electron` - build cordova\'s `www` folder from and build cordova Electron app using development mode (faster build without minification and optimization)',
         ]);
       }
       if (cordova.platforms.indexOf('electron') >= 0) {
