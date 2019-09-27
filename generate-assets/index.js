@@ -27,7 +27,6 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
     cordovaAndroidSplashScreen: { src, output },
     cordovaElectronAppIcon: { src, output },
     cordovaElectronInstallerIcon: { src, output },
-
   };
   */
   if (project) {

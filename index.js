@@ -16,11 +16,11 @@ const pkg = require('./package.json');
 
 const cwd = process.cwd();
 const logger = {
-  statusStart: text => spinner.start(text),
-  statusDone: text => spinner.done(text),
-  statusError: text => spinner.error(text),
-  text: text => log.text(text),
-  error: text => log.error(text),
+  statusStart: (text) => spinner.start(text),
+  statusDone: (text) => spinner.done(text),
+  statusError: (text) => spinner.error(text),
+  text: (text) => log.text(text),
+  error: (text) => log.error(text),
 };
 /* =============================================
 Commands
@@ -70,6 +70,7 @@ program
 
 program
   .command('generate-assets')
+  .alias('assets')
   .option('--skipUpdate', 'Skip checking for update of framework7-cli')
   .option('--ui', 'Launch assets generation UI')
   .option('-P, --port <n>', 'Specify UI server port. By default it is 3001', parseInt)
@@ -83,7 +84,13 @@ program
     let currentProject;
     try {
       // eslint-disable-next-line
-      currentProject = Object.assign({ cwd }, require(path.resolve(cwd, 'package.json')).framework7);
+      const pkg = require(path.resolve(cwd, 'package.json'));
+      if (!pkg || !pkg.framework7) {
+        log.text(`${logSymbols.error} Framework7 project not found in current directory`);
+        process.exit(1);
+      }
+      // eslint-disable-next-line
+      currentProject = Object.assign({ cwd }, pkg.framework7);
     } catch (err) {
       log.text(`${logSymbols.error} Framework7 project not found in current directory`);
       process.exit(1);

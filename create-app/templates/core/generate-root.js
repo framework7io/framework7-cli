@@ -11,10 +11,11 @@ module.exports = (options) => {
   // Panels
   const leftPanelPlain = `
     <!-- Left panel with cover effect-->
-    <div class="panel panel-left panel-cover theme-dark">
+    <div class="panel panel-left panel-cover theme-dark panel-init">
       <div class="view">
         <div class="page">
           <div class="navbar">
+            <div class="navbar-bg"></div>
             <div class="navbar-inner">
               <div class="title">Left Panel</div>
             </div>
@@ -28,11 +29,12 @@ module.exports = (options) => {
   `.trim();
 
   const leftPanelWithView = `
-    <!-- Left panel with cover effect when hidden -->
-    <div class="panel panel-left panel-cover theme-dark">
+    <!-- Left panel with cover effect -->
+    <div class="panel panel-left panel-cover theme-dark panel-init" data-visible-breakpoint="960">
       <div class="view view-init" data-view="left">
         <div class="page">
           <div class="navbar">
+            <div class="navbar-bg"></div>
             <div class="navbar-inner sliding">
               <div class="title">Left Panel</div>
             </div>
@@ -71,6 +73,7 @@ module.exports = (options) => {
       <div class="view">
         <div class="page">
           <div class="navbar">
+            <div class="navbar-bg"></div>
             <div class="navbar-inner">
               <div class="title">Right Panel</div>
             </div>
@@ -105,17 +108,17 @@ module.exports = (options) => {
       <div class="toolbar toolbar-bottom tabbar-labels">
         <div class="toolbar-inner">
           <a href="#view-home" class="tab-link tab-link-active">
-            <i class="icon f7-icons if-not-md">home_fill</i>
+            <i class="icon f7-icons if-not-md">house_fill</i>
             <i class="icon material-icons if-md">home</i>
             <span class="tabbar-label">Home</span>
           </a>
           <a href="#view-catalog" class="tab-link">
-            <i class="icon f7-icons if-not-md">list_fill</i>
+            <i class="icon f7-icons if-not-md">square_list_fill</i>
             <i class="icon material-icons if-md">view_list</i>
             <span class="tabbar-label">Catalog</span>
           </a>
           <a href="#view-settings" class="tab-link">
-            <i class="icon f7-icons if-not-md">settings_fill</i>
+            <i class="icon f7-icons if-not-md">gear</i>
             <i class="icon material-icons if-md">settings</i>
             <span class="tabbar-label">Settings</span>
           </a>
@@ -147,8 +150,6 @@ module.exports = (options) => {
   }
 
   return `
-    <!-- Status bar overlay for fullscreen mode-->
-    <div class="statusbar"></div>
     ${leftPanel}
     ${rightPanel}
     ${views}
@@ -158,6 +159,7 @@ module.exports = (options) => {
       <div class="view">
         <div class="page">
           <div class="navbar">
+            <div class="navbar-bg"></div>
             <div class="navbar-inner">
               <div class="title">Popup</div>
               <div class="right">

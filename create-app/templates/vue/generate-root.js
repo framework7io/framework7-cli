@@ -24,7 +24,7 @@ module.exports = (options) => {
 
   const leftPanelWithView = indent(6, `
     <!-- Left panel with cover effect when hidden -->
-    <f7-panel left cover theme-dark>
+    <f7-panel left cover theme-dark :visible-breanpoint="960">
       <f7-view>
         <f7-page>
           <f7-navbar title="Left Panel"></f7-navbar>
@@ -70,9 +70,9 @@ module.exports = (options) => {
       <f7-views tabs class="safe-areas">
         <!-- Tabbar for switching views-tabs -->
         <f7-toolbar tabbar labels bottom>
-          <f7-link tab-link="#view-home" tab-link-active icon-ios="f7:home_fil" icon-aurora="f7:home_fil" icon-md="material:home" text="Home"></f7-link>
-          <f7-link tab-link="#view-catalog" icon-ios="f7:list_fill" icon-aurora="f7:list_fill" icon-md="material:view_list" text="Catalog"></f7-link>
-          <f7-link tab-link="#view-settings" icon-ios="f7:settings_fill" icon-aurora="f7:settings_fill" icon-md="material:settings" text="Settings"></f7-link>
+          <f7-link tab-link="#view-home" tab-link-active icon-ios="f7:house_fill" icon-aurora="f7:house_fill" icon-md="material:home" text="Home"></f7-link>
+          <f7-link tab-link="#view-catalog" icon-ios="f7:square_list_fill" icon-aurora="f7:square_list_fill" icon-md="material:view_list" text="Catalog"></f7-link>
+          <f7-link tab-link="#view-settings" icon-ios="f7:gear" icon-aurora="f7:gear" icon-md="material:settings" text="Settings"></f7-link>
         </f7-toolbar>
 
         <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->
@@ -91,8 +91,6 @@ module.exports = (options) => {
   return indent(0, `
     <template>
     <f7-app :params="f7params" ${theming.darkTheme ? 'theme-dark' : ''}>
-      <!-- Status bar overlay for fullscreen mode-->
-      <f7-statusbar></f7-statusbar>
       ${leftPanel}
       ${rightPanel}
       ${views}

@@ -62,12 +62,6 @@ module.exports = (options) => {
     `)}
     // App routes
     routes: routes,
-    ${templateIf(template === 'split-view', () => `
-    // Enable panel left visibility breakpoint
-    panel: {
-      leftBreakpoint: 960,
-    },
-    `)}
     ${templateIf(type.indexOf('pwa') >= 0 && !hasCordova, () => `
     // Register service worker
     serviceWorker: {
@@ -88,7 +82,6 @@ module.exports = (options) => {
     },
     // Cordova Statusbar settings
     statusbar: {
-      overlay: ${deviceVar}.cordova && ${deviceVar}.ios || 'auto',
       iosOverlaysWebView: true,
       androidOverlaysWebView: false,
     },

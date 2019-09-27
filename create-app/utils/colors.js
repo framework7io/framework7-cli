@@ -2,7 +2,7 @@ function colorHexToRgb(hex) {
   const h = hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => r + r + g + g + b + b);
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h);
   return result
-    ? result.slice(1).map(n => parseInt(n, 16))
+    ? result.slice(1).map((n) => parseInt(n, 16))
     : null;
 }
 function colorRgbToHex(r, g, b) {
@@ -42,7 +42,7 @@ function colorHslToRgb(h, s, l) {
   else if (hp <= 5) rgb1 = [x, 0, c];
   else if (hp <= 6) rgb1 = [c, 0, x];
   const m = l - (c / 2);
-  return rgb1.map(n => Math.max(0, Math.min(255, Math.round(255 * (n + m)))));
+  return rgb1.map((n) => Math.max(0, Math.min(255, Math.round(255 * (n + m)))));
 }
 function colorThemeCSSProperties(...args) {
   let hex;

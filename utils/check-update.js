@@ -11,8 +11,8 @@ async function checkUpdate() {
     axios
       .get('https://registry.npmjs.org/framework7-cli/latest')
       .then((res) => {
-        const latestVersion = res.data.version.split('.').map(n => parseInt(n, 10));
-        const currentVersion = pkg.version.split('.').map(n => parseInt(n, 10));
+        const latestVersion = res.data.version.split('.').map((n) => parseInt(n, 10));
+        const currentVersion = pkg.version.split('.').map((n) => parseInt(n, 10));
         let hasUpdateVersion = false;
         let currentIsHigher = false;
         latestVersion.forEach((n, index) => {

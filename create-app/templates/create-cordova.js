@@ -13,6 +13,7 @@ module.exports = (options) => {
     name,
     cordova,
   } = options;
+  // eslint-disable-next-line
   return new Promise(async (resolve, reject) => {
     try {
       if (!isRunningInCwd) {

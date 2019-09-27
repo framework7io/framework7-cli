@@ -33,6 +33,7 @@ module.exports = (options) => {
     <div class="page" data-name="home">
       <!-- Top Navbar -->
       <div class="navbar">
+        <div class="navbar-bg"></div>
         <div class="navbar-inner">
           <div class="left">
             <a href="#" class="link icon-only panel-open" data-panel="left">

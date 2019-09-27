@@ -24,7 +24,7 @@ module.exports = (options) => {
 
   const leftPanelWithView = indent(12, `
     {/* Left panel with cover effect when hidden */}
-    <Panel left cover themeDark>
+    <Panel left cover themeDark visibleBreakpoint={960}>
       <View>
         <Page>
           <Navbar title="Left Panel"/>
@@ -70,9 +70,9 @@ module.exports = (options) => {
       <Views tabs className="safe-areas">
         {/* Tabbar for switching views-tabs */}
         <Toolbar tabbar labels bottom>
-          <Link tabLink="#view-home" tabLinkActive iconIos="f7:home_fil" iconAurora="f7:home_fil" iconMd="material:home" text="Home" />
-          <Link tabLink="#view-catalog" iconIos="f7:list_fill" iconAurora="f7:list_fill" iconMd="material:view_list" text="Catalog" />
-          <Link tabLink="#view-settings" iconIos="f7:settings_fill" iconAurora="f7:settings_fill" iconMd="material:settings" text="Settings" />
+          <Link tabLink="#view-home" tabLinkActive iconIos="f7:house_fill" iconAurora="f7:house_fill" iconMd="material:home" text="Home" />
+          <Link tabLink="#view-catalog" iconIos="f7:square_list_fill" iconAurora="f7:square_list_fill" iconMd="material:view_list" text="Catalog" />
+          <Link tabLink="#view-settings" iconIos="f7:gear" iconAurora="f7:gear" iconMd="material:settings" text="Settings" />
         </Toolbar>
 
         {/* Your main view/tab, should have "view-main" class. It also has "tabActive" prop */}
@@ -95,7 +95,6 @@ module.exports = (options) => {
       Panel,
       Views,
       View,
-      Statusbar,
       Popup,
       Page,
       Navbar,
@@ -135,8 +134,6 @@ module.exports = (options) => {
       render() {
         return (
           <App params={ this.state.f7params } ${theming.darkTheme ? 'themeDark' : ''}>
-            {/* Status bar overlay for fullscreen mode*/}
-            <Statusbar></Statusbar>
             ${leftPanel}
             ${rightPanel}
             ${views}

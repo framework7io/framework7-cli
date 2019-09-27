@@ -47,7 +47,7 @@ const questions = [
     name: 'pkg',
     message: 'App package (Bundle ID):',
     default: 'io.framework7.myapp',
-    when: opts => opts.type.indexOf('cordova') >= 0,
+    when: (opts) => opts.type.indexOf('cordova') >= 0,
     validate(input) {
       return new Promise((resolve, reject) => {
         if (!input) reject(new Error('App package (Bundle ID) is required for cordova app'));
@@ -59,7 +59,7 @@ const questions = [
     type: 'checkbox',
     name: 'cordovaPlatforms',
     message: 'Target Cordova platform:',
-    when: opts => opts.type.indexOf('cordova') >= 0,
+    when: (opts) => opts.type.indexOf('cordova') >= 0,
     choices: [
       {
         name: 'iOS',
@@ -132,7 +132,7 @@ const questions = [
     type: 'list',
     name: 'bundler',
     message: 'Should we setup project with bundler?',
-    when: opts => opts.framework === 'core',
+    when: (opts) => opts.framework === 'core',
     default(opts) {
       if (opts.framework === 'core') return false;
       return 'webpack';
@@ -161,7 +161,7 @@ const questions = [
     type: 'list',
     name: 'cssPreProcessor',
     message: 'Do you want to setup CSS Pre-Processor',
-    when: opts => opts.bundler === 'webpack' || opts.framework !== 'core',
+    when: (opts) => opts.bundler === 'webpack' || opts.framework !== 'core',
     default: false,
     choices: [
       {
@@ -203,7 +203,7 @@ const questions = [
     type: 'input',
     name: 'themingColor',
     message: 'Enter custom theme color in HEX format (e.g. ff0000)',
-    when: opts => opts.themingCustomColor === true,
+    when: (opts) => opts.themingCustomColor === true,
     validate(input) {
       return new Promise((resolve, reject) => {
         const num = input.replace(/#/g, '');
