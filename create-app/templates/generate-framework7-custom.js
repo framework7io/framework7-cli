@@ -29,7 +29,7 @@ module.exports = (options) => {
   });
 
   const scripts = indent(0, `
-    import Framework7 from ${framework === 'core' ? 'framework7' : 'framework7/framework7-lite.esm.js'};
+    import Framework7 from '${framework === 'core' ? 'framework7' : 'framework7/framework7-lite.esm.js'}';
     ${componentsImportsJS.join('\n    ')}
 
     Framework7.use([
