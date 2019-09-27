@@ -16,7 +16,7 @@ async function release() {
       type: 'list',
       name: 'beta',
       message: 'Beta?',
-      when: opts => opts.version.indexOf('beta') >= 0,
+      when: (opts) => opts.version.indexOf('beta') >= 0,
       choices: [
         {
           name: 'YES',

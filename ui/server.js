@@ -24,11 +24,11 @@ module.exports = (startPage = '/', port = 3001) => {
   let error = false;
 
   const logger = {
-    statusStart: text => log.push(text),
-    statusDone: text => log.push(`✔ ${text}`),
-    statusError: text => log.push(`✖ ${text}`),
-    text: text => log.push(text),
-    error: text => log.push(text),
+    statusStart: (text) => log.push(text),
+    statusDone: (text) => log.push(`✔ ${text}`),
+    statusError: (text) => log.push(`✖ ${text}`),
+    text: (text) => log.push(text),
+    error: (text) => log.push(text),
   };
 
   function clearLog() {
@@ -100,6 +100,7 @@ module.exports = (startPage = '/', port = 3001) => {
       clearLog();
 
       const pkg = require(path.resolve(cwd, 'package.json'));
+      // eslint-disable-next-line
       const currentProject = Object.assign({ cwd }, pkg.framework7);
 
       res.json({});
