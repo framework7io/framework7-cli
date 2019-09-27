@@ -1,6 +1,6 @@
 <template>
   <f7-app :params="f7params">
-    <f7-view main class="ios-edges" url="/" :push-state="true" push-state-separator="#!"></f7-view>
+    <f7-view main class="ios-edges" url="/" :push-state="true" push-state-separator=""></f7-view>
   </f7-app>
 </template>
 <script>
