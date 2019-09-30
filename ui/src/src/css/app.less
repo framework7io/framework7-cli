@@ -51,6 +51,17 @@
     height: 48px;
   }
 }
+.label-file-input {
+  overflow: hidden;
+  input {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    right: 0;
+    top: 0;
+    font-size: 100px;
+  }
+}
 i.block-icon {
   color: #fff;
   font-size: 28px !important;
@@ -155,6 +166,9 @@ i.block-icon {
     font-weight: 500;
     line-height: 1.3;
   }
+  .theme-dark & .col-icon {
+    background: rgba(255,255,255,0.05);
+  }
   .col-icon {
     display: flex;
     justify-content: center;
@@ -219,16 +233,12 @@ i.block-icon {
 }
 
 .home-cards {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  --f7-grid-gap: 30px;
   .card {
-    width: 250px;
     margin: 0;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
-    border-radius: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+    border-radius: 15px;
     overflow: hidden;
   }
   .card-content {

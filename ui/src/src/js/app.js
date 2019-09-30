@@ -10,6 +10,7 @@ import Popover from 'framework7/components/popover/popover';
 import Range from 'framework7/components/range/range';
 import Toggle from 'framework7/components/toggle/toggle';
 import Popup from 'framework7/components/popup/popup';
+import Tooltip from 'framework7/components/tooltip/tooltip';
 
 // Import Framework7-Vue Plugin
 import Framework7Vue from 'framework7-vue';
@@ -34,6 +35,7 @@ Framework7.use([
   Range,
   Toggle,
   Popup,
+  Tooltip,
 ]);
 
 // Init App

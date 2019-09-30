@@ -5,6 +5,13 @@
         <i class="f7-navbar-logo"></i>
         <span>Create App</span>
       </f7-nav-title>
+      <label slot="right" class="tooltip-init link label-file-input" data-tooltip="Import project settings<br>from .json file" style="color: var(--f7-navbar-link-color,var(--f7-bars-link-color,var(--f7-theme-color)))">
+        <i class="f7-icons" style="font-size:24px">tray_arrow_down_fill</i>
+        <input type="file" @change="onImportInputChange" accept=".json">
+      </label>
+      <a class="link margin-left tooltip-init" slot="right" data-tooltip="Export project settings<br>to .json file" @click="exportSettings">
+        <i class="f7-icons" style="font-size:24px">tray_arrow_up_fill</i>
+      </a>
       <f7-nav-title-large>
         <i class="f7-navbar-logo"></i>
         <span>Create App</span>
@@ -110,7 +117,7 @@
           <span>Cordova</span>
           <div class="right">
             <span class="toggle-label disabled">Advanced</span>
-            <f7-toggle color="green" :checked="cordovaAdvanced" @change="cordovaAdvanced = !cordovaAdvanced" />
+            <f7-toggle color="green" :checked="cordovaAdvanced" @change="cordovaAdvanced = $event.target.checked" />
           </div>
         </f7-block-title>
 
@@ -287,7 +294,7 @@
           <span>Bundler</span>
           <div class="right" v-if="bundler">
             <span class="toggle-label disabled">Advanced</span>
-            <f7-toggle :checked="bundlerAdvanced" @change="bundlerAdvanced = !bundlerAdvanced" color="green" />
+            <f7-toggle :checked="bundlerAdvanced" @change="bundlerAdvanced = $event.target.checked" color="green" />
           </div>
         </f7-block-title>
 
@@ -461,7 +468,7 @@
           <span>Framework7 Custom Build</span>
           <div class="right">
             <span class="toggle-label disabled">Enable</span>
-            <f7-toggle :checked="customBuild" @change="customBuild = !customBuild" color="green" />
+            <f7-toggle :checked="customBuild" @change="customBuild = $event.target.checked" color="green" />
           </div>
         </f7-block-title>
         <template v-if="!customBuild">
@@ -793,6 +800,77 @@
     },
     methods: {
       logText,
+      exportSettings() {
+        const self = this;
+        const options = self.getOptions();
+        delete options.cwd;
+
+        const data = [JSON.stringify(options, '', 2)];
+
+        let file;
+        const fileName = `${options.name || 'f7-project'}.json`;
+        const properties = { type: 'application/json' };
+        try {
+          file = new File(data, fileName, properties);
+        } catch (e) {
+          file = new Blob(data, properties);
+        }
+        const url = URL.createObjectURL(file);
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.target = '_blank';
+        link.href = url;
+        link.click();
+      },
+      importSettings(data) {
+        const self = this;
+
+        const {
+          bundler,
+          cordova,
+          cssPreProcessor,
+          customBuild,
+          customBuildConfig,
+          framework,
+          name,
+          pkg,
+          template,
+          theming,
+          type,
+          webpack,
+        } = data;
+
+
+        if (type && type.indexOf('cordova') >= 0) {
+          self.cordovaAdvanced = true;
+        }
+        if (bundler === 'webpack' && webpack) {
+          self.bundlerAdvanced = true;
+        }
+        Object.assign(self, {
+          bundler,
+          cordova,
+          cssPreProcessor,
+          customBuild,
+          customBuildConfig,
+          framework,
+          name,
+          pkg,
+          template,
+          theming,
+          type,
+          webpack,
+        });
+      },
+      onImportInputChange(e) {
+        const self = this;
+        const reader = new FileReader();
+        reader.onload = () => {
+          const content = JSON.parse(reader.result);
+          self.importSettings(content.framework7 || content);
+        }
+        reader.readAsText(e.target.files[0]);
+      },
       toggleComponents() {
         const self = this;
         if (self.customBuildConfig.components.length === self.componentsList.length) {

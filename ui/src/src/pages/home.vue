@@ -12,19 +12,20 @@
     </f7-navbar>
 
     <div class="center-content">
-      <div class="block padding home-cards">
-        <div class="card">
+      <div class="block padding home-cards row">
+        <div class="col-100 medium-33 card">
           <a href="/create/" class="card-content card-content-padding link">
             <i class="f7-icons">plus_circle_fill</i>
             <span>Create App</span>
           </a>
         </div>
-        <div class="card">
+        <div class="col-100 medium-33 card">
           <a href="/generate-assets/" class="card-content card-content-padding link">
             <i class="f7-icons">photo_fill_on_rectangle_fill</i>
             <span>Generate Assets</span>
           </a>
         </div>
+        <div class="col-100 medium-33"></div>
       </div>
     </div>
   </f7-page>
