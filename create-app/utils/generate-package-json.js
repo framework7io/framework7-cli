@@ -1,3 +1,5 @@
+const generateNpmScripts = require('./generate-npm-scripts');
+
 module.exports = function generatePackageJson(options) {
   const {
     type, name, framework, bundler, cssPreProcessor, cordova, theming,
@@ -99,52 +101,10 @@ module.exports = function generatePackageJson(options) {
 
   // Scripts
   const scripts = {};
+  generateNpmScripts(options).forEach((s) => {
+    scripts[s.name] = s.script;
+  });
   const postInstall = [];
-  if (bundler === 'webpack') {
-    scripts['build-dev'] = 'cross-env NODE_ENV=development node ./build/build.js';
-    scripts['build-prod'] = 'cross-env NODE_ENV=production node ./build/build.js';
-    if (type.indexOf('cordova') >= 0) {
-      scripts['build-dev-cordova'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build';
-      scripts['build-prod-cordova'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build';
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
-        scripts['build-dev-cordova-ios'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build ios';
-        scripts['build-prod-cordova-ios'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios';
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
-        scripts['build-dev-cordova-android'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build android';
-        scripts['build-prod-cordova-android'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build android';
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
-        // eslint-disable-next-line
-        scripts['build-dev-cordova-electron'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build electron';
-        scripts['build-prod-cordova-electron'] = 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build electron';
-      }
-      if (cordova.platforms.indexOf('electron') >= 0) {
-        scripts['cordova-electron'] = 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && concurrently --kill-others "cross-env TARGET=cordova cross-env ELECTRON_WATCH=true cross-env NODE_ENV=development cross-env webpack --progress --config ./build/webpack.config.js --watch" "cd cordova && cordova run electron --nobuild"';
-      }
-    }
-    scripts.dev = 'cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js';
-    scripts.start = 'npm run dev';
-  }
-  if (!bundler) {
-    scripts.serve = 'http-server ./www/ -o -c 1 -a localhost -p 8080';
-    scripts.start = 'npm run serve';
-    if (type.indexOf('cordova') >= 0) {
-      scripts['build-cordova'] = 'node ./build/build.js && cd cordova && cordova build';
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
-        scripts['build-cordova-ios'] = 'node ./build/build.js && cd cordova && cordova build ios';
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
-        scripts['build-cordova-android'] = 'node ./build/build.js && cd cordova && cordova build android';
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
-        scripts['build-cordova-electron'] = 'node ./build/build.js && cd cordova && cordova build electron';
-      }
-      if (cordova.platforms.indexOf('electron') >= 0) {
-        scripts['cordova-electron'] = 'node ./build/build.js && cd cordova && cordova run electron --nobuild';
-      }
-    }
-  }
 
   if (theming.iconFonts) {
     postInstall.push(`cpy './node_modules/framework7-icons/fonts/*.*' './${bundler ? 'src' : 'www'}/fonts/'`);

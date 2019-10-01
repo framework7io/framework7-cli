@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const logSymbols = require('log-symbols');
 const fse = require('../utils/fs-extra');
 const generatePackageJson = require('./utils/generate-package-json');
+const generateNpmScripts = require('./utils/generate-npm-scripts');
 
 const createFolders = require('./templates/create-folders');
 const copyAssets = require('./templates/copy-assets');
@@ -33,7 +34,7 @@ module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
   }
 
   // Options
-  const { type, bundler, cordova } = options;
+  const { type } = options;
 
   // Package
   logger.statusStart('Generating package.json');
@@ -161,70 +162,10 @@ module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
   }
 
   logger.statusDone('Creating project files');
-
-  const npmScripts = [
-    `- 🔥 Run "${chalk.green('npm start')}" to run development server`,
-  ];
-  if (bundler) {
-    npmScripts.push(...[
-      `- 🔧 Run "${chalk.green('npm run build-prod')}" to build web app for production`,
-      `- 🔧 Run "${chalk.green('npm run build-dev')}" to build web app using development mode (faster build without minification and optimization)`,
-    ]);
-    if (type.indexOf('cordova') >= 0) {
-      npmScripts.push(...[
-        `- 📱 Run "${chalk.green('npm run build-prod-cordova')}" to build cordova app`,
-        `- 📱 Run "${chalk.green('npm run build-dev-cordova')}" to build cordova app using development mode (faster build without minification and optimization)`,
-      ]);
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
-        npmScripts.push(...[
-          `- 📱 Run "${chalk.green('npm run build-prod-cordova-ios')}" to build cordova iOS app`,
-          `- 📱 Run "${chalk.green('npm run build-dev-cordova-ios')}" to build cordova iOS app using development mode (faster build without minification and optimization)`,
-        ]);
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
-        npmScripts.push(...[
-          `- 📱 Run "${chalk.green('npm run build-prod-cordova-android')}" to build cordova Android app`,
-          `- 📱 Run "${chalk.green('npm run build-dev-cordova-android')}" to build cordova Android app using development mode (faster build without minification and optimization)`,
-        ]);
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
-        npmScripts.push(...[
-          `- 🖥 Run "${chalk.green('npm run build-prod-cordova-electron')}" to build cordova Electron app`,
-          `- 🖥 Run "${chalk.green('npm run build-dev-cordova-electron')}" to build cordova Electron app using development mode (faster build without minification and optimization)`,
-        ]);
-      }
-      if (cordova.platforms.indexOf('electron') >= 0) {
-        npmScripts.push(
-          `- 🖥 Run "${chalk.green('npm run cordova-electron')}" to launch quick preview (without full build process) of Electron app in development mode`,
-        );
-      }
-    }
-  }
-  if (!bundler && type.indexOf('cordova') >= 0) {
-    npmScripts.push(...[
-      `- 📱 Run "${chalk.green('npm run build-cordova')}" to build cordova app`,
-    ]);
-    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
-      npmScripts.push(...[
-        `- 📱 Run "${chalk.green('npm run build-cordova-ios')}" to build cordova iOS app`,
-      ]);
-    }
-    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
-      npmScripts.push(...[
-        `- 📱 Run "${chalk.green('npm run build-cordova-android')}" to build cordova Android app`,
-      ]);
-    }
-    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
-      npmScripts.push(...[
-        `- 🖥 Run "${chalk.green('npm run build-cordova-electron')}" to build cordova Electron app`,
-      ]);
-    }
-    if (cordova.platforms.indexOf('electron') >= 0) {
-      npmScripts.push(
-        `- 🖥 Run "${chalk.green('npm run cordova-electron')}" to launch quick preview (without full build process) of Electron app in development mode`,
-      );
-    }
-  }
+  const npmScripts = generateNpmScripts(options)
+    .map((s) => {
+      return `- ${s.icon} Run "npm run ${s.name}" - ${s.description}`;
+    });
 
   // Final Text
   const finalText = `

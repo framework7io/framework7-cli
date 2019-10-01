@@ -1,73 +1,14 @@
 const templateIf = require('./template-if');
+const generateNpmScripts = require('./generate-npm-scripts');
 
 module.exports = (options) => {
   const {
     framework, bundler, type, name, cordova,
   } = options;
 
-  const npmScripts = ['* `npm start` - run development server'];
-
-  if (bundler) {
-    npmScripts.push(...[
-      '* `npm run build-prod` - build web app for production',
-      '* `npm run build-dev` - build web app using development mode (faster build without minification and optimization)',
-    ]);
-    if (type.indexOf('cordova') >= 0) {
-      npmScripts.push(...[
-        '* `npm run build-prod-cordova` - build cordova\'s `www` folder from and build cordova app',
-        '* `npm run build-dev-cordova` - build cordova\'s `www` folder from and build cordova app using development mode (faster build without minification and optimization)',
-      ]);
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
-        npmScripts.push(...[
-          '* `npm run build-prod-cordova-ios` - build cordova\'s `www` folder from and build cordova iOS app',
-          '* `npm run build-dev-cordova-ios` - build cordova\'s `www` folder from and build cordova iOS app using development mode (faster build without minification and optimization)',
-        ]);
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
-        npmScripts.push(...[
-          '* `npm run build-prod-cordova-android` - build cordova\'s `www` folder from and build cordova Android app',
-          '* `npm run build-dev-cordova-android` - build cordova\'s `www` folder from and build cordova Android app using development mode (faster build without minification and optimization)',
-        ]);
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
-        npmScripts.push(...[
-          '* `npm run build-prod-cordova-electron` - build cordova\'s `www` folder from and build cordova Electron app',
-          '* `npm run build-dev-cordova-electron` - build cordova\'s `www` folder from and build cordova Electron app using development mode (faster build without minification and optimization)',
-        ]);
-      }
-      if (cordova.platforms.indexOf('electron') >= 0) {
-        npmScripts.push(...[
-          '* `npm run cordova-electron` - launch quick preview (without full build process) of Electron app in development mode',
-        ]);
-      }
-    }
-  }
-
-  if (!bundler && type.indexOf('cordova') >= 0) {
-    npmScripts.push(...[
-      '* `npm run build-cordova` - build cordova app',
-    ]);
-    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
-      npmScripts.push(...[
-        '* `npm run build-cordova-ios` - build cordova iOS app',
-      ]);
-    }
-    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
-      npmScripts.push(...[
-        '* `npm run build-cordova-android` - build cordova Android app',
-      ]);
-    }
-    if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
-      npmScripts.push(...[
-        '* `npm run build-cordova-electron` - build cordova Electron (desktop) app',
-      ]);
-    }
-    if (cordova.platforms.indexOf('electron') >= 0) {
-      npmScripts.push(...[
-        '* `npm run cordova-electron` - launch quick preview (without full build process) of Electron app',
-      ]);
-    }
-  }
+  const npmScripts = generateNpmScripts(options).map((s) => {
+    return `* ${s.icon} \`${s.name}\` - ${s.description}`;
+  });
 
   return `
 
