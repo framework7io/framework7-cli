@@ -2,6 +2,18 @@
 
 # Change Log
 
+# [v3.0.0](https://github.com/framework7io/framework7-cli/compare/v2.3.3...v3.0.0) - October 7, 2019
+  * Generated app templates updated to Framework7 v5
+  * Generated app templates updated to use Framework7 Icons v3
+  * Update cordova `backbutton` handler. Now it will close opened modals (if available) or go back in navigation
+  * Updated cordova-related scripts names, e.g. `build-cordova-dev` -> `build-dev-cordova`
+  * Added alias `f7` for CLI command. Now we can run it like `f7 create --ui`
+  * UI
+    * Added new Text Editor to custom build settings
+    * Added options to include/exclude Dark and Light themes in custom build
+    * Added ability to import project setting from JSON file
+    * Added ability to export project setting to JSON file
+
 # [v2.3.3](https://github.com/framework7io/framework7-cli/compare/v2.3.2...v2.3.3) - July 5, 2019
   * Added `--skipUpdate` parameter to `create` and `generate-assets` commands to skip update check
   * Fixed CLI usage text
