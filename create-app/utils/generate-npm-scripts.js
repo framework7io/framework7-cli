@@ -53,7 +53,7 @@ module.exports = (options) => {
     }
     result = tokens.map((token) => {
       return {
-        icon: npmScripts.webpack[token].icon,
+        icon: npmScripts.no_webpack[token].icon,
         name: npmScripts.no_webpack[token].name,
         script: npmScripts.no_webpack[token].script,
         description: npmScripts.no_webpack[token].description,
