@@ -24,7 +24,7 @@ module.exports = (options) => {
 
   const leftPanelWithView = indent(6, `
     <!-- Left panel with cover effect when hidden -->
-    <f7-panel left cover theme-dark :visible-breanpoint="960">
+    <f7-panel left cover theme-dark :visible-breakpoint="960">
       <f7-view>
         <f7-page>
           <f7-navbar title="Left Panel"></f7-navbar>

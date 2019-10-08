@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [v3.0.2](https://github.com/framework7io/framework7-cli/compare/v2.3.3...v3.0.0) - October 7, 2019
+  * Fixed typo in prop (`breanpoint` -> `breakpoint`) name in generated Vue split-view template
+
+# [v3.0.1](https://github.com/framework7io/framework7-cli/compare/v2.3.3...v3.0.0) - October 7, 2019
+  * Fixed issue with unable to create app without bundler
+
 # [v3.0.0](https://github.com/framework7io/framework7-cli/compare/v2.3.3...v3.0.0) - October 7, 2019
   * Generated app templates updated to Framework7 v5
   * Generated app templates updated to use Framework7 Icons v3
