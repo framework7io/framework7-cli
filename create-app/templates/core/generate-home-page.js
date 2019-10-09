@@ -32,7 +32,7 @@ module.exports = (options) => {
   return indent(0, `
     <div class="page" data-name="home">
       <!-- Top Navbar -->
-      <div class="navbar">
+      <div class="navbar navbar-large">
         <div class="navbar-bg"></div>
         <div class="navbar-inner">
           <div class="left">
