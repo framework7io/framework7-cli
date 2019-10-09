@@ -2,10 +2,13 @@
 
 # Change Log
 
-# [v3.0.2](https://github.com/framework7io/framework7-cli/compare/v2.3.3...v3.0.0) - October 7, 2019
+# [v3.0.3](https://github.com/framework7io/framework7-cli/compare/v3.0.2...v3.0.3) - October 9, 2019
+  * Fixed hanging caused by spinner (#51)
+
+# [v3.0.2](https://github.com/framework7io/framework7-cli/compare/v3.0.1...v3.0.2) - October 8, 2019
   * Fixed typo in prop (`breanpoint` -> `breakpoint`) name in generated Vue split-view template
 
-# [v3.0.1](https://github.com/framework7io/framework7-cli/compare/v2.3.3...v3.0.0) - October 7, 2019
+# [v3.0.1](https://github.com/framework7io/framework7-cli/compare/v3.0.0...v3.0.1) - October 7, 2019
   * Fixed issue with unable to create app without bundler
 
 # [v3.0.0](https://github.com/framework7io/framework7-cli/compare/v2.3.3...v3.0.0) - October 7, 2019
