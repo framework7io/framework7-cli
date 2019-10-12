@@ -46,6 +46,11 @@ var cordovaApp = {
         e.preventDefault();
         return false;
       }
+      if ($('.login-screen.modal-in').length) {
+        f7.loginScreen.close('.login-screen.modal-in');
+        e.preventDefault();
+        return false;
+      }
 
       const currentView = f7.views.current;
       if (currentView && currentView.router && currentView.router.history.length > 1) {
