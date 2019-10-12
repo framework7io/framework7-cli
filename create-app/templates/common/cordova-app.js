@@ -59,6 +59,11 @@ var cordovaApp = {
         e.preventDefault();
         return false;
       }
+      
+      if (window.navigator.app && window.navigator.app.exitApp) {
+        window.navigator.app.exitApp();
+      }
+      
     }, false);
   },
   /*
