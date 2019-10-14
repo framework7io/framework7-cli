@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v3.0.5](https://github.com/framework7io/framework7-cli/compare/v3.0.4...v3.0.5) - October 14, 2019
+  * Fixed issue when generated Core app was referencing Lite verions of the library
+
 # [v3.0.4](https://github.com/framework7io/framework7-cli/compare/v3.0.3...v3.0.4) - October 14, 2019
   * Fixed generated styles for Split View template
   * Add closing Login Screen in cordova handler
