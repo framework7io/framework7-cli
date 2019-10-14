@@ -85,7 +85,7 @@ module.exports = (options) => {
   if (template === 'split-view') {
     styles += indent(0, `
       /* Left Panel right border when it is visible by breakpoint */
-      .panel-left.panel-visible-by-breakpoint:before {
+      .panel-left.panel-in-breakpoint:before {
         position: absolute;
         right: 0;
         top: 0;
@@ -97,15 +97,15 @@ module.exports = (options) => {
       }
 
       /* Hide navbar link which opens left panel when it is visible by breakpoint */
-      .panel-left.panel-visible-by-breakpoint ~ .view .navbar .panel-open[data-panel="left"] {
+      .panel-left.panel-in-breakpoint ~ .view .navbar .panel-open[data-panel="left"] {
         display: none;
       }
 
       /*
         Extra borders for main view and left panel for iOS theme when it behaves as panel (before breakpoint size)
       */
-      .ios .panel-left:not(.panel-visible-by-breakpoint).panel-in ~ .view-main:before,
-      .ios .panel-left:not(.panel-visible-by-breakpoint).panel-closing ~ .view-main:before {
+      .ios .panel-left:not(.panel-in-breakpoint).panel-in ~ .view-main:before,
+      .ios .panel-left:not(.panel-in-breakpoint).panel-closing ~ .view-main:before {
         position: absolute;
         left: 0;
         top: 0;
