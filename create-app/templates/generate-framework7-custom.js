@@ -2,13 +2,14 @@ const indent = require('../utils/indent');
 
 module.exports = (options) => {
   const {
-    framework,
     components = [],
     themes = [],
     rtl = false,
     lightTheme = true,
     darkTheme = true,
   } = options.customBuildConfig || {};
+  const { framework } = options;
+
 
   const componentsImportsJS = components.map((c) => {
     const name = c
