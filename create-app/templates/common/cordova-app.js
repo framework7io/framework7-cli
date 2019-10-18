@@ -42,6 +42,14 @@ var cordovaApp = {
         return false;
       }
       if ($('.popup.modal-in').length) {
+        if ($('.popup.modal-in>.view').length) {
+          const currentView = f7.views.get('.popup.modal-in>.view');
+          if (currentView && currentView.router && currentView.router.history.length > 1) {
+            currentView.router.back();
+            e.preventDefault();
+            return false;
+          }
+        }
         f7.popup.close('.popup.modal-in');
         e.preventDefault();
         return false;
