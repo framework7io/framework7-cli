@@ -87,6 +87,9 @@ module.exports = (options) => {
           '@': resolvePath('src'),
         },
       },
+      node: {
+        fs: 'empty'
+      },
       devtool: env === 'production' ? ${productionDevtool} : ${developmentDevtool},
       devServer: {
         hot: true,
