@@ -96,7 +96,7 @@ module.exports = function generatePackageJson(options) {
     ]);
   }
   if (theming.iconFonts) {
-    devDependencies.push('cpy-cli');
+    devDependencies.push('cpy-cli@2.0.0');
   }
 
   // Scripts
