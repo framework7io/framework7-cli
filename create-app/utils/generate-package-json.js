@@ -107,7 +107,7 @@ module.exports = function generatePackageJson(options) {
   const postInstall = [];
 
   if (theming.iconFonts) {
-    postInstall.push(`cpy './node_modules/framework7-icons/fonts/*.*' './${bundler ? 'src' : 'www'}/fonts/'`);
+    postInstall.push(`cpy ./node_modules/framework7-icons/fonts/*.* ./${bundler ? 'src' : 'www'}/fonts/`);
   }
 
   if (postInstall.length) {
