@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v3.0.7](https://github.com/framework7io/framework7-cli/compare/v3.0.6...v3.0.7) - November 30, 2019
+  * Fixed issue with `cpy` dependency breaking install on Windows
+
 # [v3.0.6](https://github.com/framework7io/framework7-cli/compare/v3.0.5...v3.0.6) - November 30, 2019
   * Added cordova android back button handler to View in Popup
 
