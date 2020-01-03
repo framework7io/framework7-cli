@@ -14,7 +14,8 @@
     <div class="center-content" v-if="project">
       <div class="row">
         <template v-if="project.type.indexOf('web') >= 0 || project.type.indexOf('pwa') >= 0">
-          <div class="col-100 medium-50">
+          <f7-block-title class="col-100" medium>Web App Assets</f7-block-title>
+          <div class="col-100 medium-33">
             <f7-block-title>Web Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 512x512 size</f7-block-header>
@@ -25,7 +26,7 @@
               <input type="file" name="web-icon" @change="setImage('web-icon', $event.target.files[0])">
             </label>
           </div>
-          <div class="col-100 medium-50">
+          <div class="col-100 medium-33">
             <f7-block-title>Apple Touch Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>Square PNG image 256x256 size</f7-block-header>
@@ -39,8 +40,10 @@
         </template>
 
         <template v-if="project.type.indexOf('cordova') >= 0">
-          <div class="col-100 medium-50" v-if="project.cordova.platforms.indexOf('ios') >= 0">
-            <f7-block-title>Cordova iOS Icon</f7-block-title>
+          <f7-block-title class="col-100" medium>Cordova Assets</f7-block-title>
+
+          <div class="col-100 medium-33" v-if="project.cordova.platforms.indexOf('ios') >= 0">
+            <f7-block-title>iOS Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>Square PNG image 1024x1024 size</f7-block-header>
               <div class="asset-preview">
@@ -51,8 +54,8 @@
             </label>
           </div>
 
-          <div class="col-100 medium-50" v-if="project.cordova.platforms.indexOf('android') >= 0">
-            <f7-block-title>Cordova Android Icon</f7-block-title>
+          <div class="col-100 medium-33" v-if="project.cordova.platforms.indexOf('android') >= 0">
+            <f7-block-title>Android Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>Square PNG image 512x512 size</f7-block-header>
               <div class="asset-preview">
@@ -63,8 +66,8 @@
             </label>
           </div>
 
-          <div class="col-100 medium-50" v-if="project.cordova.platforms.indexOf('electron') >= 0">
-            <f7-block-title>Cordova Electron App Icon</f7-block-title>
+          <div class="col-100 medium-33" v-if="project.cordova.platforms.indexOf('electron') >= 0">
+            <f7-block-title>Electron App Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 1024x1024 size</f7-block-header>
               <div class="asset-preview">
@@ -75,8 +78,8 @@
             </label>
           </div>
 
-          <div class="col-100 medium-50" v-if="project.cordova.platforms.indexOf('electron') >= 0">
-            <f7-block-title>Cordova Electron Installer Icon</f7-block-title>
+          <div class="col-100 medium-33" v-if="project.cordova.platforms.indexOf('electron') >= 0">
+            <f7-block-title>Electron Installer Icon</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 1024x1024 size</f7-block-header>
               <div class="asset-preview">
@@ -87,8 +90,20 @@
             </label>
           </div>
 
-          <div class="col-100 medium-50" v-if="project.cordova.platforms.indexOf('android') >= 0 || project.cordova.platforms.indexOf('ios') >= 0">
-            <f7-block-title>Cordova Splash Screen</f7-block-title>
+          <div class="col-100 medium-33" v-if="project.cordova.platforms.indexOf('osx') >= 0">
+            <f7-block-title>macOS Icon</f7-block-title>
+            <label class="block block-strong inset drag-area">
+              <f7-block-header>PNG image 1024x1024 size</f7-block-header>
+              <div class="asset-preview">
+                <img :src="getImage('/cwd/assets-src/cordova-osx-icon.png')">
+              </div>
+              <f7-block-footer>{{dragText}}</f7-block-footer>
+              <input type="file" name="cordova-osx-icon" @change="setImage('cordova-osx-icon', $event.target.files[0])">
+            </label>
+          </div>
+
+          <div class="col-100 medium-33" v-if="project.cordova.platforms.indexOf('android') >= 0 || project.cordova.platforms.indexOf('ios') >= 0">
+            <f7-block-title>Splash Screen</f7-block-title>
             <label class="block block-strong inset drag-area">
               <f7-block-header>PNG image 2732x2732 size</f7-block-header>
               <div class="asset-preview">
@@ -114,13 +129,13 @@
   </f7-page>
 </template>
 <script>
-  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Popup } from 'framework7-vue';
+  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Popup, f7Icon } from 'framework7-vue';
   import logText from '../utils/log-text';
   import getLog from '../utils/get-log';
 
   export default {
     components: {
-      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Popup
+      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Popup, f7Icon
     },
     data() {
       return {

@@ -37,10 +37,17 @@ module.exports = (options) => {
     }
 
     // Install cordova plugins
-    if (!isRunningInCwd) {
-      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd ${cordova.folder} && cordova plugin add ${plugins.join(' ')}`, true);
-    } else {
-      await exec.promise(`cd ${cordova.folder} && cordova plugin add ${plugins.join(' ')}`, true);
+    if (plugins.length) {
+      try {
+        if (!isRunningInCwd) {
+          await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd ${cordova.folder} && cordova plugin add ${plugins.join(' ')}`, true);
+        } else {
+          await exec.promise(`cd ${cordova.folder} && cordova plugin add ${plugins.join(' ')}`, true);
+        }
+      } catch (err) {
+        reject(err);
+        return;
+      }
     }
 
     // Modify config.xml
@@ -61,14 +68,19 @@ module.exports = (options) => {
       return;
     }
 
-    await cpy(
-      '**/*.*',
-      path.resolve(cwd, cordova.folder, 'res'),
-      {
-        parents: true,
-        cwd: path.resolve(__dirname, 'common', 'cordova-res'),
-      },
-    );
+    try {
+      await cpy(
+        '**/*.*',
+        path.resolve(cwd, cordova.folder, 'res'),
+        {
+          parents: true,
+          cwd: path.resolve(__dirname, 'common', 'cordova-res'),
+        },
+      );
+    } catch (err) {
+      reject(err);
+      return;
+    }
 
     // Add electron settings
     if (cordova.platforms.indexOf('electron') >= 0) {

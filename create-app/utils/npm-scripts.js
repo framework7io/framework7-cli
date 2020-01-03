@@ -6,6 +6,7 @@ const map = {
   a: 'android',
   i: 'ios',
   e: 'electron',
+  o: 'osx',
   s: 'start',
   v: 'serve',
 };
@@ -74,6 +75,16 @@ const npmScripts = {
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && concurrently --kill-others "cross-env TARGET=cordova cross-env ELECTRON_WATCH=true cross-env NODE_ENV=development cross-env webpack --progress --config ./build/webpack.config.js --watch" "cd cordova && cordova run electron --nobuild"',
       description: 'launch quick preview (without full build process) of Electron app in development mode',
     },
+    bdco: {
+      icon: '🖥',
+      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build osx',
+      description: 'build cordova macOS app using development mode (faster build without minification and optimization)',
+    },
+    bpco: {
+      icon: '🖥',
+      script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build osx',
+      description: 'build cordova macOS app',
+    },
     d: {
       icon: '🔧',
       script: 'cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js',
@@ -105,6 +116,11 @@ const npmScripts = {
       icon: '🖥',
       script: 'node ./build/build.js && cd cordova && cordova build electron',
       description: 'build cordova Electron app',
+    },
+    bco: {
+      icon: '🖥',
+      script: 'node ./build/build.js && cd cordova && cordova build osx',
+      description: 'build cordova macOS app',
     },
     v: {
       icon: '🔧',

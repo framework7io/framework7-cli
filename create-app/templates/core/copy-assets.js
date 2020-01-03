@@ -1,6 +1,7 @@
 const path = require('path');
 const fse = require('../../../utils/fs-extra');
 const generateHomePage = require('./generate-home-page');
+const generateRoot = require('./generate-root');
 const indent = require('../../utils/indent');
 
 module.exports = (options) => {
@@ -57,6 +58,10 @@ module.exports = (options) => {
       toCopy.push({
         from: path.resolve(__dirname, 'template7-helpers-list.js'),
         to: path.resolve(cwd, srcFolder, 'template7-helpers-list.js'),
+      });
+      toCopy.push({
+        content: generateRoot(options),
+        to: path.resolve(cwd, srcFolder, 'app.f7.html'),
       });
     }
 

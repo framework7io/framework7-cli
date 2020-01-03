@@ -8,6 +8,7 @@ module.exports = (options) => {
     pkg,
     name,
     template,
+    bundler,
   } = options;
 
   const hasCordova = type.indexOf('cordova') >= 0;
@@ -18,18 +19,24 @@ module.exports = (options) => {
     ${templateIf(framework === 'core', () => `
     root: '#app', // App root element
     `)}
+    ${templateIf(framework === 'core' && bundler, () => `
+    component: App, // App main component
+    `)}
     ${templateIf(pkg, () => `
     id: '${pkg}', // App bundle ID
     `)}
     name: '${name}', // App name
     theme: 'auto', // Automatic theme detection
+    ${templateIf(template === 'tabs' || (framework === 'core' && !bundler), () => `
     // App root data
     data: function () {
       return {
+        ${templateIf(framework === 'core' && !bundler, () => `
         user: {
           firstName: 'John',
           lastName: 'Doe',
         },
+        `)}
         ${templateIf(template === 'tabs', () => `
         // Demo products for Catalog section
         products: [
@@ -52,7 +59,8 @@ module.exports = (options) => {
         `)}
       };
     },
-    ${templateIf(framework === 'core', () => `
+    `)}
+    ${templateIf(framework === 'core' && !bundler, () => `
     // App root methods
     methods: {
       helloWorld: function () {

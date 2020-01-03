@@ -21,6 +21,9 @@ module.exports = (options) => {
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         tokens.push('bdce', 'bpce');
       }
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('osx') >= 0) {
+        tokens.push('bdco', 'bpco');
+      }
       if (cordova.platforms.indexOf('electron') >= 0) {
         tokens.push('ce');
       }
@@ -46,6 +49,9 @@ module.exports = (options) => {
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         tokens.push('bce');
+      }
+      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('osx') >= 0) {
+        tokens.push('bco');
       }
       if (cordova.platforms.indexOf('electron') >= 0) {
         tokens.push('ce');

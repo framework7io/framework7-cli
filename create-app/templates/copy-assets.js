@@ -27,12 +27,12 @@ module.exports = (options) => {
   const isIos = cordova && cordova.platforms.indexOf('ios') >= 0;
   const isAndroid = cordova && cordova.platforms.indexOf('android') >= 0;
   const isElectron = cordova && cordova.platforms.indexOf('electron') >= 0;
+  const isOsx = cordova && cordova.platforms.indexOf('osx') >= 0;
 
   const toCopy = [];
   if (framework === 'core') toCopy.push(...copyCoreAssets(options));
   if (framework === 'vue') toCopy.push(...copyVueAssets(options));
   if (framework === 'react') toCopy.push(...copyReactAssets(options));
-
 
   if (theming.iconFonts) {
     // Copy Icons CSS
@@ -148,10 +148,12 @@ module.exports = (options) => {
 
   // Assets Source
   if (isCordova) {
-    toCopy.push({
-      from: path.resolve(__dirname, 'common', 'cordova-res', 'screen', 'ios', 'Default@2x~universal~anyany.png'),
-      to: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
-    });
+    if (isIos || isAndroid) {
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'cordova-res', 'screen', 'ios', 'Default@2x~universal~anyany.png'),
+        to: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
+      });
+    }
     if (isIos) {
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'ios', 'icon-512x512@2x.png'),
@@ -172,6 +174,12 @@ module.exports = (options) => {
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'installer.png'),
         to: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
+      });
+    }
+    if (isOsx) {
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'osx', 'icon-1024x1024.png'),
+        to: path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'),
       });
     }
   }

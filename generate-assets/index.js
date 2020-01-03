@@ -27,6 +27,7 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
     cordovaAndroidSplashScreen: { src, output },
     cordovaElectronAppIcon: { src, output },
     cordovaElectronInstallerIcon: { src, output },
+    cordovaOsxIcon: { src, output },
   };
   */
   if (project) {
@@ -63,6 +64,12 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
         options.cordovaElectronInstallerIcon = {
           src: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
           output: path.resolve(cwd, `${cordova.folder}/res/icon/electron`),
+        };
+      }
+      if (cordova.platforms.indexOf('osx') >= 0) {
+        options.cordovaOsxIcon = {
+          src: path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'),
+          output: path.resolve(cwd, `${cordova.folder}/res/icon/osx`),
         };
       }
     }
@@ -151,6 +158,18 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
     cordovaElectronInstallerIcon: {
       size: 1024,
       fileName: 'installer.png',
+    },
+    cordovaOsxIcon: {
+      size: [
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+      ],
+      fileName: 'icon-{{size}}x{{size}}.png',
     },
   };
 

@@ -61,6 +61,21 @@ module.exports = (options) => {
       <preference name="ElectronSettingsFilePath" value="electron-settings.json" />
       <icon src="res/icon/electron/app.png" target="app" />
       <icon src="res/icon/electron/installer.png" target="installer" />
+      <preference name="ShowSplashScreen" value="false" />
+      <preference name="AutoHideSplashScreen" value="true" />
+    </platform>
+    ` : ''}
+    ${cordova.platforms.indexOf('osx') >= 0 ? `
+    <platform name="osx">
+      <icon src="res/icon/osx/icon-16x16.png" width="16" height="16" />
+      <icon src="res/icon/osx/icon-32x32.png" width="32" height="32" />
+      <icon src="res/icon/osx/icon-64x64.png" width="64" height="64" />
+      <icon src="res/icon/osx/icon-128x128.png" width="128" height="128" />
+      <icon src="res/icon/osx/icon-256x256.png" width="256" height="256" />
+      <icon src="res/icon/osx/icon-512x512.png" width="512" height="512" />
+      <icon src="res/icon/osx/icon-1024x1024.png" width="1024" height="1024" />
+      <preference name="ShowSplashScreen" value="false" />
+      <preference name="AutoHideSplashScreen" value="true" />
     </platform>
     ` : ''}
     <preference name="UIWebViewBounce" value="false" />

@@ -1,6 +1,6 @@
 {
   "name": "framework7-cli",
-  "version": "3.0.7",
+  "version": "3.1.0",
   "description": "Framework7 command line utility (CLI)",
   "main": "index.js",
   "bin": {
@@ -44,7 +44,7 @@
     "opn": "^6.0.0",
     "ora": "^3.4.0",
     "rimraf": "^3.0.0",
-    "sharp": "^0.23.1"
+    "sharp": "^0.23.4"
   },
   "devDependencies": {
     "eslint": "^6.4.0",

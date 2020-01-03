@@ -149,7 +149,7 @@ module.exports = (options) => {
     `);
   }
 
-  return `
+  const htmlTemplate = `
     ${leftPanel}
     ${rightPanel}
     ${views}
@@ -188,7 +188,12 @@ module.exports = (options) => {
                   <div class="item-inner">
                     <div class="item-title item-label">Username</div>
                     <div class="item-input-wrap">
-                      <input type="text" name="username" placeholder="Your username">
+                      ${templateIf(bundler, () => `
+                        <input type="text" name="username" placeholder="Your username" value="{{username}}" @input="updateUsername">
+                      `)}
+                      ${templateIf(!bundler, () => `
+                        <input type="text" name="username" placeholder="Your username">
+                      `)}
                     </div>
                   </div>
                 </li>
@@ -196,7 +201,12 @@ module.exports = (options) => {
                   <div class="item-inner">
                     <div class="item-title item-label">Password</div>
                     <div class="item-input-wrap">
-                      <input type="password" name="password" placeholder="Your password">
+                      ${templateIf(bundler, () => `
+                        <input type="password" name="password" placeholder="Your password" value="{{password}}" @input="updatePassword">
+                      `)}
+                      ${templateIf(!bundler, () => `
+                        <input type="password" name="password" placeholder="Your password">
+                      `)}
                     </div>
                   </div>
                 </li>
@@ -205,7 +215,12 @@ module.exports = (options) => {
             <div class="list">
               <ul>
                 <li>
+                  ${templateIf(bundler, () => `
+                  <a href="#" class="item-link list-button login-button login-screen-close" @click="alertLoginData">Sign In</a>
+                  `)}
+                  ${templateIf(!bundler, () => `
                   <a href="#" class="item-link list-button login-button">Sign In</a>
+                  `)}
                 </li>
               </ul>
               <div class="block-footer">Some text about login information.<br>Click "Sign In" to close Login Screen</div>
@@ -215,4 +230,46 @@ module.exports = (options) => {
       </div>
     </div>
   `;
+
+  if (bundler === 'webpack') {
+    return indent(0, `
+      <template>
+        <div id="app">
+          ${indent(10, htmlTemplate)}
+        </div>
+      </template>
+      <script>
+        export default {
+          data() {
+            return {
+              user: {
+                firstName: 'John',
+                lastName: 'Doe',
+              },
+              // Login screen demo data
+              username: '',
+              password: '',
+            };
+          },
+          methods: {
+            helloWorld() {
+              this.$f7.dialog.alert('Hello World!');
+            },
+            updateUsername(e) {
+              this.username = e.target.value;
+              this.$update();
+            },
+            updatePassword(e) {
+              this.password = e.target.value;
+              this.$update();
+            },
+            alertLoginData() {
+              this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password);
+            }
+          },
+        }
+      </script>
+    `);
+  }
+  return htmlTemplate;
 };

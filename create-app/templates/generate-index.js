@@ -42,7 +42,7 @@ module.exports = (options) => {
   <link rel="stylesheet" href="css/app.css">
   `.trim();
 
-  const rootContent = framework === 'core'
+  const rootContent = framework === 'core' && !bundler
     ? generateCoreRoot(options)
     : '';
 

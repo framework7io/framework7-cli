@@ -39,6 +39,9 @@ module.exports = (options) => {
       `)}
       // Import Routes
       import routes from './routes.js';
+
+      // Import main app component
+      import App from '../app.f7.html';
     `);
   } else {
     scripts += indent(0, `
@@ -50,7 +53,7 @@ module.exports = (options) => {
     var app = new Framework7({
       ${indent(6, appParameters(options)).trim()}
     });
-
+    ${templateIf(!bundler, () => `
     // Login Screen Demo
     $$('#my-login-screen .login-button').on('click', function () {
       var username = $$('#my-login-screen [name="username"]').val();
@@ -62,6 +65,7 @@ module.exports = (options) => {
       // Alert username and password
       app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
     });
+    `)}
   `);
 
   return scripts.trim();

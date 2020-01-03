@@ -64,16 +64,17 @@ module.exports = (options) => {
 
     module.exports = {
       mode: env,
-      entry: [
-        './src/js/app.js',
-      ],
+      entry: {
+        app: './src/js/app.js',
+      },
       output: {
         ${templateIf(hasCordova, () => `
         path: resolvePath(${cordovaOutput}),
         `, () => `
         path: resolvePath('www'),
         `)}
-        filename: 'js/app${hashName}.js',
+        filename: 'js/[name]${hashName}.js',
+        chunkFilename: 'js/[name]${hashName}.js',
         publicPath: '',
         hotUpdateChunkFilename: 'hot/hot-update.js',
         hotUpdateMainFilename: 'hot/hot-update.json',
@@ -94,6 +95,7 @@ module.exports = (options) => {
         compress: true,
         contentBase: '/www/',
         disableHostCheck: true,
+        historyApiFallback: true,
         watchOptions: {
           poll: 1000,
         },
@@ -267,7 +269,7 @@ module.exports = (options) => {
           } : false,
         }),
         new MiniCssExtractPlugin({
-          filename: 'css/app${hashName}.css',
+          filename: 'css/[name]${hashName}.css',
         }),
         new CopyWebpackPlugin([
           {

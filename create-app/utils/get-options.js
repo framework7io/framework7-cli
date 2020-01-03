@@ -76,6 +76,11 @@ const questions = [
         value: 'electron',
         checked: false,
       },
+      {
+        name: 'macOS (native macOS desktop app)',
+        value: 'osx',
+        checked: false,
+      },
     ],
     validate(input) {
       return new Promise((resolve, reject) => {
@@ -243,13 +248,15 @@ module.exports = function getOptions() {
       options.cordova = {
         folder: 'cordova',
         platforms: options.cordovaPlatforms,
-        plugins: [
+      };
+      if (options.cordovaPlatforms.indexOf('ios') >= 0 || options.cordovaPlatforms.indexOf('android') >= 0) {
+        options.cordova.plugins = [
           'cordova-plugin-statusbar',
           'cordova-plugin-keyboard',
           'cordova-plugin-splashscreen',
           'cordova-plugin-wkwebview-engine',
-        ],
-      };
+        ];
+      }
       delete options.cordovaPlatforms;
     }
     if (options.bundler === 'webpack') {

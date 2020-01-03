@@ -123,19 +123,19 @@
 
         <f7-block-title>Target Cordova platform (multiple allowed)</f7-block-title>
         <div class="row checkbox-row">
-          <div class="col-33 checkbox-col" :class="{checked: cordova.platforms.indexOf('ios') >= 0}">
+          <div class="col-25 checkbox-col" :class="{checked: cordova.platforms.indexOf('ios') >= 0}">
             <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'ios')">
               <i class="icon f7-icons">logo_apple</i>
             </div>
             <div class="col-label">iOS</div>
           </div>
-          <div class="col-33 checkbox-col" :class="{checked: cordova.platforms.indexOf('android') >= 0}">
+          <div class="col-25 checkbox-col" :class="{checked: cordova.platforms.indexOf('android') >= 0}">
             <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'android')">
               <i class="icon f7-icons">logo_android</i>
             </div>
             <div class="col-label">Android</div>
           </div>
-          <div class="col-33 checkbox-col" :class="{checked: cordova.platforms.indexOf('electron') >= 0}">
+          <div class="col-25 checkbox-col" :class="{checked: cordova.platforms.indexOf('electron') >= 0}">
             <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'electron')">
               <!-- <i class="icon f7-icons">device_desktop</i> -->
               <svg xmlns="http://www.w3.org/2000/svg" width="46" height="50" viewBox="0 0 46 50">
@@ -150,9 +150,16 @@
             </div>
             <div class="col-label">Electron</div>
           </div>
+          <div class="col-25 checkbox-col" :class="{checked: cordova.platforms.indexOf('osx') >= 0}">
+            <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'osx')">
+              <i class="icon f7-icons">logo_macos</i>
+            </div>
+            <div class="col-label">macOS<small>(when you don't need Electron functionality)</small></div>
+          </div>
         </div>
         <template v-if="cordovaAdvanced">
           <f7-block-title>Pre-installed Cordova plugins</f7-block-title>
+          <f7-block-header>Will be installed only if <b>iOS</b> or <b>Android</b> platforms selected.</f7-block-header>
           <f7-list media-list no-hairlines-between>
             <f7-list-item
               checkbox
@@ -364,7 +371,8 @@
             <f7-list-item
               checkbox
               title="Production source map"
-              text="Disable for faster production builds, but without source maps"              @change="webpack.productionSourceMap = $event.target.checked"
+              text="Disable for faster production builds, but without source maps"
+              @change="webpack.productionSourceMap = $event.target.checked"
               :checked="webpack.productionSourceMap === true"
             ></f7-list-item>
             <f7-list-item
@@ -377,13 +385,14 @@
             <f7-list-item
               checkbox
               title="Hash assets and bundle"
-              text="When enabled, it will add MD5 hash of the file content to generated bundle and to assets, to something like app.b34c1df56.js. Such file naming can force browser to clear its cache"              @change="webpack.hashAssets = $event.target.checked"
+              text="When enabled, it will add MD5 hash of the file content to generated bundle and to assets, to something like app.b34c1df56.js. Such file naming can force browser to clear its cache"
+              @change="webpack.hashAssets = $event.target.checked"
               :checked="webpack.hashAssets === true"
             ></f7-list-item>
             <f7-list-item
               checkbox
               title="Preserve assets path"
-              text="By default, webpack will move all assets to folders based on asset type (images to /images/ folder, videos and audio to /media/ folder, etc. If this option enabled, it will preserve assets path and keep files and folder structure"
+              text="By default, webpack will move all assets to folders based on asset type (images to /images/ folder, videos and audio to /media/ folder, etc). If this option enabled, it will preserve assets path and keep files and folder structure"
               @change="webpack.preserveAssetsPaths = $event.target.checked"
               :checked="webpack.preserveAssetsPaths === true"
             ></f7-list-item>
@@ -927,9 +936,12 @@
           options.webpack = webpack;
         }
 
-        if (type.indexOf('cordova') >= 0) {
+        if (type.indexOf('cordova') >= 0 && cordova.platforms.length) {
           options.pkg = pkg;
           options.cordova = cordova;
+          if (cordova.platforms.indexOf('ios') < 0 && cordova.platforms.indexOf('android') < 0) {
+            options.cordova.plugins = [];
+          }
         }
         return options;
       },

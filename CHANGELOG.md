@@ -2,6 +2,13 @@
 
 # Change Log
 
+# [v3.1.0](https://github.com/framework7io/framework7-cli/compare/v3.0.7...v3.1.0) - January 3, 2020
+  * Added support for cordova OSX/macOS platform (including macOS icon assets)
+  * Fixed Electron errors related to cordova splashscreen plugin
+  * Babel config now includes `@babel/plugin-transform-runtime` plugin
+  * Framework7-Core + Webpack templates now use main app component (added in Framework7 5.3.0)
+  * Minor fixes
+
 # [v3.0.7](https://github.com/framework7io/framework7-cli/compare/v3.0.6...v3.0.7) - November 30, 2019
   * Fixed issue with `cpy` dependency breaking install on Windows
 

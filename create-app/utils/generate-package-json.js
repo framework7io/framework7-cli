@@ -35,7 +35,7 @@ module.exports = function generatePackageJson(options) {
       '@babel/runtime',
       'babel-loader',
       'chalk',
-      ...(type.indexOf('cordova') >= 0 && cordova.platforms.indexOf('electron') >= 0 ? [
+      ...(type.indexOf('cordova') >= 0 && (cordova.platforms.indexOf('electron') >= 0) ? [
         'concurrently',
       ] : []),
       'copy-webpack-plugin',
@@ -77,9 +77,6 @@ module.exports = function generatePackageJson(options) {
         '@babel/preset-react',
       ] : []),
       ...(framework === 'vue' ? [
-        'babel-helper-vue-jsx-merge-props',
-        'babel-plugin-transform-vue-jsx@next',
-        '@babel/plugin-syntax-jsx',
         'vue-loader',
         'vue-style-loader',
         'vue-template-compiler',
