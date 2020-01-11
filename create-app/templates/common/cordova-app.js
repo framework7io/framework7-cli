@@ -60,6 +60,12 @@ var cordovaApp = {
         return false;
       }
 
+      if($('.searchbar-enabled').length){
+        f7.searchbar.disable();
+        e.preventDefault();
+        return false;
+      }
+      
       const currentView = f7.views.current;
       if (currentView && currentView.router && currentView.router.history.length > 1) {
         currentView.router.back();
