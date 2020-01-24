@@ -18,6 +18,9 @@ module.exports = (options) => {
   if (framework === 'react') {
     resolveExtensions = "['.js', '.jsx', '.json']";
   }
+  if (framework === 'svelte') {
+    resolveExtensions = "['.mjs', '.js', '.svelte', '.json']";
+  }
 
   let cordovaOutput;
   if (hasCordova) {
@@ -87,6 +90,9 @@ module.exports = (options) => {
           `)}
           '@': resolvePath('src'),
         },
+        ${templateIf(framework === 'svelte', () => `
+        mainFields: ['svelte', 'browser', 'module', 'main']
+        `)}
       },
       devtool: env === 'production' ? ${productionDevtool} : ${developmentDevtool},
       devServer: {
@@ -108,7 +114,7 @@ module.exports = (options) => {
       module: {
         rules: [
           {
-            test: /\\.(js|jsx)$/,
+            test: /\\.(mjs|js|jsx)$/,
             use: 'babel-loader',
             include: [
               resolvePath('src'),
@@ -118,6 +124,10 @@ module.exports = (options) => {
               `)}
               ${templateIf(framework === 'react', () => `
               resolvePath('node_modules/framework7-react'),
+              `)}
+              ${templateIf(framework === 'svelte', () => `
+              resolvePath('node_modules/framework7-svelte'),
+              resolvePath('node_modules/svelte'),
               `)}
               resolvePath('node_modules/template7'),
               resolvePath('node_modules/dom7'),
@@ -136,6 +146,18 @@ module.exports = (options) => {
                 },
               },
             ],
+          },
+          `)}
+          ${templateIf(framework === 'svelte', () => `
+          {
+            test: /\\.svelte$/,
+            use: {
+              loader: 'svelte-loader',
+              options: {
+                emitCss: true,
+                hotReload: true,
+              },
+            },
           },
           `)}
           ${templateIf(framework === 'vue', () => `

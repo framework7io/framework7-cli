@@ -240,25 +240,32 @@
 
         <f7-block-title>What type of framework do you prefer?</f7-block-title>
         <div class="row checkbox-row">
-          <div class="col-33 checkbox-col" :class="{checked: framework === 'core'}">
+          <div class="col-25 checkbox-col" :class="{checked: framework === 'core'}">
             <div class="col-icon" @click="framework = 'core'">
               <img src="../assets/logo.svg">
             </div>
             <div class="col-label">Framework7 Core</div>
           </div>
-          <div class="col-33 checkbox-col" :class="{checked: framework === 'vue'}">
+          <div class="col-25 checkbox-col" :class="{checked: framework === 'vue'}">
             <div class="col-icon" @click="framework = 'vue'; bundler = 'webpack'">
               <img src="../assets/logo.svg">
               <img src="../assets/vuejs-logo.svg">
             </div>
             <div class="col-label">Framework7 with Vue.js</div>
           </div>
-          <div class="col-33 checkbox-col" :class="{checked: framework === 'react'}">
+          <div class="col-25 checkbox-col" :class="{checked: framework === 'react'}">
             <div class="col-icon" @click="framework = 'react'; bundler = 'webpack'">
               <img src="../assets/logo.svg">
               <img src="../assets/react-logo.svg">
             </div>
             <div class="col-label">Framework7 with React</div>
+          </div>
+          <div class="col-25 checkbox-col" :class="{checked: framework === 'svelte'}">
+            <div class="col-icon" @click="framework = 'svelte'; bundler = 'webpack'">
+              <img src="../assets/logo.svg">
+              <img src="../assets/svelte-logo.svg">
+            </div>
+            <div class="col-label">Framework7 with Svelte</div>
           </div>
         </div>
       </f7-block>

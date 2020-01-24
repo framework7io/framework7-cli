@@ -78,6 +78,9 @@ ${templateIf(framework === 'vue', () => `
 ${templateIf(framework === 'react', () => `
 * [Framework7 React Documentation](https://framework7.io/react/)
 `)}
+${templateIf(framework === 'svelte', () => `
+* [Framework7 Svelte Documentation](https://framework7.io/svelte/)
+`)}
 * [Framework7 Icons Reference](https://framework7.io/icons/)
 * [Community Forum](https://forum.framework7.io)
 

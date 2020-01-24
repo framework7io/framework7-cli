@@ -108,6 +108,10 @@ const questions = [
         name: 'Framework7 with React',
         value: 'react',
       },
+      {
+        name: 'Framework7 with Svelte',
+        value: 'svelte',
+      },
     ],
   },
 

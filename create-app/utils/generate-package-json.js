@@ -23,6 +23,10 @@ module.exports = function generatePackageJson(options) {
       'react-dom',
       'prop-types',
     ] : []),
+    ...(framework === 'svelte' ? [
+      'framework7-svelte',
+      'svelte',
+    ] : []),
   ];
 
   const devDependencies = [];
@@ -75,6 +79,9 @@ module.exports = function generatePackageJson(options) {
       ] : []),
       ...(framework === 'react' ? [
         '@babel/preset-react',
+      ] : []),
+      ...(framework === 'react' ? [
+        'svelte-loader',
       ] : []),
       ...(framework === 'vue' ? [
         'vue-loader',

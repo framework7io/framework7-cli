@@ -4,6 +4,7 @@ const stylesExtension = require('../utils/styles-extension');
 const copyCoreAssets = require('./core/copy-assets');
 const copyVueAssets = require('./vue/copy-assets');
 const copyReactAssets = require('./react/copy-assets');
+const copySvelteAssets = require('./svelte/copy-assets');
 const generateIndex = require('./generate-index');
 const generateStyles = require('./generate-styles');
 const generateScripts = require('./generate-scripts');
@@ -33,6 +34,7 @@ module.exports = (options) => {
   if (framework === 'core') toCopy.push(...copyCoreAssets(options));
   if (framework === 'vue') toCopy.push(...copyVueAssets(options));
   if (framework === 'react') toCopy.push(...copyReactAssets(options));
+  if (framework === 'svelte') toCopy.push(...copySvelteAssets(options));
 
   if (theming.iconFonts) {
     // Copy Icons CSS
