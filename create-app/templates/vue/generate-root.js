@@ -132,7 +132,7 @@ module.exports = (options) => {
               ></f7-list-input>
             </f7-list>
             <f7-list>
-              <f7-list-button title="Sign In" login-screen-close @click="alertLoginData"></f7-list-button>
+              <f7-list-button title="Sign In" @click="alertLoginData"></f7-list-button>
               <f7-block-footer>
                 Some text about login information.<br>Click "Sign In" to close Login Screen
               </f7-block-footer>
@@ -163,7 +163,9 @@ module.exports = (options) => {
         },
         methods: {
           alertLoginData() {
-            this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password);
+            this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password, () => {
+              this.$f7.loginScreen.close();
+            });
           }
         },
         mounted() {

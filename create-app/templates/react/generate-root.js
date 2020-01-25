@@ -175,7 +175,7 @@ module.exports = (options) => {
                     ></ListInput>
                   </List>
                   <List>
-                    <ListButton title="Sign In" loginScreenClose onClick={() => this.alertLoginData()} />
+                    <ListButton title="Sign In" onClick={() => this.alertLoginData()} />
                     <BlockFooter>
                       Some text about login information.<br />Click "Sign In" to close Login Screen
                     </BlockFooter>
@@ -187,7 +187,9 @@ module.exports = (options) => {
         )
       }
       alertLoginData() {
-        this.$f7.dialog.alert('Username: ' + this.state.username + '<br>Password: ' + this.state.password);
+        this.$f7.dialog.alert('Username: ' + this.state.username + '<br>Password: ' + this.state.password, () => {
+          this.$f7.loginScreen.close();
+        });
       }
       componentDidMount() {
         this.$f7ready((f7) => {
