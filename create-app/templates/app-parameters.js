@@ -15,6 +15,8 @@ module.exports = (options) => {
 
   const deviceVar = framework === 'core' ? 'Framework7.device' : 'this.$device';
 
+  const needData = (template === 'tabs' && framework !== 'core') || !bundler;
+
   return indent(0, `
     ${templateIf(framework === 'core', () => `
     root: '#app', // App root element
@@ -27,7 +29,7 @@ module.exports = (options) => {
     `)}
     name: '${name}', // App name
     theme: 'auto', // Automatic theme detection
-    ${templateIf(template === 'tabs' || (framework === 'core' && !bundler), () => `
+    ${templateIf(needData, () => `
     // App root data
     data: function () {
       return {
@@ -37,7 +39,7 @@ module.exports = (options) => {
           lastName: 'Doe',
         },
         `)}
-        ${templateIf(template === 'tabs', () => `
+        ${templateIf(template === 'tabs' && !bundler, () => `
         // Demo products for Catalog section
         products: [
           {
