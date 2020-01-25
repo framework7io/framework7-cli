@@ -80,7 +80,7 @@ module.exports = function generatePackageJson(options) {
       ...(framework === 'react' ? [
         '@babel/preset-react',
       ] : []),
-      ...(framework === 'react' ? [
+      ...(framework === 'svelte' ? [
         'svelte-loader',
       ] : []),
       ...(framework === 'vue' ? [

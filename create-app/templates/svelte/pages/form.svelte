@@ -45,7 +45,7 @@
       label="Birth date"
       type="date"
       placeholder="Birth day"
-      defaultValue="2014-04-30"
+      value="2014-04-30"
     ></ListInput>
 
     <ListItem

@@ -14,18 +14,18 @@ module.exports = (options) => {
   }
   if (template === 'split-view') {
     description = `
-          <p>This is an example of split view application layout, commonly used on tablets. The main approach of such kind of layout is that you can see different views at the same time.</p>
+        <p>This is an example of split view application layout, commonly used on tablets. The main approach of such kind of layout is that you can see different views at the same time.</p>
 
-          <p>Each view may have different layout, different navbar type (dynamic, fixed or static) or without navbar.</p>
+        <p>Each view may have different layout, different navbar type (dynamic, fixed or static) or without navbar.</p>
 
-          <p>The fun thing is that you can easily control one view from another without any line of JavaScript just using "data-view" attribute on links.</p>
+        <p>The fun thing is that you can easily control one view from another without any line of JavaScript just using "data-view" attribute on links.</p>
     `;
   }
   if (template === 'tabs') {
     description = `
-          <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
+        <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
 
-          <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
+        <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
     `;
   }
 

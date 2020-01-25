@@ -155,7 +155,6 @@ module.exports = (options) => {
               loader: 'svelte-loader',
               options: {
                 emitCss: true,
-                hotReload: true,
               },
             },
           },

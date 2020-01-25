@@ -10,7 +10,7 @@ module.exports = (options) => {
   } = options;
 
   // Panels
-  const leftPanelPlain = indent(12, `
+  const leftPanelPlain = indent(6, `
     <!-- Left panel with cover effect-->
     <Panel left cover themeDark>
       <View>
@@ -22,7 +22,7 @@ module.exports = (options) => {
     </Panel>
   `);
 
-  const leftPanelWithView = indent(12, `
+  const leftPanelWithView = indent(6, `
     <!-- Left panel with cover effect when hidden -->
     <Panel left cover themeDark visibleBreakpoint={960}>
       <View>
@@ -44,7 +44,7 @@ module.exports = (options) => {
     </Panel>
   `);
   const leftPanel = template === 'split-view' ? leftPanelWithView : leftPanelPlain;
-  const rightPanel = indent(12, `
+  const rightPanel = indent(6, `
     <!-- Right panel with reveal effect-->
     <Panel right reveal themeDark>
       <View>
@@ -59,13 +59,13 @@ module.exports = (options) => {
   // Views
   let views = '';
   if (template === 'single-view' || template === 'split-view') {
-    views = indent(12, `
+    views = indent(6, `
       <!-- Your main view, should have "view-main" class -->
       <View main class="safe-areas" url="/" />
     `);
   }
   if (template === 'tabs') {
-    views = indent(12, `
+    views = indent(6, `
       <!-- Views/Tabs container -->
       <Views tabs class="safe-areas">
         <!-- Tabbar for switching views-tabs -->
@@ -131,7 +131,7 @@ module.exports = (options) => {
               />
             </List>
             <List>
-              <ListButton title="Sign In" loginScreenClose onClick={() => alertLoginData()} />
+              <ListButton title="Sign In" onClick={() => alertLoginData()} />
             </List>
             <BlockFooter>
               Some text about login information.<br />Click "Sign In" to close Login Screen
@@ -172,15 +172,17 @@ module.exports = (options) => {
       import routes from '../js/routes';
 
       // Framework7 Parameters
-      let f7params: {
-        ${indent(6, appParameters(options)).trim()}
+      let f7params = {
+        ${indent(8, appParameters(options)).trim()}
       };
       // Login screen demo data
       let username = '';
       let password = '';
 
       function alertLoginData() {
-        f7.dialog.alert('Username: ' + username + '<br>Password: ' + password);
+        f7.dialog.alert('Username: ' + username + '<br>Password: ' + password, () => {
+          f7.loginScreen.close();
+        });
       }
       onMount(() => {
         f7ready(() => {

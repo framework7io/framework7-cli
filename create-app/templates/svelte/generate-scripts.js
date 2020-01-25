@@ -41,7 +41,7 @@ module.exports = (options) => {
     // Import App Component
     import App from '../components/app.svelte';
 
-    // Init F7 Vue Plugin
+    // Init F7 Svelte Plugin
     Framework7.use(Framework7Svelte)
 
     // Mount Svelte App
