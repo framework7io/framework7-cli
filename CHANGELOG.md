@@ -2,6 +2,10 @@
 
 # Change Log
 
+# [v3.2.0](https://github.com/framework7io/framework7-cli/compare/v3.1.0...v3.2.0) - January 29, 2020
+  * Support for Svelte framework
+  * Minor fixes
+
 # [v3.1.0](https://github.com/framework7io/framework7-cli/compare/v3.0.7...v3.1.0) - January 3, 2020
   * Added support for cordova OSX/macOS platform (including macOS icon assets)
   * Fixed Electron errors related to cordova splashscreen plugin
