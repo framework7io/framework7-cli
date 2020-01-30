@@ -14,11 +14,7 @@ module.exports = (options) => {
 
   scripts += indent(0, `
     // Import Framework7
-    ${templateIf(customBuild, () => `
-    import Framework7 from './framework7-custom.js';
-    `, () => `
-    import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
-    `)}
+    import Framework7 from '${customBuild ? './framework7-custom.js' : 'framework7/framework7-lite.esm.bundle.js'}';
 
     // Import Framework7-Svelte Plugin
     import Framework7Svelte from 'framework7-svelte';

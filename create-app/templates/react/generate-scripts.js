@@ -18,11 +18,7 @@ module.exports = (options) => {
     import ReactDOM from 'react-dom';
 
     // Import Framework7
-    ${templateIf(customBuild, () => `
-    import Framework7 from './framework7-custom.js';
-    `, () => `
-    import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
-    `)}
+    import Framework7 from '${customBuild ? './framework7-custom.js' : 'framework7/framework7-lite.esm.bundle.js'}';
 
     // Import Framework7-React Plugin
     import Framework7React from 'framework7-react';

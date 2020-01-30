@@ -30,7 +30,7 @@ module.exports = (options) => {
   });
 
   const scripts = indent(0, `
-    import Framework7 from '${framework === 'core' ? 'framework7' : 'framework7/framework7-lite.esm.js'}';
+    import Framework7, { Device, Request, Utils } from '${framework === 'core' ? 'framework7' : 'framework7/framework7-lite.esm.js'}';
     ${componentsImportsJS.join('\n    ')}
 
     Framework7.use([
@@ -38,6 +38,7 @@ module.exports = (options) => {
     ]);
 
     export default Framework7;
+    export { Device, Request, Utils };
   `);
 
   const componentsImportsLESS = components.map((c) => {

@@ -7,6 +7,7 @@ module.exports = (options) => {
     template,
     type,
     theming,
+    customBuild,
   } = options;
 
   // Panels
@@ -142,6 +143,9 @@ module.exports = (options) => {
     </App>
     <script>
       import { onMount } from 'svelte';
+      ${templateIf(type.indexOf('cordova') >= 0, () => `
+      import { Device }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/framework7-lite.esm.bundle.js'}';
+      `)}
       import {
         f7,
         f7ready,
@@ -188,7 +192,7 @@ module.exports = (options) => {
         f7ready(() => {
           ${templateIf(type.indexOf('cordova') >= 0, () => `
           // Init cordova APIs (see cordova-app.js)
-          if (f7.device.cordova) {
+          if (Device.cordova) {
             cordovaApp.init(f7);
           }
           `)}
