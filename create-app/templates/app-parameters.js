@@ -16,6 +16,7 @@ module.exports = (options) => {
   const deviceVar = framework === 'core' ? 'Framework7.device' : 'Device';
 
   const needData = (template === 'tabs' && framework !== 'core') || !bundler;
+  const needProducts = template === 'tabs' && (framework !== 'core' || !bundler);
 
   return indent(0, `
     ${templateIf(framework === 'core', () => `
@@ -39,7 +40,7 @@ module.exports = (options) => {
           lastName: 'Doe',
         },
         `)}
-        ${templateIf(template === 'tabs' && !bundler, () => `
+        ${templateIf(needProducts, () => `
         // Demo products for Catalog section
         products: [
           {
