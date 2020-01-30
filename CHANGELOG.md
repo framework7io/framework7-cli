@@ -2,6 +2,10 @@
 
 # Change Log
 
+# [v3.2.2](https://github.com/framework7io/framework7-cli/compare/v3.2.1...v3.2.2) - January 30, 2020
+  * Fixed issue with missing demo products data in Tabs templates
+  * Updated PWA workbox to latest
+
 # [v3.2.1](https://github.com/framework7io/framework7-cli/compare/v3.2.0...v3.2.1) - January 30, 2020
   * Fixed wrong reference to `$device` in Svelte app
 
