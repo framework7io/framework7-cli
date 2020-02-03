@@ -37,14 +37,14 @@ module.exports = (options) => {
         <div class="navbar-inner">
           <div class="left">
             <a href="#" class="link icon-only panel-open" data-panel="left">
-              <i class="icon f7-icons if-not-md">menu</i>
+              <i class="icon f7-icons if-not-md">bars</i>
               <i class="icon material-icons if-md">menu</i>
             </a>
           </div>
           <div class="title sliding">${name}</div>
           <div class="right">
             <a href="#" class="link icon-only panel-open" data-panel="right">
-              <i class="icon f7-icons if-not-md">menu</i>
+              <i class="icon f7-icons if-not-md">bars</i>
               <i class="icon material-icons if-md">menu</i>
             </a>
           </div>
