@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v3.2.3](https://github.com/framework7io/framework7-cli/compare/v3.2.2...v3.2.3) - February 4, 2020
+  * Fixed wrong prop on "panel-close" links in generated Svelte & React templates
+
 # [v3.2.2](https://github.com/framework7io/framework7-cli/compare/v3.2.1...v3.2.2) - January 30, 2020
   * Fixed issue with missing demo products data in Tabs templates
   * Updated PWA workbox to latest

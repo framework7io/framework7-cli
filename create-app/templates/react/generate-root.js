@@ -36,9 +36,9 @@ module.exports = (options) => {
           </List>
           <BlockTitle>Control Main View</BlockTitle>
           <List>
-            <ListItem link="/about/" view=".view-main" panel-close title="About"/>
-            <ListItem link="/form/" view=".view-main" panel-close title="Form"/>
-            <ListItem link="#" view=".view-main" back panel-close title="Back in history"/>
+            <ListItem link="/about/" view=".view-main" panelClose title="About"/>
+            <ListItem link="/form/" view=".view-main" panelClose title="Form"/>
+            <ListItem link="#" view=".view-main" back panelClose title="Back in history"/>
           </List>
         </Page>
       </View>
