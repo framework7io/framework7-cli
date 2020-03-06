@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v3.2.4](https://github.com/framework7io/framework7-cli/compare/v3.2.3...v3.2.4) - March 6, 2020
+  * Support styles for new `.navbar-large.navbar-transparent`
+
 # [v3.2.3](https://github.com/framework7io/framework7-cli/compare/v3.2.2...v3.2.3) - February 4, 2020
   * Fixed wrong prop on "panel-close" links in generated Svelte & React templates
 
