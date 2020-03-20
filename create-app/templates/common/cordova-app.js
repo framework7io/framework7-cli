@@ -60,8 +60,14 @@ var cordovaApp = {
         return false;
       }
 
-      if($('.searchbar-enabled').length){
+      if($('.page-current .searchbar-enabled').length){
         f7.searchbar.disable();
+        e.preventDefault();
+        return false;
+      }
+      
+      if($('.page-current .card-expandable.card-opened').length){
+        f7.card.close('.card-opened');
         e.preventDefault();
         return false;
       }
