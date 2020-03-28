@@ -94,6 +94,9 @@ module.exports = (options) => {
         mainFields: ['svelte', 'browser', 'module', 'main']
         `)}
       },
+      node: {
+        fs: 'empty'
+      },
       devtool: env === 'production' ? ${productionDevtool} : ${developmentDevtool},
       devServer: {
         hot: true,
