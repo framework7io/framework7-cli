@@ -273,9 +273,7 @@ module.exports = (options) => {
           },
           methods: {
             helloWorld() {
-              this.$f7.dialog.alert('Hello World!', () => {
-                this.$f7.loginScreen.close()
-              });
+              this.$f7.dialog.alert('Hello World!');
             },
             updateUsername(e) {
               this.username = e.target.value;
@@ -286,7 +284,9 @@ module.exports = (options) => {
               this.$update();
             },
             alertLoginData() {
-              this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password);
+              this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password, () => {
+                this.$f7.loginScreen.close()
+              });
             }
           },
         }
