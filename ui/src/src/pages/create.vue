@@ -5,7 +5,7 @@
         <i class="f7-navbar-logo"></i>
         <span>Create App</span>
       </f7-nav-title>
-      <label slot="right" class="tooltip-init link label-file-input" data-tooltip="Import project settings<br>from .json file" style="color: var(--f7-navbar-link-color,var(--f7-bars-link-color,var(--f7-theme-color)))">
+      <label slot="right" class="tooltip-init link label-file-input" data-tooltip="Import project settings from .json file" style="color: var(--f7-navbar-link-color,var(--f7-bars-link-color,var(--f7-theme-color)))">
         <i class="f7-icons" style="font-size:24px">tray_arrow_down_fill</i>
         <input type="file" @change="onImportInputChange" accept=".json">
       </label>
@@ -40,7 +40,7 @@
             @input="cwd = $event.target.value"
           ></f7-list-input>
         </f7-list>
-        <f7-block-footer><i class="f7-icons text-color-orange">exclamationmark_triangle_fill</i> Make sure this folder is empty, the project will be created in the root of this folder.</f7-block-footer>
+        <f7-block-footer class="display-flex align-items-center"><i style="font-size: 1.5em; margin-right: 8px" class="f7-icons text-color-orange">exclamationmark_triangle_fill</i> Make sure this folder is empty, the project will be created in the root of this folder.</f7-block-footer>
 
         <f7-block-title medium>App Type</f7-block-title>
         <f7-block-header>What types of the app are you targeting? (multiple allowed)</f7-block-header>
@@ -313,7 +313,7 @@
         </f7-block-title>
 
         <f7-block-title>Should we setup project with bundler?</f7-block-title>
-        <f7-list medium-inset no-hairlines-between>
+        <f7-list medium-inset>
           <f7-list-item
             :class="{disabled: framework !== 'core' || customBuild}"
             radio
@@ -333,7 +333,7 @@
 
         <template v-if="bundler ==='webpack'">
           <f7-block-title>Do you want to setup CSS Pre-Processor?</f7-block-title>
-          <f7-list no-hairlines-between>
+          <f7-list>
             <f7-list-item
               :class="{disabled: customBuild}"
               radio
