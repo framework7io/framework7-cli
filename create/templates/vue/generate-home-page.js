@@ -6,8 +6,8 @@ module.exports = (options) => {
     template,
   } = options;
 
-  let description;
-  if (template === 'single-view') {
+  let description = '';
+  if (template === 'single-view' || template === 'blank') {
     description = `
           <p>Here is your blank Framework7 app. Let's see what we have here.</p>
     `;
@@ -33,15 +33,19 @@ module.exports = (options) => {
     <template>
       <f7-page name="home">
         <!-- Top Navbar -->
-        <f7-navbar :sliding="false" large>
+        <f7-navbar large>
+          ${template !== 'blank' ? `
           <f7-nav-left>
             <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" panel-open="left"></f7-link>
           </f7-nav-left>
-          <f7-nav-title sliding>${name}</f7-nav-title>
+          `.trim() : ''}
+          <f7-nav-title>${name}</f7-nav-title>
+          ${template !== 'blank' ? `
           <f7-nav-right>
             <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" panel-open="right"></f7-link>
           </f7-nav-right>
-          <f7-nav-title-large sliding>${name}</f7-nav-title-large>
+          `.trim() : ''}
+          <f7-nav-title-large>${name}</f7-nav-title-large>
         </f7-navbar>
         ${template !== 'tabs' ? `
         <!-- Toolbar-->
@@ -55,7 +59,7 @@ module.exports = (options) => {
         <f7-block strong>
           ${description.trim()}
         </f7-block>
-
+        ${template !== 'blank' ? `
         <f7-block-title>Navigation</f7-block-title>
         <f7-list>
           <f7-list-item link="/about/" title="About"></f7-list-item>
@@ -100,7 +104,7 @@ module.exports = (options) => {
             link="/request-and-load/user/123456/"
           ></f7-list-item>
         </f7-list>
-
+        `.trim() : ''}
       </f7-page>
     </template>
   `).trim();

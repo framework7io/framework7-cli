@@ -32,7 +32,7 @@ module.exports = (options) => {
   return indent(0, `
     <Page name="home">
       <!-- Top Navbar -->
-      <Navbar sliding={false} large>
+      <Navbar large>
         <NavLeft>
           <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
         </NavLeft>

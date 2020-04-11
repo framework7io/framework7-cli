@@ -16,6 +16,7 @@ module.exports = (options) => {
           component: HomePage,
         },
       ];
+
       export default routes;
     `);
   }

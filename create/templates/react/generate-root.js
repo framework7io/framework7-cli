@@ -44,8 +44,8 @@ module.exports = (options) => {
       </View>
     </Panel>
   `);
-  let leftPanel = template === 'split-view' ? leftPanelWithView : leftPanelPlain;
-  let rightPanel = indent(12, `
+  const leftPanel = template === 'split-view' ? leftPanelWithView : leftPanelPlain;
+  const rightPanel = indent(12, `
     {/* Right panel with reveal effect*/}
     <Panel right reveal themeDark>
       <View>
@@ -56,10 +56,6 @@ module.exports = (options) => {
       </View>
     </Panel>
   `);
-  if (template === 'blank') {
-    leftPanel = '';
-    rightPanel = '';
-  }
 
   // Views
   let views = '';

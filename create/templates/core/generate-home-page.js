@@ -36,7 +36,7 @@ module.exports = (options) => {
       <!-- Top Navbar -->
       <div class="navbar navbar-large">
         <div class="navbar-bg"></div>
-        <div class="navbar-inner">
+        <div class="navbar-inner sliding">
           ${!isBlank ? `
           <div class="left">
             <a href="#" class="link icon-only panel-open" data-panel="left">
@@ -45,7 +45,7 @@ module.exports = (options) => {
             </a>
           </div>
           `.trim() : ''}
-          <div class="title sliding">${name}</div>
+          <div class="title">${name}</div>
           ${!isBlank ? `
           <div class="right">
             <a href="#" class="link icon-only panel-open" data-panel="right">
