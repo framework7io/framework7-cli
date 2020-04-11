@@ -12,8 +12,10 @@ module.exports = (options) => {
   if (bundler === 'webpack') {
     routes = indent(0, `
       import HomePage from '../pages/home.f7.html';
+      ${templateIf(template !== 'blank', () => `
       import AboutPage from '../pages/about.f7.html';
       import FormPage from '../pages/form.f7.html';
+      `)}
       ${templateIf(template === 'tabs', () => `
       import CatalogPage from '../pages/catalog.f7.html';
       import ProductPage from '../pages/product.f7.html';
@@ -23,15 +25,18 @@ module.exports = (options) => {
       import LeftPage1 from '../pages/left-page-1.f7.html';
       import LeftPage2 from '../pages/left-page-2.f7.html';
       `)}
+      ${templateIf(template !== 'blank', () => `
       import DynamicRoutePage from '../pages/dynamic-route.f7.html';
       import RequestAndLoad from '../pages/request-and-load.f7.html';
       import NotFoundPage from '../pages/404.f7.html';
+      `)}
 
       var routes = [
         {
           path: '/',
           component: HomePage,
         },
+        ${templateIf(template !== 'blank', () => `
         {
           path: '/about/',
           component: AboutPage,
@@ -40,6 +45,7 @@ module.exports = (options) => {
           path: '/form/',
           component: FormPage,
         },
+        `)}
         ${templateIf(template === 'tabs', () => `
         {
           path: '/catalog/',
@@ -64,6 +70,7 @@ module.exports = (options) => {
           component: LeftPage2,
         },
         `)}
+        ${templateIf(template !== 'blank', () => `
         {
           path: '/dynamic-route/blog/:blogId/post/:postId/',
           component: DynamicRoutePage,
@@ -122,18 +129,20 @@ module.exports = (options) => {
           path: '(.*)',
           component: NotFoundPage,
         },
+        `)}
       ];
     `);
   }
 
   // Plain Routes
-  if (bundler !== 'webpack') {
+  if (!bundler) {
     routes = indent(0, `
       var routes = [
         {
           path: '/',
           url: './index.html',
         },
+        ${templateIf(template !== 'blank', () => `
         {
           path: '/about/',
           url: './pages/about.html',
@@ -142,6 +151,7 @@ module.exports = (options) => {
           path: '/form/',
           url: './pages/form.html',
         },
+        `)}
         ${templateIf(template === 'tabs', () => `
         {
           path: '/catalog/',
@@ -166,6 +176,7 @@ module.exports = (options) => {
           url: './pages-left-page-2.html',
         },
         `)}
+        ${templateIf(template !== 'blank', () => `
         {
           path: '/dynamic-route/blog/:blogId/post/:postId/',
           componentUrl: './pages/dynamic-route.html',
@@ -225,6 +236,7 @@ module.exports = (options) => {
           path: '(.*)',
           url: './pages/404.html',
         },
+        `)}
       ];
     `);
   }

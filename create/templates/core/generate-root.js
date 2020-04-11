@@ -88,7 +88,7 @@ module.exports = (options) => {
 
   // Views
   let views = '';
-  if (template === 'single-view' || template === 'split-view') {
+  if (template === 'single-view' || template === 'split-view' || template === 'blank') {
     views = indent(4, `
       <!-- Your main view, should have "view-main" class -->
       ${templateIf(bundler === 'webpack', () => `
@@ -149,7 +149,9 @@ module.exports = (options) => {
     `);
   }
 
-  const htmlTemplate = `
+  const htmlTemplate = template === 'blank' ? `
+    ${views}
+  ` : `
     ${leftPanel}
     ${rightPanel}
     ${views}
@@ -232,6 +234,31 @@ module.exports = (options) => {
   `;
 
   if (bundler === 'webpack') {
+    if (template === 'blank') {
+      return indent(0, `
+        <template>
+          <div id="app">
+            ${indent(10, views)}
+          </div>
+        </template>
+        <script>
+          export default {
+            // App root data
+            data() {
+              return {
+                foo: 'bar'
+              };
+            },
+            // App root methods
+            methods: {
+              doSomething() {
+                // ...
+              }
+            },
+          }
+        </script>
+      `);
+    }
     return indent(0, `
       <template>
         <div id="app">

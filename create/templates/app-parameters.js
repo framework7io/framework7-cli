@@ -15,7 +15,7 @@ module.exports = (options) => {
 
   const deviceVar = framework === 'core' ? 'Framework7.device' : 'Device';
 
-  const needData = (template === 'tabs' && framework !== 'core') || !bundler;
+  const needData = template !== 'blank' && ((template === 'tabs' && framework !== 'core') || !bundler);
   const needProducts = template === 'tabs' && (framework !== 'core' || !bundler);
 
   return indent(0, `
@@ -30,6 +30,20 @@ module.exports = (options) => {
     `)}
     name: '${name}', // App name
     theme: 'auto', // Automatic theme detection
+    ${templateIf(template === 'blank' && !bundler, () => `
+    // App root data
+    data() {
+      return {
+        foo: 'bar'
+      };
+    },
+    // App root methods
+    methods: {
+      doSomething() {
+        // ...
+      }
+    },
+    `)}
     ${templateIf(needData, () => `
     // App root data
     data: function () {
@@ -63,7 +77,7 @@ module.exports = (options) => {
       };
     },
     `)}
-    ${templateIf(framework === 'core' && !bundler, () => `
+    ${templateIf(framework === 'core' && !bundler && template !== 'blank', () => `
     // App root methods
     methods: {
       helloWorld: function () {

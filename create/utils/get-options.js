@@ -122,6 +122,10 @@ const questions = [
     message: 'Choose starter template:',
     choices: [
       {
+        name: 'Blank',
+        value: 'blank',
+      },
+      {
         name: 'Single View',
         value: 'single-view',
       },
@@ -152,10 +156,6 @@ const questions = [
           name: 'Webpack (recommended)',
           value: 'webpack',
         },
-        // {
-        //   name: 'Rollup',
-        //   value: 'rollup',
-        // },
       ];
       if (opts.framework === 'core') {
         choices.unshift({

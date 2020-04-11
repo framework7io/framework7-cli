@@ -6,8 +6,10 @@ module.exports = (options) => {
     template,
   } = options;
 
+  const isBlank = template === 'blank';
+
   let description;
-  if (template === 'single-view') {
+  if (template === 'single-view' || template === 'blank') {
     description = `
           <p>Here is your blank Framework7 app. Let's see what we have here.</p>
     `;
@@ -35,19 +37,23 @@ module.exports = (options) => {
       <div class="navbar navbar-large">
         <div class="navbar-bg"></div>
         <div class="navbar-inner">
+          ${!isBlank ? `
           <div class="left">
             <a href="#" class="link icon-only panel-open" data-panel="left">
               <i class="icon f7-icons if-not-md">menu</i>
               <i class="icon material-icons if-md">menu</i>
             </a>
           </div>
+          `.trim() : ''}
           <div class="title sliding">${name}</div>
+          ${!isBlank ? `
           <div class="right">
             <a href="#" class="link icon-only panel-open" data-panel="right">
               <i class="icon f7-icons if-not-md">menu</i>
               <i class="icon material-icons if-md">menu</i>
             </a>
           </div>
+          `.trim() : ''}
           <div class="title-large">
             <div class="title-large-text">${name}</div>
           </div>
@@ -67,7 +73,7 @@ module.exports = (options) => {
         <div class="block block-strong">
           ${description.trim()}
         </div>
-
+        ${!isBlank ? `
         <div class="block-title">Navigation</div>
         <div class="list">
           <ul>
@@ -125,6 +131,7 @@ module.exports = (options) => {
             </li>
           </ul>
         </div>
+        `.trim() : ''}
       </div>
     </div>
   `).trim();

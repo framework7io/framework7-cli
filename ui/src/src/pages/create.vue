@@ -280,19 +280,25 @@
 
         <f7-block-title>Choose starter template</f7-block-title>
         <div class="row checkbox-row">
-          <div class="col-33 checkbox-col checkbox-template-col" :class="{checked: template === 'single-view'}">
+          <div class="col-25 checkbox-col checkbox-template-col" :class="{checked: template === 'blank'}">
+            <div class="col-icon" @click="template = 'blank'">
+              <img src="../assets/t-blank.svg">
+            </div>
+            <div class="col-label">Blank</div>
+          </div>
+          <div class="col-25 checkbox-col checkbox-template-col" :class="{checked: template === 'single-view'}">
             <div class="col-icon" @click="template = 'single-view'">
               <img src="../assets/t-single-view.svg">
             </div>
             <div class="col-label">Single View</div>
           </div>
-          <div class="col-33 checkbox-col checkbox-template-col" :class="{checked: template === 'tabs'}">
+          <div class="col-25 checkbox-col checkbox-template-col" :class="{checked: template === 'tabs'}">
             <div class="col-icon" @click="template = 'tabs'">
               <img src="../assets/t-tabs.svg">
             </div>
             <div class="col-label">Tabbed Views (Tabs)</div>
           </div>
-          <div class="col-33 checkbox-col checkbox-template-col" :class="{checked: template === 'split-view'}">
+          <div class="col-25 checkbox-col checkbox-template-col" :class="{checked: template === 'split-view'}">
             <div class="col-icon" @click="template = 'split-view'">
               <img src="../assets/t-split-view.svg">
             </div>
@@ -824,7 +830,7 @@
         const data = [JSON.stringify(options, '', 2)];
 
         let file;
-        const fileName = `${options.name || 'f7-project'}.json`;
+        const fileName = `${options.name || 'framework7'}.json`;
         const properties = { type: 'application/json' };
         try {
           file = new File(data, fileName, properties);

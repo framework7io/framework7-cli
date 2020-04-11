@@ -50,8 +50,6 @@ module.exports = (options) => {
   if (type.indexOf('web') >= 0 || type.indexOf('pwa') >= 0) {
     if (bundler === 'webpack') {
       folders.push('./src/static/icons');
-    } else if (bundler === 'rollup') {
-      folders.push('./src/assets/icons');
     } else {
       folders.push('./www/assets/icons');
     }

@@ -1,15 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="300px" height="300px" viewBox="0 0 300 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
-    <title>Single View</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Single-View">
-            <rect id="Rectangle" fill="#FFFFFF" x="0" y="0" width="300" height="300"></rect>
-            <text id="1" font-family="SFUIText-Light, SF UI Text" font-size="200" font-weight="300" fill="#EE350F">
-                <tspan x="105.419922" y="217">1</tspan>
-            </text>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <polygon id="t-single-view-a" points="159.688 220.918 159.688 80 142.5 80 105 106.953 105 124.629 142.305 98.652 142.695 98.652 142.695 220.918"/>
+  </defs>
+  <g fill="none">
+    <rect width="300" height="300"/>
+    <use fill="#000" xlink:href="#t-single-view-a"/>
+    <use fill="#EE350F" xlink:href="#t-single-view-a"/>
+  </g>
 </svg>

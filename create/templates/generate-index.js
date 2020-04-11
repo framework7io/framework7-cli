@@ -37,7 +37,7 @@ module.exports = (options) => {
   const styles = bundler === 'webpack' ? `
   <!-- built styles file will be auto injected -->
   `.trim() : `
-  <link rel="stylesheet" href="${bundler === 'rollup' ? '' : 'framework7/'}css/framework7.bundle.min.css">
+  <link rel="stylesheet" href="framework7/css/framework7.bundle.min.css">
   ${theming.iconFonts ? '<link rel="stylesheet" href="css/icons.css">' : ''}
   <link rel="stylesheet" href="css/app.css">
   `.trim();

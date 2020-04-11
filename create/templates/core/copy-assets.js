@@ -12,11 +12,13 @@ module.exports = (options) => {
 
   // Copy Pages
   const pages = [
-    '404',
-    'about',
-    'dynamic-route',
-    'form',
-    'request-and-load',
+    ...(template !== 'blank' ? [
+      '404',
+      'about',
+      'dynamic-route',
+      'form',
+      'request-and-load',
+    ] : []),
     ...(template === 'tabs' ? [
       'catalog',
       'product',
@@ -62,14 +64,6 @@ module.exports = (options) => {
       toCopy.push({
         content: generateRoot(options),
         to: path.resolve(cwd, srcFolder, 'app.f7.html'),
-      });
-    }
-
-    if (bundler === 'rollup') {
-      // Copy F7 Styles
-      toCopy.push({
-        from: path.resolve(cwd, 'node_modules', 'framework7', 'css', 'framework7.bundle.min.css'),
-        to: path.resolve(cwd, srcFolder, 'css', 'framework7.bundle.min.css'),
       });
     }
 

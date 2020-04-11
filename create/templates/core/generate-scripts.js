@@ -5,7 +5,7 @@ const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
   const {
-    bundler, type, cssPreProcessor, theming, customBuild,
+    bundler, type, cssPreProcessor, theming, customBuild, template,
   } = options;
 
   let scripts = '';
@@ -53,7 +53,7 @@ module.exports = (options) => {
     var app = new Framework7({
       ${indent(6, appParameters(options)).trim()}
     });
-    ${templateIf(!bundler, () => `
+    ${templateIf(!bundler && template !== 'blank', () => `
     // Login Screen Demo
     $$('#my-login-screen .login-button').on('click', function () {
       var username = $$('#my-login-screen [name="username"]').val();

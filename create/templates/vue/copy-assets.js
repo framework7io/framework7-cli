@@ -49,12 +49,5 @@ module.exports = (options) => {
       to: path.resolve(cwd, 'babel.config.js'),
     });
   }
-  if (bundler === 'rollup') {
-    toCopy.push({
-      from: path.resolve(cwd, 'node_modules/framework7/css/framework7.bundle.min.css'),
-      to: path.resolve(cwd, 'src/css/framework7.bundle.min.css'),
-    });
-  }
-
   return toCopy;
 };
