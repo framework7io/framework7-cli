@@ -6,8 +6,8 @@ module.exports = (options) => {
     template,
   } = options;
 
-  let description;
-  if (template === 'single-view') {
+  let description = '';
+  if (template === 'single-view' || template === 'blank') {
     description = `
           <p>Here is your blank Framework7 app. Let's see what we have here.</p>
     `;
@@ -31,6 +31,17 @@ module.exports = (options) => {
 
   return indent(0, `
     import React from 'react';
+    ${template === 'blank' ? `
+    import {
+      Page,
+      Navbar,
+      NavTitle,
+      NavTitleLarge,
+      Link,
+      Toolbar,
+      Block,
+    } from 'framework7-react';
+    `.trim() : `
     import {
       Page,
       Navbar,
@@ -48,18 +59,23 @@ module.exports = (options) => {
       Col,
       Button
     } from 'framework7-react';
+    `.trim()}
 
     export default () => (
       <Page name="home">
         {/* Top Navbar */}
         <Navbar sliding={false} large>
+          ${template !== 'blank' ? `
           <NavLeft>
             <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
           </NavLeft>
+          `.trim() : ''}
           <NavTitle sliding>${name}</NavTitle>
+          ${template !== 'blank' ? `
           <NavRight>
             <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="right" />
           </NavRight>
+          `.trim() : ''}
           <NavTitleLarge>${name}</NavTitleLarge>
         </Navbar>
         ${template !== 'tabs' ? `
@@ -74,7 +90,7 @@ module.exports = (options) => {
         <Block strong>
           ${description.trim()}
         </Block>
-
+        ${template !== 'blank' ? `
         <BlockTitle>Navigation</BlockTitle>
         <List>
           <ListItem link="/about/" title="About"/>
@@ -119,7 +135,7 @@ module.exports = (options) => {
             link="/request-and-load/user/123456/"
           />
         </List>
-
+        `.trim() : ''}
       </Page>
     );
   `).trim();

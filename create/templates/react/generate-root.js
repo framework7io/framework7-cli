@@ -44,8 +44,8 @@ module.exports = (options) => {
       </View>
     </Panel>
   `);
-  const leftPanel = template === 'split-view' ? leftPanelWithView : leftPanelPlain;
-  const rightPanel = indent(12, `
+  let leftPanel = template === 'split-view' ? leftPanelWithView : leftPanelPlain;
+  let rightPanel = indent(12, `
     {/* Right panel with reveal effect*/}
     <Panel right reveal themeDark>
       <View>
@@ -56,10 +56,14 @@ module.exports = (options) => {
       </View>
     </Panel>
   `);
+  if (template === 'blank') {
+    leftPanel = '';
+    rightPanel = '';
+  }
 
   // Views
   let views = '';
-  if (template === 'single-view' || template === 'split-view') {
+  if (template === 'single-view' || template === 'split-view' || template === 'blank') {
     views = indent(12, `
       {/* Your main view, should have "view-main" class */}
       <View main className="safe-areas" url="/" />
@@ -94,6 +98,12 @@ module.exports = (options) => {
     ${templateIf(type.indexOf('cordova') >= 0, () => `
     import { Device }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/framework7-lite.esm.bundle.js'}';
     `)}
+    ${template === 'blank' ? `
+    import {
+      App,
+      View,
+    } from 'framework7-react';
+    `.trim() : `
     import {
       App,
       Panel,
@@ -115,7 +125,7 @@ module.exports = (options) => {
       ListButton,
       BlockFooter
     } from 'framework7-react';
-
+    `.trim()}
     ${templateIf(type.indexOf('cordova') >= 0, () => `
     import cordovaApp from '../js/cordova-app';
     `)}
@@ -130,18 +140,28 @@ module.exports = (options) => {
           f7params: {
             ${indent(12, appParameters(options)).trim()}
           },
+          ${templateIf(template !== 'blank', () => `
           // Login screen demo data
           username: '',
           password: '',
+          `)}
         }
       }
+      ${template === 'blank' ? `
+      render() {
+        return (
+          <App params={ this.state.f7params } ${theming.darkTheme ? 'themeDark' : ''}>
+            ${views}
+          </App>
+        );
+      }
+      `.trim() : `
       render() {
         return (
           <App params={ this.state.f7params } ${theming.darkTheme ? 'themeDark' : ''}>
             ${leftPanel}
             ${rightPanel}
             ${views}
-
             {/* Popup */}
             <Popup id="my-popup">
               <View>
@@ -190,11 +210,14 @@ module.exports = (options) => {
           </App>
         )
       }
+      `.trim()}
+      ${templateIf(template !== 'blank', () => `
       alertLoginData() {
         this.$f7.dialog.alert('Username: ' + this.state.username + '<br>Password: ' + this.state.password, () => {
           this.$f7.loginScreen.close();
         });
       }
+      `)}
       componentDidMount() {
         this.$f7ready((f7) => {
           ${templateIf(type.indexOf('cordova') >= 0, () => `
@@ -202,7 +225,7 @@ module.exports = (options) => {
           if (Device.cordova) {
             cordovaApp.init(f7);
           }
-          `)}
+          `.trim())}
           // Call F7 APIs here
         });
       }
