@@ -59,7 +59,7 @@ module.exports = (options) => {
 
   // Views
   let views = '';
-  if (template === 'single-view' || template === 'split-view') {
+  if (template === 'single-view' || template === 'split-view' || template === 'blank') {
     views = indent(6, `
       <!-- Your main view, should have "view-main" class -->
       <View main class="safe-areas" url="/" />
@@ -90,6 +90,11 @@ module.exports = (options) => {
   }
 
   return indent(0, `
+    ${template === 'blank' ? `
+    <App params={ f7params } ${theming.darkTheme ? 'themeDark' : ''}>
+      ${views}
+    </App>
+    `.trim() : `
     <App params={ f7params } ${theming.darkTheme ? 'themeDark' : ''}>
       ${leftPanel}
       ${rightPanel}
@@ -141,11 +146,20 @@ module.exports = (options) => {
         </View>
       </LoginScreen>
     </App>
+    `.trim()}
     <script>
       import { onMount } from 'svelte';
       ${templateIf(type.indexOf('cordova') >= 0, () => `
       import { Device }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/framework7-lite.esm.bundle.js'}';
       `)}
+      ${templateIf(template === 'blank', () => `
+      import {
+        f7,
+        f7ready,
+        App,
+        View,
+      } from 'framework7-svelte';
+      `, () => `
       import {
         f7,
         f7ready,
@@ -169,7 +183,7 @@ module.exports = (options) => {
         ListButton,
         BlockFooter
       } from 'framework7-svelte';
-
+      `)}
       ${templateIf(type.indexOf('cordova') >= 0, () => `
       import cordovaApp from '../js/cordova-app';
       `)}
@@ -179,6 +193,7 @@ module.exports = (options) => {
       let f7params = {
         ${indent(8, appParameters(options)).trim()}
       };
+      ${templateIf(template !== 'blank', () => `
       // Login screen demo data
       let username = '';
       let password = '';
@@ -188,6 +203,7 @@ module.exports = (options) => {
           f7.loginScreen.close();
         });
       }
+      `)}
       onMount(() => {
         f7ready(() => {
           ${templateIf(type.indexOf('cordova') >= 0, () => `

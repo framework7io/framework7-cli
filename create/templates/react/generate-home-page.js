@@ -64,20 +64,23 @@ module.exports = (options) => {
     export default () => (
       <Page name="home">
         {/* Top Navbar */}
+        ${template === 'blank' ? `
         <Navbar large>
-          ${template !== 'blank' ? `
+          <NavTitle>${name}</NavTitle>
+          <NavTitleLarge>${name}</NavTitleLarge>
+        </Navbar>
+        `.trim() : `
+        <Navbar large sliding={false}>
           <NavLeft>
             <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
           </NavLeft>
-          `.trim() : ''}
-          <NavTitle>${name}</NavTitle>
-          ${template !== 'blank' ? `
+          <NavTitle sliding>${name}</NavTitle>
           <NavRight>
             <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="right" />
           </NavRight>
-          `.trim() : ''}
           <NavTitleLarge>${name}</NavTitleLarge>
         </Navbar>
+        `.trim()}
         ${template !== 'tabs' ? `
         {/* Toolbar */}
         <Toolbar bottom>

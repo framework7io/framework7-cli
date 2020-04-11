@@ -33,20 +33,23 @@ module.exports = (options) => {
     <template>
       <f7-page name="home">
         <!-- Top Navbar -->
+        ${template === 'blank' ? `
         <f7-navbar large>
-          ${template !== 'blank' ? `
+          <f7-nav-title>${name}</f7-nav-title>
+          <f7-nav-title-large>${name}</f7-nav-title-large>
+        </f7-navbar>
+        `.trim() : `
+        <f7-navbar large :sliding="false">
           <f7-nav-left>
             <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" panel-open="left"></f7-link>
           </f7-nav-left>
-          `.trim() : ''}
-          <f7-nav-title>${name}</f7-nav-title>
-          ${template !== 'blank' ? `
+          <f7-nav-title sliding>${name}</f7-nav-title>
           <f7-nav-right>
             <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" panel-open="right"></f7-link>
           </f7-nav-right>
-          `.trim() : ''}
           <f7-nav-title-large>${name}</f7-nav-title-large>
         </f7-navbar>
+        `.trim()}
         ${template !== 'tabs' ? `
         <!-- Toolbar-->
         <f7-toolbar bottom>

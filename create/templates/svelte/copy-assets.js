@@ -9,11 +9,13 @@ module.exports = (options) => {
 
   // Copy Pages
   const pages = [
-    '404',
-    'about',
-    'dynamic-route',
-    'form',
-    'request-and-load',
+    ...(template !== 'blank' ? [
+      '404',
+      'about',
+      'dynamic-route',
+      'form',
+      'request-and-load',
+    ] : []),
     ...(template === 'tabs' ? [
       'catalog',
       'product',

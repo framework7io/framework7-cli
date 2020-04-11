@@ -7,7 +7,7 @@ module.exports = (options) => {
   } = options;
 
   let description;
-  if (template === 'single-view') {
+  if (template === 'single-view' || template === 'blank') {
     description = `
           <p>Here is your blank Framework7 app. Let's see what we have here.</p>
     `;
@@ -32,7 +32,13 @@ module.exports = (options) => {
   return indent(0, `
     <Page name="home">
       <!-- Top Navbar -->
+      ${template === 'blank' ? `
       <Navbar large>
+        <NavTitle>${name}</NavTitle>
+        <NavTitleLarge>${name}</NavTitleLarge>
+      </Navbar>
+      `.trim() : `
+      <Navbar large sliding={false}>
         <NavLeft>
           <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
         </NavLeft>
@@ -42,6 +48,7 @@ module.exports = (options) => {
         </NavRight>
         <NavTitleLarge>${name}</NavTitleLarge>
       </Navbar>
+      `.trim()}
       ${template !== 'tabs' ? `
       <!-- Toolbar -->
       <Toolbar bottom>
@@ -55,6 +62,7 @@ module.exports = (options) => {
         ${description.trim()}
       </Block>
 
+      ${template !== 'blank' ? `
       <BlockTitle>Navigation</BlockTitle>
       <List>
         <ListItem link="/about/" title="About"/>
@@ -99,8 +107,21 @@ module.exports = (options) => {
           link="/request-and-load/user/123456/"
         />
       </List>
+      `.trim() : ''}
     </Page>
-
+    ${template === 'blank' ? `
+    <script>
+      import {
+        Page,
+        Navbar,
+        NavTitle,
+        NavTitleLarge,
+        Link,
+        Toolbar,
+        Block,
+      } from 'framework7-svelte';
+    </script>
+    `.trim() : `
     <script>
       import {
         Page,
@@ -120,5 +141,6 @@ module.exports = (options) => {
         Button
       } from 'framework7-svelte';
     </script>
+    `.trim()}
   `).trim();
 };

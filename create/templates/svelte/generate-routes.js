@@ -6,6 +6,20 @@ module.exports = (options) => {
     template,
   } = options;
 
+  if (template === 'blank') {
+    return indent(0, `
+      import HomePage from '../pages/home.svelte';
+
+      var routes = [
+        {
+          path: '/',
+          component: HomePage,
+        },
+      ];
+
+      export default routes;
+    `);
+  }
   // Webpack Routes
   const routes = indent(0, `
     import HomePage from '../pages/home.svelte';

@@ -34,31 +34,39 @@ module.exports = (options) => {
   return indent(0, `
     <div class="page" data-name="home">
       <!-- Top Navbar -->
+      ${template === 'blank' ? `
       <div class="navbar navbar-large">
         <div class="navbar-bg"></div>
         <div class="navbar-inner sliding">
-          ${!isBlank ? `
+          <div class="title">${name}</div>
+          <div class="title-large">
+            <div class="title-large-text">${name}</div>
+          </div>
+        </div>
+      </div>
+      `.trim() : `
+      <div class="navbar navbar-large">
+        <div class="navbar-bg"></div>
+        <div class="navbar-inner">
           <div class="left">
             <a href="#" class="link icon-only panel-open" data-panel="left">
               <i class="icon f7-icons if-not-md">menu</i>
               <i class="icon material-icons if-md">menu</i>
             </a>
           </div>
-          `.trim() : ''}
-          <div class="title">${name}</div>
-          ${!isBlank ? `
+          <div class="title sliding">${name}</div>
           <div class="right">
             <a href="#" class="link icon-only panel-open" data-panel="right">
               <i class="icon f7-icons if-not-md">menu</i>
               <i class="icon material-icons if-md">menu</i>
             </a>
           </div>
-          `.trim() : ''}
           <div class="title-large">
             <div class="title-large-text">${name}</div>
           </div>
         </div>
       </div>
+      `.trim()}
       ${template !== 'tabs' ? `
       <!-- Toolbar-->
       <div class="toolbar toolbar-bottom">
