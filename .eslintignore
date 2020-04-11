@@ -1,6 +1,6 @@
-create-app/templates/react/pages
-create-app/templates/vue/pages
-create-app/templates/common
+create/templates/react/pages
+create/templates/vue/pages
+create/templates/common
 ui/src
 ui/www
 node_modules

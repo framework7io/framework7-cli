@@ -1,6 +1,6 @@
 import HomePage from '../pages/home.vue';
 import CreatePage from '../pages/create.vue';
-import GenerateAssetsPage from '../pages/generate-assets.vue';
+import AssetsPage from '../pages/assets.vue';
 
 const routes = [
   {
@@ -12,8 +12,8 @@ const routes = [
     component: CreatePage,
   },
   {
-    path: '/generate-assets/',
-    component: GenerateAssetsPage,
+    path: '/assets/',
+    component: AssetsPage,
   },
 ];
 

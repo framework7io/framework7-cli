@@ -8,9 +8,10 @@ const fse = require('./utils/fs-extra');
 const checkUpdate = require('./utils/check-update');
 const spinner = require('./utils/spinner');
 const log = require('./utils/log');
-const getOptions = require('./create-app/utils/get-options');
-const createApp = require('./create-app/index');
-const generateAssets = require('./generate-assets/index');
+const getCurrentProject = require('./utils/get-current-project');
+const getOptions = require('./create/utils/get-options');
+const createApp = require('./create/index');
+const generateAssets = require('./assets/index');
 const server = require('./ui/server');
 const pkg = require('./package.json');
 
@@ -39,13 +40,8 @@ program
       await checkUpdate();
     }
 
-    let currentProject;
-    try {
-      // eslint-disable-next-line
-      currentProject = require(path.resolve(cwd, 'package.json')).framework7;
-    } catch (err) {
-      // all good
-    }
+    const currentProject = getCurrentProject(cwd);
+
     if (currentProject) {
       log.text(`${logSymbols.error} Framework7 project already set up in current directory`);
       process.exit(1);
@@ -69,8 +65,8 @@ program
   });
 
 program
-  .command('generate-assets')
-  .alias('assets')
+  .command('assets')
+  .alias('generate-assets')
   .option('--skipUpdate', 'Skip checking for update of framework7-cli')
   .option('--ui', 'Launch assets generation UI')
   .option('-P, --port <n>', 'Specify UI server port. By default it is 3001', parseInt)
@@ -81,24 +77,15 @@ program
       await checkUpdate();
     }
 
-    let currentProject;
-    try {
-      // eslint-disable-next-line
-      const pkg = require(path.resolve(cwd, 'package.json'));
-      if (!pkg || !pkg.framework7) {
-        log.text(`${logSymbols.error} Framework7 project not found in current directory`);
-        process.exit(1);
-      }
-      // eslint-disable-next-line
-      currentProject = Object.assign({ cwd }, pkg.framework7);
-    } catch (err) {
+    const currentProject = getCurrentProject(cwd);
+    if (!currentProject) {
       log.text(`${logSymbols.error} Framework7 project not found in current directory`);
       process.exit(1);
     }
 
     if (options.ui) {
       spinner.start('Launching Framework7 UI server');
-      server('/generate-assets/', options.port);
+      server('/assets/', options.port);
       spinner.end('Launching Framework7 UI server');
     } else {
       await generateAssets({}, currentProject, logger);

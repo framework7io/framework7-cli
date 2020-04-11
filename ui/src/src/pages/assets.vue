@@ -1,5 +1,5 @@
 <template>
-  <f7-page name="generate-assets">
+  <f7-page name="assets">
     <f7-navbar :sliding="false" large>
       <f7-nav-title>
         <i class="f7-navbar-logo"></i>
@@ -178,7 +178,7 @@
       logText,
       getLog() {
         const self = this;
-        getLog(self, '/api/generate-assets/generate/');
+        getLog(self, '/api/assets/generate/');
       },
       getImage(src) {
         const self = this;
@@ -198,7 +198,7 @@
         self.$request({
           method: 'post',
           contentType: 'multipart/form-data',
-          url: '/api/generate-assets/upload/',
+          url: '/api/assets/upload/',
           data: fd,
           complete() {
             self.uploading = null;
@@ -209,7 +209,7 @@
         const self = this;
         if (self.loading) return;
         self.loading = true;
-        self.$f7.request.postJSON('/api/generate-assets/generate/', {}, () => {
+        self.$f7.request.postJSON('/api/assets/generate/', {}, () => {
           self.getLog();
         });
       },

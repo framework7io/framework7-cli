@@ -127,7 +127,6 @@ module.exports = function generatePackageJson(options) {
   "description": "${name}",
   "repository" : "",
   "license" : "UNLICENSED",
-  "framework7": ${JSON.stringify(options)},
   "scripts" : ${JSON.stringify(scripts)},
   "browserslist": [
     "Android >= 7",

@@ -20,7 +20,7 @@
           </a>
         </div>
         <div class="col-100 medium-33 card">
-          <a href="/generate-assets/" class="card-content card-content-padding link">
+          <a href="/assets/" class="card-content card-content-padding link">
             <i class="f7-icons">photo_fill_on_rectangle_fill</i>
             <span>Generate Assets</span>
           </a>

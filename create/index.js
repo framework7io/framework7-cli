@@ -40,8 +40,10 @@ module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
   logger.statusStart('Generating package.json');
   const packageJson = generatePackageJson(options);
 
-  // Write Package.json
+  // Write Package.json and project json
   fse.writeFileSync(path.join(cwd, 'package.json'), packageJson.content);
+  fse.writeFileSync(path.join(cwd, 'framework7.json'), JSON.stringify(options, '', 2));
+
   logger.statusDone('Generating package.json');
 
   // Create Folders

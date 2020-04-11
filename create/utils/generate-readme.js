@@ -60,13 +60,13 @@ There is also cordova Electron platform installed. To learn more about it and El
 Assets (icons, splash screens) source images located in \`assets-src\` folder. To generate your own icons and splash screen images, you will need to replace all assets in this directory with your own images (pay attention to image size and format), and run the following command in the project directory:
 
 \`\`\`
-framework7 generate-assets
+framework7 assets
 \`\`\`
 
 Or launch UI where you will be able to change icons and splash screens:
 
 \`\`\`
-framework7 generate-assets --ui
+framework7 assets --ui
 \`\`\`
 
 ## Documentation & Resources

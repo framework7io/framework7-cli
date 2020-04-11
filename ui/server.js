@@ -9,8 +9,9 @@ const opn = require('opn');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const fse = require('../utils/fs-extra');
-const createApp = require('../create-app/index');
-const generateAssets = require('../generate-assets/index');
+const createApp = require('../create/index');
+const generateAssets = require('../assets/index');
+const getCurrentProject = require('../utils/get-current-project');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -49,8 +50,7 @@ module.exports = (startPage = '/', port = 3001) => {
   });
 
   app.get('/api/project/', (req, res) => {
-    const pkg = require(path.resolve(cwd, 'package.json'));
-    res.json(pkg.framework7);
+    res.json(getCurrentProject(cwd));
   });
 
   // Create App
@@ -84,12 +84,12 @@ module.exports = (startPage = '/', port = 3001) => {
     });
 
   // Generate Assets
-  app.post('/api/generate-assets/upload/', upload.any(), (req, res) => {
+  app.post('/api/assets/upload/', upload.any(), (req, res) => {
     const file = req.files[0];
     fse.writeFileSync(path.resolve(cwd, 'assets-src', `${file.fieldname}.png`), file.buffer);
     res.send('Ok');
   });
-  app.route('/api/generate-assets/generate/')
+  app.route('/api/assets/generate/')
     .get((req, res) => {
       res.json({ log, done, error });
       if (done) {
@@ -117,7 +117,7 @@ module.exports = (startPage = '/', port = 3001) => {
   const availablePaths = [
     '/',
     '/create/',
-    '/generate-assets/',
+    '/assets/',
   ];
   availablePaths.forEach((availablePath) => {
     app.get(availablePath, (req, res) => {
