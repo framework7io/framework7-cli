@@ -14,7 +14,7 @@ const generateManifest = require('./generate-manifest');
 const generateServiceWorker = require('./generate-service-worker');
 const generateFramework7Custom = require('./generate-framework7-custom');
 
-module.exports = (options) => {
+module.exports = (options, iconFile) => {
   const cwd = options.cwd || process.cwd();
   const {
     framework, bundler, type = [], cordova, theming, cssPreProcessor, customBuild,
@@ -156,44 +156,65 @@ module.exports = (options) => {
         to: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
       });
     }
-    if (isIos) {
-      toCopy.push({
-        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'ios', 'icon-512x512@2x.png'),
-        to: path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'),
-      });
-    }
-    if (isAndroid) {
-      toCopy.push({
-        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'android', 'playstore-icon.png'),
-        to: path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'),
-      });
-    }
-    if (isElectron) {
-      toCopy.push({
-        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'app.png'),
-        to: path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
-      });
-      toCopy.push({
-        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'installer.png'),
-        to: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
-      });
-    }
-    if (isOsx) {
-      toCopy.push({
-        from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'osx', 'icon-1024x1024.png'),
-        to: path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'),
-      });
+    if (iconFile) {
+      if (isIos) {
+        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'), iconFile);
+      }
+      if (isAndroid) {
+        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'), iconFile);
+      }
+      if (isElectron) {
+        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'), iconFile);
+        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'), iconFile);
+      }
+      if (isOsx) {
+        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'), iconFile);
+      }
+    } else {
+      if (isIos) {
+        toCopy.push({
+          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'ios', 'icon-512x512@2x.png'),
+          to: path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'),
+        });
+      }
+      if (isAndroid) {
+        toCopy.push({
+          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'android', 'playstore-icon.png'),
+          to: path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'),
+        });
+      }
+      if (isElectron) {
+        toCopy.push({
+          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'app.png'),
+          to: path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
+        });
+        toCopy.push({
+          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'installer.png'),
+          to: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
+        });
+      }
+      if (isOsx) {
+        toCopy.push({
+          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'osx', 'icon-1024x1024.png'),
+          to: path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'),
+        });
+      }
     }
   }
   if (isWeb || isPwa) {
-    toCopy.push({
-      from: path.resolve(__dirname, 'common', 'icons', '512x512.png'),
-      to: path.resolve(cwd, 'assets-src', 'web-icon.png'),
-    });
-    toCopy.push({
-      from: path.resolve(__dirname, 'common', 'icons', 'apple-touch-icon.png'),
-      to: path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'),
-    });
+    if (iconFile) {
+      fse.writeFileSync(path.resolve(cwd, 'assets-src', 'web-icon.png'), iconFile);
+      fse.writeFileSync(path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'), iconFile);
+    } else {
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'icons', '512x512.png'),
+        to: path.resolve(cwd, 'assets-src', 'web-icon.png'),
+      });
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'icons', 'apple-touch-icon.png'),
+        to: path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'),
+      });
+    }
   }
 
   return toCopy;

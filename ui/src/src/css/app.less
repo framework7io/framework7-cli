@@ -14,6 +14,7 @@
 
   --f7-color-picker-popover-width: 240px;
   --f7-color-picker-sb-spectrum-height: 180px;
+  --f7-input-outline-border-color: #ccc;
 }
 .theme-dark {
   --f7-bars-bg-color: #1b1b1b;
@@ -40,6 +41,35 @@
   .title-large & {
     width: 48px;
     height: 48px;
+  }
+}
+.create-app-icon {
+  padding-right: 32px;
+  text-align: center;
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 16%;
+    border: 1px solid rgba(0,0,0,0.1);
+    display: block;
+  }
+  label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    margin-bottom: 0.5em;
+    input {
+      position: absolute;
+      right: 0;
+      top: 0;
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+  small {
+    line-height: 1.2;
+    opacity: 0.5;
   }
 }
 .label-file-input {
@@ -91,6 +121,7 @@ i.block-icon {
   --f7-list-media-item-padding-horizontal: 20px;
   --f7-list-item-text-max-lines: 20;
   --f7-list-border-color: transparent;
+  --f7-list-bg-color: transparent;
   .theme-dark & {
     --f7-block-title-text-color: #fff;
   }
@@ -272,7 +303,7 @@ pre {
     border-radius: var(--f7-block-inset-border-radius);
   }
 }
-.popup-log{
+.popup-log {
   background: transparent;
   pre {
     margin: 0;

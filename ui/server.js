@@ -23,6 +23,7 @@ module.exports = (startPage = '/', port = 3001) => {
   let log = [];
   let done = false;
   let error = false;
+  let pendingIconFile = false;
 
   const logger = {
     statusStart: (text) => log.push(text),
@@ -57,21 +58,27 @@ module.exports = (startPage = '/', port = 3001) => {
   app.route('/api/create/')
     .get((req, res) => {
       res.json({ log, done, error });
-      if (done) {
+      if (done && !pendingIconFile) {
         clearLog();
         process.exit(0);
       }
     })
-    .post((req, res) => {
+    .post(upload.any(), (req, res) => {
+      done = false;
       clearLog();
-      const options = req.body && req.body.options;
+      const file = req.files[0];
+      const options = req.body && req.body.options && JSON.parse(req.body.options);
       res.json({});
       if (!options.cwd) options.cwd = cwd;
+      if (file && file.buffer) {
+        pendingIconFile = true;
+      }
       createApp(
         options,
         logger,
         {
           exitOnError: true,
+          iconFile: file ? file.buffer : null,
         },
       )
         .then(() => {
@@ -94,14 +101,22 @@ module.exports = (startPage = '/', port = 3001) => {
       res.json({ log, done, error });
       if (done) {
         clearLog();
+        if (pendingIconFile) {
+          pendingIconFile = false;
+          process.exit(0);
+        }
       }
     })
     .post((req, res) => {
-      clearLog();
+      const keepLog = req.body && req.body.keepLog;
+      done = false;
+      if (!keepLog) {
+        clearLog();
+      } else {
+        log.push('\n\n');
+      }
 
-      const pkg = require(path.resolve(cwd, 'package.json'));
-      // eslint-disable-next-line
-      const currentProject = Object.assign({ cwd }, pkg.framework7);
+      const currentProject = getCurrentProject(cwd);
 
       res.json({});
 

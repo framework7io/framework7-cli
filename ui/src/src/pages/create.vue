@@ -24,12 +24,10 @@
           <i class="f7-icons block-icon">info_circle</i>
           <span>General</span>
         </f7-block-title>
-
         <f7-block-title medium>Destination</f7-block-title>
         <f7-block-header>New Framework7 app will be created in the following directory.</f7-block-header>
         <f7-list no-hairlines-between class="inputs-list">
           <f7-list-input
-            class="col-100 tablet-50"
             type="text"
             outline
             clear-button
@@ -42,69 +40,86 @@
         </f7-list>
         <f7-block-footer class="display-flex align-items-center"><i style="font-size: 1.5em; margin-right: 8px" class="f7-icons text-color-orange">exclamationmark_triangle_fill</i> Make sure this folder is empty, the project will be created in the root of this folder.</f7-block-footer>
 
-        <f7-block-title medium>App Type</f7-block-title>
-        <f7-block-header>What types of the app are you targeting? (multiple allowed)</f7-block-header>
-        <div class="row checkbox-row">
-          <div class="col-33 checkbox-col" :class="{checked: type.indexOf('web') >= 0}">
-            <div class="col-icon" @click="toggleArrayValue(type, 'web')">
-              <span class="text-icon">www</span>
-            </div>
-            <div class="col-label">Simple web app</div>
-          </div>
-          <div class="col-33 checkbox-col" :class="{checked: type.indexOf('pwa') >= 0}">
-            <div class="col-icon" @click="toggleArrayValue(type, 'pwa')">
-              <svg xmlns="http://www.w3.org/2000/svg" width="134" height="50" viewBox="0 0 134 50">
-                <g fill="var(--checkbox-col-text-color)">
-                  <polygon points="98.196 41.045 102.059 31.343 113.214 31.343 107.92 16.627 114.541 0 133.505 50 119.52 50 116.279 41.045"/>
-                  <polygon points="86.212 50 106.443 0 93.031 0 79.191 32.311 69.35 0 59.041 0 48.474 32.311 41.022 17.588 34.278 38.29 41.125 50 54.325 50 63.874 21.024 72.978 50"/>
-                  <path d="M12.7453596,32.8358409 L21.015736,32.8358409 C23.5209828,32.8358409 25.7518102,32.557516 27.7082184,32.0008663 L29.8470487,25.4418975 L35.8247423,7.11055644 C35.3692677,6.39195312 34.8492721,5.71251666 34.2647556,5.0723355 C31.1955651,1.69073966 26.7050671,0 20.7931248,0 L0,0 L0,50 L12.7453596,50 L12.7453596,32.8358409 Z M23.6924692,11.5030001 C24.8913023,12.7039946 25.4906505,14.3111488 25.4906505,16.3245987 C25.4906505,18.3534923 24.9634784,19.9626194 23.9092024,21.1519802 C22.7534289,22.47353 20.6252609,23.1342709 17.5248351,23.1342709 L12.7453596,23.1342709 L12.7453596,9.70140629 L17.5599663,9.70140629 C20.4495368,9.70140629 22.4937045,10.3019376 23.6924692,11.5030001 Z"/>
-                </g>
-              </svg>
-            </div>
-            <div class="col-label">PWA (Progressive Web App)</div>
-          </div>
-          <div class="col-33 checkbox-col" :class="{checked: type.indexOf('cordova') >= 0}">
-            <div class="col-icon" @click="toggleArrayValue(type, 'cordova')">
-              <svg xmlns="http://www.w3.org/2000/svg" width="53" height="50" viewBox="0 0 53 50">
-                <path fill="var(--checkbox-col-text-color)" d="M47.5862069,50 L39.1133005,50 L39.7044335,42.8571429 L35.5418719,42.8571429 L34.9507389,50 L17.3891626,50 L16.7980296,42.8571429 L12.635468,42.8571429 L13.226601,50 L4.75369458,50 L0,19.0394089 L11.8965517,0 L40.4433498,0 L52.3399015,19.0394089 L47.5862069,50 Z M38.0541872,9.5320197 L30.4187192,9.5320197 L30.9359606,13.1034483 L21.4039409,13.1034483 L21.9211823,9.5320197 L14.2857143,9.5320197 L9.50738916,19.0394089 L11.8965517,38.0788177 L40.4433498,38.0788177 L42.8325123,19.0394089 L38.0541872,9.5320197 Z M33.8916256,31.773399 C33.226601,31.773399 32.7093596,29.8029557 32.7093596,27.3399015 C32.7093596,24.8768473 33.2512315,22.9064039 33.8916256,22.9064039 C34.5566502,22.9064039 35.0738916,24.8768473 35.0738916,27.3399015 C35.0738916,29.8029557 34.5566502,31.773399 33.8916256,31.773399 Z M18.8916256,32.1428571 C18.226601,32.1428571 17.7093596,30.1724138 17.7093596,27.7093596 C17.7093596,25.2463054 18.2512315,23.2758621 18.8916256,23.2758621 C19.5566502,23.2758621 20.0738916,25.2463054 20.0738916,27.7093596 C20.0738916,30.1724138 19.5320197,32.1428571 18.8916256,32.1428571 Z"/>
-              </svg>
-            </div>
-            <div class="col-label">Cordova app (targets native iOS and Android apps, or native desktop app with Electron)</div>
-          </div>
-        </div>
-
         <div class="row">
-          <div class="col-100 tablet-50">
-            <f7-block-title medium>App (project) name</f7-block-title>
-            <f7-list no-hairlines-between class="inputs-list no-margin-right">
-              <f7-list-input
-                class="col-100 tablet-50"
-                type="text"
-                outline
-                clear-button
-                required
-                validate
-                validate-on-blur
-                :value="name"
-                @input="name = $event.target.value"
-              ></f7-list-input>
-            </f7-list>
+          <div class="col-25">
+            <f7-block-title medium>App Icon</f7-block-title>
+            <div class="create-app-icon">
+              <label>
+                <img :src="iconPreview || '/static/icons/apple-touch-icon.png'" />
+                <input ref="iconInput" @change="onIconChange" type="file" accept="image/*" />
+              </label>
+              <div>Click to choose app icon</div>
+              <div v-if="iconFile">
+                <f7-link @click="resetIcon">Reset to default icon</f7-link>
+              </div>
+              <small><em>1024x1024 square PNG</em></small>
+            </div>
           </div>
-          <div class="col-100 tablet-50" v-if="type.indexOf('cordova') >= 0">
-            <f7-block-title medium>App package (Bundle ID)</f7-block-title>
-            <f7-list no-hairlines-between class="inputs-list no-margin-right">
-              <f7-list-input
-                class="col-100 tablet-50"
-                type="text"
-                outline
-                clear-button
-                required
-                validate
-                validate-on-blur
-                :value="pkg"
-                @input="pkg = $event.target.value"
-              ></f7-list-input>
-            </f7-list>
+          <div class="col-75">
+            <div class="row">
+              <div class="col-100" :class="{'medium-50':type.indexOf('cordova') >= 0 }">
+                <f7-block-title medium>App (project) name</f7-block-title>
+                <f7-list no-hairlines-between class="inputs-list">
+                  <f7-list-input
+                    type="text"
+                    outline
+                    clear-button
+                    required
+                    validate
+                    validate-on-blur
+                    :value="name"
+                    @input="name = $event.target.value"
+                  ></f7-list-input>
+                </f7-list>
+              </div>
+              <div class="col-100 medium-50" v-if="type.indexOf('cordova') >= 0">
+                <f7-block-title medium>App package (Bundle ID)</f7-block-title>
+                <f7-list no-hairlines-between class="inputs-list">
+                  <f7-list-input
+                    type="text"
+                    outline
+                    clear-button
+                    required
+                    validate
+                    validate-on-blur
+                    :value="pkg"
+                    @input="pkg = $event.target.value"
+                  ></f7-list-input>
+                </f7-list>
+              </div>
+            </div>
+            <f7-block-title medium>App Type</f7-block-title>
+            <f7-block-header>What types of the app are you targeting? (multiple allowed)</f7-block-header>
+            <div class="row checkbox-row">
+              <div class="col-33 checkbox-col" :class="{checked: type.indexOf('web') >= 0}">
+                <div class="col-icon" @click="toggleArrayValue(type, 'web')">
+                  <span class="text-icon">www</span>
+                </div>
+                <div class="col-label">Simple web app</div>
+              </div>
+              <div class="col-33 checkbox-col" :class="{checked: type.indexOf('pwa') >= 0}">
+                <div class="col-icon" @click="toggleArrayValue(type, 'pwa')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="134" height="50" viewBox="0 0 134 50">
+                    <g fill="var(--checkbox-col-text-color)">
+                      <polygon points="98.196 41.045 102.059 31.343 113.214 31.343 107.92 16.627 114.541 0 133.505 50 119.52 50 116.279 41.045"/>
+                      <polygon points="86.212 50 106.443 0 93.031 0 79.191 32.311 69.35 0 59.041 0 48.474 32.311 41.022 17.588 34.278 38.29 41.125 50 54.325 50 63.874 21.024 72.978 50"/>
+                      <path d="M12.7453596,32.8358409 L21.015736,32.8358409 C23.5209828,32.8358409 25.7518102,32.557516 27.7082184,32.0008663 L29.8470487,25.4418975 L35.8247423,7.11055644 C35.3692677,6.39195312 34.8492721,5.71251666 34.2647556,5.0723355 C31.1955651,1.69073966 26.7050671,0 20.7931248,0 L0,0 L0,50 L12.7453596,50 L12.7453596,32.8358409 Z M23.6924692,11.5030001 C24.8913023,12.7039946 25.4906505,14.3111488 25.4906505,16.3245987 C25.4906505,18.3534923 24.9634784,19.9626194 23.9092024,21.1519802 C22.7534289,22.47353 20.6252609,23.1342709 17.5248351,23.1342709 L12.7453596,23.1342709 L12.7453596,9.70140629 L17.5599663,9.70140629 C20.4495368,9.70140629 22.4937045,10.3019376 23.6924692,11.5030001 Z"/>
+                    </g>
+                  </svg>
+                </div>
+                <div class="col-label">PWA (Progressive Web App)</div>
+              </div>
+              <div class="col-33 checkbox-col" :class="{checked: type.indexOf('cordova') >= 0}">
+                <div class="col-icon" @click="toggleArrayValue(type, 'cordova')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="53" height="50" viewBox="0 0 53 50">
+                    <path fill="var(--checkbox-col-text-color)" d="M47.5862069,50 L39.1133005,50 L39.7044335,42.8571429 L35.5418719,42.8571429 L34.9507389,50 L17.3891626,50 L16.7980296,42.8571429 L12.635468,42.8571429 L13.226601,50 L4.75369458,50 L0,19.0394089 L11.8965517,0 L40.4433498,0 L52.3399015,19.0394089 L47.5862069,50 Z M38.0541872,9.5320197 L30.4187192,9.5320197 L30.9359606,13.1034483 L21.4039409,13.1034483 L21.9211823,9.5320197 L14.2857143,9.5320197 L9.50738916,19.0394089 L11.8965517,38.0788177 L40.4433498,38.0788177 L42.8325123,19.0394089 L38.0541872,9.5320197 Z M33.8916256,31.773399 C33.226601,31.773399 32.7093596,29.8029557 32.7093596,27.3399015 C32.7093596,24.8768473 33.2512315,22.9064039 33.8916256,22.9064039 C34.5566502,22.9064039 35.0738916,24.8768473 35.0738916,27.3399015 C35.0738916,29.8029557 34.5566502,31.773399 33.8916256,31.773399 Z M18.8916256,32.1428571 C18.226601,32.1428571 17.7093596,30.1724138 17.7093596,27.7093596 C17.7093596,25.2463054 18.2512315,23.2758621 18.8916256,23.2758621 C19.5566502,23.2758621 20.0738916,25.2463054 20.0738916,27.7093596 C20.0738916,30.1724138 19.5320197,32.1428571 18.8916256,32.1428571 Z"/>
+                  </svg>
+                </div>
+                <div class="col-label">Cordova app <small>(targets native iOS and Android apps, or native desktop app with Electron)</small></div>
+              </div>
+            </div>
+
+
           </div>
         </div>
       </f7-block>
@@ -626,14 +641,14 @@
   </f7-page>
 </template>
 <script>
-  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Toggle, f7Checkbox, f7Radio, f7Popup } from 'framework7-vue';
+  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Toggle, f7Checkbox, f7Radio, f7Popup, f7Link } from 'framework7-vue';
   import logText from '../utils/log-text';
   import getLog from '../utils/get-log';
   import componentsList from '../utils/components-list';
 
   export default {
     components: {
-      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Toggle, f7Checkbox, f7Radio, f7Popup
+      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Toggle, f7Checkbox, f7Radio, f7Popup, f7Link
     },
     data() {
       return {
@@ -661,6 +676,8 @@
         ].sort(),
         componentsList: [...componentsList],
 
+        iconFile: null,
+        iconPreview: null,
         cwd: '',
         name: 'My App',
         type: [],
@@ -811,7 +828,19 @@
           const { logEl } = self.$refs;
           logEl.scrollTop = logEl.scrollHeight - logEl.offsetHeight;
         });
-      }
+      },
+      done() {
+        const self = this;
+        if (self.done && self.iconFile) {
+          self.done = false;
+          self.loading = true;
+          self.iconFile = null;
+          self.generatingAssets = true;
+          self.$f7.request.postJSON('/api/assets/generate/', { keepLog: true }, () => {
+            self.getLog();
+          });
+        }
+      },
     },
     mounted() {
       const self = this;
@@ -893,6 +922,21 @@
         }
         reader.readAsText(e.target.files[0]);
       },
+      resetIcon() {
+        this.iconFile = null;
+        this.iconPreview = null;
+        this.$refs.iconInput.value = null;
+      },
+      onIconChange(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.iconPreview = reader.result;
+        }
+        this.iconFile = file;
+        reader.readAsDataURL(file);
+      },
       toggleComponents() {
         const self = this;
         if (self.customBuildConfig.components.length === self.componentsList.length) {
@@ -964,7 +1008,7 @@
       },
       getLog() {
         const self = this;
-        getLog(self, '/api/create/');
+        getLog(self, self.generatingAssets ? '/api/assets/generate/' : '/api/create/');
       },
       createApp() {
         const self = this;
@@ -989,7 +1033,10 @@
           return;
         }
         self.loading = true;
-        self.$f7.request.postJSON('/api/create/', { options }, () => {
+        const data = new FormData();
+        data.set('iconFile', this.iconFile);
+        data.set('options', JSON.stringify(options));
+        self.$f7.request.post('/api/create/', data, () => {
           self.getLog();
         });
       },

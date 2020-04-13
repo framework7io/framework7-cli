@@ -19,6 +19,10 @@
           theme: 'ios',
           iosTranslucentBars: false,
           routes: routes,
+          navbar: {
+            snapPageScrollToLargeTitle: false,
+            snapPageScrollToTransparentNavbar: false,
+          }
         },
       }
     },

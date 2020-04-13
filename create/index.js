@@ -16,7 +16,7 @@ const generateGitignore = require('./utils/generate-gitignore');
 
 const waitText = chalk.gray('(Please wait, it can take a while)');
 
-module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
+module.exports = async (options = {}, logger, { exitOnError = true, iconFile = null } = {}) => {
   const cwd = options.cwd || process.cwd();
   const isRunningInCwd = cwd === process.cwd();
   function errorExit() {
@@ -122,7 +122,7 @@ module.exports = async (options = {}, logger, { exitOnError = true } = {}) => {
 
   // Create Project Files
   logger.statusStart('Creating project files');
-  const filesToCopy = copyAssets(options);
+  const filesToCopy = copyAssets(options, iconFile);
   try {
     // eslint-disable-next-line
     await Promise.all(filesToCopy.map((f) => {
