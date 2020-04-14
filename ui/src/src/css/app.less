@@ -19,6 +19,17 @@
 .theme-dark {
   --f7-bars-bg-color: #1b1b1b;
 }
+.ios {
+  .list {
+    .icon-radio {
+      border: 1px solid var(--f7-checkbox-inactive-color);
+      border-radius: 50%;
+    }
+    input:checked ~ .icon-radio {
+      border-color: var(--f7-theme-color);
+    }
+  }
+}
 
 .navbar {
   .title {
