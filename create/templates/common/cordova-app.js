@@ -60,12 +60,18 @@ var cordovaApp = {
         return false;
       }
 
-      if($('.searchbar-enabled').length){
-        f7.searchbar.disable();
+      if ($('.page-current .searchbar-enabled').length) {
+        f7.searchbar.disable('.page-current .searchbar-enabled');
         e.preventDefault();
         return false;
       }
-      
+
+      if ($('.page-current .card-expandable.card-opened').length) {
+        f7.card.close('.page-current .card-expandable.card-opened');
+        e.preventDefault();
+        return false;
+      }
+
       const currentView = f7.views.current;
       if (currentView && currentView.router && currentView.router.history.length > 1) {
         currentView.router.back();
