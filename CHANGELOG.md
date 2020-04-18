@@ -2,6 +2,17 @@
 
 # Change Log
 
+# [v3.3.0](https://github.com/framework7io/framework7-cli/compare/v3.2.4...v3.3.0) - April 18, 2020
+  * New "Blank" template
+  * Framework7 CLI config is now stored in `framework7.json` file in project root
+  * `generate-assets` command renamed to `assets` (`generate-assets` is still supported as well)
+  * Cordova
+    * Simplified default splash screen image
+  * UI
+    * Now it is possible to specify custom app icon on create
+    * UI theme switched to iOS theme
+  * Minor fixes
+
 # [v3.2.4](https://github.com/framework7io/framework7-cli/compare/v3.2.3...v3.2.4) - March 6, 2020
   * Support styles for new `.navbar-large.navbar-transparent`
 
