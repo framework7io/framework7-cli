@@ -178,11 +178,11 @@ module.exports = (options) => {
         ${templateIf(template === 'split-view', () => `
         {
           path: '/left-page-1/',
-          url: './pages-left-page-1.html',
+          url: './pages/left-page-1.html',
         },
         {
           path: '/left-page-2/',
-          url: './pages-left-page-2.html',
+          url: './pages/left-page-2.html',
         },
         `)}
         {
