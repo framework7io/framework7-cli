@@ -292,22 +292,24 @@ module.exports = (options) => {
         new MiniCssExtractPlugin({
           filename: 'css/[name]${hashName}.css',
         }),
-        new CopyWebpackPlugin([
-          {
-            from: resolvePath('src/static'),
-            ${templateIf(hasCordova, () => `
-            to: resolvePath(isCordova ? '${cordova.folder}/www/static' : 'www/static'),
-            `, () => `
-            to: resolvePath('www/static'),
+        new CopyWebpackPlugin({
+          patterns: [
+            {
+              from: resolvePath('src/static'),
+              ${templateIf(hasCordova, () => `
+              to: resolvePath(isCordova ? '${cordova.folder}/www/static' : 'www/static'),
+              `, () => `
+              to: resolvePath('www/static'),
+              `)}
+            },
+            ${templateIf(type.indexOf('pwa') >= 0, () => `
+            {
+              from: resolvePath('src/manifest.json'),
+              to: resolvePath('www/manifest.json'),
+            },
             `)}
-          },
-          ${templateIf(type.indexOf('pwa') >= 0, () => `
-          {
-            from: resolvePath('src/manifest.json'),
-            to: resolvePath('www/manifest.json'),
-          },
-          `)}
-        ]),
+          ],
+        }),
         ${templateIf(type.indexOf('pwa') >= 0 && hasCordova, () => `
         ...(!isCordova ? [
           new WorkboxPlugin.InjectManifest({
