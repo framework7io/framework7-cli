@@ -2,6 +2,10 @@
 
 # Change Log
 
+# [v3.3.1](https://github.com/framework7io/framework7-cli/compare/v3.3.0...v3.3.1) - May 18, 2020
+  * Updated syntax for latest webpack copy plugin
+  * Fixed panel routes in core framework
+
 # [v3.3.0](https://github.com/framework7io/framework7-cli/compare/v3.2.4...v3.3.0) - April 18, 2020
   * New "Blank" template
   * Framework7 CLI config is now stored in `framework7.json` file in project root
