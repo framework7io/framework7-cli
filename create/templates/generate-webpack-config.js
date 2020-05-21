@@ -295,6 +295,7 @@ module.exports = (options) => {
         new CopyWebpackPlugin({
           patterns: [
             {
+              noErrorOnMissing: true,
               from: resolvePath('src/static'),
               ${templateIf(hasCordova, () => `
               to: resolvePath(isCordova ? '${cordova.folder}/www/static' : 'www/static'),
@@ -304,6 +305,7 @@ module.exports = (options) => {
             },
             ${templateIf(type.indexOf('pwa') >= 0, () => `
             {
+              noErrorOnMissing: true,
               from: resolvePath('src/manifest.json'),
               to: resolvePath('www/manifest.json'),
             },
