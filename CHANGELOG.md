@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v3.3.2](https://github.com/framework7io/framework7-cli/compare/v3.3.1...v3.3.2) - May 21, 2020
+  * Fixed webpack copy plugin errors on build
+
 # [v3.3.1](https://github.com/framework7io/framework7-cli/compare/v3.3.0...v3.3.1) - May 18, 2020
   * Updated syntax for latest webpack copy plugin
   * Fixed panel routes in core framework
