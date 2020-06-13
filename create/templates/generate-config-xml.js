@@ -32,6 +32,8 @@ module.exports = (options) => {
       <config-file parent="CFBundleAllowMixedLocalizations" platform="ios" target="*-Info.plist">
         <true />
       </config-file>
+      <preference name="scheme" value="app" />
+      <preference name="hostname" value="localhost" />
       <preference name="StatusBarOverlaysWebView" value="true" />
       <splash src="res/screen/ios/Default@2x~universal~anyany.png" />
       <icon height="180" src="res/icon/ios/icon-60x60@3x.png" width="180" />
@@ -78,7 +80,6 @@ module.exports = (options) => {
       <preference name="AutoHideSplashScreen" value="true" />
     </platform>
     ` : ''}
-    <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="local" />
     <preference name="AutoHideSplashScreen" value="false" />

@@ -32,9 +32,6 @@ module.exports = (options) => {
     });
     // Install plugins
     const plugins = cordova.plugins; // eslint-disable-line
-    if (plugins.indexOf('cordova-plugin-wkwebview-engine') >= 0) {
-      plugins[plugins.indexOf('cordova-plugin-wkwebview-engine')] = 'cordova-plugin-wkwebview-file-xhr';
-    }
 
     // Install cordova plugins
     if (plugins.length) {
@@ -95,11 +92,14 @@ module.exports = (options) => {
     }
 
     // Add cordova platforms
+    const platforms = cordova.platforms.map((platform) => {
+      return platform === 'ios' ? 'ios@latest' : platform;
+    });
     try {
       if (!isRunningInCwd) {
-        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd ${cordova.folder} && cordova platform add ${cordova.platforms.join(' ')}`, true);
+        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && cd ${cordova.folder} && cordova platform add ${platforms.join(' ')}`, true);
       } else {
-        await exec.promise(`cd ${cordova.folder} && cordova platform add ${cordova.platforms.join(' ')}`, true);
+        await exec.promise(`cd ${cordova.folder} && cordova platform add ${platforms.join(' ')}`, true);
       }
     } catch (err) {
       reject(err);

@@ -80,7 +80,6 @@ module.exports = (options) => {
   Customize this policy to fit your own app's needs. For more guidance, see:
       https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
   Some notes:
-    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
     * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
     * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
       * Enable inline JS: add 'unsafe-inline' to default-src

@@ -258,7 +258,6 @@ module.exports = function getOptions() {
           'cordova-plugin-statusbar',
           'cordova-plugin-keyboard',
           'cordova-plugin-splashscreen',
-          'cordova-plugin-wkwebview-engine',
         ];
       }
       delete options.cordovaPlatforms;
