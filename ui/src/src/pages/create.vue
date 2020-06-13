@@ -197,13 +197,6 @@
               title="cordova-plugin-splashscreen"
               text="Display and hide splash screen during application launch"
             />
-            <f7-list-item
-              checkbox
-              :checked="cordova.plugins.indexOf('cordova-plugin-wkwebview-engine') >= 0"
-              @change="toggleArrayValue(cordova.plugins, 'cordova-plugin-wkwebview-engine')"
-              title="cordova-plugin-wkwebview-engine"
-              text="Modern iOS webview"
-            />
 
             <f7-list-item
               checkbox
@@ -689,7 +682,6 @@
             'cordova-plugin-statusbar',
             'cordova-plugin-keyboard',
             'cordova-plugin-splashscreen',
-            'cordova-plugin-wkwebview-engine',
           ],
         },
         webpack: {
