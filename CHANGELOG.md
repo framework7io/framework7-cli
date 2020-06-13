@@ -2,6 +2,11 @@
 
 # Change Log
 
+# [v3.4.0](https://github.com/framework7io/framework7-cli/compare/v3.3.2...v3.4.0) - June 13, 2020
+  * cordova-ios@6 support
+    * Removed `cordova-plugin-wkwebview-engine` plugin
+    * Added `app://localhost` as default cordova iOS app scheme/host
+
 # [v3.3.2](https://github.com/framework7io/framework7-cli/compare/v3.3.1...v3.3.2) - May 21, 2020
   * Fixed webpack copy plugin errors on build
 
