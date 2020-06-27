@@ -84,7 +84,7 @@ module.exports = function generatePackageJson(options) {
         'svelte-loader',
       ] : []),
       ...(framework === 'vue' ? [
-        'vue-loader',
+        'vue-loader@15',
         'vue-style-loader',
         'vue-template-compiler',
       ] : []),
