@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v3.4.1](https://github.com/framework7io/framework7-cli/compare/v3.4.0...v3.4.1) - June 27, 2020
+  * Fix `vue-loader` to version 15
+
 # [v3.4.0](https://github.com/framework7io/framework7-cli/compare/v3.3.2...v3.4.0) - June 13, 2020
   * cordova-ios@6 support
     * Removed `cordova-plugin-wkwebview-engine` plugin
