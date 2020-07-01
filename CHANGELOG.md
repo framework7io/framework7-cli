@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v3.4.2](https://github.com/framework7io/framework7-cli/compare/v3.4.1...v3.4.2) - July 1, 2020
+  * Fixed wrong `data-view` attribute to be `data-name` on created Views in generated Core templates
+
 # [v3.4.1](https://github.com/framework7io/framework7-cli/compare/v3.4.0...v3.4.1) - June 27, 2020
   * Fix `vue-loader` to version 15
 
