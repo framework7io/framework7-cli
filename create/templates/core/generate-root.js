@@ -31,7 +31,7 @@ module.exports = (options) => {
   const leftPanelWithView = `
     <!-- Left panel with cover effect -->
     <div class="panel panel-left panel-cover theme-dark panel-init" data-visible-breakpoint="960">
-      <div class="view view-init" data-view="left">
+      <div class="view view-init" data-name="left">
         <div class="page">
           <div class="navbar">
             <div class="navbar-bg"></div>
@@ -137,12 +137,12 @@ module.exports = (options) => {
       `)}
 
       <!-- Catalog View -->
-      <div id="view-catalog" class="view view-init tab" data-view="catalog" data-url="/catalog/">
+      <div id="view-catalog" class="view view-init tab" data-name="catalog" data-url="/catalog/">
         <!-- Catalog page will be loaded here dynamically from /catalog/ route -->
       </div>
 
       <!-- Settings View -->
-      <div id="view-settings" class="view view-init tab" data-view="settings" data-url="/settings/">
+      <div id="view-settings" class="view view-init tab" data-name="settings" data-url="/settings/">
         <!-- Settings page will be loaded here dynamically from /settings/ route -->
       </div>
     </div>
