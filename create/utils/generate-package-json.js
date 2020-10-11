@@ -68,8 +68,8 @@ module.exports = function generatePackageJson(options) {
       ] : []),
       'terser-webpack-plugin',
       'url-loader',
-      'webpack',
-      'webpack-cli',
+      'webpack@4',
+      'webpack-cli@3',
       'webpack-dev-server',
       ...(type.indexOf('pwa') >= 0 ? [
         'workbox-webpack-plugin',
