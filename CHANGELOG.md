@@ -2,6 +2,10 @@
 
 # Change Log
 
+# [v3.4.3](https://github.com/framework7io/framework7-cli/compare/v3.4.2...v3.4.3) - Ocober 12, 2020
+  * Force to use supported webpack versions
+  * New cordova commands
+
 # [v3.4.2](https://github.com/framework7io/framework7-cli/compare/v3.4.1...v3.4.2) - July 1, 2020
   * Fixed wrong `data-view` attribute to be `data-name` on created Views in generated Core templates
 
