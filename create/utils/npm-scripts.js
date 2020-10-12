@@ -60,6 +60,16 @@ const npmScripts = {
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build android',
       description: 'build cordova Android app',
     },
+    ca: {
+      icon: '📱',
+      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova run android',
+      description: 'run dev build cordova Android app',
+    },
+    ci: {
+      icon: '📱',
+      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova run ios',
+      description: 'run dev build cordova iOS app',
+    },
     bdce: {
       icon: '🖥',
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build electron',
@@ -111,6 +121,16 @@ const npmScripts = {
       icon: '📱',
       script: 'node ./build/build.js && cd cordova && cordova build android',
       description: 'build cordova Android app',
+    },
+    ca: {
+      icon: '📱',
+      script: 'node ./build/build.js && cd cordova && cordova run android',
+      description: 'run cordova Android app',
+    },
+    ci: {
+      icon: '📱',
+      script: 'node ./build/build.js && cd cordova && cordova run ios',
+      description: 'run cordova iOS app',
     },
     bce: {
       icon: '🖥',

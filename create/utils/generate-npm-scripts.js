@@ -13,10 +13,10 @@ module.exports = (options) => {
     if (type.indexOf('cordova') >= 0) {
       tokens.push('bdc', 'bpc');
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
-        tokens.push('bdci', 'bpci');
+        tokens.push('bdci', 'bpci', 'ci');
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
-        tokens.push('bdca', 'bpca');
+        tokens.push('bdca', 'bpca', 'ca');
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         tokens.push('bdce', 'bpce');
@@ -42,10 +42,10 @@ module.exports = (options) => {
     if (type.indexOf('cordova') >= 0) {
       tokens.push('bc');
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('ios') >= 0) {
-        tokens.push('bci');
+        tokens.push('bci', 'ci');
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
-        tokens.push('bca');
+        tokens.push('bca', 'ca');
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
         tokens.push('bce');
