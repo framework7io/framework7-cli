@@ -1,24 +1,19 @@
-const indent = require('../utils/indent');
-const templateIf = require('../utils/template-if');
+const indent = require("../utils/indent");
+const templateIf = require("../utils/template-if");
 
 module.exports = (options) => {
-  const {
-    framework,
-    type,
-    cordova,
-    webpack,
-  } = options;
+  const { framework, type, cordova, webpack } = options;
   // eslint-disable-next-line
-  const hasCordova = type.indexOf('cordova') >= 0;
+  const hasCordova = type.indexOf("cordova") >= 0;
 
   let resolveExtensions = "['.js', '.json']";
-  if (framework === 'vue') {
+  if (framework === "vue") {
     resolveExtensions = "['.js', '.vue', '.json']";
   }
-  if (framework === 'react') {
+  if (framework === "react") {
     resolveExtensions = "['.js', '.jsx', '.json']";
   }
-  if (framework === 'svelte') {
+  if (framework === "svelte") {
     resolveExtensions = "['.mjs', '.js', '.svelte', '.json']";
   }
 
@@ -26,29 +21,39 @@ module.exports = (options) => {
   if (hasCordova) {
     cordovaOutput = `isCordova ? '${cordova.folder}/www' : 'www'`;
   }
-  if (hasCordova && cordova.platforms.indexOf('electron') >= 0) {
+  if (hasCordova && cordova.platforms.indexOf("electron") >= 0) {
     cordovaOutput = `isCordova ? (isElectronWatch ? '${cordova.folder}/platforms/electron/www' : '${cordova.folder}/www') : 'www'`;
   }
 
-  const productionDevtool = webpack.productionSourceMap ? '\'source-map\'' : false;
-  const developmentDevtool = webpack.developmentSourceMap ? '\'eval\'' : false;
-  const hashName = webpack.hashAssets ? '.[hash:6]' : '';
-  const assetsLoader = webpack.inlineAssets ? 'url-loader' : 'file-loader';
+  const productionDevtool = webpack.productionSourceMap
+    ? "'source-map'"
+    : false;
+  const developmentDevtool = webpack.developmentSourceMap ? "'eval'" : false;
+  const hashName = webpack.hashAssets ? ".[hash:6]" : "";
+  const assetsLoader = webpack.inlineAssets ? "url-loader" : "file-loader";
   const preserveAssetsPaths = webpack.preserveAssetsPaths; // eslint-disable-line
 
-  return indent(0, `
+  return indent(
+    0,
+    `
     const webpack = require('webpack');
     const CopyWebpackPlugin = require('copy-webpack-plugin');
     const HtmlWebpackPlugin = require('html-webpack-plugin');
-    ${templateIf(framework === 'vue', () => `
+    ${templateIf(
+      framework === "vue",
+      () => `
     const VueLoaderPlugin = require('vue-loader/lib/plugin');
-    `)}
+    `
+    )}
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
     const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
     const TerserPlugin = require('terser-webpack-plugin');
-    ${templateIf(type.indexOf('pwa') >= 0, () => `
+    ${templateIf(
+      type.indexOf("pwa") >= 0,
+      () => `
     const WorkboxPlugin = require('workbox-webpack-plugin');
-    `)}
+    `
+    )}
 
     const path = require('path');
 
@@ -58,12 +63,18 @@ module.exports = (options) => {
 
     const env = process.env.NODE_ENV || 'development';
     const target = process.env.TARGET || 'web';
-    ${templateIf(hasCordova, () => `
+    ${templateIf(
+      hasCordova,
+      () => `
     const isCordova = target === 'cordova';
-    `)}
-    ${templateIf(hasCordova && cordova.platforms.indexOf('electron') >= 0, () => `
+    `
+    )}
+    ${templateIf(
+      hasCordova && cordova.platforms.indexOf("electron") >= 0,
+      () => `
     const isElectronWatch = process.env.ELECTRON_WATCH || false;
-    `)}
+    `
+    )}
 
     module.exports = {
       mode: env,
@@ -71,11 +82,15 @@ module.exports = (options) => {
         app: './src/js/app.js',
       },
       output: {
-        ${templateIf(hasCordova, () => `
+        ${templateIf(
+          hasCordova,
+          () => `
         path: resolvePath(${cordovaOutput}),
-        `, () => `
+        `,
+          () => `
         path: resolvePath('www'),
-        `)}
+        `
+        )}
         filename: 'js/[name]${hashName}.js',
         chunkFilename: 'js/[name]${hashName}.js',
         publicPath: '',
@@ -85,14 +100,20 @@ module.exports = (options) => {
       resolve: {
         extensions: ${resolveExtensions},
         alias: {
-          ${templateIf(framework === 'vue', () => `
+          ${templateIf(
+            framework === "vue",
+            () => `
           vue$: 'vue/dist/vue.esm.js',
-          `)}
+          `
+          )}
           '@': resolvePath('src'),
         },
-        ${templateIf(framework === 'svelte', () => `
+        ${templateIf(
+          framework === "svelte",
+          () => `
         mainFields: ['svelte', 'browser', 'module', 'main']
-        `)}
+        `
+        )}
       },
       devtool: env === 'production' ? ${productionDevtool} : ${developmentDevtool},
       devServer: {
@@ -108,7 +129,9 @@ module.exports = (options) => {
       },
       optimization: {
         minimizer: [new TerserPlugin({
-          sourceMap: true,
+          terserOptions: {
+            sourceMap: true,
+          },
         })],
       },
       module: {
@@ -119,22 +142,33 @@ module.exports = (options) => {
             include: [
               resolvePath('src'),
               resolvePath('node_modules/framework7'),
-              ${templateIf(framework === 'vue', () => `
+              ${templateIf(
+                framework === "vue",
+                () => `
               resolvePath('node_modules/framework7-vue'),
-              `)}
-              ${templateIf(framework === 'react', () => `
+              `
+              )}
+              ${templateIf(
+                framework === "react",
+                () => `
               resolvePath('node_modules/framework7-react'),
-              `)}
-              ${templateIf(framework === 'svelte', () => `
+              `
+              )}
+              ${templateIf(
+                framework === "svelte",
+                () => `
               resolvePath('node_modules/framework7-svelte'),
               resolvePath('node_modules/svelte'),
-              `)}
+              `
+              )}
               resolvePath('node_modules/template7'),
               resolvePath('node_modules/dom7'),
               resolvePath('node_modules/ssr-window'),
             ],
           },
-          ${templateIf(framework === 'core', () => `
+          ${templateIf(
+            framework === "core",
+            () => `
           {
             test: /\\.f7.html$/,
             use: [
@@ -147,8 +181,11 @@ module.exports = (options) => {
               },
             ],
           },
-          `)}
-          ${templateIf(framework === 'svelte', () => `
+          `
+          )}
+          ${templateIf(
+            framework === "svelte",
+            () => `
           {
             test: /\\.svelte$/,
             use: {
@@ -158,13 +195,17 @@ module.exports = (options) => {
               },
             },
           },
-          `)}
-          ${templateIf(framework === 'vue', () => `
+          `
+          )}
+          ${templateIf(
+            framework === "vue",
+            () => `
           {
             test: /\\.vue$/,
             use: 'vue-loader',
           },
-          `)}
+          `
+          )}
           {
             test: /\\.css$/,
             use: [
@@ -225,10 +266,15 @@ module.exports = (options) => {
             loader: '${assetsLoader}',
             options: {
               limit: 10000,
-              name: '${preserveAssetsPaths ? '[path]' : 'images/'}[name]${hashName}.[ext]',
-              ${templateIf(preserveAssetsPaths, () => `
+              name: '${
+                preserveAssetsPaths ? "[path]" : "images/"
+              }[name]${hashName}.[ext]',
+              ${templateIf(
+                preserveAssetsPaths,
+                () => `
               context: path.resolve(__dirname, '../src'),
-              `)}
+              `
+              )}
             },
           },
           {
@@ -236,10 +282,15 @@ module.exports = (options) => {
             loader: '${assetsLoader}',
             options: {
               limit: 10000,
-              name: '${preserveAssetsPaths ? '[path]' : 'media/'}[name]${hashName}.[ext]',
-              ${templateIf(preserveAssetsPaths, () => `
+              name: '${
+                preserveAssetsPaths ? "[path]" : "media/"
+              }[name]${hashName}.[ext]',
+              ${templateIf(
+                preserveAssetsPaths,
+                () => `
               context: path.resolve(__dirname, '../src'),
-              `)}
+              `
+              )}
             },
           },
           {
@@ -247,10 +298,15 @@ module.exports = (options) => {
             loader: '${assetsLoader}',
             options: {
               limit: 10000,
-              name: '${preserveAssetsPaths ? '[path]' : 'fonts/'}[name]${hashName}.[ext]',
-              ${templateIf(preserveAssetsPaths, () => `
+              name: '${
+                preserveAssetsPaths ? "[path]" : "fonts/"
+              }[name]${hashName}.[ext]',
+              ${templateIf(
+                preserveAssetsPaths,
+                () => `
               context: path.resolve(__dirname, '../src'),
-              `)}
+              `
+              )}
             },
           },
         ],
@@ -260,9 +316,12 @@ module.exports = (options) => {
           'process.env.NODE_ENV': JSON.stringify(env),
           'process.env.TARGET': JSON.stringify(target),
         }),
-        ${templateIf(framework === 'vue', () => `
+        ${templateIf(
+          framework === "vue",
+          () => `
         new VueLoaderPlugin(),
-        `)}
+        `
+        )}
         ...(env === 'production' ? [
           new OptimizeCSSPlugin({
             cssProcessorOptions: {
@@ -283,7 +342,9 @@ module.exports = (options) => {
           minify: env === 'production' ? {
             collapseWhitespace: true,
             removeComments: true,
-            removeRedundantAttributes: ${framework === 'core' ? 'false' : 'true'},
+            removeRedundantAttributes: ${
+              framework === "core" ? "false" : "true"
+            },
             removeScriptTypeAttributes: true,
             removeStyleLinkTypeAttributes: true,
             useShortDoctype: true
@@ -297,35 +358,50 @@ module.exports = (options) => {
             {
               noErrorOnMissing: true,
               from: resolvePath('src/static'),
-              ${templateIf(hasCordova, () => `
+              ${templateIf(
+                hasCordova,
+                () => `
               to: resolvePath(isCordova ? '${cordova.folder}/www/static' : 'www/static'),
-              `, () => `
+              `,
+                () => `
               to: resolvePath('www/static'),
-              `)}
+              `
+              )}
             },
-            ${templateIf(type.indexOf('pwa') >= 0, () => `
+            ${templateIf(
+              type.indexOf("pwa") >= 0,
+              () => `
             {
               noErrorOnMissing: true,
               from: resolvePath('src/manifest.json'),
               to: resolvePath('www/manifest.json'),
             },
-            `)}
+            `
+            )}
           ],
         }),
-        ${templateIf(type.indexOf('pwa') >= 0 && hasCordova, () => `
+        ${templateIf(
+          type.indexOf("pwa") >= 0 && hasCordova,
+          () => `
         ...(!isCordova ? [
           new WorkboxPlugin.InjectManifest({
             swSrc: resolvePath('src/service-worker.js'),
           })
         ] : []),
-        `, () => `
-        `)}
-        ${templateIf(type.indexOf('pwa') >= 0 && !hasCordova, () => `
+        `,
+          () => `
+        `
+        )}
+        ${templateIf(
+          type.indexOf("pwa") >= 0 && !hasCordova,
+          () => `
         new WorkboxPlugin.InjectManifest({
           swSrc: resolvePath('src/service-worker.js'),
         }),
-        `)}
+        `
+        )}
       ],
     };
-  `).trim();
+  `
+  ).trim();
 };
