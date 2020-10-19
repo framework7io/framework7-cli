@@ -66,7 +66,7 @@ module.exports = function generatePackageJson(options) {
         'node-sass',
         'sass-loader',
       ] : []),
-      'terser-webpack-plugin',
+      'terser-webpack-plugin@4.2.3',
       'url-loader',
       'webpack@4',
       'webpack-cli@3',
