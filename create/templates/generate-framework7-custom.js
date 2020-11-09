@@ -2,25 +2,33 @@ const indent = require('../utils/indent');
 
 module.exports = (options) => {
   const {
-    components = [],
     themes = [],
     rtl = false,
     lightTheme = true,
     darkTheme = true,
+    components = [],
   } = options.customBuildConfig || {};
+
+  const filterCharts(comps) {
+    return comps.filter((c) => {
+      if (c === 'gauge' || c === 'area-chart' || c === 'pie-chart') return false;
+      return true;
+    });
+  }
+
   const { framework } = options;
 
 
-  const componentsImportsJS = components.map((c) => {
+  const componentsImportsJS = filterCharts(components).map((c) => {
     const name = c
       .split('-')
       .map((word) => {
         return word[0].toUpperCase() + word.substring(1);
       })
       .join('');
-    return `import ${name} from 'framework7/components/${c}/${c}.js';`;
+    return `import ${name} from 'framework7/components/${c}';`;
   });
-  const componentsNamesJS = components.map((c) => {
+  const componentsNamesJS = filterCharts(components).map((c) => {
     return c
       .split('-')
       .map((word) => {
@@ -30,7 +38,7 @@ module.exports = (options) => {
   });
 
   const scripts = indent(0, `
-    import Framework7, { Device, Request, Utils } from '${framework === 'core' ? 'framework7' : 'framework7/framework7-lite.esm.js'}';
+    import Framework7, { request, utils, getDevice, createStore } from '${framework === 'core' ? 'framework7' : 'framework7/lite'}';
     ${componentsImportsJS.join('\n    ')}
 
     Framework7.use([
@@ -38,7 +46,7 @@ module.exports = (options) => {
     ]);
 
     export default Framework7;
-    export { Device, Request, Utils };
+    export { request, utils, getDevice, createStore };
   `);
 
   const componentsImportsLESS = components.map((c) => {

@@ -90,9 +90,9 @@ module.exports = (options) => {
   }
 
   return indent(0, `
-    import React from 'react';
+    import React, { useState, useEffect } from 'react';
     ${templateIf(type.indexOf('cordova') >= 0, () => `
-    import { Device }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/framework7-lite.esm.bundle.js'}';
+    import { getDevice }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/lite-bundle'}';
     `)}
     ${template === 'blank' ? `
     import {
@@ -101,6 +101,8 @@ module.exports = (options) => {
     } from 'framework7-react';
     `.trim() : `
     import {
+      f7,
+      f7ready,
       App,
       Panel,
       Views,
@@ -126,105 +128,101 @@ module.exports = (options) => {
     import cordovaApp from '../js/cordova-app';
     `)}
     import routes from '../js/routes';
+    ${templateIf(template === 'tabs', () => `
+    import store from '../js/store';
+    `)}
 
-    export default class extends React.Component {
-      constructor() {
-        super();
-
-        this.state = {
-          // Framework7 Parameters
-          f7params: {
-            ${indent(12, appParameters(options)).trim()}
-          },
-          ${templateIf(template !== 'blank', () => `
-          // Login screen demo data
-          username: '',
-          password: '',
-          `)}
-        }
-      }
-      ${template === 'blank' ? `
-      render() {
-        return (
-          <App params={ this.state.f7params } ${theming.darkTheme ? 'themeDark' : ''}>
-            ${views}
-          </App>
-        );
-      }
-      `.trim() : `
-      render() {
-        return (
-          <App params={ this.state.f7params } ${theming.darkTheme ? 'themeDark' : ''}>
-            ${leftPanel}
-            ${rightPanel}
-            ${views}
-            {/* Popup */}
-            <Popup id="my-popup">
-              <View>
-                <Page>
-                  <Navbar title="Popup">
-                    <NavRight>
-                      <Link popupClose>Close</Link>
-                    </NavRight>
-                  </Navbar>
-                  <Block>
-                    <p>Popup content goes here.</p>
-                  </Block>
-                </Page>
-              </View>
-            </Popup>
-
-            <LoginScreen id="my-login-screen">
-              <View>
-                <Page loginScreen>
-                  <LoginScreenTitle>Login</LoginScreenTitle>
-                  <List form>
-                    <ListInput
-                      type="text"
-                      name="username"
-                      placeholder="Your username"
-                      value={this.state.username}
-                      onInput={(e) => this.setState({username: e.target.value})}
-                    ></ListInput>
-                    <ListInput
-                      type="password"
-                      name="password"
-                      placeholder="Your password"
-                      value={this.state.password}
-                      onInput={(e) => this.setState({password: e.target.value})}
-                    ></ListInput>
-                  </List>
-                  <List>
-                    <ListButton title="Sign In" onClick={() => this.alertLoginData()} />
-                    <BlockFooter>
-                      Some text about login information.<br />Click "Sign In" to close Login Screen
-                    </BlockFooter>
-                  </List>
-                </Page>
-              </View>
-            </LoginScreen>
-          </App>
-        )
-      }
-      `.trim()}
+    const MyApp = () => {
       ${templateIf(template !== 'blank', () => `
-      alertLoginData() {
-        this.$f7.dialog.alert('Username: ' + this.state.username + '<br>Password: ' + this.state.password, () => {
-          this.$f7.loginScreen.close();
+      // Login screen demo data
+      const [username, setUsername] = useState('');
+      const [password, setPassword] = useState('');
+      `)}
+      ${templateIf(type.indexOf('cordova') >= 0, () => `
+      const device = getDevice();
+      `)}
+      // Framework7 Parameters
+      const f7params = {
+        ${indent(10, appParameters(options)).trim()}
+      };
+      ${templateIf(template !== 'blank', () => `
+      const alertLoginData = () => {
+        f7.dialog.alert('Username: ' + username + '<br>Password: ' + password, () => {
+          f7.loginScreen.close();
         });
       }
       `)}
-      componentDidMount() {
-        this.$f7ready((f7) => {
-          ${templateIf(type.indexOf('cordova') >= 0, () => `
-          // Init cordova APIs (see cordova-app.js)
-          if (Device.cordova) {
-            cordovaApp.init(f7);
-          }
-          `.trim())}
-          // Call F7 APIs here
-        });
-      }
+      f7ready(() => {
+        ${templateIf(type.indexOf('cordova') >= 0, () => `
+        // Init cordova APIs (see cordova-app.js)
+        if (f7.device.cordova) {
+          cordovaApp.init(f7);
+        }
+        `.trim())}
+        // Call F7 APIs here
+      });
+
+      ${template === 'blank' ? `
+      return (
+        <App { ...f7params } ${theming.darkTheme ? 'themeDark' : ''}>
+          ${views}
+        </App>
+      );
+      `.trim() : `
+      return (
+        <App { ...f7params } ${theming.darkTheme ? 'themeDark' : ''}>
+          ${leftPanel}
+          ${rightPanel}
+          ${views}
+          {/* Popup */}
+          <Popup id="my-popup">
+            <View>
+              <Page>
+                <Navbar title="Popup">
+                  <NavRight>
+                    <Link popupClose>Close</Link>
+                  </NavRight>
+                </Navbar>
+                <Block>
+                  <p>Popup content goes here.</p>
+                </Block>
+              </Page>
+            </View>
+          </Popup>
+
+          <LoginScreen id="my-login-screen">
+            <View>
+              <Page loginScreen>
+                <LoginScreenTitle>Login</LoginScreenTitle>
+                <List form>
+                  <ListInput
+                    type="text"
+                    name="username"
+                    placeholder="Your username"
+                    value={username}
+                    onInput={(e) => setUsername(e.target.value)}
+                  ></ListInput>
+                  <ListInput
+                    type="password"
+                    name="password"
+                    placeholder="Your password"
+                    value={password}
+                    onInput={(e) => setPassword(e.target.value)}
+                  ></ListInput>
+                </List>
+                <List>
+                  <ListButton title="Sign In" onClick={() => alertLoginData()} />
+                  <BlockFooter>
+                    Some text about login information.<br />Click "Sign In" to close Login Screen
+                  </BlockFooter>
+                </List>
+              </Page>
+            </View>
+          </LoginScreen>
+        </App>
+      )
+      `.trim()}
     }
+    export default MyApp;
   `).trim();
 };

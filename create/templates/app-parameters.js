@@ -12,15 +12,11 @@ module.exports = (options) => {
   } = options;
 
   const hasCordova = type.indexOf('cordova') >= 0;
-
-  const deviceVar = framework === 'core' ? 'Framework7.device' : 'Device';
-
-  const needData = template !== 'blank' && ((template === 'tabs' && framework !== 'core') || !bundler);
-  const needProducts = template === 'tabs' && (framework !== 'core' || !bundler);
+  const needStore = template === 'tabs';
 
   return indent(0, `
     ${templateIf(framework === 'core', () => `
-    root: '#app', // App root element
+    el: '#app', // App root element
     `)}
     ${templateIf(framework === 'core' && bundler, () => `
     component: App, // App main component
@@ -30,60 +26,10 @@ module.exports = (options) => {
     `)}
     name: '${name}', // App name
     theme: 'auto', // Automatic theme detection
-    ${templateIf(template === 'blank' && !bundler, () => `
-    // App root data
-    data() {
-      return {
-        foo: 'bar'
-      };
-    },
-    // App root methods
-    methods: {
-      doSomething() {
-        // ...
-      }
-    },
-    `)}
-    ${templateIf(needData, () => `
-    // App root data
-    data: function () {
-      return {
-        ${templateIf(framework === 'core' && !bundler, () => `
-        user: {
-          firstName: 'John',
-          lastName: 'Doe',
-        },
-        `)}
-        ${templateIf(needProducts, () => `
-        // Demo products for Catalog section
-        products: [
-          {
-            id: '1',
-            title: 'Apple iPhone 8',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
-          },
-          {
-            id: '2',
-            title: 'Apple iPhone 8 Plus',
-            description: 'Velit odit autem modi saepe ratione totam minus, aperiam, labore quia provident temporibus quasi est ut aliquid blanditiis beatae suscipit odio vel! Nostrum porro sunt sint eveniet maiores, dolorem itaque!'
-          },
-          {
-            id: '3',
-            title: 'Apple iPhone X',
-            description: 'Expedita sequi perferendis quod illum pariatur aliquam, alias laboriosam! Vero blanditiis placeat, mollitia necessitatibus reprehenderit. Labore dolores amet quos, accusamus earum asperiores officiis assumenda optio architecto quia neque, quae eum.'
-          },
-        ]
-        `)}
-      };
-    },
-    `)}
-    ${templateIf(framework === 'core' && !bundler && template !== 'blank', () => `
-    // App root methods
-    methods: {
-      helloWorld: function () {
-        app.dialog.alert('Hello World!');
-      },
-    },
+
+    ${templateIf(needStore, () => `
+    // App store
+    store: store,
     `)}
     // App routes
     routes: routes,
@@ -95,15 +41,15 @@ module.exports = (options) => {
     `)}
     ${templateIf(type.indexOf('pwa') >= 0 && hasCordova, () => `
     // Register service worker
-    serviceWorker: ${deviceVar}.cordova ? {} : {
+    serviceWorker: {
       path: '/service-worker.js',
     },
     `)}
     ${templateIf(hasCordova, () => `
     // Input settings
     input: {
-      scrollIntoViewOnFocus: ${deviceVar}.cordova && !${deviceVar}.electron,
-      scrollIntoViewCentered: ${deviceVar}.cordova && !${deviceVar}.electron,
+      scrollIntoViewOnFocus: device.cordova && !device.electron,
+      scrollIntoViewCentered: device.cordova && !device.electron,
     },
     // Cordova Statusbar settings
     statusbar: {

@@ -1,31 +1,23 @@
 import React from 'react';
-import { Page, Navbar, BlockTitle, Block } from 'framework7-react';
+import { Page, Navbar, BlockTitle, Block, useStore } from 'framework7-react';
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    var productId = props.f7route.params.id;
-    var currentProduct;
-    this.$f7.data.products.forEach(function (product) {
-      if (product.id === productId) {
-        currentProduct = product;
-      }
-    });
+export default (props) => {
+  const productId = props.f7route.params.id;
+  const products = useStore('products');
 
-    this.state = {
-      product: currentProduct,
-    };
-
-  }
-  render() {
-    return (
-      <Page name="product">
-        <Navbar title={this.state.product.title} backLink="Back" />
-        <BlockTitle>About {this.state.product.title}</BlockTitle>
-        <Block strong>
-          {this.state.product.description}
-        </Block>
-      </Page>
-    );
-  }
+  var currentProduct;
+  products.forEach(function (product) {
+    if (product.id === productId) {
+      currentProduct = product;
+    }
+  });
+  return (
+    <Page name="product">
+      <Navbar title={currentProduct.title} backLink="Back" />
+      <BlockTitle>About {currentProduct.title}</BlockTitle>
+      <Block strong>
+        {currentProduct.description}
+      </Block>
+    </Page>
+  );
 }

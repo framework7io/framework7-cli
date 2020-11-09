@@ -50,6 +50,8 @@ export default [
   'color-picker',
   'treeview',
   'text-editor',
+  'area-chart',
+  'pie-chart',
   'elevation',
   'typography',
 ];

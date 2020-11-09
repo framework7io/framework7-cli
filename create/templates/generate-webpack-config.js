@@ -41,7 +41,7 @@ module.exports = (options) => {
     const CopyWebpackPlugin = require('copy-webpack-plugin');
     const HtmlWebpackPlugin = require('html-webpack-plugin');
     ${templateIf(framework === 'vue', () => `
-    const VueLoaderPlugin = require('vue-loader/lib/plugin');
+    const { VueLoaderPlugin } = require('vue-loader');
     `)}
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
     const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
@@ -85,9 +85,6 @@ module.exports = (options) => {
       resolve: {
         extensions: ${resolveExtensions},
         alias: {
-          ${templateIf(framework === 'vue', () => `
-          vue$: 'vue/dist/vue.esm.js',
-          `)}
           '@': resolvePath('src'),
         },
         ${templateIf(framework === 'svelte', () => `
@@ -107,6 +104,8 @@ module.exports = (options) => {
         },
       },
       optimization: {
+        namedModules: true,
+        concatenateModules: true,
         minimizer: [new TerserPlugin({
           sourceMap: true,
         })],
@@ -118,20 +117,9 @@ module.exports = (options) => {
             use: 'babel-loader',
             include: [
               resolvePath('src'),
-              resolvePath('node_modules/framework7'),
-              ${templateIf(framework === 'vue', () => `
-              resolvePath('node_modules/framework7-vue'),
-              `)}
-              ${templateIf(framework === 'react', () => `
-              resolvePath('node_modules/framework7-react'),
-              `)}
               ${templateIf(framework === 'svelte', () => `
-              resolvePath('node_modules/framework7-svelte'),
               resolvePath('node_modules/svelte'),
               `)}
-              resolvePath('node_modules/template7'),
-              resolvePath('node_modules/dom7'),
-              resolvePath('node_modules/ssr-window'),
             ],
           },
           ${templateIf(framework === 'core', () => `
@@ -141,9 +129,6 @@ module.exports = (options) => {
               'babel-loader',
               {
                 loader: 'framework7-component-loader',
-                options: {
-                  helpersPath: './src/template7-helpers-list.js',
-                },
               },
             ],
           },
@@ -270,11 +255,9 @@ module.exports = (options) => {
               map: { inline: false },
             },
           }),
-          new webpack.optimize.ModuleConcatenationPlugin(),
         ] : [
           // Development only plugins
           new webpack.HotModuleReplacementPlugin(),
-          new webpack.NamedModulesPlugin(),
         ]),
         new HtmlWebpackPlugin({
           filename: './index.html',
