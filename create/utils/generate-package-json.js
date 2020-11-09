@@ -16,7 +16,7 @@ module.exports = function generatePackageJson(options) {
     ] : []),
     ...(framework === 'vue' ? [
       'framework7-vue@next',
-      'vue@next',
+      'vue@3',
     ] : []),
     ...(framework === 'react' ? [
       'framework7-react@next',
@@ -25,7 +25,7 @@ module.exports = function generatePackageJson(options) {
       'prop-types',
     ] : []),
     ...(framework === 'svelte' ? [
-      'framework7-svelte@5next',
+      'framework7-svelte@next',
       'svelte',
     ] : []),
   ];
@@ -85,9 +85,9 @@ module.exports = function generatePackageJson(options) {
         'svelte-loader',
       ] : []),
       ...(framework === 'vue' ? [
-        'vue-loader@15',
+        'vue-loader@next',
         'vue-style-loader',
-        'vue-template-compiler',
+        '@vue/compiler-sfc',
       ] : []),
     ]);
   }
