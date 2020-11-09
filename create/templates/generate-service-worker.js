@@ -22,11 +22,11 @@ module.exports = (options) => {
     self.__WB_MANIFEST = [
       {
         revision: '1',
-        url: 'framework7/css/framework7.bundle.min.css'
+        url: 'framework7/framework7-bundle.min.css'
       },
       {
         revision: '1',
-        url: 'framework7/js/framework7.bundle.min.js'
+        url: 'framework7/framework7-bundle.min.js'
       },
       {
         revision: '1',
@@ -41,6 +41,10 @@ module.exports = (options) => {
       {
         revision: '1',
         url: 'js/routes.js'
+      },
+      {
+        revision: '1',
+        url: 'js/store.js'
       },
       {
         revision: '1',

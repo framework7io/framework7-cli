@@ -128,9 +128,7 @@ module.exports = (options) => {
     import cordovaApp from '../js/cordova-app';
     `)}
     import routes from '../js/routes';
-    ${templateIf(template === 'tabs', () => `
     import store from '../js/store';
-    `)}
 
     const MyApp = () => {
       ${templateIf(template !== 'blank', () => `

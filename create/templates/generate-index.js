@@ -85,7 +85,7 @@ module.exports = (options) => {
       * Enable inline JS: add 'unsafe-inline' to default-src
   -->
   <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
 
   <meta name="theme-color" content="${theming.customColor && theming.color ? `${theming.color}` : '#007aff'}">
   <meta name="format-detection" content="telephone=no">

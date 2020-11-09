@@ -7,12 +7,10 @@ module.exports = (options) => {
     framework,
     pkg,
     name,
-    template,
     bundler,
   } = options;
 
   const hasCordova = type.indexOf('cordova') >= 0;
-  const needStore = template === 'tabs';
 
   return indent(0, `
     ${templateIf(framework === 'core', () => `
@@ -26,20 +24,11 @@ module.exports = (options) => {
     `)}
     name: '${name}', // App name
     theme: 'auto', // Automatic theme detection
-
-    ${templateIf(needStore, () => `
     // App store
     store: store,
-    `)}
     // App routes
     routes: routes,
-    ${templateIf(type.indexOf('pwa') >= 0 && !hasCordova, () => `
-    // Register service worker
-    serviceWorker: {
-      path: '/service-worker.js',
-    },
-    `)}
-    ${templateIf(type.indexOf('pwa') >= 0 && hasCordova, () => `
+    ${templateIf(type.indexOf('pwa') >= 0, () => `
     // Register service worker
     serviceWorker: {
       path: '/service-worker.js',

@@ -82,7 +82,6 @@ module.exports = (options) => {
       {
         path: '/request-and-load/user/:userId/',
         async: function ({ router, to, resolve }) {
-
           // App instance
           var app = router.app;
 
