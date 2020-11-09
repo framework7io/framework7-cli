@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v3.4.5](https://github.com/framework7io/framework7-cli/compare/v3.4.4...v3.4.5) - November 9, 2020
+  * Force to use dependencies versions for Framework7 v5
+
 # [v3.4.4](https://github.com/framework7io/framework7-cli/compare/v3.4.2...v3.4.3) - Ocober 19, 2020
   * Force to use supported terser plugin
 
