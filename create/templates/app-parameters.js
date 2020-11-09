@@ -13,6 +13,8 @@ module.exports = (options) => {
   const hasCordova = type.indexOf('cordova') >= 0;
 
   return indent(0, `
+    name: '${name}', // App name
+    theme: 'auto', // Automatic theme detection
     ${templateIf(framework === 'core', () => `
     el: '#app', // App root element
     `)}
@@ -22,8 +24,6 @@ module.exports = (options) => {
     ${templateIf(pkg, () => `
     id: '${pkg}', // App bundle ID
     `)}
-    name: '${name}', // App name
-    theme: 'auto', // Automatic theme detection
     // App store
     store: store,
     // App routes
