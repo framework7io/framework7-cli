@@ -17,7 +17,5 @@
 <script>
   import { Page, Navbar, Block, List, ListItem } from 'framework7-svelte';
 
-  export let f7route;
-
-  const user = f7route.context.user;
+  export let user;
 </script>

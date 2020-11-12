@@ -8,13 +8,24 @@
       />
     {/each}
   </List>
+  {#if products.length === 3}
+    <Block>
+      <Button fill onClick={addProduct}>Add Product</Button>
+    </Block>
+  {/if}
 </Page>
 <script>
-  import { f7ready, f7, Page, Navbar, List, ListItem } from 'framework7-svelte';
+  import { Page, Navbar, List, ListItem, Block, Button, useStore } from 'framework7-svelte';
+  import store from '../js/store';
 
-  let products = [];
+  let products = useStore('products', (value) => (products = value));
 
-  f7ready(() => {
-    products = f7.data.products;
-  });
+  const addProduct = () => {
+    store.dispatch('addProduct', {
+      id: '4',
+      title: 'Apple iPhone 12',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
+    });
+  }
+
 </script>

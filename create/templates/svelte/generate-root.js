@@ -91,11 +91,11 @@ module.exports = (options) => {
 
   return indent(0, `
     ${template === 'blank' ? `
-    <App params={ f7params } ${theming.darkTheme ? 'themeDark' : ''}>
+    <App { ...f7params } ${theming.darkTheme ? 'themeDark' : ''}>
       ${views}
     </App>
     `.trim() : `
-    <App params={ f7params } ${theming.darkTheme ? 'themeDark' : ''}>
+    <App { ...f7params } ${theming.darkTheme ? 'themeDark' : ''}>
       ${leftPanel}
       ${rightPanel}
       ${views}
@@ -125,15 +125,13 @@ module.exports = (options) => {
                 type="text"
                 name="username"
                 placeholder="Your username"
-                value={username}
-                onInput={(e) => username = e.target.value}
+                bind:value={username}
               />
               <ListInput
                 type="password"
                 name="password"
                 placeholder="Your password"
-                value={password}
-                onInput={(e) => password = e.target.value}
+                bind:value={password}
               />
             </List>
             <List>
@@ -150,7 +148,7 @@ module.exports = (options) => {
     <script>
       import { onMount } from 'svelte';
       ${templateIf(type.indexOf('cordova') >= 0, () => `
-      import { Device }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/framework7-lite.esm.bundle.js'}';
+      import { getDevice }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/lite-bundle'}';
       `)}
       ${templateIf(template === 'blank', () => `
       import {
@@ -188,6 +186,7 @@ module.exports = (options) => {
       import cordovaApp from '../js/cordova-app';
       `)}
       import routes from '../js/routes';
+      import store from '../js/store';
 
       // Framework7 Parameters
       let f7params = {

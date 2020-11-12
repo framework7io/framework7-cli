@@ -6,13 +6,14 @@
   </Block>
 </Page>
 <script>
-  import { f7, Page, Navbar, BlockTitle, Block } from 'framework7-svelte';
+  import { Page, Navbar, BlockTitle, Block, useStore } from 'framework7-svelte';
 
   export let f7route;
 
+  const products = useStore('products');
   const productId = f7route.params.id;
   let currentProduct;
-  f7.data.products.forEach(function (product) {
+  products.forEach(function (product) {
     if (product.id === productId) {
       currentProduct = product;
     }
