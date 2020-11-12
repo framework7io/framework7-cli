@@ -18,10 +18,8 @@
 </template>
 <script>
   export default {
-    data() {
-      return {
-        user: this.$f7route.context.user,
-      }
+    props: {
+      user: Object,
     }
   }
 </script>

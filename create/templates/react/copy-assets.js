@@ -44,12 +44,10 @@ module.exports = (options) => {
     content: generateRoot(options),
     to: path.resolve(cwd, 'src', 'components', 'app.jsx'),
   });
-  if (template === 'tabs') {
-    toCopy.push({
-      content: generateStore(options),
-      to: path.resolve(cwd, 'src', 'js', 'store.js'),
-    });
-  }
+  toCopy.push({
+    content: generateStore(options),
+    to: path.resolve(cwd, 'src', 'js', 'store.js'),
+  });
 
   if (bundler) {
     toCopy.push({

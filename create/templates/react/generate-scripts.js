@@ -4,7 +4,6 @@ const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
   const {
-    bundler,
     cssPreProcessor,
     theming,
     customBuild,
@@ -23,7 +22,6 @@ module.exports = (options) => {
     // Import Framework7-React Plugin
     import Framework7React from 'framework7-react';
 
-    ${templateIf(bundler === 'webpack', () => `
     // Import Framework7 Styles
     ${templateIf(customBuild, () => `
     import '../css/framework7-custom.less';
@@ -36,7 +34,6 @@ module.exports = (options) => {
     import '../css/icons.css';
     `)}
     import '../css/app.${stylesExtension(cssPreProcessor)}';
-    `)}
 
     // Import App Component
     import App from '../components/app.jsx';

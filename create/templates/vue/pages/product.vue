@@ -8,11 +8,17 @@
   </f7-page>
 </template>
 <script>
+  import { useStore } from 'framework7-vue';
+
   export default {
-    data: function () {
-      var productId = this.$f7route.params.id;
-      var currentProduct;
-      this.$f7.data.products.forEach(function (product) {
+    props: {
+      f7route: Object,
+    },
+    setup(props) {
+      const products = useStore('products');
+      const productId = props.f7route.params.id;
+      let currentProduct;
+      products.forEach(function (product) {
         if (product.id === productId) {
           currentProduct = product;
         }
@@ -20,6 +26,6 @@
       return {
         product: currentProduct,
       };
-    }
+    },
   };
 </script>

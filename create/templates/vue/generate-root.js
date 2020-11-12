@@ -93,11 +93,11 @@ module.exports = (options) => {
   return indent(0, `
     <template>
       ${template === 'blank' ? `
-      <f7-app :params="f7params" ${theming.darkTheme ? 'theme-dark' : ''}>
+      <f7-app v-bind="f7params" ${theming.darkTheme ? 'theme-dark' : ''}>
         ${views}
       </f7-app>
       `.trim() : `
-      <f7-app :params="f7params" ${theming.darkTheme ? 'theme-dark' : ''}>
+      <f7-app v-bind="f7params" ${theming.darkTheme ? 'theme-dark' : ''}>
         ${leftPanel}
         ${rightPanel}
         ${views}
@@ -127,15 +127,13 @@ module.exports = (options) => {
                   type="text"
                   name="username"
                   placeholder="Your username"
-                  :value="username"
-                  @input="username = $event.target.value"
+                  v-model:value="username"
                 ></f7-list-input>
                 <f7-list-input
                   type="password"
                   name="password"
                   placeholder="Your password"
-                  :value="password"
-                  @input="password = $event.target.value"
+                  v-model:value="password"
                 ></f7-list-input>
               </f7-list>
               <f7-list>
@@ -151,45 +149,53 @@ module.exports = (options) => {
       `.trim()}
     </template>
     <script>
+      import { ref, onMounted } from 'vue';
+      import { f7, f7ready } from 'framework7-vue';
       ${templateIf(type.indexOf('cordova') >= 0, () => `
-      import { Device }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/framework7-lite.esm.bundle.js'}';
+      import { getDevice }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/lite-bundle'}';
       import cordovaApp from '../js/cordova-app.js';
       `)}
       import routes from '../js/routes.js';
+      import store from '../js/store';
 
       export default {
-        data() {
-          return {
-            // Framework7 Parameters
-            f7params: {
-              ${indent(14, appParameters(options)).trim()}
-            },
-            ${templateIf(template !== 'blank', () => `
-            // Login screen data
-            username: '',
-            password: '',
-            `)}
-          }
-        },
-        ${templateIf(template !== 'blank', () => `
-        methods: {
-          alertLoginData() {
-            this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password, () => {
-              this.$f7.loginScreen.close();
+        setup() {
+          ${templateIf(type.indexOf('cordova') >= 0, () => `
+          const device = getDevice();
+          `)}
+          // Framework7 Parameters
+          const f7params = {
+            ${indent(12, appParameters(options)).trim()}
+          };
+          ${templateIf(template !== 'blank', () => `
+          // Login screen data
+          const username = ref('');
+          const password = ref('');
+
+          const alertLoginData = () => {
+            f7.dialog.alert('Username: ' + username.value + '<br>Password: ' + password.value, () => {
+              f7.loginScreen.close();
             });
           }
-        },
-        `)}
-        mounted() {
-          this.$f7ready((f7) => {
-            ${templateIf(type.indexOf('cordova') >= 0, () => `
-            // Init cordova APIs (see cordova-app.js)
-            if (Device.cordova) {
-              cordovaApp.init(f7);
-            }
-            `)}
-            // Call F7 APIs here
+          `)}
+          onMounted(() => {
+            f7ready(() => {
+              ${templateIf(type.indexOf('cordova') >= 0, () => `
+              // Init cordova APIs (see cordova-app.js)
+              if (device.cordova) {
+                cordovaApp.init(f7);
+              }
+              `)}
+              // Call F7 APIs here
+            });
           });
+
+          return {
+            f7params,
+            username,
+            password,
+            ${templateIf(template !== 'blank', () => 'alertLoginData')},
+          }
         }
       }
     </script>

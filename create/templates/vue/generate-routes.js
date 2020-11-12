@@ -22,7 +22,7 @@ module.exports = (options) => {
   }
 
   // Webpack Routes
-  const routes = indent(0, `
+  const routes = indent(0, /* js */`
     import HomePage from '../pages/home.vue';
     import AboutPage from '../pages/about.vue';
     import FormPage from '../pages/form.vue';

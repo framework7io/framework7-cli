@@ -52,14 +52,18 @@
       <f7-list-item
         title="Toggle"
       >
-        <f7-toggle slot="after"></f7-toggle>
+        <template #after>
+          <f7-toggle />
+        </template>
       </f7-list-item>
 
       <f7-list-input
         label="Range"
         :input="false"
       >
-        <f7-range slot="input" :value="50" :min="0" :max="100" :step="1"></f7-range>
+        <template #input>
+          <f7-range :value="50" :min="0" :max="100" :step="1" />
+        </template>
       </f7-list-input>
 
       <f7-list-input

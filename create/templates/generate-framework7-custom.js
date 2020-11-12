@@ -9,12 +9,12 @@ module.exports = (options) => {
     components = [],
   } = options.customBuildConfig || {};
 
-  const filterCharts(comps) {
+  const filterCharts = (comps) => {
     return comps.filter((c) => {
       if (c === 'gauge' || c === 'area-chart' || c === 'pie-chart') return false;
       return true;
     });
-  }
+  };
 
   const { framework } = options;
 

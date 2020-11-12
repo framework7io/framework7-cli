@@ -1,7 +1,7 @@
 const path = require('path');
 const generateHomePage = require('./generate-home-page');
 const generateRoot = require('./generate-root');
-
+const generateStore = require('../generate-store');
 
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
@@ -43,6 +43,10 @@ module.exports = (options) => {
   toCopy.push({
     content: generateRoot(options),
     to: path.resolve(cwd, 'src', 'components', 'app.vue'),
+  });
+  toCopy.push({
+    content: generateStore(options),
+    to: path.resolve(cwd, 'src', 'js', 'store.js'),
   });
 
   if (bundler) {

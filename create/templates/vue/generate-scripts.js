@@ -4,7 +4,6 @@ const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
   const {
-    bundler,
     cssPreProcessor,
     theming,
     customBuild,
@@ -14,20 +13,19 @@ module.exports = (options) => {
 
   scripts += indent(0, `
     // Import Vue
-    import Vue from 'vue';
+    import { createApp } from 'vue';
 
     // Import Framework7
-    import Framework7 from '${customBuild ? './framework7-custom.js' : 'framework7/framework7-lite.esm.bundle.js'}';
+    import Framework7 from '${customBuild ? './framework7-custom.js' : 'framework7/lite-bundle'}';
 
     // Import Framework7-Vue Plugin
-    import Framework7Vue from 'framework7-vue/framework7-vue.esm.bundle.js';
+    import Framework7Vue, { registerComponents } from 'framework7-vue/bundle';
 
-    ${templateIf(bundler === 'webpack', () => `
     // Import Framework7 Styles
     ${templateIf(customBuild, () => `
     import '../css/framework7-custom.less';
     `, () => `
-    import 'framework7/css/framework7.bundle.css';
+    import 'framework7/framework7-bundle.css';
     `)}
 
     // Import Icons and App Custom Styles
@@ -35,7 +33,6 @@ module.exports = (options) => {
     import '../css/icons.css';
     `)}
     import '../css/app.${stylesExtension(cssPreProcessor)}';
-    `)}
 
     // Import App Component
     import App from '../components/app.vue';
@@ -44,15 +41,13 @@ module.exports = (options) => {
     Framework7.use(Framework7Vue);
 
     // Init App
-    new Vue({
-      el: '#app',
-      render: (h) => h(App),
+    const app = createApp(App);
 
-      // Register App Component
-      components: {
-        app: App
-      },
-    });
+    // Register Framework7 Vue components
+    registerComponents(app);
+
+    // Mount the app
+    app.mount('#app');
   `);
 
   return scripts.trim();
