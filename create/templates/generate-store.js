@@ -1,10 +1,12 @@
 const indent = require('../utils/indent');
+const templateIf = require('../utils/template-if');
+
 
 module.exports = (options) => {
-  const { framework } = options;
+  const { framework, bundler } = options;
   return indent(0, `
-  import { createStore } from 'framework7${framework === 'core' ? '' : '/lite'}'
-
+  ${templateIf(bundler, () => `import { createStore } from 'framework7${framework === 'core' ? '' : '/lite'}';`)}
+  ${templateIf(!bundler, () => 'var createStore = Framework7.createStore;')}
   const store = createStore({
     state: {
       products: [
@@ -36,6 +38,6 @@ module.exports = (options) => {
       },
     },
   })
-  export default store;
+  ${templateIf(bundler, () => 'export default store;')}
   `);
 };

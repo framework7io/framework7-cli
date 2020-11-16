@@ -9,30 +9,28 @@
             <span class="if-not-md">Back</span>
           </a>
         </div>
-        <div class="title">{{product.title}}</div>
+        <div class="title">${currentProduct.title}</div>
       </div>
     </div>
     <div class="page-content">
-      <div class="block-title">About {{product.title}}</div>
+      <div class="block-title">About ${currentProduct.title}</div>
       <div class="block block-strong">
-        {{product.description}}
+        ${currentProduct.description}
       </div>
     </div>
   </div>
 </template>
 <script>
-  return {
-    data: function () {
-      var productId = this.$route.params.id;
-      var currentProduct;
-      this.$root.products.forEach(function (product) {
-        if (product.id === productId) {
-          currentProduct = product;
-        }
-      });
-      return {
-        product: currentProduct,
-      };
-    }
+  export default (props, { $f7route, $store }) => {
+    const products = $store.getters.products;
+    const productId = $f7route.params.id;
+    let currentProduct;
+    products.value.forEach((product) => {
+      if (product.id === productId) {
+        currentProduct = product;
+      }
+    });
+
+    return $render;
   };
 </script>

@@ -188,10 +188,7 @@ module.exports = (options) => {
         },
         {
           path: '/request-and-load/user/:userId/',
-          async: function (routeTo, routeFrom, resolve, reject) {
-            // Router instance
-            var router = this;
-
+          async: function ({ router, to, resolve }) {
             // App instance
             var app = router.app;
 
@@ -199,7 +196,7 @@ module.exports = (options) => {
             app.preloader.show();
 
             // User ID from request
-            var userId = routeTo.params.userId;
+            var userId = to.params.userId;
 
             // Simulate Ajax Request
             setTimeout(function () {
@@ -228,7 +225,7 @@ module.exports = (options) => {
                   componentUrl: './pages/request-and-load.html',
                 },
                 {
-                  context: {
+                  props: {
                     user: user,
                   }
                 }

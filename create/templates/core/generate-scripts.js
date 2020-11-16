@@ -16,15 +16,14 @@ module.exports = (options) => {
       ${templateIf(customBuild, () => `
       import Framework7 from './framework7-custom.js';
       `, () => `
-      import Framework7 from 'framework7/framework7.esm.bundle.js';
+      import Framework7 from 'framework7/bundle';
       `)}
 
-      ${templateIf(bundler === 'webpack', () => `
       // Import F7 Styles
       ${templateIf(customBuild, () => `
       import '../css/framework7-custom.less';
       `, () => `
-      import 'framework7/css/framework7.bundle.css';
+      import 'framework7/framework7-bundle.css';
       `)}
 
       // Import Icons and App Custom Styles
@@ -32,13 +31,14 @@ module.exports = (options) => {
       import '../css/icons.css';
       `)}
       import '../css/app.${stylesExtension(cssPreProcessor)}';
-      `)}
       ${templateIf(type.indexOf('cordova') >= 0, () => `
       // Import Cordova APIs
       import cordovaApp from './cordova-app.js';
       `)}
       // Import Routes
       import routes from './routes.js';
+      // Import Store
+      import store from './store.js';
 
       // Import main app component
       import App from '../app.f7.html';
@@ -63,7 +63,7 @@ module.exports = (options) => {
       app.loginScreen.close('#my-login-screen');
 
       // Alert username and password
-      app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
+      app.dialog.alert('Username: ' + username + '<br/>Password: ' + password);
     });
     `)}
   `);

@@ -9,20 +9,32 @@
     <div class="page-content">
       <div class="list links-list">
         <ul>
-          {{#each products}}
-            <li><a href="/product/{{id}}/">{{title}}</a></li>
-          {{/each}}
+          ${products.value.map((product) => $h`
+            <li><a href="/product/${product.id}/">${product.title}</a></li>
+          `)}
         </ul>
       </div>
+      ${products.value.length === 3 && $h`
+        <div class="block">
+          <button class="button button-fill" @click=${addProduct}>Add Product</Button>
+        </div>
+      `}
     </div>
   </div>
 </template>
 <script>
-  return {
-    data: function () {
-      return {
-        products: this.$root.products,
-      };
+  export default (props, { $store }) => {
+    const products = $store.getters.products;
+
+    const addProduct = () => {
+      $store.dispatch('addProduct', {
+        id: '4',
+        title: 'Apple iPhone 12',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
+      });
     }
-  };
+
+    return $render;
+  }
+
 </script>

@@ -191,10 +191,10 @@ module.exports = (options) => {
                     <div class="item-title item-label">Username</div>
                     <div class="item-input-wrap">
                       ${templateIf(bundler, () => `
-                        <input type="text" name="username" placeholder="Your username" value="{{username}}" @input="updateUsername">
+                        <input type="text" name="username" placeholder="Your username" value="\${username}" @input="\${updateUsername}"/>
                       `)}
                       ${templateIf(!bundler, () => `
-                        <input type="text" name="username" placeholder="Your username">
+                        <input type="text" name="username" placeholder="Your username"/>
                       `)}
                     </div>
                   </div>
@@ -204,10 +204,10 @@ module.exports = (options) => {
                     <div class="item-title item-label">Password</div>
                     <div class="item-input-wrap">
                       ${templateIf(bundler, () => `
-                        <input type="password" name="password" placeholder="Your password" value="{{password}}" @input="updatePassword">
+                        <input type="password" name="password" placeholder="Your password" value="\${password}" @input="\${updatePassword}"/>
                       `)}
                       ${templateIf(!bundler, () => `
-                        <input type="password" name="password" placeholder="Your password">
+                        <input type="password" name="password" placeholder="Your password"/>
                       `)}
                     </div>
                   </div>
@@ -218,14 +218,14 @@ module.exports = (options) => {
               <ul>
                 <li>
                   ${templateIf(bundler, () => `
-                  <a href="#" class="item-link list-button login-button" @click="alertLoginData">Sign In</a>
+                  <a href="#" class="item-link list-button login-button" @click="\${alertLoginData}">Sign In</a>
                   `)}
                   ${templateIf(!bundler, () => `
                   <a href="#" class="item-link list-button login-button">Sign In</a>
                   `)}
                 </li>
               </ul>
-              <div class="block-footer">Some text about login information.<br>Click "Sign In" to close Login Screen</div>
+              <div class="block-footer">Some text about login information.<br/>Click "Sign In" to close Login Screen</div>
             </div>
           </div>
         </div>
@@ -242,19 +242,8 @@ module.exports = (options) => {
           </div>
         </template>
         <script>
-          export default {
-            // App root data
-            data() {
-              return {
-                foo: 'bar'
-              };
-            },
-            // App root methods
-            methods: {
-              doSomething() {
-                // ...
-              }
-            },
+          export default () => {
+            return $render;
           }
         </script>
       `);
@@ -266,56 +255,26 @@ module.exports = (options) => {
         </div>
       </template>
       <script>
-        export default {
-          data() {
-            return {
-              user: {
-                firstName: 'John',
-                lastName: 'Doe',
-              },
-              // Login screen demo data
-              username: '',
-              password: '',
-              ${templateIf(template === 'tabs', () => `
-              // Demo products for Catalog section
-              products: [
-                {
-                  id: '1',
-                  title: 'Apple iPhone 8',
-                  description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
-                },
-                {
-                  id: '2',
-                  title: 'Apple iPhone 8 Plus',
-                  description: 'Velit odit autem modi saepe ratione totam minus, aperiam, labore quia provident temporibus quasi est ut aliquid blanditiis beatae suscipit odio vel! Nostrum porro sunt sint eveniet maiores, dolorem itaque!'
-                },
-                {
-                  id: '3',
-                  title: 'Apple iPhone X',
-                  description: 'Expedita sequi perferendis quod illum pariatur aliquam, alias laboriosam! Vero blanditiis placeat, mollitia necessitatibus reprehenderit. Labore dolores amet quos, accusamus earum asperiores officiis assumenda optio architecto quia neque, quae eum.'
-                },
-              ]
-              `)}
-            };
-          },
-          methods: {
-            helloWorld() {
-              this.$f7.dialog.alert('Hello World!');
-            },
-            updateUsername(e) {
-              this.username = e.target.value;
-              this.$update();
-            },
-            updatePassword(e) {
-              this.password = e.target.value;
-              this.$update();
-            },
-            alertLoginData() {
-              this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password, () => {
-                this.$f7.loginScreen.close();
-              });
-            }
-          },
+        export default (props, { $f7, $update }) => {
+          // Login screen demo data
+          let username = '';
+          let password = '';
+
+          const updateUsername = (e) => {
+            username = e.target.value;
+            $update();
+          }
+          const updatePassword = (e) => {
+            password = e.target.value;
+            $update();
+          }
+          const alertLoginData = () => {
+            $f7.dialog.alert('Username: ' + username + '<br/>Password: ' + password, () => {
+              $f7.loginScreen.close();
+            });
+          }
+
+          return $render;
         }
       </script>
     `);

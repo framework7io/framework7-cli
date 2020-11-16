@@ -34,7 +34,6 @@ module.exports = function generatePackageJson(options) {
   if (bundler === 'webpack') {
     devDependencies.push(...[
       '@babel/core',
-      '@babel/plugin-syntax-dynamic-import',
       '@babel/plugin-transform-runtime',
       '@babel/preset-env',
       '@babel/runtime',
@@ -76,9 +75,9 @@ module.exports = function generatePackageJson(options) {
         'workbox-webpack-plugin',
       ] : []),
       ...(framework === 'core' ? [
-        'framework7-component-loader',
+        'framework7-component-loader@next',
       ] : []),
-      ...(framework === 'react' ? [
+      ...(framework === 'react' || (framework === 'core' && bundler) ? [
         '@babel/preset-react',
       ] : []),
       ...(framework === 'svelte' ? [
