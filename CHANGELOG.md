@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v4.0.0-beta.4](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.3...v4.0.0-beta.4) - November 16, 2020
+  * Support for React fast refresh
+
 # [v4.0.0-beta.3](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.2...v4.0.0-beta.3) - November 16, 2020
   * Support for webpack 5
 
