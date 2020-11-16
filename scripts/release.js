@@ -41,7 +41,7 @@ async function release() {
   await exec.promise(`git tag v${pkg.version}`);
   await exec.promise('git push origin --tags');
   if (options.beta) {
-    await exec.promise('npm publish --tag beta');
+    await exec.promise('npm publish --tag next');
   } else {
     await exec.promise('npm publish');
   }
