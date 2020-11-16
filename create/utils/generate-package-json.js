@@ -66,10 +66,10 @@ module.exports = function generatePackageJson(options) {
         'node-sass',
         'sass-loader',
       ] : []),
-      'terser-webpack-plugin@4.2.3',
+      'terser-webpack-plugin',
       'url-loader',
-      'webpack@4',
-      'webpack-cli@3',
+      'webpack',
+      'webpack-cli',
       'webpack-dev-server',
       ...(type.indexOf('pwa') >= 0 ? [
         'workbox-webpack-plugin',

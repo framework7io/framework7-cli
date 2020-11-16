@@ -104,11 +104,8 @@ module.exports = (options) => {
         },
       },
       optimization: {
-        namedModules: true,
         concatenateModules: true,
-        minimizer: [new TerserPlugin({
-          sourceMap: true,
-        })],
+        minimizer: [new TerserPlugin()],
       },
       module: {
         rules: [

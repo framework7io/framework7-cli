@@ -97,7 +97,7 @@ const npmScripts = {
     },
     d: {
       icon: '🔧',
-      script: 'cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js',
+      script: 'cross-env NODE_ENV=development webpack serve --config ./build/webpack.config.js',
       description: 'run development server',
     },
     s: {
