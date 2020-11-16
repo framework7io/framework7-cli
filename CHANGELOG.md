@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v4.0.0-beta.1](https://github.com/framework7io/framework7-cli/compare/v3.4.5...v4.0.0-beta.1) - November 16, 2020
+  * Updated to support Framework7 v6
+
 # [v3.4.5](https://github.com/framework7io/framework7-cli/compare/v3.4.4...v3.4.5) - November 9, 2020
   * Force to use dependencies versions for Framework7 v5
 
