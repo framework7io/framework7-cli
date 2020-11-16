@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [v4.0.0-beta.3](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.2...v4.0.0-beta.3) - November 16, 2020
+  * Support for webpack 5
+
+# [v4.0.0-beta.2](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.1...v4.0.0-beta.2) - November 16, 2020
+  * Support for pure JSX core components
+
 # [v4.0.0-beta.1](https://github.com/framework7io/framework7-cli/compare/v3.4.5...v4.0.0-beta.1) - November 16, 2020
   * Updated to support Framework7 v6
 
