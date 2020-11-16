@@ -124,12 +124,10 @@ module.exports = (options) => {
           },
           ${templateIf(framework === 'core', () => `
           {
-            test: /\\.f7.html$/,
+            test: /\\.f7.(html|js)$/,
             use: [
               'babel-loader',
-              {
-                loader: 'framework7-component-loader',
-              },
+              'framework7-loader',
             ],
           },
           `)}

@@ -75,7 +75,7 @@ module.exports = function generatePackageJson(options) {
         'workbox-webpack-plugin',
       ] : []),
       ...(framework === 'core' ? [
-        'framework7-component-loader@next',
+        'framework7-loader',
       ] : []),
       ...(framework === 'react' || (framework === 'core' && bundler) ? [
         '@babel/preset-react',
