@@ -2,7 +2,7 @@ import React from 'react';
 import { Page, Navbar, List, ListItem, Block, Button, useStore } from 'framework7-react';
 import store from '../js/store'
 
-export default () => {
+const CatalogPage = () => {
   const products = useStore('products');
 
   const addProduct = () => {
@@ -33,3 +33,5 @@ export default () => {
     </Page>
   );
 }
+
+export default CatalogPage;

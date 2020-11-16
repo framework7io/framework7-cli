@@ -1,7 +1,7 @@
 import React from 'react';
 import { Page, Navbar, Block } from 'framework7-react';
 
-export default () => (
+const LeftPage2 = () => (
   <Page>
     <Navbar title="Left Page 2" backLink="Back" />
     <Block strong>
@@ -12,3 +12,5 @@ export default () => (
     </Block>
   </Page>
 );
+
+export default LeftPage2;

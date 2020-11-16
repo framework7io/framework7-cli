@@ -1,7 +1,7 @@
 import React from 'react';
 import { Page, Navbar, BlockTitle, Block, useStore } from 'framework7-react';
 
-export default (props) => {
+const ProductPage = (props) => {
   const productId = props.f7route.params.id;
   const products = useStore('products');
 
@@ -21,3 +21,5 @@ export default (props) => {
     </Page>
   );
 }
+
+export default ProductPage;

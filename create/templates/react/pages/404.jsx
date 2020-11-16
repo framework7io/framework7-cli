@@ -1,7 +1,7 @@
 import React from 'react';
 import { Page, Navbar, Block } from 'framework7-react';
 
-export default () => (
+const NotFoundPage = () => (
   <Page>
     <Navbar title="Not found" backLink="Back" />
     <Block strong>
@@ -10,3 +10,5 @@ export default () => (
     </Block>
   </Page>
 );
+
+export default NotFoundPage;

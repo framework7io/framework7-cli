@@ -43,13 +43,15 @@ module.exports = (options) => {
     ${templateIf(framework === 'vue', () => `
     const { VueLoaderPlugin } = require('vue-loader');
     `)}
+    ${templateIf(framework === 'react', () => `
+    const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+    `)}
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
     const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
     const TerserPlugin = require('terser-webpack-plugin');
     ${templateIf(type.indexOf('pwa') >= 0, () => `
     const WorkboxPlugin = require('workbox-webpack-plugin');
     `)}
-
     const path = require('path');
 
     function resolvePath(dir) {
@@ -67,6 +69,7 @@ module.exports = (options) => {
 
     module.exports = {
       mode: env,
+      target: env === "development" ? "web" : "browserslist",
       entry: {
         app: './src/js/app.js',
       },
@@ -99,9 +102,6 @@ module.exports = (options) => {
         contentBase: '/www/',
         disableHostCheck: true,
         historyApiFallback: true,
-        watchOptions: {
-          poll: 1000,
-        },
       },
       optimization: {
         concatenateModules: true,
@@ -111,13 +111,24 @@ module.exports = (options) => {
         rules: [
           {
             test: /\\.(mjs|js|jsx)$/,
-            use: 'babel-loader',
             include: [
               resolvePath('src'),
               ${templateIf(framework === 'svelte', () => `
               resolvePath('node_modules/svelte'),
               `)}
             ],
+            use: [
+              {
+                loader: require.resolve('babel-loader'),
+                ${templateIf(framework === 'react', () => `
+                options: {
+                  plugins: [
+                    env === 'development' && require.resolve('react-refresh/babel'),
+                  ]
+                }
+                `)}
+              },
+            ]
           },
           ${templateIf(framework === 'core', () => `
           {
@@ -253,6 +264,7 @@ module.exports = (options) => {
         ] : [
           // Development only plugins
           new webpack.HotModuleReplacementPlugin(),
+          ${templateIf(framework === 'react', () => 'new ReactRefreshWebpackPlugin(),')}
         ]),
         new HtmlWebpackPlugin({
           filename: './index.html',

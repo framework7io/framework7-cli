@@ -80,6 +80,10 @@ module.exports = function generatePackageJson(options) {
       ...(framework === 'react' || (framework === 'core' && bundler) ? [
         '@babel/preset-react',
       ] : []),
+      ...(framework === 'react' ? [
+        '@pmmmwh/react-refresh-webpack-plugin',
+        'react-refresh',
+      ] : []),
       ...(framework === 'svelte' ? [
         'svelte-loader',
       ] : []),

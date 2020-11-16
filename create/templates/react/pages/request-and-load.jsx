@@ -1,7 +1,7 @@
 import React from 'react';
 import { Page, Navbar, Block, List, ListItem } from 'framework7-react';
 
-export default (props) => {
+const RequestAndLoad = (props) => {
   const { user } = props;
 
   return (
@@ -24,3 +24,5 @@ export default (props) => {
     </Page>
   );
 }
+
+export default RequestAndLoad;

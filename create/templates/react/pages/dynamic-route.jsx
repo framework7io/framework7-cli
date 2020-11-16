@@ -1,7 +1,7 @@
 import React from 'react';
 import { Page, Navbar, Block, Link } from 'framework7-react';
 
-export default (props) => {
+const DynamicRoutePage = (props) => {
   const { f7route, f7router } = props;
   return (
     <Page>
@@ -34,3 +34,5 @@ export default (props) => {
     </Page>
   );
 }
+
+export default DynamicRoutePage;

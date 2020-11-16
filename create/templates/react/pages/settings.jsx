@@ -13,7 +13,7 @@ import {
   Block
 } from 'framework7-react';
 
-export default () => (
+const SettingsPage = () => (
   <Page name="settings">
     <Navbar title="Settings" />
 
@@ -171,3 +171,5 @@ export default () => (
     </List>
   </Page>
 );
+
+export default SettingsPage;

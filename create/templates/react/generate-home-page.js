@@ -61,7 +61,7 @@ module.exports = (options) => {
     } from 'framework7-react';
     `.trim()}
 
-    export default () => (
+    const HomePage = () => (
       <Page name="home">
         {/* Top Navbar */}
         ${template === 'blank' ? `
@@ -141,5 +141,6 @@ module.exports = (options) => {
         `.trim() : ''}
       </Page>
     );
+    export default HomePage;
   `).trim();
 };
