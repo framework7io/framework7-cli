@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v4.0.0-beta.5](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.4...v4.0.0-beta.5) - November 30, 2020
+  * Fixed generated styles for fill bars
+
 # [v4.0.0-beta.4](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.3...v4.0.0-beta.4) - November 16, 2020
   * Support for React fast refresh
 
