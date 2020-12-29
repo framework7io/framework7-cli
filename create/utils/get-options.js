@@ -20,6 +20,10 @@ const questions = [
         name: 'Cordova app (targets native iOS and Android apps, or native desktop app with Electron)',
         value: 'cordova',
       },
+      {
+        name: 'Capacitor app (targets native iOS and Android apps, or native desktop app with Electron)',
+        value: 'capacitor',
+      },
     ],
     validate(input) {
       return new Promise((resolve, reject) => {
@@ -47,7 +51,7 @@ const questions = [
     name: 'pkg',
     message: 'App package (Bundle ID):',
     default: 'io.framework7.myapp',
-    when: (opts) => opts.type.indexOf('cordova') >= 0,
+    when: (opts) => opts.type.indexOf('cordova') >= 0 || opts.type.indexOf('capacitor') >= 0,
     validate(input) {
       return new Promise((resolve, reject) => {
         if (!input) reject(new Error('App package (Bundle ID) is required for cordova app'));
@@ -80,6 +84,30 @@ const questions = [
         name: 'macOS (native macOS desktop app)',
         value: 'osx',
         checked: false,
+      },
+    ],
+    validate(input) {
+      return new Promise((resolve, reject) => {
+        if (!input || !input.length) reject(new Error('Target platform is required for cordova app'));
+        else resolve(true);
+      });
+    },
+  },
+  {
+    type: 'checkbox',
+    name: 'capacitorPlatforms',
+    message: 'Target Capacitor platform:',
+    when: (opts) => opts.type.indexOf('capacitor') >= 0,
+    choices: [
+      {
+        name: 'iOS',
+        value: 'ios',
+        checked: true,
+      },
+      {
+        name: 'Android',
+        value: 'android',
+        checked: true,
       },
     ],
     validate(input) {
@@ -261,6 +289,12 @@ module.exports = function getOptions() {
         ];
       }
       delete options.cordovaPlatforms;
+    }
+    if (options.type.indexOf('capacitor') >= 0) {
+      options.capacitor = {
+        platforms: options.capacitorPlatforms,
+      };
+      delete options.capacitorPlatforms;
     }
     if (options.bundler === 'webpack') {
       options.webpack = {

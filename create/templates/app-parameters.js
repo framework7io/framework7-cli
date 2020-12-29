@@ -11,6 +11,7 @@ module.exports = (options) => {
   } = options;
 
   const hasCordova = type.indexOf('cordova') >= 0;
+  const hasCapacitor = type.indexOf('capacitor') >= 0;
 
   return indent(0, `
     name: '${name}', // App name
@@ -33,6 +34,29 @@ module.exports = (options) => {
     serviceWorker: {
       path: '/service-worker.js',
     },
+    `)}
+    ${templateIf(hasCapacitor, () => `
+    // Input settings
+    input: {
+      scrollIntoViewOnFocus: device.capacitor,
+      scrollIntoViewCentered: device.capacitor,
+    },
+    // Capacitor Statusbar settings
+    statusbar: {
+      iosOverlaysWebView: true,
+      androidOverlaysWebView: false,
+    },
+    ${templateIf(framework === 'core', () => `
+    on: {
+      init: function () {
+        var f7 = this;
+        if (f7.device.capacitor) {
+          // Init capacitor APIs (see capacitor-app.js)
+          capacitorApp.init(f7);
+        }
+      },
+    },
+    `)}
     `)}
     ${templateIf(hasCordova, () => `
     // Input settings

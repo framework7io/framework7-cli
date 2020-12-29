@@ -12,11 +12,19 @@ module.exports = (options) => {
 
   if (bundler) {
     scripts += indent(0, `
-      import $$ from 'dom7';
+      import $ from 'dom7';
+      ${templateIf(type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0, () => `
+      ${templateIf(customBuild, () => `
+      import Framework7, { getDevice } from './framework7-custom.js';
+      `, () => `
+      import Framework7, { getDevice } from 'framework7/bundle';
+      `)}
+      `, () => `
       ${templateIf(customBuild, () => `
       import Framework7 from './framework7-custom.js';
       `, () => `
       import Framework7 from 'framework7/bundle';
+      `)}
       `)}
 
       // Import F7 Styles
@@ -35,6 +43,10 @@ module.exports = (options) => {
       // Import Cordova APIs
       import cordovaApp from './cordova-app.js';
       `)}
+      ${templateIf(type.indexOf('capacitor') >= 0, () => `
+      // Import Capacitor APIs
+      import capacitorApp from './capacitor-app.js';
+      `)}
       // Import Routes
       import routes from './routes.js';
       // Import Store
@@ -45,19 +57,26 @@ module.exports = (options) => {
     `);
   } else {
     scripts += indent(0, `
-      var $$ = Dom7;
+      var $ = Dom7;
     `);
   }
 
   scripts += indent(0, `
+    ${templateIf(type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0, () => `
+    ${templateIf(bundler, () => `
+    var device = getDevice();
+    `, () => `
+    var device = Framework7.getDevice();
+    `)}
+    `)}
     var app = new Framework7({
       ${indent(6, appParameters(options)).trim()}
     });
     ${templateIf(!bundler && template !== 'blank', () => `
     // Login Screen Demo
-    $$('#my-login-screen .login-button').on('click', function () {
-      var username = $$('#my-login-screen [name="username"]').val();
-      var password = $$('#my-login-screen [name="password"]').val();
+    $('#my-login-screen .login-button').on('click', function () {
+      var username = $('#my-login-screen [name="username"]').val();
+      var password = $('#my-login-screen [name="password"]').val();
 
       // Close login screen
       app.loginScreen.close('#my-login-screen');

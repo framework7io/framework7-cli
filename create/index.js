@@ -11,6 +11,7 @@ const generateNpmScripts = require('./utils/generate-npm-scripts');
 const createFolders = require('./templates/create-folders');
 const copyAssets = require('./templates/copy-assets');
 const createCordova = require('./templates/create-cordova');
+const createCapacitor = require('./templates/create-capacitor');
 const generateReadme = require('./utils/generate-readme');
 const generateGitignore = require('./utils/generate-gitignore');
 
@@ -118,6 +119,20 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
       return;
     }
     logger.statusDone('Creating Cordova project');
+  }
+
+  // Create Capacitor project
+  if (type.indexOf('capacitor') >= 0) {
+    logger.statusStart(`${'Creating Capacitor project'} ${waitText}`);
+    try {
+      await createCapacitor(options);
+    } catch (err) {
+      logger.statusError('Error creating Capacitor project');
+      if (err) logger.error(err.stderr);
+      errorExit();
+      return;
+    }
+    logger.statusDone('Creating Capacitor project');
   }
 
   // Create Project Files

@@ -3,6 +3,7 @@ const map = {
   d: 'dev',
   p: 'prod',
   c: 'cordova',
+  x: 'capacitor',
   a: 'android',
   i: 'ios',
   e: 'electron',
@@ -20,45 +21,35 @@ function scriptName(tokens) {
 
 const npmScripts = {
   webpack: {
-    bd: {
-      icon: '🔧',
-      script: 'cross-env NODE_ENV=development node ./build/build.js',
-      description: 'build web app using development mode (faster build without minification and optimization)',
-    },
-    bp: {
+    b: {
       icon: '🔧',
       script: 'cross-env NODE_ENV=production node ./build/build.js',
       description: 'build web app for production',
     },
-    bdc: {
-      icon: '📱',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build',
-      description: 'build cordova app using development mode (faster build without minification and optimization)',
-    },
-    bpc: {
+    bc: {
       icon: '📱',
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build',
       description: 'build cordova app',
     },
-    bdci: {
-      icon: '📱',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build ios',
-      description: 'build cordova iOS app using development mode (faster build without minification and optimization)',
-    },
-    bpci: {
+    bci: {
       icon: '📱',
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios',
       description: 'build cordova iOS app',
     },
-    bdca: {
+    bxi: {
       icon: '📱',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build android',
-      description: 'build cordova Android app using development mode (faster build without minification and optimization)',
+      script: 'cross-env NODE_ENV=production node ./build/build.js && npx cap copy ios',
+      description: 'build app and copy it to iOS capacitor project',
     },
-    bpca: {
+    bca: {
       icon: '📱',
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build android',
       description: 'build cordova Android app',
+    },
+    bxa: {
+      icon: '📱',
+      script: 'cross-env NODE_ENV=production node ./build/build.js && npx cap copy android',
+      description: 'build app and copy it to Android capacitor project',
     },
     ca: {
       icon: '📱',
@@ -70,12 +61,7 @@ const npmScripts = {
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova run ios',
       description: 'run dev build cordova iOS app',
     },
-    bdce: {
-      icon: '🖥',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build electron',
-      description: 'build cordova Electron app using development mode (faster build without minification and optimization)',
-    },
-    bpce: {
+    bce: {
       icon: '🖥',
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build electron',
       description: 'build cordova Electron app',
@@ -85,12 +71,7 @@ const npmScripts = {
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && concurrently --kill-others "cross-env TARGET=cordova cross-env ELECTRON_WATCH=true cross-env NODE_ENV=development cross-env webpack --progress --config ./build/webpack.config.js --watch" "cd cordova && cordova run electron --nobuild"',
       description: 'launch quick preview (without full build process) of Electron app in development mode',
     },
-    bdco: {
-      icon: '🖥',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova build osx',
-      description: 'build cordova macOS app using development mode (faster build without minification and optimization)',
-    },
-    bpco: {
+    bco: {
       icon: '🖥',
       script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build osx',
       description: 'build cordova macOS app',
@@ -156,6 +137,16 @@ const npmScripts = {
       icon: '🖥',
       script: 'node ./build/build.js && cd cordova && cordova run electron --nobuild',
       description: 'launch quick preview (without full build process) of Electron app in development mode',
+    },
+    bxi: {
+      icon: '📱',
+      script: 'npx cap copy ios',
+      description: 'Copy app to iOS capacitor project',
+    },
+    bxa: {
+      icon: '📱',
+      script: 'npx cap copy android',
+      description: 'Copy app to Android capacitor project',
     },
   },
 };

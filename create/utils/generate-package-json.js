@@ -28,6 +28,9 @@ module.exports = function generatePackageJson(options) {
       'framework7-svelte@next',
       'svelte',
     ] : []),
+    ...(type.indexOf('capacitor') >= 0 ? [
+      '@capacitor/core',
+    ] : []),
   ];
 
   const devDependencies = [];
@@ -41,6 +44,9 @@ module.exports = function generatePackageJson(options) {
       'chalk',
       ...(type.indexOf('cordova') >= 0 && (cordova.platforms.indexOf('electron') >= 0) ? [
         'concurrently',
+      ] : []),
+      ...(type.indexOf('capacitor') >= 0 ? [
+        '@capacitor/cli',
       ] : []),
       'copy-webpack-plugin',
       'cross-env',
@@ -97,7 +103,7 @@ module.exports = function generatePackageJson(options) {
   if (bundler !== 'webpack') {
     devDependencies.push('http-server');
   }
-  if (!bundler && type.indexOf('cordova') >= 0) {
+  if (!bundler && (type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0)) {
     devDependencies.push(...[
       'cpy',
       'rimraf',

@@ -24,6 +24,7 @@ module.exports = (options, iconFile) => {
   const isWeb = type.indexOf('web') >= 0;
   const isPwa = type.indexOf('pwa') >= 0;
   const isCordova = type.indexOf('cordova') >= 0;
+  const isCapacitor = type.indexOf('capacitor') >= 0;
   const isWebpack = bundler === 'webpack';
   const isIos = cordova && cordova.platforms.indexOf('ios') >= 0;
   const isAndroid = cordova && cordova.platforms.indexOf('android') >= 0;
@@ -144,6 +145,22 @@ module.exports = (options, iconFile) => {
       toCopy.push({
         content: `${cordovaAppContent}\nexport default cordovaApp;\n`,
         to: path.resolve(cwd, srcFolder, 'js', 'cordova-app.js'),
+      });
+    }
+  }
+
+  // Capacitor App
+  if (isCapacitor) {
+    if (!bundler) {
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'capacitor-app.js'),
+        to: path.resolve(cwd, srcFolder, 'js', 'capacitor-app.js'),
+      });
+    } else {
+      const capacitorAppContent = fse.readFileSync(path.resolve(__dirname, 'common', 'capacitor-app.js'));
+      toCopy.push({
+        content: `${capacitorAppContent}\nexport default capacitorApp;\n`,
+        to: path.resolve(cwd, srcFolder, 'js', 'capacitor-app.js'),
       });
     }
   }

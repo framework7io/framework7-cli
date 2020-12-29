@@ -147,7 +147,7 @@ module.exports = (options) => {
     `.trim()}
     <script>
       import { onMount } from 'svelte';
-      ${templateIf(type.indexOf('cordova') >= 0, () => `
+      ${templateIf(type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0, () => `
       import { getDevice }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/lite-bundle'}';
       `)}
       ${templateIf(template === 'blank', () => `
@@ -185,9 +185,15 @@ module.exports = (options) => {
       ${templateIf(type.indexOf('cordova') >= 0, () => `
       import cordovaApp from '../js/cordova-app';
       `)}
+      ${templateIf(type.indexOf('capacitor') >= 0, () => `
+      import capacitorApp from '../js/capacitor-app';
+      `)}
       import routes from '../js/routes';
       import store from '../js/store';
 
+      ${templateIf(type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0, () => `
+      const device = getDevice();
+      `)}
       // Framework7 Parameters
       let f7params = {
         ${indent(8, appParameters(options)).trim()}
@@ -207,8 +213,14 @@ module.exports = (options) => {
         f7ready(() => {
           ${templateIf(type.indexOf('cordova') >= 0, () => `
           // Init cordova APIs (see cordova-app.js)
-          if (Device.cordova) {
+          if (f7.device.cordova) {
             cordovaApp.init(f7);
+          }
+          `)}
+          ${templateIf(type.indexOf('capacitor') >= 0, () => `
+          // Init capacitor APIs (see capacitor-app.js)
+          if (f7.device.capacitor) {
+            capacitorApp.init(f7);
           }
           `)}
           // Call F7 APIs here

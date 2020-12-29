@@ -155,12 +155,16 @@ module.exports = (options) => {
       import { getDevice }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/lite-bundle'}';
       import cordovaApp from '../js/cordova-app.js';
       `)}
+      ${templateIf(type.indexOf('capacitor') >= 0, () => `
+      import { getDevice }  from '${customBuild ? '../js/framework7-custom.js' : 'framework7/lite-bundle'}';
+      import capacitorApp from '../js/capacitor-app.js';
+      `)}
       import routes from '../js/routes.js';
       import store from '../js/store';
 
       export default {
         setup() {
-          ${templateIf(type.indexOf('cordova') >= 0, () => `
+          ${templateIf(type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0, () => `
           const device = getDevice();
           `)}
           // Framework7 Parameters
@@ -184,6 +188,12 @@ module.exports = (options) => {
               // Init cordova APIs (see cordova-app.js)
               if (device.cordova) {
                 cordovaApp.init(f7);
+              }
+              `)}
+              ${templateIf(type.indexOf('capacitor') >= 0, () => `
+              // Init capacitor APIs (see capacitor-app.js)
+              if (device.capacitor) {
+                capacitorApp.init(f7);
               }
               `)}
               // Call F7 APIs here
