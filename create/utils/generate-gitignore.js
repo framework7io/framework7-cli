@@ -49,6 +49,14 @@ cordova/plugins/
 cordova/www/
 `)}
 
+${templateIf(type.indexOf('capacitor') >= 0, () => `
+# Capacitor
+ios/App/public/
+!ios/App/public/native-bridge.js
+android/app/src/main/assets/public
+!android/app/src/main/assets/public/native-bridge.js
+`)}
+
 ${templateIf(bundler, () => `
 # Production build
 www/
