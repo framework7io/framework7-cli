@@ -75,11 +75,12 @@ module.exports = (options) => {
     fse.writeFileSync(path.resolve(cwd, 'www/index.html'), content);
 
     // Add platforms
+    const command = capacitor.platforms.map((platform) => `npx cap add ${platform}`).join(' && ');
     try {
       if (!isRunningInCwd) {
-        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npx cap add ${capacitor.platforms.join(' ')}`, true);
+        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && ${command}`, true);
       } else {
-        await exec.promise(`npx cap add ${capacitor.platforms.join(' ')}`, true);
+        await exec.promise(command, true);
       }
     } catch (err) {
       reject(err);
