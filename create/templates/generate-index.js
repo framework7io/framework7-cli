@@ -65,6 +65,10 @@ module.exports = (options) => {
   <!-- Cordova APIs -->
   <script src="js/cordova-app.js"></script>
   `)}
+  ${templateIf(type.indexOf('capacitor') >= 0, () => `
+  <!-- Capacitor APIs -->
+  <script src="js/capacitor-app.js"></script>
+  `)}
   <!-- App routes -->
   <script src="js/routes.js"></script>
   <!-- App store -->

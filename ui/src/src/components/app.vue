@@ -1,6 +1,6 @@
 <template>
-  <f7-app :params="f7params">
-    <f7-view main class="ios-edges" url="/" :push-state="true" push-state-separator="#!"></f7-view>
+  <f7-app v-bind="f7params">
+    <f7-view main class="ios-edges" url="/" :browser-history="true" browser-history-separator="#!"></f7-view>
   </f7-app>
 </template>
 <script>
@@ -16,9 +16,9 @@
       return {
         f7params: {
           name: 'Framework7 CLI',
-          theme: 'ios',
+          theme: 'aurora',
           iosTranslucentBars: false,
-          routes: routes,
+          routes,
           navbar: {
             snapPageScrollToLargeTitle: false,
             snapPageScrollToTransparentNavbar: false,

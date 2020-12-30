@@ -46,6 +46,12 @@ ${templateIf(type.indexOf('cordova') >= 0, () => `
 Cordova project located in \`${cordova.folder}\` folder. You shouldn't modify content of \`${cordova.folder}/www\` folder. Its content will be correctly generated when you call \`npm run cordova-build-prod\`.
 `)}
 
+${templateIf(type.indexOf('capacitor') >= 0, () => `
+## Capacitor
+
+This project created uses Capacitor. Check out [official Capacitor documentation](https://capacitorjs.com) for more examples and usage examples.
+`)}
+
 ${templateIf(type.indexOf('cordova') >= 0 && cordova.platforms.indexOf('electron') >= 0, () => `
 ## Cordova Electron
 
@@ -68,6 +74,17 @@ Or launch UI where you will be able to change icons and splash screens:
 \`\`\`
 framework7 assets --ui
 \`\`\`
+
+${templateIf(type.indexOf('capacitor') >= 0, () => `
+## Capacitor Assets
+
+Capacitor assets are located in \`resources\` folder which is intended to be used with \`cordova-res\` tool. To generate  mobile apps assets run in terminal:
+\`\`\`
+npx cordova-res
+\`\`\`
+
+Check out [official cordova-res documentation](https://github.com/ionic-team/cordova-res) for more usage examples.
+`)}
 
 ## Documentation & Resources
 

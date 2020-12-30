@@ -1,5 +1,7 @@
+import { request } from 'framework7';
+
 export default function (self, url) {
-  self.$f7.request.json(url, (data) => {
+  request.json(url).then(({ data }) => {
     if (data.done) {
       self.done = true;
     }

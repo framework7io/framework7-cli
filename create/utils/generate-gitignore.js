@@ -55,6 +55,12 @@ ios/App/public/
 !ios/App/public/native-bridge.js
 android/app/src/main/assets/public
 !android/app/src/main/assets/public/native-bridge.js
+resources/android/icon
+resources/android/splash
+resources/ios/icon
+resources/ios/splash
+resources/windows/icon
+resources/windows/splash
 `)}
 
 ${templateIf(bundler, () => `

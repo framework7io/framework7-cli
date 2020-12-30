@@ -1,22 +1,22 @@
 // Import Vue
-import Vue from 'vue';
+import { createApp } from 'vue';
 
 // Import Framework7
-import Framework7 from 'framework7/framework7-lite.esm.js';
-import Input from 'framework7/components/input/input';
-import Dialog from 'framework7/components/dialog/dialog';
-import ColorPicker from 'framework7/components/color-picker/color-picker';
-import Popover from 'framework7/components/popover/popover';
-import Range from 'framework7/components/range/range';
-import Toggle from 'framework7/components/toggle/toggle';
-import Popup from 'framework7/components/popup/popup';
-import Tooltip from 'framework7/components/tooltip/tooltip';
+import Framework7 from 'framework7/lite';
+import Input from 'framework7/components/input';
+import Dialog from 'framework7/components/dialog';
+import ColorPicker from 'framework7/components/color-picker';
+import Popover from 'framework7/components/popover';
+import Range from 'framework7/components/range';
+import Toggle from 'framework7/components/toggle';
+import Popup from 'framework7/components/popup';
+import Tooltip from 'framework7/components/tooltip';
 
 // Import Framework7-Vue Plugin
-import Framework7Vue from 'framework7-vue';
+import Framework7Vue, { registerComponents } from 'framework7-vue/bundle';
 
 // Import Framework7 Styles
-import 'framework7/css/framework7.bundle.css';
+import 'framework7/framework7-bundle.css';
 
 // Import Icons and App Custom Styles
 import '../css/icons.css';
@@ -38,14 +38,10 @@ Framework7.use([
   Tooltip,
 ]);
 
-// Init App
-const app = new Vue({
-  el: '#app',
-  render: h => h(App),
-  // Register App Component
-  components: {
-    app: App,
-  },
-});
+const app = createApp(App);
+
+registerComponents(app);
+
+app.mount('#app');
 
 export default app;

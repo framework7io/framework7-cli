@@ -1,7 +1,7 @@
 const exec = require('exec-sh');
 const path = require('path');
 // const rm = require('rimraf');
-// const cpy = require('cpy');
+const cpy = require('cpy');
 const fse = require('../../utils/fs-extra');
 
 module.exports = (options) => {
@@ -29,33 +29,6 @@ module.exports = (options) => {
       cordova: {},
     };
     fse.writeFileSync(path.resolve(cwd, 'capacitor.config.json'), JSON.stringify(config, '', 2));
-
-    // Upload res files
-    // try {
-    //   await new Promise((subResolve, subReject) => {
-    //     rm(path.resolve(cwd, cordova.folder, 'res'), (err) => {
-    //       if (err) subReject(err);
-    //       else subResolve();
-    //     });
-    //   });
-    // } catch (err) {
-    //   reject(err);
-    //   return;
-    // }
-
-    // try {
-    //   await cpy(
-    //     '**/*.*',
-    //     path.resolve(cwd, cordova.folder, 'res'),
-    //     {
-    //       parents: true,
-    //       cwd: path.resolve(__dirname, 'common', 'cordova-res'),
-    //     },
-    //   );
-    // } catch (err) {
-    //   reject(err);
-    //   return;
-    // }
 
     // Create dummy index file
     const content = `
@@ -86,6 +59,23 @@ module.exports = (options) => {
       reject(err);
       return;
     }
+
+    // Upload res files
+    try {
+      await cpy(
+        '**/*.*',
+        path.resolve(cwd, 'resources'),
+        {
+          parents: true,
+          cwd: path.resolve(__dirname, 'common', 'capacitor-res'),
+        },
+      );
+    } catch (err) {
+      reject(err);
+      return;
+    }
+
+
     resolve();
   });
 };

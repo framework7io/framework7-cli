@@ -129,14 +129,12 @@
   </f7-page>
 </template>
 <script>
-  import { f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Popup, f7Icon } from 'framework7-vue';
+  import { f7 } from 'framework7-vue';
+  import { request } from 'framework7';
   import logText from '../utils/log-text';
   import getLog from '../utils/get-log';
 
   export default {
-    components: {
-      f7Page, f7Navbar, f7NavTitle, f7NavTitleLarge, f7BlockTitle, f7BlockHeader, f7BlockFooter, f7Block, f7List, f7ListInput, f7ListItem, f7Button, f7Popup, f7Icon
-    },
     data() {
       return {
         uploading: null,
@@ -152,22 +150,22 @@
 
     mounted() {
       const self = this;
-      const $$ = self.$$;
-      self.$request.json('/api/project/', (project) => {
-        self.project = project;
+
+      request.json('/api/project/').then((res) => {
+        self.project = res.data;
       });
 
       let timeout;
 
-      $$(self.$el).on('dragenter dragleave dragover', '.drag-area', function (e) {
+      f7.$(self.$el).on('dragenter dragleave dragover', '.drag-area', function (e) {
         e.preventDefault();
-        const $el = $$(this);
+        const $el = f7.$(this);
         if (e.type !== 'dragleave') $el.closest('.drag-area').addClass('dragenter');
         else $el.closest('.drag-area').removeClass('dragenter');
       });
-      $$(self.$el).on('drop', '.drag-area', function (e) {
+      f7.$(self.$el).on('drop', '.drag-area', function (e) {
         e.preventDefault();
-        const $el = $$(this);
+        const $el = f7.$(this);
         $el.closest('.drag-area').removeClass('dragenter');
         const name = $el.closest('.drag-area').find('input').attr('name');
         const file = e.dataTransfer.files[0];
@@ -189,13 +187,13 @@
         const self = this;
         if (!file) return;
         if (file.type !== 'image/png') {
-          self.$f7.dialog.alert('Only PNG images please');
+          f7.dialog.alert('Only PNG images please');
           return;
         }
         const fd = new FormData();
         fd.append(name, file);
         self.uploading = name;
-        self.$request({
+        request({
           method: 'post',
           contentType: 'multipart/form-data',
           url: '/api/assets/upload/',
@@ -209,7 +207,7 @@
         const self = this;
         if (self.loading) return;
         self.loading = true;
-        self.$f7.request.postJSON('/api/assets/generate/', {}, () => {
+        f7.request.postJSON('/api/assets/generate/', {}, () => {
           self.getLog();
         });
       },

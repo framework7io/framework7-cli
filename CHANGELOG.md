@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v4.0.0-beta.6](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.5...v4.0.0-beta.6) - December 30, 2020
+  * Added Capacitor project generation
+
 # [v4.0.0-beta.5](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.4...v4.0.0-beta.5) - November 30, 2020
   * Fixed generated styles for fill bars
 

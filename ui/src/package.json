@@ -31,16 +31,16 @@
     "Samsung >= 5"
   ],
   "dependencies": {
-    "dom7": "^2.1.3",
-    "framework7": "^5.5.5",
+    "dom7": "^3.0.0",
+    "framework7": "^6.0.0-beta.9",
     "framework7-icons": "^3.0.0",
-    "framework7-vue": "^5.5.5",
-    "template7": "^1.4.2",
-    "vue": "^2.6.10"
+    "framework7-vue": "^6.0.0-beta.9",
+    "vue": "^3.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
+    "@vue/compiler-sfc": "^3.0.4",
     "babel-loader": "^8.0.6",
     "chalk": "^2.4.2",
     "copy-webpack-plugin": "^5.0.4",
@@ -60,9 +60,8 @@
     "terser-webpack-plugin": "^2.1.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^2.1.0",
-    "vue-loader": "^15.7.1",
+    "vue-loader": "^16.1.2",
     "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1",

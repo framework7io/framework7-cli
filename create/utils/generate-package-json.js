@@ -47,6 +47,7 @@ module.exports = function generatePackageJson(options) {
       ] : []),
       ...(type.indexOf('capacitor') >= 0 ? [
         '@capacitor/cli',
+        'cordova-res',
       ] : []),
       'copy-webpack-plugin',
       'cross-env',
@@ -99,16 +100,20 @@ module.exports = function generatePackageJson(options) {
         '@vue/compiler-sfc',
       ] : []),
     ]);
-  }
-  if (bundler !== 'webpack') {
+  } else {
     devDependencies.push('http-server');
+    if (type.indexOf('capacitor') >= 0) {
+      devDependencies.push('@capacitor/cli');
+      devDependencies.push('cordova-res');
+    }
+    if (type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0) {
+      devDependencies.push(...[
+        'cpy',
+        'rimraf',
+      ]);
+    }
   }
-  if (!bundler && (type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0)) {
-    devDependencies.push(...[
-      'cpy',
-      'rimraf',
-    ]);
-  }
+
   if (theming.iconFonts) {
     devDependencies.push('cpy-cli');
   }
