@@ -7,7 +7,7 @@ module.exports = function generatePackageJson(options) {
 
   // Dependencies
   const dependencies = [
-    'framework7@next',
+    'framework',
     'dom7',
     'swiper',
     'skeleton-elements',
@@ -15,17 +15,17 @@ module.exports = function generatePackageJson(options) {
       'framework7-icons',
     ] : []),
     ...(framework === 'vue' ? [
-      'framework7-vue@next',
+      'framework7-vue',
       'vue@3',
     ] : []),
     ...(framework === 'react' ? [
-      'framework7-react@next',
+      'framework7-react',
       'react',
       'react-dom',
       'prop-types',
     ] : []),
     ...(framework === 'svelte' ? [
-      'framework7-svelte@next',
+      'framework7-svelte',
       'svelte',
     ] : []),
     ...(type.indexOf('capacitor') >= 0 ? [
