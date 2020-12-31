@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v4.0.2](https://github.com/framework7io/framework7-cli/compare/v4.0.1...v4.0.2) - December 31, 2020
+  * Fixed imports in React blank template
+
 # [v4.0.1](https://github.com/framework7io/framework7-cli/compare/v4.0.0...v4.0.1) - December 31, 2020
   * Fix dependencies
 
