@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v4.0.0](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.6...v4.0.0) - December 31, 2020
+  * Stable release
+
 # [v4.0.0-beta.6](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.5...v4.0.0-beta.6) - December 30, 2020
   * Added Capacitor project generation
 
@@ -23,10 +26,10 @@
 # [v3.4.5](https://github.com/framework7io/framework7-cli/compare/v3.4.4...v3.4.5) - November 9, 2020
   * Force to use dependencies versions for Framework7 v5
 
-# [v3.4.4](https://github.com/framework7io/framework7-cli/compare/v3.4.2...v3.4.3) - Ocober 19, 2020
+# [v3.4.4](https://github.com/framework7io/framework7-cli/compare/v3.4.2...v3.4.3) - October 19, 2020
   * Force to use supported terser plugin
 
-# [v3.4.3](https://github.com/framework7io/framework7-cli/compare/v3.4.2...v3.4.3) - Ocober 12, 2020
+# [v3.4.3](https://github.com/framework7io/framework7-cli/compare/v3.4.2...v3.4.3) - October 12, 2020
   * Force to use supported webpack versions
   * New cordova commands
 
