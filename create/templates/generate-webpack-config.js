@@ -121,11 +121,11 @@ module.exports = (options) => {
               {
                 loader: require.resolve('babel-loader'),
                 ${templateIf(framework === 'react', () => `
-                options: {
+                options: env === 'development' ? {
                   plugins: [
-                    env === 'development' && require.resolve('react-refresh/babel'),
+                    require.resolve('react-refresh/babel'),
                   ]
-                }
+                } : {}
                 `)}
               },
             ]

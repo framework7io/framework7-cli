@@ -96,6 +96,8 @@ module.exports = (options) => {
     `)}
     ${template === 'blank' ? `
     import {
+      f7,
+      f7ready,
       App,
       View,
     } from 'framework7-react';
