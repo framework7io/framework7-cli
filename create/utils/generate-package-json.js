@@ -7,7 +7,7 @@ module.exports = function generatePackageJson(options) {
 
   // Dependencies
   const dependencies = [
-    'framework',
+    'framework7',
     'dom7',
     'swiper',
     'skeleton-elements',

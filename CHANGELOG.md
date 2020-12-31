@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v4.0.1](https://github.com/framework7io/framework7-cli/compare/v4.0.0...v4.0.1) - December 31, 2020
+  * Fix dependencies
+
 # [v4.0.0](https://github.com/framework7io/framework7-cli/compare/v4.0.0-beta.6...v4.0.0) - December 31, 2020
   * Stable release
 
