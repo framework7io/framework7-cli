@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v4.0.3](https://github.com/framework7io/framework7-cli/compare/v4.0.2...v4.0.3) - January 18, 2020
+  * Cordova's `android-minSdkVersion` config changed to `22`
+
 # [v4.0.2](https://github.com/framework7io/framework7-cli/compare/v4.0.1...v4.0.2) - December 31, 2020
   * Fixed imports in React blank template
 
