@@ -47,7 +47,7 @@ module.exports = (options) => {
     const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
     `)}
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-    const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+    const OptimizeCSSPlugin = require('css-minimizer-webpack-plugin');
     const TerserPlugin = require('terser-webpack-plugin');
     ${templateIf(type.indexOf('pwa') >= 0, () => `
     const WorkboxPlugin = require('workbox-webpack-plugin');

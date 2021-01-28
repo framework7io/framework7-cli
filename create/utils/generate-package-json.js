@@ -55,7 +55,7 @@ module.exports = function generatePackageJson(options) {
       'file-loader',
       'html-webpack-plugin',
       'mini-css-extract-plugin',
-      'optimize-css-assets-webpack-plugin',
+      'css-minimizer-webpack-plugin',
       'ora',
       'postcss-loader',
       'postcss-preset-env',
