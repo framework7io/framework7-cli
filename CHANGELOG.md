@@ -2,6 +2,10 @@
 
 # Change Log
 
+# [v4.0.4](https://github.com/framework7io/framework7-cli/compare/v4.0.3...v4.0.4) - January 28, 2021
+  * Changed webpack plugins:
+    * `optimize-css-assets-webpack-plugin` -> `css-minimizer-webpack-plugin `
+
 # [v4.0.3](https://github.com/framework7io/framework7-cli/compare/v4.0.2...v4.0.3) - January 18, 2021
   * Cordova's `android-minSdkVersion` config changed to `22`
 
