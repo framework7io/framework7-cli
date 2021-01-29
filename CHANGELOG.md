@@ -2,6 +2,9 @@
 
 # Change Log
 
+# [v4.0.5](https://github.com/framework7io/framework7-cli/compare/v4.0.4...v4.0.5) - January 29, 2021
+  * Use `type: 'javascript/auto'` for webpack assets loaders
+
 # [v4.0.4](https://github.com/framework7io/framework7-cli/compare/v4.0.3...v4.0.4) - January 28, 2021
   * Changed webpack plugins:
     * `optimize-css-assets-webpack-plugin` -> `css-minimizer-webpack-plugin `
