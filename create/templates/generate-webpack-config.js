@@ -221,6 +221,7 @@ module.exports = (options) => {
               context: path.resolve(__dirname, '../src'),
               `)}
             },
+            type: 'javascript/auto'
           },
           {
             test: /\\.(mp4|webm|ogg|mp3|wav|flac|aac|m4a)(\\?.*)?$/,
@@ -232,6 +233,7 @@ module.exports = (options) => {
               context: path.resolve(__dirname, '../src'),
               `)}
             },
+            type: 'javascript/auto'
           },
           {
             test: /\\.(woff2?|eot|ttf|otf)(\\?.*)?$/,
@@ -243,6 +245,7 @@ module.exports = (options) => {
               context: path.resolve(__dirname, '../src'),
               `)}
             },
+            type: 'javascript/auto'
           },
         ],
       },
