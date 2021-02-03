@@ -14,13 +14,15 @@ const createCordova = require('./templates/create-cordova');
 const createCapacitor = require('./templates/create-capacitor');
 const generateReadme = require('./utils/generate-readme');
 const generateGitignore = require('./utils/generate-gitignore');
+const log = require('../utils/log');
 
 const waitText = chalk.gray('(Please wait, it can take a while)');
 
 module.exports = async (options = {}, logger, { exitOnError = true, iconFile = null } = {}) => {
   const cwd = options.cwd || process.cwd();
   const isRunningInCwd = cwd === process.cwd();
-  function errorExit() {
+  function errorExit(err) {
+    log.error(err.stderr || err);
     if (exitOnError) process.exit(1);
   }
   if (!logger) {
@@ -54,7 +56,7 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
   } catch (err) {
     logger.statusError('Error creating required folders structure');
     if (err) logger.error(err.stderr);
-    errorExit();
+    errorExit(err);
   }
   logger.statusDone('Creating required folders structure');
 
@@ -69,7 +71,7 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
   } catch (err) {
     logger.statusError('Error installing NPM Dependencies');
     if (err) logger.error(err.stderr);
-    errorExit();
+    errorExit(err);
     return;
   }
   logger.statusDone('Installing NPM Dependencies');
@@ -85,7 +87,7 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
   } catch (err) {
     logger.statusError('Error installing NPM Dev Dependencies');
     if (err) logger.error(err.stderr);
-    errorExit();
+    errorExit(err);
     return;
   }
   logger.statusDone('Installing NPM Dev Dependencies');
@@ -101,7 +103,7 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
     } catch (err) {
       logger.statusError('Error executing NPM Scripts');
       if (err) logger.error(err.stderr);
-      errorExit();
+      errorExit(err);
       return;
     }
     logger.statusDone('Executing NPM Scripts');
@@ -115,7 +117,7 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
     } catch (err) {
       logger.statusError('Error creating Cordova project');
       if (err) logger.error(err.stderr);
-      errorExit();
+      errorExit(err);
       return;
     }
     logger.statusDone('Creating Cordova project');
@@ -129,7 +131,7 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
     } catch (err) {
       logger.statusError('Error creating Capacitor project');
       if (err) logger.error(err.stderr);
-      errorExit();
+      errorExit(err);
       return;
     }
     logger.statusDone('Creating Capacitor project');
@@ -152,7 +154,7 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
   } catch (err) {
     logger.statusError('Error creating project files');
     if (err) logger.error(err.stderr || err);
-    errorExit();
+    errorExit(err);
     return;
   }
 
@@ -163,7 +165,7 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
   } catch (err) {
     logger.statusError('Error creating project files');
     if (err) logger.error(err.stderr || err);
-    errorExit();
+    errorExit(err);
     return;
   }
 
@@ -174,7 +176,7 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
   } catch (err) {
     logger.statusError('Error creating project files');
     if (err) logger.error(err.stderr || err);
-    errorExit();
+    errorExit(err);
     return;
   }
 
