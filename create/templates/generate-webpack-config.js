@@ -80,10 +80,7 @@ module.exports = (options) => {
         path: resolvePath('www'),
         `)}
         filename: 'js/[name]${hashName}.js',
-        chunkFilename: 'js/[name]${hashName}.js',
         publicPath: '',
-        hotUpdateChunkFilename: 'hot/hot-update.js',
-        hotUpdateMainFilename: 'hot/hot-update.json',
       },
       resolve: {
         extensions: ${resolveExtensions},
@@ -105,7 +102,28 @@ module.exports = (options) => {
       },
       optimization: {
         concatenateModules: true,
-        minimizer: [new TerserPlugin()],
+        minimizer: [
+          new TerserPlugin({
+            extractComments: {
+              // Webpack5 seems not to extract license information separately
+              condition: /^\**!|LICENSE|@preserve|@cc_on/i,
+            }
+          }),
+          new CssMinimizerPlugin({
+            minimizerOptions: {
+              preset: [
+                'default',
+                {
+                  discardUnused: true,
+                  // Otherwise, license information will be removed unexpectedly
+                  discardComments: {
+                    remove: (comment) => !comment.match(/^\**!|LICENSE|@preserve|@cc_on/i)
+                  },
+                },
+              ],
+            },
+          }),
+        ],
       },
       module: {
         rules: [
