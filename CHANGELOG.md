@@ -2,6 +2,14 @@
 
 # Change Log
 
+# [v4.0.6](https://github.com/framework7io/framework7-cli/compare/v4.0.5...v4.0.6) (2021-02-03)
+
+### Bug Fixes
+
+* better error loggin ([a62d230](https://github.com/framework7io/framework7-cli/commit/a62d230f183020d7d3ad107b7cfa92d994fb85e9))
+
+
+
 # [v4.0.5](https://github.com/framework7io/framework7-cli/compare/v4.0.4...v4.0.5) - January 29, 2021
   * Use `type: 'javascript/auto'` for webpack assets loaders
 
