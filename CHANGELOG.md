@@ -2,7 +2,7 @@
 
 # Change Log
 
-# [v4.0.6](https://github.com/framework7io/framework7-cli/compare/v4.0.5...v4.0.6) (2021-02-03)
+# [v4.0.7](https://github.com/framework7io/framework7-cli/compare/v4.0.5...v4.0.7) (2021-02-03)
 
 ### Bug Fixes
 
