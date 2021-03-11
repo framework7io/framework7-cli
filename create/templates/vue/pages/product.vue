@@ -18,7 +18,7 @@
       const products = useStore('products');
       const productId = props.f7route.params.id;
       let currentProduct;
-      products.forEach(function (product) {
+      products.value.forEach(function (product) {
         if (product.id === productId) {
           currentProduct = product;
         }
