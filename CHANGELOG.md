@@ -2,13 +2,17 @@
 
 # Change Log
 
+# [v4.0.8](https://github.com/framework7io/framework7-cli/compare/v4.0.7...v4.0.8) (2021-03-11)
+
+### Bug Fixes
+
+* **vue:** fix Vue useStore example ([640156c](https://github.com/framework7io/framework7-cli/commit/640156cc5a057d7cefd36f6f1b78eabb0ad32945))
+
 # [v4.0.7](https://github.com/framework7io/framework7-cli/compare/v4.0.5...v4.0.7) (2021-02-03)
 
 ### Bug Fixes
 
 * better error loggin ([a62d230](https://github.com/framework7io/framework7-cli/commit/a62d230f183020d7d3ad107b7cfa92d994fb85e9))
-
-
 
 # [v4.0.5](https://github.com/framework7io/framework7-cli/compare/v4.0.4...v4.0.5) - January 29, 2021
   * Use `type: 'javascript/auto'` for webpack assets loaders
