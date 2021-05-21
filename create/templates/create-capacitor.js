@@ -51,7 +51,7 @@ module.exports = (options) => {
     const command = capacitor.platforms.map((platform) => `npx cap add ${platform}`).join(' && ');
     try {
       if (!isRunningInCwd) {
-        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && ${command}`, true);
+        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm install @capacitor/${platform} && ${command}`, true);
       } else {
         await exec.promise(command, true);
       }
