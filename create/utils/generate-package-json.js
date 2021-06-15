@@ -30,6 +30,11 @@ module.exports = function generatePackageJson(options) {
     ] : []),
     ...(type.indexOf('capacitor') >= 0 ? [
       '@capacitor/core',
+      '@capacitor/app',
+      '@capacitor/splash-screen',
+      '@capacitor/keyboard',
+      '@capacitor/status-bar',
+      '@capacitor/browser',
     ] : []),
   ];
 
