@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [v4.1.0](https://github.com/framework7io/framework7-cli/compare/v4.0.8...v.4.1.0) (2021-06-15)
+
+### Features
+
+* install required capacitor v3 plugins ([b735ede](https://github.com/framework7io/framework7-cli/commit/b735ede65150a61389818dc3f9c0301cb416219a))
+
 # [v4.0.8](https://github.com/framework7io/framework7-cli/compare/v4.0.7...v4.0.8) (2021-03-11)
 
 ### Bug Fixes
