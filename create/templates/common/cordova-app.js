@@ -41,16 +41,19 @@ var cordovaApp = {
         e.preventDefault();
         return false;
       }
-      if ($('.popup.modal-in').length) {
-        if ($('.popup.modal-in>.view').length) {
-          const currentView = f7.views.get('.popup.modal-in>.view');
+      const popups = $('.popup.modal-in');
+      if (popups.length) {
+        const popup = popups[popups.length - 1];
+        const view = popup.querySelector('.view');
+        if (view) {
+          const currentView = f7.views.get(view);
           if (currentView && currentView.router && currentView.router.history.length > 1) {
             currentView.router.back();
             e.preventDefault();
             return false;
           }
         }
-        f7.popup.close('.popup.modal-in');
+        f7.popup.close(popup);
         e.preventDefault();
         return false;
       }
