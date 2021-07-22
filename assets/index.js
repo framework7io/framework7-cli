@@ -31,9 +31,7 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
   };
   */
   if (project) {
-    const {
-      type, bundler, cwd, cordova,
-    } = project;
+    const { type, bundler, cwd, cordova } = project;
 
     if (type.indexOf('cordova') >= 0) {
       if (cordova.platforms.indexOf('ios') >= 0) {
@@ -74,19 +72,18 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
       }
     }
     if (type.indexOf('web') >= 0 || type.indexOf('pwa') >= 0) {
-      const assetsFolder = bundler === 'webpack' ? 'static' : 'assets';
-      const srcFolder = bundler ? 'src' : 'www';
+      const assetsFolder = bundler === 'vite' ? 'public' : 'www/assets';
       options.favicon = {
         src: path.resolve(cwd, 'assets-src', 'web-icon.png'),
-        output: path.resolve(cwd, srcFolder, assetsFolder, 'icons'),
+        output: path.resolve(cwd, assetsFolder, 'icons'),
       };
       options.pwaIcon = {
         src: path.resolve(cwd, 'assets-src', 'web-icon.png'),
-        output: path.resolve(cwd, srcFolder, assetsFolder, 'icons'),
+        output: path.resolve(cwd, assetsFolder, 'icons'),
       };
       options.appleTouchIcon = {
         src: path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'),
-        output: path.resolve(cwd, srcFolder, assetsFolder, 'icons'),
+        output: path.resolve(cwd, assetsFolder, 'icons'),
       };
     }
   }
@@ -101,14 +98,7 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
       fileName: 'favicon.png',
     },
     pwaIcon: {
-      size: [
-        128,
-        144,
-        152,
-        192,
-        256,
-        512,
-      ],
+      size: [128, 144, 152, 192, 256, 512],
       fileName: '{{size}}x{{size}}.png',
     },
     cordovaIosIcon: {
@@ -160,15 +150,7 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
       fileName: 'installer.png',
     },
     cordovaOsxIcon: {
-      size: [
-        16,
-        32,
-        64,
-        128,
-        256,
-        512,
-        1024,
-      ],
+      size: [16, 32, 64, 128, 256, 512, 1024],
       fileName: 'icon-{{size}}x{{size}}.png',
     },
   };
@@ -185,11 +167,7 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
 
   function handlePreset(preset, opts) {
     if (typeof preset.size === 'number') {
-      resizeImage(
-        opts.src,
-        path.resolve(opts.output, preset.fileName),
-        preset.size,
-      );
+      resizeImage(opts.src, path.resolve(opts.output, preset.fileName), preset.size);
       return;
     }
     if (Array.isArray(preset.size)) {
@@ -209,7 +187,10 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
           preset.size[ratio].forEach((currentSize) => {
             resizeImage(
               opts.src,
-              path.resolve(opts.output, preset.fileName.replace(/{{ratio}}/g, ratio).replace(/{{size}}/g, currentSize)),
+              path.resolve(
+                opts.output,
+                preset.fileName.replace(/{{ratio}}/g, ratio).replace(/{{size}}/g, currentSize),
+              ),
               currentSize * ratio,
             );
           });
