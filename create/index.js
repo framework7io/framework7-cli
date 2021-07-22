@@ -18,7 +18,11 @@ const log = require('../utils/log');
 
 const waitText = chalk.gray('(Please wait, it can take a while)');
 
-module.exports = async (options = {}, logger, { exitOnError = true, iconFile = null } = {}) => {
+module.exports = async (
+  options = {},
+  logger,
+  { exitOnError = true, iconFile = null } = {},
+) => {
   const cwd = options.cwd || process.cwd();
   const isRunningInCwd = cwd === process.cwd();
   function errorExit(err) {
@@ -45,7 +49,10 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
 
   // Write Package.json and project json
   fse.writeFileSync(path.join(cwd, 'package.json'), packageJson.content);
-  fse.writeFileSync(path.join(cwd, 'framework7.json'), JSON.stringify(options, '', 2));
+  fse.writeFileSync(
+    path.join(cwd, 'framework7.json'),
+    JSON.stringify(options, '', 2),
+  );
 
   logger.statusDone('Generating package.json');
 
@@ -61,53 +68,62 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
   logger.statusDone('Creating required folders structure');
 
   // Install NPM depenencies
-  logger.statusStart(`${'Installing NPM Dependencies'} ${waitText}`);
+  logger.statusStart(`${'Adding NPM Dependencies'} ${waitText}`);
   try {
     if (!isRunningInCwd) {
-      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.dependencies.join(' ')} --save`, true);
+      await exec.promise(
+        `cd ${cwd.replace(
+          / /g,
+          '\\ ',
+        )} && npm install ${packageJson.dependencies.join(
+          ' ',
+        )} --save --package-lock-only --no-package-lock --ignore-scripts`,
+        true,
+      );
     } else {
-      await exec.promise(`npm install ${packageJson.dependencies.join(' ')} --save`, true);
+      await exec.promise(
+        `npm install ${packageJson.dependencies.join(
+          ' ',
+        )} --save --package-lock-only --no-package-lock --ignore-scripts`,
+        true,
+      );
     }
   } catch (err) {
-    logger.statusError('Error installing NPM Dependencies');
+    logger.statusError('Error adding NPM Dependencies');
     if (err) logger.error(err.stderr);
     errorExit(err);
     return;
   }
-  logger.statusDone('Installing NPM Dependencies');
+  logger.statusDone('Adding NPM Dependencies');
 
   // Install NPM dev depenencies
-  logger.statusStart(`${'Installing NPM Dev Dependencies'} ${waitText}`);
+  logger.statusStart(`${'Adding NPM Dev Dependencies'} ${waitText}`);
   try {
     if (!isRunningInCwd) {
-      await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
+      await exec.promise(
+        `cd ${cwd.replace(
+          / /g,
+          '\\ ',
+        )} && npm install ${packageJson.devDependencies.join(
+          ' ',
+        )} --save-dev --package-lock-only --no-package-lock --ignore-scripts`,
+        true,
+      );
     } else {
-      await exec.promise(`npm install ${packageJson.devDependencies.join(' ')} --save-dev`, true);
+      await exec.promise(
+        `npm install ${packageJson.devDependencies.join(
+          ' ',
+        )} --save-dev --package-lock-only --no-package-lock --ignore-scripts`,
+        true,
+      );
     }
   } catch (err) {
-    logger.statusError('Error installing NPM Dev Dependencies');
+    logger.statusError('Error adding NPM Dev Dependencies');
     if (err) logger.error(err.stderr);
     errorExit(err);
     return;
   }
-  logger.statusDone('Installing NPM Dev Dependencies');
-
-  if (packageJson.postInstall && packageJson.postInstall.length) {
-    logger.statusStart('Executing NPM Scripts');
-    try {
-      if (!isRunningInCwd) {
-        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && npm run postinstall`, true);
-      } else {
-        await exec.promise('npm run postinstall', true);
-      }
-    } catch (err) {
-      logger.statusError('Error executing NPM Scripts');
-      if (err) logger.error(err.stderr);
-      errorExit(err);
-      return;
-    }
-    logger.statusDone('Executing NPM Scripts');
-  }
+  logger.statusDone('Adding NPM Dev Dependencies');
 
   // Create Cordova project
   if (type.indexOf('cordova') >= 0) {
@@ -142,15 +158,17 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
   const filesToCopy = copyAssets(options, iconFile);
   try {
     // eslint-disable-next-line
-    await Promise.all(filesToCopy.map((f) => {
-      if (f.from) {
-        return fse.copyFileAsync(f.from, f.to);
-      }
-      if (f.content) {
-        return fse.writeFileAsync(f.to, f.content);
-      }
-      return Promise.resolve();
-    }));
+    await Promise.all(
+      filesToCopy.map((f) => {
+        if (f.from) {
+          return fse.copyFileAsync(f.from, f.to);
+        }
+        if (f.content) {
+          return fse.writeFileAsync(f.to, f.content);
+        }
+        return Promise.resolve();
+      }),
+    );
   } catch (err) {
     logger.statusError('Error creating project files');
     if (err) logger.error(err.stderr || err);
@@ -181,10 +199,9 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
   }
 
   logger.statusDone('Creating project files');
-  const npmScripts = generateNpmScripts(options)
-    .map((s) => {
-      return `- ${s.icon} Run "npm run ${s.name}" - ${s.description}`;
-    });
+  const npmScripts = generateNpmScripts(options).map((s) => {
+    return `- ${s.icon} Run "npm run ${s.name}" - ${s.description}`;
+  });
 
   // Final Text
   const finalText = `
@@ -193,9 +210,13 @@ ${chalk.bold(logSymbols.success)} ${chalk.bold('Done!')} 💪
 ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
   ${npmScripts.join('\n  ')}
   - 📖 Visit documentation at ${chalk.bold('https://framework7.io/docs/')}
-  - 📖 Check ${chalk.bold('README.md')} in project root folder with further instructions
+  - 📖 Check ${chalk.bold(
+    'README.md',
+  )} in project root folder with further instructions
 
-${chalk.bold('Love Framework7? Support project by donating or pledging on patreon:')}
+${chalk.bold(
+  'Love Framework7? Support project by donating or pledging on patreon:',
+)}
 ${chalk.bold('https://patreon.com/vladimirkharlampidi')}
     `;
 

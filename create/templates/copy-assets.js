@@ -17,7 +17,13 @@ const generateFramework7Custom = require('./generate-framework7-custom');
 module.exports = (options, iconFile) => {
   const cwd = options.cwd || process.cwd();
   const {
-    framework, bundler, type = [], cordova, theming, cssPreProcessor, customBuild,
+    framework,
+    bundler,
+    type = [],
+    cordova,
+    theming,
+    cssPreProcessor,
+    customBuild,
   } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
@@ -45,53 +51,75 @@ module.exports = (options, iconFile) => {
     });
 
     // Copy Fonts
-    toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
-      return {
-        from: path.resolve(__dirname, 'common', 'material-icons-font', `MaterialIcons-Regular.${ext}`),
-        to: path.resolve(cwd, srcFolder, 'fonts', `MaterialIcons-Regular.${ext}`),
-      };
-    }));
-    toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
-      return {
-        from: path.resolve(cwd, 'node_modules', 'framework7-icons', 'fonts', `Framework7Icons-Regular.${ext}`),
-        to: path.resolve(cwd, srcFolder, 'fonts', `Framework7Icons-Regular.${ext}`),
-      };
-    }));
+    toCopy.push(
+      ...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
+        return {
+          from: path.resolve(
+            __dirname,
+            'common',
+            'material-icons-font',
+            `MaterialIcons-Regular.${ext}`,
+          ),
+          to: path.resolve(
+            cwd,
+            srcFolder,
+            'fonts',
+            `MaterialIcons-Regular.${ext}`,
+          ),
+        };
+      }),
+    );
+    // TODO CHECK IF WE NEED IT
+    // toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
+    //   return {
+    //     from: path.resolve(cwd, 'node_modules', 'framework7-icons', 'fonts', `Framework7Icons-Regular.${ext}`),
+    //     to: path.resolve(cwd, srcFolder, 'fonts', `Framework7Icons-Regular.${ext}`),
+    //   };
+    // }));
   }
 
   // Copy Main Assets
-  toCopy.push(...[
-    {
-      content: generateIndex(options),
-      to: path.resolve(cwd, srcFolder, 'index.html'),
-    },
-    {
-      content: generateStyles(options),
-      to: path.resolve(cwd, srcFolder, 'css', `app.${stylesExtension(cssPreProcessor)}`),
-    },
-    {
-      content: generateRoutes(options),
-      to: path.resolve(cwd, srcFolder, 'js', 'routes.js'),
-    },
-    {
-      content: generateScripts(options),
-      to: path.resolve(cwd, srcFolder, 'js', 'app.js'),
-    },
-  ]);
+  toCopy.push(
+    ...[
+      {
+        content: generateIndex(options),
+        to: path.resolve(cwd, srcFolder, 'index.html'),
+      },
+      {
+        content: generateStyles(options),
+        to: path.resolve(
+          cwd,
+          srcFolder,
+          'css',
+          `app.${stylesExtension(cssPreProcessor)}`,
+        ),
+      },
+      {
+        content: generateRoutes(options),
+        to: path.resolve(cwd, srcFolder, 'js', 'routes.js'),
+      },
+      {
+        content: generateScripts(options),
+        to: path.resolve(cwd, srcFolder, 'js', 'app.js'),
+      },
+    ],
+  );
 
   // Copy Custom Build
   if (customBuild) {
     const customBuildAssets = generateFramework7Custom(options);
-    toCopy.push(...[
-      {
-        content: customBuildAssets.styles,
-        to: path.resolve(cwd, srcFolder, 'css', 'framework7-custom.less'),
-      },
-      {
-        content: customBuildAssets.scripts,
-        to: path.resolve(cwd, srcFolder, 'js', 'framework7-custom.js'),
-      },
-    ]);
+    toCopy.push(
+      ...[
+        {
+          content: customBuildAssets.styles,
+          to: path.resolve(cwd, srcFolder, 'css', 'framework7-custom.less'),
+        },
+        {
+          content: customBuildAssets.scripts,
+          to: path.resolve(cwd, srcFolder, 'js', 'framework7-custom.js'),
+        },
+      ],
+    );
   }
 
   // Copy Bundlers
@@ -141,7 +169,9 @@ module.exports = (options, iconFile) => {
         to: path.resolve(cwd, srcFolder, 'js', 'cordova-app.js'),
       });
     } else {
-      const cordovaAppContent = fse.readFileSync(path.resolve(__dirname, 'common', 'cordova-app.js'));
+      const cordovaAppContent = fse.readFileSync(
+        path.resolve(__dirname, 'common', 'cordova-app.js'),
+      );
       toCopy.push({
         content: `${cordovaAppContent}\nexport default cordovaApp;\n`,
         to: path.resolve(cwd, srcFolder, 'js', 'cordova-app.js'),
@@ -157,7 +187,9 @@ module.exports = (options, iconFile) => {
         to: path.resolve(cwd, srcFolder, 'js', 'capacitor-app.js'),
       });
     } else {
-      const capacitorAppContent = fse.readFileSync(path.resolve(__dirname, 'common', 'capacitor-app.js'));
+      const capacitorAppContent = fse.readFileSync(
+        path.resolve(__dirname, 'common', 'capacitor-app.js'),
+      );
       toCopy.push({
         content: `${capacitorAppContent}\nexport default capacitorApp;\n`,
         to: path.resolve(cwd, srcFolder, 'js', 'capacitor-app.js'),
@@ -169,50 +201,115 @@ module.exports = (options, iconFile) => {
   if (isCordova) {
     if (isIos || isAndroid) {
       toCopy.push({
-        from: path.resolve(__dirname, 'common', 'cordova-res', 'screen', 'ios', 'Default@2x~universal~anyany.png'),
+        from: path.resolve(
+          __dirname,
+          'common',
+          'cordova-res',
+          'screen',
+          'ios',
+          'Default@2x~universal~anyany.png',
+        ),
         to: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
       });
     }
     if (iconFile) {
       if (isIos) {
-        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'), iconFile);
+        fse.writeFileSync(
+          path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'),
+          iconFile,
+        );
       }
       if (isAndroid) {
-        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'), iconFile);
+        fse.writeFileSync(
+          path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'),
+          iconFile,
+        );
       }
       if (isElectron) {
-        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'), iconFile);
-        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'), iconFile);
+        fse.writeFileSync(
+          path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
+          iconFile,
+        );
+        fse.writeFileSync(
+          path.resolve(
+            cwd,
+            'assets-src',
+            'cordova-electron-installer-icon.png',
+          ),
+          iconFile,
+        );
       }
       if (isOsx) {
-        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'), iconFile);
+        fse.writeFileSync(
+          path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'),
+          iconFile,
+        );
       }
     } else {
       if (isIos) {
         toCopy.push({
-          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'ios', 'icon-512x512@2x.png'),
+          from: path.resolve(
+            __dirname,
+            'common',
+            'cordova-res',
+            'icon',
+            'ios',
+            'icon-512x512@2x.png',
+          ),
           to: path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'),
         });
       }
       if (isAndroid) {
         toCopy.push({
-          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'android', 'playstore-icon.png'),
+          from: path.resolve(
+            __dirname,
+            'common',
+            'cordova-res',
+            'icon',
+            'android',
+            'playstore-icon.png',
+          ),
           to: path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'),
         });
       }
       if (isElectron) {
         toCopy.push({
-          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'app.png'),
+          from: path.resolve(
+            __dirname,
+            'common',
+            'cordova-res',
+            'icon',
+            'electron',
+            'app.png',
+          ),
           to: path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
         });
         toCopy.push({
-          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'installer.png'),
-          to: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
+          from: path.resolve(
+            __dirname,
+            'common',
+            'cordova-res',
+            'icon',
+            'electron',
+            'installer.png',
+          ),
+          to: path.resolve(
+            cwd,
+            'assets-src',
+            'cordova-electron-installer-icon.png',
+          ),
         });
       }
       if (isOsx) {
         toCopy.push({
-          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'osx', 'icon-1024x1024.png'),
+          from: path.resolve(
+            __dirname,
+            'common',
+            'cordova-res',
+            'icon',
+            'osx',
+            'icon-1024x1024.png',
+          ),
           to: path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'),
         });
       }
@@ -220,15 +317,26 @@ module.exports = (options, iconFile) => {
   }
   if (isWeb || isPwa) {
     if (iconFile) {
-      fse.writeFileSync(path.resolve(cwd, 'assets-src', 'web-icon.png'), iconFile);
-      fse.writeFileSync(path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'), iconFile);
+      fse.writeFileSync(
+        path.resolve(cwd, 'assets-src', 'web-icon.png'),
+        iconFile,
+      );
+      fse.writeFileSync(
+        path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'),
+        iconFile,
+      );
     } else {
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'icons', '512x512.png'),
         to: path.resolve(cwd, 'assets-src', 'web-icon.png'),
       });
       toCopy.push({
-        from: path.resolve(__dirname, 'common', 'icons', 'apple-touch-icon.png'),
+        from: path.resolve(
+          __dirname,
+          'common',
+          'icons',
+          'apple-touch-icon.png',
+        ),
         to: path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'),
       });
     }

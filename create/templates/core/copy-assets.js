@@ -13,22 +13,11 @@ module.exports = (options) => {
 
   // Copy Pages
   const pages = [
-    ...(template !== 'blank' ? [
-      '404',
-      'about',
-      'dynamic-route',
-      'form',
-      'request-and-load',
-    ] : []),
-    ...(template === 'tabs' ? [
-      'catalog',
-      'product',
-      'settings',
-    ] : []),
-    ...(template === 'split-view' ? [
-      'left-page-1',
-      'left-page-2',
-    ] : []),
+    ...(template !== 'blank'
+      ? ['404', 'about', 'dynamic-route', 'form', 'request-and-load']
+      : []),
+    ...(template === 'tabs' ? ['catalog', 'product', 'settings'] : []),
+    ...(template === 'split-view' ? ['left-page-1', 'left-page-2'] : []),
   ];
 
   pages.forEach((p) => {
@@ -57,7 +46,10 @@ module.exports = (options) => {
 
   if (bundler) {
     toCopy.push({
-      content: `<template>\n${indent(2, generateHomePage(options).trim())}\n</template>\n<script>\nexport default () => {\n  return $render;\n}\n</script>`,
+      content: `<template>\n${indent(
+        2,
+        generateHomePage(options).trim(),
+      )}\n</template>\n<script>\nexport default () => {\n  return $render;\n}\n</script>`,
       to: path.resolve(cwd, srcFolder, 'pages', 'home.f7.html'),
     });
     toCopy.push({
@@ -72,14 +64,6 @@ module.exports = (options) => {
   } else {
     // Copy F7
     toCopy.push(...[]);
-    fse.readdirSync(path.resolve(cwd, 'node_modules', 'framework7')).filter((f) => {
-      return f.indexOf('.js') >= 0 || f.indexOf('.css') >= 0 || f.indexOf('.map') >= 0;
-    }).forEach((f) => {
-      toCopy.push({
-        from: path.resolve(cwd, 'node_modules', 'framework7', f),
-        to: path.resolve(cwd, srcFolder, 'framework7', f),
-      });
-    });
     if (type.indexOf('cordova') >= 0) {
       toCopy.push({
         from: path.resolve(__dirname, 'cordova-plain-build', 'build.js'),
