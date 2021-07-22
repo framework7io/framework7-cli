@@ -13,9 +13,7 @@ module.exports = (options) => {
 
   // Copy Pages
   const pages = [
-    ...(template !== 'blank'
-      ? ['404', 'about', 'dynamic-route', 'form', 'request-and-load']
-      : []),
+    ...(template !== 'blank' ? ['404', 'about', 'dynamic-route', 'form', 'request-and-load'] : []),
     ...(template === 'tabs' ? ['catalog', 'product', 'settings'] : []),
     ...(template === 'split-view' ? ['left-page-1', 'left-page-2'] : []),
   ];
@@ -23,7 +21,7 @@ module.exports = (options) => {
   pages.forEach((p) => {
     const src = path.resolve(__dirname, 'pages', `${p}.html`);
     const dest = path.resolve(cwd, srcFolder, 'pages');
-    if (bundler !== 'webpack') {
+    if (bundler !== 'vite') {
       toCopy.push({
         from: src,
         to: path.resolve(dest, `${p}.html`),
@@ -55,11 +53,6 @@ module.exports = (options) => {
     toCopy.push({
       content: generateRoot(options),
       to: path.resolve(cwd, srcFolder, 'app.f7.html'),
-    });
-
-    toCopy.push({
-      from: path.resolve(__dirname, 'babel.config.js'),
-      to: path.resolve(cwd, 'babel.config.js'),
     });
   } else {
     // Copy F7

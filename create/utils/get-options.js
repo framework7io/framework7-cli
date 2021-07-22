@@ -88,7 +88,8 @@ const questions = [
     ],
     validate(input) {
       return new Promise((resolve, reject) => {
-        if (!input || !input.length) reject(new Error('Target platform is required for cordova app'));
+        if (!input || !input.length)
+          reject(new Error('Target platform is required for cordova app'));
         else resolve(true);
       });
     },
@@ -112,7 +113,8 @@ const questions = [
     ],
     validate(input) {
       return new Promise((resolve, reject) => {
-        if (!input || !input.length) reject(new Error('Target platform is required for cordova app'));
+        if (!input || !input.length)
+          reject(new Error('Target platform is required for cordova app'));
         else resolve(true);
       });
     },
@@ -176,13 +178,13 @@ const questions = [
     when: (opts) => opts.framework === 'core',
     default(opts) {
       if (opts.framework === 'core') return false;
-      return 'webpack';
+      return 'vite';
     },
     choices(opts) {
       const choices = [
         {
-          name: 'Webpack (recommended)',
-          value: 'webpack',
+          name: 'Vite (recommended)',
+          value: 'vite',
         },
       ];
       if (opts.framework === 'core') {
@@ -198,7 +200,7 @@ const questions = [
     type: 'list',
     name: 'cssPreProcessor',
     message: 'Do you want to setup CSS Pre-Processor',
-    when: (opts) => opts.bundler === 'webpack' || opts.framework !== 'core',
+    when: (opts) => opts.bundler === 'vite' || opts.framework !== 'core',
     default: false,
     choices: [
       {
@@ -245,7 +247,7 @@ const questions = [
       return new Promise((resolve, reject) => {
         const num = input.replace(/#/g, '');
         if (num.length === 3 || num.length === 6) resolve(true);
-        else reject(new Error('It doesn\'t look like a correct HEX number'));
+        else reject(new Error("It doesn't look like a correct HEX number"));
       });
     },
     filter(input) {
@@ -274,14 +276,17 @@ const questions = [
 module.exports = function getOptions() {
   return inquirer.prompt(questions).then((options) => {
     if (options.framework !== 'core' && !options.bundler) {
-      options.bundler = 'webpack'; // eslint-disable-line
+      options.bundler = 'vite'; // eslint-disable-line
     }
     if (options.type.indexOf('cordova') >= 0) {
       options.cordova = {
         folder: 'cordova',
         platforms: options.cordovaPlatforms,
       };
-      if (options.cordovaPlatforms.indexOf('ios') >= 0 || options.cordovaPlatforms.indexOf('android') >= 0) {
+      if (
+        options.cordovaPlatforms.indexOf('ios') >= 0 ||
+        options.cordovaPlatforms.indexOf('android') >= 0
+      ) {
         options.cordova.plugins = [
           'cordova-plugin-statusbar',
           'cordova-plugin-keyboard',
@@ -296,18 +301,10 @@ module.exports = function getOptions() {
       };
       delete options.capacitorPlatforms;
     }
-    if (options.bundler === 'webpack') {
-      options.webpack = {
-        developmentSourceMap: true,
-        productionSourceMap: true,
-        hashAssets: false,
-        preserveAssetsPaths: false,
-        inlineAssets: true,
-      };
-    }
     options.theming = {
       customColor: options.themingCustomColor,
-      color: options.themingCustomColor && options.themingColor ? `#${options.themingColor}` : '#007aff',
+      color:
+        options.themingCustomColor && options.themingColor ? `#${options.themingColor}` : '#007aff',
       darkTheme: false,
       iconFonts: options.themingIconFonts,
       fillBars: false,

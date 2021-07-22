@@ -2,13 +2,12 @@ const templateIf = require('../../utils/template-if');
 const indent = require('../../utils/indent');
 
 module.exports = (options) => {
-  const {
-    bundler, template,
-  } = options;
+  const { bundler, template } = options;
 
   let routes;
+  // prettier-ignore
   if (template === 'blank') {
-    if (bundler === 'webpack') {
+    if (bundler === 'vite') {
       routes = indent(0, `
         import HomePage from '../pages/home.f7.html';
 
@@ -29,7 +28,7 @@ module.exports = (options) => {
         ];
       `);
     }
-  } else if (bundler === 'webpack') {
+  } else if (bundler === 'vite') {
     routes = indent(0, `
       import HomePage from '../pages/home.f7.html';
       import AboutPage from '../pages/about.f7.html';

@@ -1,13 +1,11 @@
 const npmScripts = require('./npm-scripts');
 
 module.exports = (options) => {
-  const {
-    type, bundler, cordova, capacitor,
-  } = options;
+  const { type, bundler, cordova, capacitor } = options;
   const tokens = [];
   let result = [];
 
-  if (bundler === 'webpack') {
+  if (bundler === 'vite') {
     tokens.push('s', 'd');
     tokens.push('b');
     if (type.indexOf('cordova') >= 0) {
@@ -38,10 +36,10 @@ module.exports = (options) => {
     }
     result = tokens.map((token) => {
       return {
-        icon: npmScripts.webpack[token].icon,
-        name: npmScripts.webpack[token].name,
-        script: npmScripts.webpack[token].script,
-        description: npmScripts.webpack[token].description,
+        icon: npmScripts.vite[token].icon,
+        name: npmScripts.vite[token].name,
+        script: npmScripts.vite[token].script,
+        description: npmScripts.vite[token].description,
       };
     });
   }
@@ -75,10 +73,10 @@ module.exports = (options) => {
     }
     result = tokens.map((token) => {
       return {
-        icon: npmScripts.no_webpack[token].icon,
-        name: npmScripts.no_webpack[token].name,
-        script: npmScripts.no_webpack[token].script,
-        description: npmScripts.no_webpack[token].description,
+        icon: npmScripts.no_vite[token].icon,
+        name: npmScripts.no_vite[token].name,
+        script: npmScripts.no_vite[token].script,
+        description: npmScripts.no_vite[token].description,
       };
     });
   }

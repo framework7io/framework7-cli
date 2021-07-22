@@ -5,27 +5,14 @@ const generateStore = require('../generate-store');
 
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
-  const { template, bundler } = options;
+  const { template } = options;
   const toCopy = [];
 
   // Copy Pages
   const pages = [
-    ...(template !== 'blank' ? [
-      '404',
-      'about',
-      'dynamic-route',
-      'form',
-      'request-and-load',
-    ] : []),
-    ...(template === 'tabs' ? [
-      'catalog',
-      'product',
-      'settings',
-    ] : []),
-    ...(template === 'split-view' ? [
-      'left-page-1',
-      'left-page-2',
-    ] : []),
+    ...(template !== 'blank' ? ['404', 'about', 'dynamic-route', 'form', 'request-and-load'] : []),
+    ...(template === 'tabs' ? ['catalog', 'product', 'settings'] : []),
+    ...(template === 'split-view' ? ['left-page-1', 'left-page-2'] : []),
   ];
 
   pages.forEach((p) => {
@@ -48,13 +35,6 @@ module.exports = (options) => {
     content: generateStore(options),
     to: path.resolve(cwd, 'src', 'js', 'store.js'),
   });
-
-  if (bundler) {
-    toCopy.push({
-      from: path.resolve(__dirname, 'babel.config.js'),
-      to: path.resolve(cwd, 'babel.config.js'),
-    });
-  }
 
   return toCopy;
 };

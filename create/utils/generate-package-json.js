@@ -1,16 +1,7 @@
 const generateNpmScripts = require('./generate-npm-scripts');
 
 module.exports = function generatePackageJson(options) {
-  const {
-    type,
-    name,
-    framework,
-    bundler,
-    cssPreProcessor,
-    cordova,
-    theming,
-    capacitor,
-  } = options;
+  const { type, name, framework, bundler, cssPreProcessor, cordova, theming, capacitor } = options;
 
   // Dependencies
   const dependencies = [
@@ -18,11 +9,9 @@ module.exports = function generatePackageJson(options) {
     'dom7',
     'swiper',
     'skeleton-elements',
-    ...(theming.iconFonts ? ['framework7-icons'] : []),
+    ...(theming.iconFonts ? ['framework7-icons', 'material-icons'] : []),
     ...(framework === 'vue' ? ['framework7-vue', 'vue@3'] : []),
-    ...(framework === 'react'
-      ? ['framework7-react', 'react', 'react-dom', 'prop-types']
-      : []),
+    ...(framework === 'react' ? ['framework7-react', 'react', 'react-dom', 'prop-types'] : []),
     ...(framework === 'svelte' ? ['framework7-svelte', 'svelte'] : []),
     ...(type.indexOf('capacitor') >= 0
       ? [
@@ -32,62 +21,31 @@ module.exports = function generatePackageJson(options) {
           '@capacitor/keyboard',
           '@capacitor/status-bar',
           '@capacitor/browser',
-          ...(capacitor.platforms || []).map(
-            (platform) => `@capacitor/${platform}`,
-          ),
+          ...(capacitor.platforms || []).map((platform) => `@capacitor/${platform}`),
         ]
       : []),
   ];
 
   const devDependencies = [];
-  if (bundler === 'webpack') {
+  if (bundler === 'vite') {
     devDependencies.push(
       ...[
-        '@babel/core',
-        '@babel/plugin-transform-runtime',
-        '@babel/preset-env',
-        '@babel/runtime',
-        'babel-loader',
-        'chalk',
-        ...(type.indexOf('cordova') >= 0 &&
-        cordova.platforms.indexOf('electron') >= 0
+        'vite',
+        ...(type.indexOf('cordova') >= 0 && cordova.platforms.indexOf('electron') >= 0
           ? ['concurrently']
           : []),
-        ...(type.indexOf('capacitor') >= 0
-          ? ['@capacitor/cli', 'cordova-res']
-          : []),
-        'copy-webpack-plugin',
+        ...(type.indexOf('cordova') >= 0 ? ['vite-plugin-html'] : []),
+        ...(type.indexOf('capacitor') >= 0 ? ['@capacitor/cli', 'cordova-res'] : []),
         'cross-env',
-        'css-loader',
-        'file-loader',
-        'html-webpack-plugin',
-        'mini-css-extract-plugin',
-        'css-minimizer-webpack-plugin',
-        'ora',
-        'postcss-loader',
         'postcss-preset-env',
-        'rimraf',
-        'style-loader',
-        ...(cssPreProcessor === 'stylus' ? ['stylus', 'stylus-loader'] : []),
-        ...(cssPreProcessor === 'less' ? ['less', 'less-loader'] : []),
-        ...(cssPreProcessor === 'scss' ? ['node-sass', 'sass-loader'] : []),
-        'terser-webpack-plugin',
-        'url-loader',
-        'webpack',
-        'webpack-cli',
-        'webpack-dev-server',
+        ...(cssPreProcessor === 'stylus' ? ['stylus'] : []),
+        ...(cssPreProcessor === 'less' ? ['less'] : []),
+        ...(cssPreProcessor === 'scss' ? ['sass'] : []),
         ...(type.indexOf('pwa') >= 0 ? ['workbox-webpack-plugin'] : []),
-        ...(framework === 'core' ? ['framework7-loader'] : []),
-        ...(framework === 'react' || (framework === 'core' && bundler)
-          ? ['@babel/preset-react']
-          : []),
-        ...(framework === 'react'
-          ? ['@pmmmwh/react-refresh-webpack-plugin', 'react-refresh']
-          : []),
-        ...(framework === 'svelte' ? ['svelte-loader'] : []),
-        ...(framework === 'vue'
-          ? ['vue-loader@16', 'vue-style-loader', '@vue/compiler-sfc']
-          : []),
+        ...(framework === 'core' ? ['rollup-plugin-framework7'] : []),
+        ...(framework === 'react' ? ['@vitejs/plugin-react-refresh'] : []),
+        ...(framework === 'svelte' ? ['@sveltejs/vite-plugin-svelte'] : []),
+        ...(framework === 'vue' ? ['@vitejs/plugin-vue'] : []),
       ],
     );
   } else {
@@ -115,9 +73,10 @@ module.exports = function generatePackageJson(options) {
 
   if (theming.iconFonts) {
     postInstall.push(
-      `cpy ./node_modules/framework7-icons/fonts/*.* ./${
-        bundler ? 'src' : 'www'
-      }/fonts/`,
+      ...[
+        `cpy ./node_modules/framework7-icons/fonts/*.* ./${bundler ? 'src' : 'www'}/fonts/`,
+        `cpy ./node_modules/material-icons/iconfont/*.* ./${bundler ? 'src' : 'www'}/fonts/`,
+      ],
     );
   }
   if (framework === 'core' && !bundler) {

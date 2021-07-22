@@ -2,12 +2,12 @@ const templateIf = require('../../utils/template-if');
 const indent = require('../../utils/indent');
 
 module.exports = (options) => {
-  const {
-    template,
-  } = options;
+  const { template } = options;
 
   if (template === 'blank') {
-    return indent(0, `
+    return indent(
+      0,
+      `
       import HomePage from '../pages/home.svelte';
 
       var routes = [
@@ -18,9 +18,11 @@ module.exports = (options) => {
       ];
 
       export default routes;
-    `);
+    `,
+    );
   }
-  // Webpack Routes
+  // Vite Routes
+  // prettier-ignore
   const routes = indent(0, `
     import HomePage from '../pages/home.svelte';
     import AboutPage from '../pages/about.svelte';

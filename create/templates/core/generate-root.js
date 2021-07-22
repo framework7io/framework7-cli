@@ -3,12 +3,10 @@ const indent = require('../../utils/indent');
 const templateIf = require('../../utils/template-if');
 
 module.exports = (options) => {
-  const {
-    template,
-    bundler,
-  } = options;
+  const { template, bundler } = options;
 
   // Panels
+  // prettier-ignore
   const leftPanelPlain = `
     <!-- Left panel with cover effect-->
     <div class="panel panel-left panel-cover theme-dark panel-init">
@@ -28,6 +26,7 @@ module.exports = (options) => {
     </div>
   `.trim();
 
+  // prettier-ignore
   const leftPanelWithView = `
     <!-- Left panel with cover effect -->
     <div class="panel panel-left panel-cover theme-dark panel-init" data-visible-breakpoint="960">
@@ -66,7 +65,9 @@ module.exports = (options) => {
       </div>
     </div>
   `;
-  const leftPanel = template === 'split-view' ? leftPanelWithView : leftPanelPlain;
+  const leftPanel =
+    template === 'split-view' ? leftPanelWithView : leftPanelPlain;
+  // prettier-ignore
   const rightPanel = `
     <!-- Right panel with reveal effect-->
     <div class="panel panel-right panel-reveal theme-dark">
@@ -88,10 +89,11 @@ module.exports = (options) => {
 
   // Views
   let views = '';
+  // prettier-ignore
   if (template === 'single-view' || template === 'split-view' || template === 'blank') {
     views = indent(4, `
       <!-- Your main view, should have "view-main" class -->
-      ${templateIf(bundler === 'webpack', () => `
+      ${templateIf(bundler === 'vite', () => `
       <div class="view view-main view-init safe-areas" data-url="/"></div>
       `, () => `
       <div class="view view-main view-init safe-areas">
@@ -100,6 +102,7 @@ module.exports = (options) => {
       `)}
     `);
   }
+  // prettier-ignore
   if (template === 'tabs') {
     views = indent(4, `
     <!-- Views/Tabs container -->
@@ -126,7 +129,7 @@ module.exports = (options) => {
       </div>
 
       <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->
-      ${templateIf(bundler === 'webpack', () => `
+      ${templateIf(bundler === 'vite', () => `
       <div id="view-home" class="view view-main view-init tab tab-active" data-url="/">
         <!-- Home page will be loaded here dynamically from / route -->
       </div>
@@ -149,6 +152,7 @@ module.exports = (options) => {
     `);
   }
 
+  // prettier-ignore
   const htmlTemplate = template === 'blank' ? `
     ${views}
   ` : `
@@ -233,7 +237,8 @@ module.exports = (options) => {
     </div>
   `;
 
-  if (bundler === 'webpack') {
+  // prettier-ignore
+  if (bundler === 'vite') {
     if (template === 'blank') {
       return indent(0, `
         <template>

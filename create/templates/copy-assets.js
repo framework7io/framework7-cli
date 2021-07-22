@@ -9,29 +9,21 @@ const generateIndex = require('./generate-index');
 const generateStyles = require('./generate-styles');
 const generateScripts = require('./generate-scripts');
 const generateRoutes = require('./generate-routes');
-const generateWebpackConfig = require('./generate-webpack-config');
+const generateViteConfig = require('./generate-vite-config');
 const generateManifest = require('./generate-manifest');
 const generateServiceWorker = require('./generate-service-worker');
 const generateFramework7Custom = require('./generate-framework7-custom');
 
 module.exports = (options, iconFile) => {
   const cwd = options.cwd || process.cwd();
-  const {
-    framework,
-    bundler,
-    type = [],
-    cordova,
-    theming,
-    cssPreProcessor,
-    customBuild,
-  } = options;
+  const { framework, bundler, type = [], cordova, theming, cssPreProcessor, customBuild } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
   const isWeb = type.indexOf('web') >= 0;
   const isPwa = type.indexOf('pwa') >= 0;
   const isCordova = type.indexOf('cordova') >= 0;
   const isCapacitor = type.indexOf('capacitor') >= 0;
-  const isWebpack = bundler === 'webpack';
+  const isVite = bundler === 'vite';
   const isIos = cordova && cordova.platforms.indexOf('ios') >= 0;
   const isAndroid = cordova && cordova.platforms.indexOf('android') >= 0;
   const isElectron = cordova && cordova.platforms.indexOf('electron') >= 0;
@@ -49,33 +41,6 @@ module.exports = (options, iconFile) => {
       from: path.resolve(__dirname, 'common', 'css', 'icons.css'),
       to: path.resolve(cwd, srcFolder, 'css', 'icons.css'),
     });
-
-    // Copy Fonts
-    toCopy.push(
-      ...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
-        return {
-          from: path.resolve(
-            __dirname,
-            'common',
-            'material-icons-font',
-            `MaterialIcons-Regular.${ext}`,
-          ),
-          to: path.resolve(
-            cwd,
-            srcFolder,
-            'fonts',
-            `MaterialIcons-Regular.${ext}`,
-          ),
-        };
-      }),
-    );
-    // TODO CHECK IF WE NEED IT
-    // toCopy.push(...['eot', 'ttf', 'woff', 'woff2'].map((ext) => {
-    //   return {
-    //     from: path.resolve(cwd, 'node_modules', 'framework7-icons', 'fonts', `Framework7Icons-Regular.${ext}`),
-    //     to: path.resolve(cwd, srcFolder, 'fonts', `Framework7Icons-Regular.${ext}`),
-    //   };
-    // }));
   }
 
   // Copy Main Assets
@@ -87,12 +52,7 @@ module.exports = (options, iconFile) => {
       },
       {
         content: generateStyles(options),
-        to: path.resolve(
-          cwd,
-          srcFolder,
-          'css',
-          `app.${stylesExtension(cssPreProcessor)}`,
-        ),
+        to: path.resolve(cwd, srcFolder, 'css', `app.${stylesExtension(cssPreProcessor)}`),
       },
       {
         content: generateRoutes(options),
@@ -123,14 +83,10 @@ module.exports = (options, iconFile) => {
   }
 
   // Copy Bundlers
-  if (isWebpack) {
+  if (isVite) {
     toCopy.push({
-      from: path.resolve(__dirname, 'common', 'webpack', 'build.js'),
-      to: path.resolve(cwd, 'build', 'build.js'),
-    });
-    toCopy.push({
-      content: generateWebpackConfig(options),
-      to: path.resolve(cwd, 'build', 'webpack.config.js'),
+      content: generateViteConfig(options),
+      to: path.resolve(cwd, 'vite.config.js'),
     });
     toCopy.push({
       from: path.resolve(__dirname, 'common', 'postcss.config.js'),
@@ -140,12 +96,12 @@ module.exports = (options, iconFile) => {
 
   // Copy Web Images & Icons
   if (isWeb || isPwa) {
-    const assetsFolder = isWebpack ? 'static' : 'assets';
+    const assetsFolder = isVite ? 'public' : 'assets';
     fse.readdirSync(path.resolve(__dirname, 'common', 'icons')).forEach((f) => {
       if (f.indexOf('.') === 0) return;
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'icons', f),
-        to: path.resolve(cwd, srcFolder, assetsFolder, 'icons', f),
+        to: path.resolve(cwd, assetsFolder, 'icons', f),
       });
     });
   }
@@ -214,16 +170,10 @@ module.exports = (options, iconFile) => {
     }
     if (iconFile) {
       if (isIos) {
-        fse.writeFileSync(
-          path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'),
-          iconFile,
-        );
+        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-ios-icon.png'), iconFile);
       }
       if (isAndroid) {
-        fse.writeFileSync(
-          path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'),
-          iconFile,
-        );
+        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'), iconFile);
       }
       if (isElectron) {
         fse.writeFileSync(
@@ -231,19 +181,12 @@ module.exports = (options, iconFile) => {
           iconFile,
         );
         fse.writeFileSync(
-          path.resolve(
-            cwd,
-            'assets-src',
-            'cordova-electron-installer-icon.png',
-          ),
+          path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
           iconFile,
         );
       }
       if (isOsx) {
-        fse.writeFileSync(
-          path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'),
-          iconFile,
-        );
+        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'), iconFile);
       }
     } else {
       if (isIos) {
@@ -274,14 +217,7 @@ module.exports = (options, iconFile) => {
       }
       if (isElectron) {
         toCopy.push({
-          from: path.resolve(
-            __dirname,
-            'common',
-            'cordova-res',
-            'icon',
-            'electron',
-            'app.png',
-          ),
+          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'app.png'),
           to: path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
         });
         toCopy.push({
@@ -293,11 +229,7 @@ module.exports = (options, iconFile) => {
             'electron',
             'installer.png',
           ),
-          to: path.resolve(
-            cwd,
-            'assets-src',
-            'cordova-electron-installer-icon.png',
-          ),
+          to: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
         });
       }
       if (isOsx) {
@@ -317,26 +249,15 @@ module.exports = (options, iconFile) => {
   }
   if (isWeb || isPwa) {
     if (iconFile) {
-      fse.writeFileSync(
-        path.resolve(cwd, 'assets-src', 'web-icon.png'),
-        iconFile,
-      );
-      fse.writeFileSync(
-        path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'),
-        iconFile,
-      );
+      fse.writeFileSync(path.resolve(cwd, 'assets-src', 'web-icon.png'), iconFile);
+      fse.writeFileSync(path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'), iconFile);
     } else {
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'icons', '512x512.png'),
         to: path.resolve(cwd, 'assets-src', 'web-icon.png'),
       });
       toCopy.push({
-        from: path.resolve(
-          __dirname,
-          'common',
-          'icons',
-          'apple-touch-icon.png',
-        ),
+        from: path.resolve(__dirname, 'common', 'icons', 'apple-touch-icon.png'),
         to: path.resolve(cwd, 'assets-src', 'apple-touch-icon.png'),
       });
     }

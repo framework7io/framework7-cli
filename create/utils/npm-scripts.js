@@ -20,65 +20,67 @@ function scriptName(tokens) {
 }
 
 const npmScripts = {
-  webpack: {
+  vite: {
     b: {
       icon: '🔧',
-      script: 'cross-env NODE_ENV=production node ./build/build.js',
+      script: 'cross-env NODE_ENV=production vite build',
       description: 'build web app for production',
     },
     bc: {
       icon: '📱',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build',
+      script:
+        'cross-env TARGET=cordova cross-env NODE_ENV=production vite build && cd cordova && cordova build',
       description: 'build cordova app',
     },
     bci: {
       icon: '📱',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build ios',
+      script:
+        'cross-env TARGET=cordova cross-env NODE_ENV=production vite build && cd cordova && cordova build ios',
       description: 'build cordova iOS app',
     },
     bxi: {
       icon: '📱',
-      script: 'cross-env NODE_ENV=production node ./build/build.js && npx cap copy ios',
+      script: 'cross-env NODE_ENV=production vite build && npx cap copy ios',
       description: 'build app and copy it to iOS capacitor project',
     },
     bca: {
       icon: '📱',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build android',
+      script:
+        'cross-env TARGET=cordova cross-env NODE_ENV=production vite build && cd cordova && cordova build android',
       description: 'build cordova Android app',
     },
     bxa: {
       icon: '📱',
-      script: 'cross-env NODE_ENV=production node ./build/build.js && npx cap copy android',
+      script: 'cross-env NODE_ENV=production vite build && npx cap copy android',
       description: 'build app and copy it to Android capacitor project',
     },
     ca: {
       icon: '📱',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova run android',
+      script:
+        'cross-env TARGET=cordova cross-env NODE_ENV=development vite build && cd cordova && cordova run android',
       description: 'run dev build cordova Android app',
     },
     ci: {
       icon: '📱',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && cd cordova && cordova run ios',
+      script:
+        'cross-env TARGET=cordova cross-env NODE_ENV=development vite build && cd cordova && cordova run ios',
       description: 'run dev build cordova iOS app',
     },
     bce: {
       icon: '🖥',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build electron',
+      script:
+        'cross-env TARGET=cordova cross-env NODE_ENV=production vite build && cd cordova && cordova build electron',
       description: 'build cordova Electron app',
-    },
-    ce: {
-      icon: '🖥',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=development node ./build/build.js && concurrently --kill-others "cross-env TARGET=cordova cross-env ELECTRON_WATCH=true cross-env NODE_ENV=development cross-env webpack --progress --config ./build/webpack.config.js --watch" "cd cordova && cordova run electron --nobuild"',
-      description: 'launch quick preview (without full build process) of Electron app in development mode',
     },
     bco: {
       icon: '🖥',
-      script: 'cross-env TARGET=cordova cross-env NODE_ENV=production node ./build/build.js && cd cordova && cordova build osx',
+      script:
+        'cross-env TARGET=cordova cross-env NODE_ENV=production vite build && cd cordova && cordova build osx',
       description: 'build cordova macOS app',
     },
     d: {
       icon: '🔧',
-      script: 'cross-env NODE_ENV=development webpack serve --config ./build/webpack.config.js',
+      script: 'cross-env NODE_ENV=development vite',
       description: 'run development server',
     },
     s: {
@@ -87,7 +89,7 @@ const npmScripts = {
       description: 'run development server',
     },
   },
-  no_webpack: {
+  no_vite: {
     bc: {
       icon: '📱',
       script: 'node ./build/build.js && cd cordova && cordova build',
@@ -136,7 +138,8 @@ const npmScripts = {
     ce: {
       icon: '🖥',
       script: 'node ./build/build.js && cd cordova && cordova run electron --nobuild',
-      description: 'launch quick preview (without full build process) of Electron app in development mode',
+      description:
+        'launch quick preview (without full build process) of Electron app in development mode',
     },
     bxi: {
       icon: '📱',
@@ -151,11 +154,11 @@ const npmScripts = {
   },
 };
 
-Object.keys(npmScripts.webpack).forEach((tokens) => {
-  npmScripts.webpack[tokens].name = scriptName(tokens);
+Object.keys(npmScripts.vite).forEach((tokens) => {
+  npmScripts.vite[tokens].name = scriptName(tokens);
 });
-Object.keys(npmScripts.no_webpack).forEach((tokens) => {
-  npmScripts.no_webpack[tokens].name = scriptName(tokens);
+Object.keys(npmScripts.no_vite).forEach((tokens) => {
+  npmScripts.no_vite[tokens].name = scriptName(tokens);
 });
 
 module.exports = npmScripts;

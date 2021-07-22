@@ -1,6 +1,6 @@
 module.exports = (options) => {
   const { name, theming, bundler } = options;
-  const iconsFolder = bundler ? 'static' : 'assets';
+  const iconsFolder = bundler ? 'public' : 'assets';
   const manifest = {
     name,
     short_name: name,

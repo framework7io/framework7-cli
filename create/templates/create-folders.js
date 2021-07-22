@@ -3,11 +3,7 @@ const fse = require('../../utils/fs-extra');
 
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
-  const {
-    framework,
-    bundler,
-    type,
-  } = options;
+  const { framework, bundler, type } = options;
 
   const srcFolder = bundler ? 'src' : 'www';
 
@@ -19,37 +15,28 @@ module.exports = (options) => {
     `./${srcFolder}/pages`,
     `./${srcFolder}/js`,
     './assets-src',
-
   ];
   if (folders.indexOf('./www') < 0) {
     folders.push('./www');
   }
   if (framework !== 'core' && bundler) {
-    folders.push(...[
-      './src/components',
-    ]);
+    folders.push(...['./src/components']);
   }
   if (bundler || (!bundler && type.indexOf('cordova') >= 0)) {
-    folders.push(...[
-      './build',
-    ]);
+    folders.push(...['./build']);
   }
   if (bundler) {
-    if (bundler === 'webpack') {
-      folders.push(...[
-        './src/static',
-      ]);
+    if (bundler === 'vite') {
+      folders.push(...['./public']);
     }
   } else {
-    folders.push(...[
-      './www/framework7',
-      './www/framework7/js',
-      './www/framework7/css',
-    ]);
+    folders.push(
+      ...['./www/framework7', './www/framework7/js', './www/framework7/css'],
+    );
   }
   if (type.indexOf('web') >= 0 || type.indexOf('pwa') >= 0) {
-    if (bundler === 'webpack') {
-      folders.push('./src/static/icons');
+    if (bundler === 'vite') {
+      folders.push('./public/icons');
     } else {
       folders.push('./www/assets/icons');
     }
