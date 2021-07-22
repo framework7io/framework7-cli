@@ -1,17 +1,10 @@
-const exec = require('exec-sh');
 const path = require('path');
-// const rm = require('rimraf');
 const cpy = require('cpy');
 const fse = require('../../utils/fs-extra');
 
 module.exports = (options) => {
   const cwd = options.cwd || process.cwd();
-  const isRunningInCwd = cwd === process.cwd();
-  const {
-    pkg,
-    name,
-    capacitor,
-  } = options;
+  const { pkg, name } = options;
   // eslint-disable-next-line
   return new Promise(async (resolve, reject) => {
     // Write capacitor config file
@@ -48,33 +41,29 @@ module.exports = (options) => {
     fse.writeFileSync(path.resolve(cwd, 'www/index.html'), content);
 
     // Add platforms
-    const command = capacitor.platforms.map((platform) => `npm install @capacitor/${platform} && npx cap add ${platform}`).join(' && ');
-    try {
-      if (!isRunningInCwd) {
-        await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && ${command}`, true);
-      } else {
-        await exec.promise(command, true);
-      }
-    } catch (err) {
-      reject(err);
-      return;
-    }
+    // TODO
+    // const command = capacitor.platforms.map((platform) => `npm install @capacitor/${platform} && npx cap add ${platform}`).join(' && ');
+    // try {
+    //   if (!isRunningInCwd) {
+    //     await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && ${command}`, true);
+    //   } else {
+    //     await exec.promise(command, true);
+    //   }
+    // } catch (err) {
+    //   reject(err);
+    //   return;
+    // }
 
     // Upload res files
     try {
-      await cpy(
-        '**/*.*',
-        path.resolve(cwd, 'resources'),
-        {
-          parents: true,
-          cwd: path.resolve(__dirname, 'common', 'capacitor-res'),
-        },
-      );
+      await cpy('**/*.*', path.resolve(cwd, 'resources'), {
+        parents: true,
+        cwd: path.resolve(__dirname, 'common', 'capacitor-res'),
+      });
     } catch (err) {
       reject(err);
       return;
     }
-
 
     resolve();
   });
