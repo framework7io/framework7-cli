@@ -3,12 +3,9 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(../fonts/MaterialIcons-Regular.eot);
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(../fonts/MaterialIcons-Regular.woff2) format('woff2'),
-       url(../fonts/MaterialIcons-Regular.woff) format('woff'),
-       url(../fonts/MaterialIcons-Regular.ttf) format('truetype');
+  src: local('Material Icons'), local('MaterialIcons-Regular'),
+    url(../fonts/material-icons.woff2) format('woff2'),
+    url(../fonts/material-icons.woff) format('woff');
 }
 .material-icons {
   font-family: 'Material Icons';
@@ -33,10 +30,8 @@
   font-family: 'Framework7 Icons';
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/Framework7Icons-Regular.eot");
-  src: url("../fonts/Framework7Icons-Regular.woff2") format("woff2"),
-       url("../fonts/Framework7Icons-Regular.woff") format("woff"),
-       url("../fonts/Framework7Icons-Regular.ttf") format("truetype");
+  src: url('../fonts/Framework7Icons-Regular.woff2') format('woff2'),
+    url('../fonts/Framework7Icons-Regular.woff') format('woff');
 }
 .f7-icons {
   font-family: 'Framework7 Icons';
@@ -53,9 +48,9 @@
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-font-feature-settings: "liga";
-  -moz-font-feature-settings: "liga=1";
-  -moz-font-feature-settings: "liga";
-  font-feature-settings: "liga";
+  -webkit-font-feature-settings: 'liga';
+  -moz-font-feature-settings: 'liga=1';
+  -moz-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
   text-align: center;
 }
