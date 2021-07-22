@@ -1,17 +1,12 @@
 /* eslint curly: off */
-const generateCoreRoot = require('./core/generate-root.js');
+const generateCoreRoot = require('./core/generate-root');
 const templateIf = require('../utils/template-if');
 
 module.exports = (options) => {
-  const {
-    name,
-    framework,
-    type,
-    bundler,
-    theming,
-  } = options;
+  const { name, framework, type, bundler, theming } = options;
 
   const iconsAssetsFolder = bundler === 'webpack' ? 'static' : 'assets';
+  // prettier-ignore
   const metaTags = type.indexOf('pwa') >= 0 || type.indexOf('web') >= 0 ? `
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,13 +14,14 @@ module.exports = (options) => {
   <link rel="icon" href="${iconsAssetsFolder}/icons/favicon.png">
   `.trim() : '';
 
+  // prettier-ignore
   const manifest = type.indexOf('pwa') >= 0 ? `
   <link rel="manifest" href="/manifest.json">
   `.trim() : '';
 
   let webStart = '';
   if (type.indexOf('cordova') >= 0 && (metaTags || manifest)) {
-    if (bundler) webStart = '<% if (process.env.TARGET === \'web\') { %>';
+    if (bundler) webStart = "<% if (process.env.TARGET === 'web') { %>";
     else webStart = '<!-- web-start -->';
   }
   let webEnd = '';
@@ -34,6 +30,7 @@ module.exports = (options) => {
     else webEnd = '<!-- web-end -->';
   }
 
+  // prettier-ignore
   const styles = bundler === 'webpack' ? `
   <!-- built styles file will be auto injected -->
   `.trim() : `
@@ -42,11 +39,11 @@ module.exports = (options) => {
   <link rel="stylesheet" href="css/app.css">
   `.trim();
 
-  const rootContent = framework === 'core' && !bundler
-    ? generateCoreRoot(options)
-    : '';
+  const rootContent =
+    framework === 'core' && !bundler ? generateCoreRoot(options) : '';
 
   let cordovaScript;
+  // prettier-ignore
   if (type.indexOf('cordova') >= 0) {
     if (bundler) cordovaScript = `
   <% if (process.env.TARGET === 'cordova') { %>
@@ -56,6 +53,7 @@ module.exports = (options) => {
     else cordovaScript = '<!-- CORDOVA_PLACEHOLDER_DONT_REMOVE -->';
   }
 
+  // prettier-ignore
   const scripts = bundler ? `
   <!-- built script files will be auto injected -->
   `.trim() : `
@@ -77,6 +75,7 @@ module.exports = (options) => {
   <script src="js/app.js"></script>
   `.trim();
 
+  // prettier-ignore
   return `
 <!DOCTYPE html>
 <html>

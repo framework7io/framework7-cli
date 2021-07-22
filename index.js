@@ -105,11 +105,10 @@ program
     exec.promise(`cd ./cordova && cordova ${args.join(' ')}`);
   });
 
-program
-  .on('command:*', (cmd) => {
-    program.outputHelp();
-    log.text(`\n Unknown command ${cmd}`);
-  });
+program.on('command:*', (cmd) => {
+  program.outputHelp();
+  log.text(`\n Unknown command ${cmd}`);
+});
 
 program.parse(process.argv);
 
