@@ -1,12 +1,11 @@
 export default function (log) {
-  log = log
-    .map((l) => {
-      return l
-        .replace(/(\[[0-9]?[0-9][m])/g, '')
-        .replace(/↵/g, '\n')
-        .replace(/[\x1b]/g, "")
-        .trim();
-    })
+  log = log.map((l) => {
+    return l
+      .replace(/(\[[0-9]?[0-9][m])/g, '')
+      .replace(/↵/g, '\n')
+      .replace(/[\x1b]/g, '')
+      .trim();
+  });
 
   const indexesToRemove = [];
   log.forEach((line, index) => {
@@ -25,5 +24,12 @@ export default function (log) {
     .join('\n')
     .replace(/✔/g, '<span class="text-color-green">✔</span>')
     .replace(/ℹ/g, '<span class="text-color-yellow">ℹ</span>')
-    .replace('https://patreon.com/vladimirkharlampidi', '<a href="https://patreon.com/vladimirkharlampidi" class="external" target="_blank">https://patreon.com/vladimirkharlampidi</a>');
+    .replace(
+      'https://patreon.com/framework7',
+      '<a class="color-blue" href="https://patreon.com/framework7" class="external" target="_blank">https://patreon.com/framework7</a>',
+    )
+    .replace(
+      'https://opencollective.com/framework7',
+      '<a class="color-blue" href="https://opencollective.com/framework7" class="external" target="_blank">https://opencollective.com/framework7</a>',
+    );
 }
