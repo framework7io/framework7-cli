@@ -18,7 +18,6 @@ module.exports = (options) => {
 
   const { framework } = options;
 
-
   const componentsImportsJS = filterCharts(components).map((c) => {
     const name = c
       .split('-')
@@ -37,6 +36,7 @@ module.exports = (options) => {
       .join('');
   });
 
+  // prettier-ignore
   const scripts = indent(0, `
     import Framework7, { request, utils, getDevice, createStore } from '${framework === 'core' ? 'framework7' : 'framework7/lite'}';
     ${componentsImportsJS.join('\n    ')}
@@ -50,11 +50,12 @@ module.exports = (options) => {
   `);
 
   const componentsImportsLESS = components.map((c) => {
-    return `@import url('../../node_modules/framework7/components/${c}/${c}.less');`;
+    return `@import 'framework7/components/${c}/${c}.less';`;
   });
+  // prettier-ignore
   const styles = indent(0, `
     & {
-      @import url('../../node_modules/framework7/framework7.less');
+      @import 'framework7/framework7.less';
       ${componentsImportsLESS.join('\n      ')}
 
       @includeIosTheme: ${themes.indexOf('ios') >= 0};
