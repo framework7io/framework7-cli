@@ -96,12 +96,12 @@ module.exports = (options, iconFile) => {
 
   // Copy Web Images & Icons
   if (isWeb || isPwa) {
-    const assetsFolder = isVite ? 'public' : 'assets';
+    const iconsFolder = isVite ? 'public/icons' : 'www/assets/icons';
     fse.readdirSync(path.resolve(__dirname, 'common', 'icons')).forEach((f) => {
       if (f.indexOf('.') === 0) return;
       toCopy.push({
         from: path.resolve(__dirname, 'common', 'icons', f),
-        to: path.resolve(cwd, assetsFolder, 'icons', f),
+        to: path.resolve(cwd, iconsFolder, f),
       });
     });
   }
