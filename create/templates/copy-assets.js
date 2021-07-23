@@ -111,10 +111,17 @@ module.exports = (options, iconFile) => {
       content: generateManifest(options),
       to: path.resolve(cwd, srcFolder, 'manifest.json'),
     });
-    toCopy.push({
-      content: generateServiceWorker(options),
-      to: path.resolve(cwd, srcFolder, 'service-worker.js'),
-    });
+    if (!bundler) {
+      toCopy.push({
+        content: generateServiceWorker(options),
+        to: path.resolve(cwd, srcFolder, 'service-worker.js'),
+      });
+    } else {
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'workbox-config.js'),
+        to: path.resolve(cwd, 'workbox-config.js'),
+      });
+    }
   }
 
   // Cordova App

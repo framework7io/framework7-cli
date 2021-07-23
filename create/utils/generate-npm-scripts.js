@@ -35,6 +35,8 @@ module.exports = (options) => {
       }
     }
     result = tokens.map((token) => {
+      if (token === 'b')
+        npmScripts.vite[token].script += ' && npx workbox generateSW workbox-config.js';
       return {
         icon: npmScripts.vite[token].icon,
         name: npmScripts.vite[token].name,

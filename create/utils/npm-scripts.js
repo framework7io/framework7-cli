@@ -23,7 +23,7 @@ const npmScripts = {
   vite: {
     b: {
       icon: '🔧',
-      script: 'cross-env NODE_ENV=production vite build',
+      script: `cross-env NODE_ENV=production vite build`,
       description: 'build web app for production',
     },
     bc: {

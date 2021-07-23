@@ -35,12 +35,20 @@ module.exports = (options) => {
     // App routes
     routes: routes,
     ${templateIf(
-      type.indexOf('pwa') >= 0,
+      type.indexOf('pwa') >= 0 && !bundler,
       () => `
     // Register service worker
     serviceWorker: {
       path: '/service-worker.js',
     },
+    `,
+    )}${templateIf(
+      type.indexOf('pwa') >= 0 && bundler,
+      () => `
+    // Register service worker (only on production build)
+    serviceWorker: process.env.NODE_ENV ==='production' ? {
+      path: '/service-worker.js',
+    } : {},
     `,
     )}
     ${templateIf(

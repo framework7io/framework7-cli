@@ -41,7 +41,7 @@ module.exports = function generatePackageJson(options) {
         ...(cssPreProcessor === 'stylus' ? ['stylus'] : []),
         ...(cssPreProcessor === 'less' ? ['less'] : []),
         ...(cssPreProcessor === 'scss' ? ['sass'] : []),
-        ...(type.indexOf('pwa') >= 0 ? ['workbox-webpack-plugin'] : []),
+        ...(type.indexOf('pwa') >= 0 ? ['workbox-cli'] : []),
         ...(framework === 'core' ? ['rollup-plugin-framework7'] : []),
         ...(framework === 'react' ? ['@vitejs/plugin-react-refresh'] : []),
         ...(framework === 'svelte' ? ['@sveltejs/vite-plugin-svelte'] : []),
