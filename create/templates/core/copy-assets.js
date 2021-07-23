@@ -33,7 +33,7 @@ module.exports = (options) => {
       }
       toCopy.push({
         content,
-        to: path.resolve(dest, `${p}.f7.html`),
+        to: path.resolve(dest, `${p}.f7`),
       });
     }
   });
@@ -48,11 +48,15 @@ module.exports = (options) => {
         2,
         generateHomePage(options).trim(),
       )}\n</template>\n<script>\nexport default () => {\n  return $render;\n}\n</script>`,
-      to: path.resolve(cwd, srcFolder, 'pages', 'home.f7.html'),
+      to: path.resolve(cwd, srcFolder, 'pages', 'home.f7'),
     });
     toCopy.push({
       content: generateRoot(options),
-      to: path.resolve(cwd, srcFolder, 'app.f7.html'),
+      to: path.resolve(cwd, srcFolder, 'app.f7'),
+    });
+    toCopy.push({
+      from: path.resolve(__dirname, 'vscode-settings.json'),
+      to: path.resolve(cwd, '.vscode', 'settings.json'),
     });
   } else {
     // Copy F7

@@ -4,13 +4,12 @@ const appParameters = require('../app-parameters');
 const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
-  const {
-    bundler, type, cssPreProcessor, theming, customBuild, template,
-  } = options;
+  const { bundler, type, cssPreProcessor, theming, customBuild, template } = options;
 
   let scripts = '';
 
   if (bundler) {
+    // prettier-ignore
     scripts += indent(0, `
       import $ from 'dom7';
       ${templateIf(type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0, () => `
@@ -53,14 +52,16 @@ module.exports = (options) => {
       import store from './store.js';
 
       // Import main app component
-      import App from '../app.f7.html';
+      import App from '../app.f7';
     `);
   } else {
+    // prettier-ignore
     scripts += indent(0, `
       var $ = Dom7;
     `);
   }
 
+  // prettier-ignore
   scripts += indent(0, `
     ${templateIf(type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0, () => `
     ${templateIf(bundler, () => `
