@@ -9,7 +9,9 @@
         <label
           class="tooltip-init link label-file-input"
           data-tooltip="Import project settings from .json file"
-          style="color: var(--f7-navbar-link-color, var(--f7-bars-link-color, var(--f7-theme-color)));"
+          style="
+            color: var(--f7-navbar-link-color, var(--f7-bars-link-color, var(--f7-theme-color)));
+          "
         >
           <i class="f7-icons" style="font-size: 24px">tray_arrow_down_fill</i>
           <input type="file" @change="onImportInputChange" accept=".json" />
@@ -37,8 +39,7 @@
         </f7-block-title>
         <f7-block-title medium>Destination</f7-block-title>
         <f7-block-header
-          >New Framework7 app will be created in the following
-          directory.</f7-block-header
+          >New Framework7 app will be created in the following directory.</f7-block-header
         >
         <f7-list no-hairlines-between class="inputs-list">
           <f7-list-input
@@ -53,13 +54,11 @@
           ></f7-list-input>
         </f7-list>
         <f7-block-footer class="display-flex align-items-center"
-          ><i
-            style="font-size: 1.5em; margin-right: 8px"
-            class="f7-icons text-color-orange"
+          ><i style="font-size: 1.5em; margin-right: 8px" class="f7-icons text-color-orange"
             >exclamationmark_triangle_fill</i
           >
-          Make sure this folder is empty, the project will be created in the
-          root of this folder.</f7-block-footer
+          Make sure this folder is empty, the project will be created in the root of this
+          folder.</f7-block-footer
         >
 
         <div class="row">
@@ -67,15 +66,8 @@
             <f7-block-title medium>App Icon</f7-block-title>
             <div class="create-app-icon">
               <label>
-                <img
-                  :src="iconPreview || '/static/icons/apple-touch-icon.png'"
-                />
-                <input
-                  ref="iconInput"
-                  @change="onIconChange"
-                  type="file"
-                  accept="image/*"
-                />
+                <img :src="iconPreview || '/static/icons/apple-touch-icon.png'" />
+                <input ref="iconInput" @change="onIconChange" type="file" accept="image/*" />
               </label>
               <div>Click to choose app icon</div>
               <div v-if="iconFile">
@@ -89,9 +81,7 @@
               <div
                 class="col-100"
                 :class="{
-                  'medium-50':
-                    type.indexOf('cordova') >= 0 ||
-                    type.indexOf('capacitor') >= 0,
+                  'medium-50': type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0,
                 }"
               >
                 <f7-block-title medium>App (project) name</f7-block-title>
@@ -110,9 +100,7 @@
               </div>
               <div
                 class="col-100 medium-50"
-                v-if="
-                  type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0
-                "
+                v-if="type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0"
               >
                 <f7-block-title medium>App package (Bundle ID)</f7-block-title>
                 <f7-list no-hairlines-between class="inputs-list">
@@ -131,8 +119,7 @@
             </div>
             <f7-block-title medium>App Type</f7-block-title>
             <f7-block-header
-              >What types of the app are you targeting? (multiple
-              allowed)</f7-block-header
+              >What types of the app are you targeting? (multiple allowed)</f7-block-header
             >
             <div class="row checkbox-row">
               <div
@@ -198,8 +185,8 @@
                 <div class="col-label">
                   Cordova app
                   <small
-                    >(targets native iOS and Android apps, or native desktop app
-                    with Electron)</small
+                    >(targets native iOS and Android apps, or native desktop app with
+                    Electron)</small
                   >
                 </div>
               </div>
@@ -261,29 +248,19 @@
       </f7-block>
 
       <!-- CAPACITOR -->
-      <f7-block
-        v-if="type.indexOf('capacitor') >= 0"
-        medium-inset
-        strong
-        class="content-block"
-      >
+      <f7-block v-if="type.indexOf('capacitor') >= 0" medium-inset strong class="content-block">
         <f7-block-title large>
           <i class="block-icon block-icon-capacitor"></i>
           <span>Capacitor</span>
         </f7-block-title>
 
-        <f7-block-title
-          >Target Capacitor platform (multiple allowed)</f7-block-title
-        >
+        <f7-block-title>Target Capacitor platform (multiple allowed)</f7-block-title>
         <div class="row checkbox-row">
           <div
             class="col-50 checkbox-col"
             :class="{ checked: capacitor.platforms.indexOf('ios') >= 0 }"
           >
-            <div
-              class="col-icon"
-              @click="toggleArrayValue(capacitor.platforms, 'ios')"
-            >
+            <div class="col-icon" @click="toggleArrayValue(capacitor.platforms, 'ios')">
               <i class="icon f7-icons">logo_apple</i>
             </div>
             <div class="col-label">iOS</div>
@@ -292,10 +269,7 @@
             class="col-50 checkbox-col"
             :class="{ checked: capacitor.platforms.indexOf('android') >= 0 }"
           >
-            <div
-              class="col-icon"
-              @click="toggleArrayValue(capacitor.platforms, 'android')"
-            >
+            <div class="col-icon" @click="toggleArrayValue(capacitor.platforms, 'android')">
               <i class="icon f7-icons">logo_android</i>
             </div>
             <div class="col-label">Android</div>
@@ -304,12 +278,7 @@
       </f7-block>
 
       <!-- CORDOVA -->
-      <f7-block
-        v-if="type.indexOf('cordova') >= 0"
-        medium-inset
-        strong
-        class="content-block"
-      >
+      <f7-block v-if="type.indexOf('cordova') >= 0" medium-inset strong class="content-block">
         <f7-block-title large>
           <i class="block-icon block-icon-cordova"></i>
           <span>Cordova</span>
@@ -323,18 +292,13 @@
           </div>
         </f7-block-title>
 
-        <f7-block-title
-          >Target Cordova platform (multiple allowed)</f7-block-title
-        >
+        <f7-block-title>Target Cordova platform (multiple allowed)</f7-block-title>
         <div class="row checkbox-row">
           <div
             class="col-50 medium-25 checkbox-col"
             :class="{ checked: cordova.platforms.indexOf('ios') >= 0 }"
           >
-            <div
-              class="col-icon"
-              @click="toggleArrayValue(cordova.platforms, 'ios')"
-            >
+            <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'ios')">
               <i class="icon f7-icons">logo_apple</i>
             </div>
             <div class="col-label">iOS</div>
@@ -343,10 +307,7 @@
             class="col-50 medium-25 checkbox-col"
             :class="{ checked: cordova.platforms.indexOf('android') >= 0 }"
           >
-            <div
-              class="col-icon"
-              @click="toggleArrayValue(cordova.platforms, 'android')"
-            >
+            <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'android')">
               <i class="icon f7-icons">logo_android</i>
             </div>
             <div class="col-label">Android</div>
@@ -355,21 +316,10 @@
             class="col-50 medium-25 checkbox-col"
             :class="{ checked: cordova.platforms.indexOf('electron') >= 0 }"
           >
-            <div
-              class="col-icon"
-              @click="toggleArrayValue(cordova.platforms, 'electron')"
-            >
+            <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'electron')">
               <!-- <i class="icon f7-icons">device_desktop</i> -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="46"
-                height="50"
-                viewBox="0 0 46 50"
-              >
-                <g
-                  fill="var(--checkbox-col-text-color)"
-                  transform="translate(.232 .132)"
-                >
+              <svg xmlns="http://www.w3.org/2000/svg" width="46" height="50" viewBox="0 0 46 50">
+                <g fill="var(--checkbox-col-text-color)" transform="translate(.232 .132)">
                   <path
                     d="M16.26709,10.8502718 C9.80877563,9.67399702 4.70244235,10.9051268 2.66730029,14.4300962 C1.14863171,17.0605074 1.5827308,20.5479943 3.72007728,24.2759036 C3.90199702,24.5932037 4.30669467,24.7029512 4.62399477,24.5210315 C4.94129487,24.3391118 5.05104235,23.9344141 4.86912262,23.617114 C2.94377645,20.2589706 2.56913221,17.249135 3.81435381,15.0923479 C5.504955,12.1641407 10.0597158,11.0659943 16.029758,12.1533384 C16.3895899,12.2188758 16.7344199,11.9803029 16.7999573,11.620471 C16.8654947,11.2606391 16.6269219,10.9158092 16.26709,10.8502718 Z M7.07861563,28.8071517 C9.68999775,31.6768672 13.0826192,34.3685159 16.9517131,36.6023384 C26.3201118,42.0111858 36.2934338,43.4569053 41.2087007,40.105396 C41.5108891,39.8993467 41.5888252,39.4873387 41.3827762,39.1851503 C41.1767268,38.8829619 40.7647185,38.8050255 40.4625301,39.0110748 C36.0634245,42.0106361 26.5894906,40.6373073 17.6139648,35.4552848 C13.8605087,33.2882262 10.5753367,30.6818258 8.05823533,27.9157179 C7.81207268,27.6452034 7.39322308,27.6254623 7.12270858,27.871625 C6.85219407,28.1177876 6.83245298,28.5366372 7.07861563,28.8071517 Z"
                   />
@@ -391,10 +341,7 @@
             class="col-50 medium-25 checkbox-col"
             :class="{ checked: cordova.platforms.indexOf('osx') >= 0 }"
           >
-            <div
-              class="col-icon"
-              @click="toggleArrayValue(cordova.platforms, 'osx')"
-            >
+            <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'osx')">
               <i class="icon f7-icons">logo_macos</i>
             </div>
             <div class="col-label">
@@ -411,32 +358,22 @@
           <f7-list media-list no-hairlines-between>
             <f7-list-item
               checkbox
-              :checked="
-                cordova.plugins.indexOf('cordova-plugin-statusbar') >= 0
-              "
-              @change="
-                toggleArrayValue(cordova.plugins, 'cordova-plugin-statusbar')
-              "
+              :checked="cordova.plugins.indexOf('cordova-plugin-statusbar') >= 0"
+              @change="toggleArrayValue(cordova.plugins, 'cordova-plugin-statusbar')"
               title="cordova-plugin-statusbar"
               text="Allows to customize native iOS and Android status bar"
             />
             <f7-list-item
               checkbox
               :checked="cordova.plugins.indexOf('cordova-plugin-keyboard') >= 0"
-              @change="
-                toggleArrayValue(cordova.plugins, 'cordova-plugin-keyboard')
-              "
+              @change="toggleArrayValue(cordova.plugins, 'cordova-plugin-keyboard')"
               title="cordova-plugin-keyboard"
               text="Allows to correctly handle native keyboard and shrink/expand webview on keyboard open/close"
             />
             <f7-list-item
               checkbox
-              :checked="
-                cordova.plugins.indexOf('cordova-plugin-splashscreen') >= 0
-              "
-              @change="
-                toggleArrayValue(cordova.plugins, 'cordova-plugin-splashscreen')
-              "
+              :checked="cordova.plugins.indexOf('cordova-plugin-splashscreen') >= 0"
+              @change="toggleArrayValue(cordova.plugins, 'cordova-plugin-splashscreen')"
               title="cordova-plugin-splashscreen"
               text="Display and hide splash screen during application launch"
             />
@@ -444,20 +381,14 @@
             <f7-list-item
               checkbox
               :checked="cordova.plugins.indexOf('cordova-plugin-device') >= 0"
-              @change="
-                toggleArrayValue(cordova.plugins, 'cordova-plugin-device')
-              "
+              @change="toggleArrayValue(cordova.plugins, 'cordova-plugin-device')"
               title="cordova-plugin-device"
               text="Plugin provides information about device software and hardware"
             />
             <f7-list-item
               checkbox
-              :checked="
-                cordova.plugins.indexOf('cordova-plugin-inappbrowser') >= 0
-              "
-              @change="
-                toggleArrayValue(cordova.plugins, 'cordova-plugin-inappbrowser')
-              "
+              :checked="cordova.plugins.indexOf('cordova-plugin-inappbrowser') >= 0"
+              @change="toggleArrayValue(cordova.plugins, 'cordova-plugin-inappbrowser')"
               title="cordova-plugin-inappbrowser"
               text="Plugin provides a web browser to display an external web content"
             />
@@ -471,25 +402,14 @@
             <f7-list-item
               checkbox
               :checked="cordova.plugins.indexOf('cordova-plugin-media') >= 0"
-              @change="
-                toggleArrayValue(cordova.plugins, 'cordova-plugin-media')
-              "
+              @change="toggleArrayValue(cordova.plugins, 'cordova-plugin-media')"
               title="cordova-plugin-media"
               text="Plugin provides the ability to record and play back audio files on a device"
             />
             <f7-list-item
               checkbox
-              :checked="
-                cordova.plugins.indexOf(
-                  'cordova-plugin-safariviewcontroller'
-                ) >= 0
-              "
-              @change="
-                toggleArrayValue(
-                  cordova.plugins,
-                  'cordova-plugin-safariviewcontroller'
-                )
-              "
+              :checked="cordova.plugins.indexOf('cordova-plugin-safariviewcontroller') >= 0"
+              @change="toggleArrayValue(cordova.plugins, 'cordova-plugin-safariviewcontroller')"
               title="cordova-plugin-safariviewcontroller"
               text="Better and more modern implementation of in-app browser (for iOS only)"
             />
@@ -506,24 +426,18 @@
 
         <f7-block-title>What type of framework do you prefer?</f7-block-title>
         <div class="row checkbox-row">
-          <div
-            class="col-50 medium-25 checkbox-col"
-            :class="{ checked: framework === 'core' }"
-          >
+          <div class="col-50 medium-25 checkbox-col" :class="{ checked: framework === 'core' }">
             <div class="col-icon" @click="framework = 'core'">
               <img src="../assets/logo.svg" />
             </div>
             <div class="col-label">Framework7 Core</div>
           </div>
-          <div
-            class="col-50 medium-25 checkbox-col"
-            :class="{ checked: framework === 'vue' }"
-          >
+          <div class="col-50 medium-25 checkbox-col" :class="{ checked: framework === 'vue' }">
             <div
               class="col-icon"
               @click="
                 framework = 'vue';
-                bundler = 'webpack';
+                bundler = 'vite';
               "
             >
               <img src="../assets/logo.svg" />
@@ -531,15 +445,12 @@
             </div>
             <div class="col-label">Framework7 with Vue.js</div>
           </div>
-          <div
-            class="col-50 medium-25 checkbox-col"
-            :class="{ checked: framework === 'react' }"
-          >
+          <div class="col-50 medium-25 checkbox-col" :class="{ checked: framework === 'react' }">
             <div
               class="col-icon"
               @click="
                 framework = 'react';
-                bundler = 'webpack';
+                bundler = 'vite';
               "
             >
               <img src="../assets/logo.svg" />
@@ -547,15 +458,12 @@
             </div>
             <div class="col-label">Framework7 with React</div>
           </div>
-          <div
-            class="col-50 medium-25 checkbox-col"
-            :class="{ checked: framework === 'svelte' }"
-          >
+          <div class="col-50 medium-25 checkbox-col" :class="{ checked: framework === 'svelte' }">
             <div
               class="col-icon"
               @click="
                 framework = 'svelte';
-                bundler = 'webpack';
+                bundler = 'vite';
               "
             >
               <img src="../assets/logo.svg" />
@@ -617,16 +525,8 @@
       <!-- BUNDLER -->
       <f7-block medium-inset strong class="content-block">
         <f7-block-title large>
-          <i class="block-icon block-icon-webpack"></i>
+          <i class="block-icon block-icon-vite"></i>
           <span>Bundler</span>
-          <div class="right" v-if="bundler">
-            <span class="toggle-label disabled">Advanced</span>
-            <f7-toggle
-              :checked="bundlerAdvanced"
-              @change="bundlerAdvanced = $event.target.checked"
-              color="green"
-            />
-          </div>
         </f7-block-title>
 
         <f7-block-title>Should we setup project with bundler?</f7-block-title>
@@ -641,19 +541,15 @@
           ></f7-list-item>
           <f7-list-item
             radio
-            title="Webpack (recommended)"
-            @change="bundler = 'webpack'"
-            :checked="
-              bundler === 'webpack' || framework !== 'core' || customBuild
-            "
+            title="Vite (recommended)"
+            @change="bundler = 'vite'"
+            :checked="bundler === 'vite' || framework !== 'core' || customBuild"
             :disabled="framework !== 'core'"
           ></f7-list-item>
         </f7-list>
 
-        <template v-if="bundler === 'webpack'">
-          <f7-block-title
-            >Do you want to setup CSS Pre-Processor?</f7-block-title
-          >
+        <template v-if="bundler === 'vite'">
+          <f7-block-title>Do you want to setup CSS Pre-Processor?</f7-block-title>
           <f7-list>
             <f7-list-item
               :class="{ disabled: customBuild }"
@@ -684,46 +580,6 @@
               @change="cssPreProcessor = 'scss'"
               :checked="cssPreProcessor === 'scss' && !customBuild"
               :disabled="customBuild"
-            ></f7-list-item>
-          </f7-list>
-        </template>
-        <template v-if="bundler === 'webpack' && bundlerAdvanced">
-          <f7-block-title>Webpack settings</f7-block-title>
-          <f7-list no-hairlines-between media-list>
-            <f7-list-item
-              checkbox
-              title="Development source map"
-              text="In dev mode it generates cheap (eval) source map. Disable for even faster dev builds"
-              @change="webpack.developmentSourceMap = $event.target.checked"
-              :checked="webpack.developmentSourceMap === true"
-            ></f7-list-item>
-            <f7-list-item
-              checkbox
-              title="Production source map"
-              text="Disable for faster production builds, but without source maps"
-              @change="webpack.productionSourceMap = $event.target.checked"
-              :checked="webpack.productionSourceMap === true"
-            ></f7-list-item>
-            <f7-list-item
-              checkbox
-              title="Inline small assets"
-              text="When enabled, it will load small assets (less than 10Kb) and insert inline as base64 URIs"
-              @change="webpack.inlineAssets = $event.target.checked"
-              :checked="webpack.inlineAssets === true"
-            ></f7-list-item>
-            <f7-list-item
-              checkbox
-              title="Hash assets and bundle"
-              text="When enabled, it will add MD5 hash of the file content to generated bundle and to assets, to something like app.b34c1df56.js. Such file naming can force browser to clear its cache"
-              @change="webpack.hashAssets = $event.target.checked"
-              :checked="webpack.hashAssets === true"
-            ></f7-list-item>
-            <f7-list-item
-              checkbox
-              title="Preserve assets path"
-              text="By default, webpack will move all assets to folders based on asset type (images to /images/ folder, videos and audio to /media/ folder, etc). If this option enabled, it will preserve assets path and keep files and folder structure"
-              @change="webpack.preserveAssetsPaths = $event.target.checked"
-              :checked="webpack.preserveAssetsPaths === true"
             ></f7-list-item>
           </f7-list>
         </template>
@@ -815,10 +671,8 @@
         </f7-block-title>
         <template v-if="!customBuild">
           <p class="text-align-center">
-            <i class="f7-icons text-color-orange"
-              >exclamationmark_triangle_fill</i
-            ><br />Enabling custom build will automatically enable Webpack
-            bundler with Less pre-processor
+            <i class="f7-icons text-color-orange">exclamationmark_triangle_fill</i><br />Enabling
+            custom build will automatically enable Vite bundler with Less pre-processor
           </p>
         </template>
         <template v-if="customBuild">
@@ -856,75 +710,49 @@
 
           <f7-block-title medium
             >Customizable list of components /
-            <a class="link" @click="toggleComponents"
-              >Toggle all</a
-            ></f7-block-title
+            <a class="link" @click="toggleComponents">Toggle all</a></f7-block-title
           >
 
           <div class="row">
             <div class="col-33">
               <f7-list class="no-margin-top" no-hairlines-between>
                 <template v-for="(component, index) in componentsListComputed">
-                <f7-list-item
-                  :key="index"
-                  v-if="index < 19"
-                  :checked="
-                    customBuildConfig.components.indexOf(component.component) >=
-                    0
-                  "
-                  @change="
-                    toggleArrayValue(
-                      customBuildConfig.components,
-                      component.component
-                    )
-                  "
-                  checkbox
-                  :title="component.name"
-                />
+                  <f7-list-item
+                    :key="index"
+                    v-if="index < 19"
+                    :checked="customBuildConfig.components.indexOf(component.component) >= 0"
+                    @change="toggleArrayValue(customBuildConfig.components, component.component)"
+                    checkbox
+                    :title="component.name"
+                  />
                 </template>
               </f7-list>
             </div>
             <div class="col-33">
               <f7-list class="no-margin-top" no-hairlines-between>
                 <template v-for="(component, index) in componentsListComputed">
-                <f7-list-item
-                  :key="index"
-                  v-if="index >= 19 && index < 38"
-                  :checked="
-                    customBuildConfig.components.indexOf(component.component) >=
-                    0
-                  "
-                  @change="
-                    toggleArrayValue(
-                      customBuildConfig.components,
-                      component.component
-                    )
-                  "
-                  checkbox
-                  :title="component.name"
-                />
+                  <f7-list-item
+                    :key="index"
+                    v-if="index >= 19 && index < 38"
+                    :checked="customBuildConfig.components.indexOf(component.component) >= 0"
+                    @change="toggleArrayValue(customBuildConfig.components, component.component)"
+                    checkbox
+                    :title="component.name"
+                  />
                 </template>
               </f7-list>
             </div>
             <div class="col-33">
               <f7-list class="no-margin-top" no-hairlines-between>
                 <template v-for="(component, index) in componentsListComputed">
-                <f7-list-item
-                  :key="index"
-                  v-if="index >= 38"
-                  :checked="
-                    customBuildConfig.components.indexOf(component.component) >=
-                    0
-                  "
-                  @change="
-                    toggleArrayValue(
-                      customBuildConfig.components,
-                      component.component
-                    )
-                  "
-                  checkbox
-                  :title="component.name"
-                />
+                  <f7-list-item
+                    :key="index"
+                    v-if="index >= 38"
+                    :checked="customBuildConfig.components.indexOf(component.component) >= 0"
+                    @change="toggleArrayValue(customBuildConfig.components, component.component)"
+                    checkbox
+                    :title="component.name"
+                  />
                 </template>
               </f7-list>
             </div>
@@ -971,11 +799,7 @@
         </template>
       </f7-block>
 
-      <f7-popup
-        class="popup-log"
-        :closeByBackdropClick="false"
-        :opened="log && log.length > 0"
-      >
+      <f7-popup class="popup-log" :closeByBackdropClick="false" :opened="log && log.length > 0">
         <pre ref="logEl" v-html="logText(log)"></pre>
       </f7-popup>
 
@@ -1019,11 +843,11 @@
   </f7-page>
 </template>
 <script>
-import { f7 } from "framework7-vue";
-import { request } from "framework7";
-import logText from "../utils/log-text";
-import getLog from "../utils/get-log";
-import componentsList from "../utils/components-list";
+import { f7 } from 'framework7-vue';
+import { request } from 'framework7';
+import logText from '../utils/log-text';
+import getLog from '../utils/get-log';
+import componentsList from '../utils/components-list';
 
 export default {
   data() {
@@ -1035,56 +859,49 @@ export default {
       bundlerAdvanced: false,
       cordovaAdvanced: false,
       coreComponentsList: [
-        "Statusbar",
-        "View",
-        "Navbar",
-        "Toolbar",
-        "Subnavbar",
-        "Touch Ripple",
-        "Modal",
-        "Page",
-        "Link",
-        "Block",
-        "List",
-        "Badge",
-        "Button",
-        "Icon",
+        'Statusbar',
+        'View',
+        'Navbar',
+        'Toolbar',
+        'Subnavbar',
+        'Touch Ripple',
+        'Modal',
+        'Page',
+        'Link',
+        'Block',
+        'List',
+        'Badge',
+        'Button',
+        'Icon',
       ].sort(),
       componentsList: [...componentsList],
 
       iconFile: null,
       iconPreview: null,
-      cwd: "",
-      name: "My App",
+      cwd: '',
+      name: 'My App',
       type: [],
-      pkg: "io.framework7.myapp",
+      pkg: 'io.framework7.myapp',
       cordova: {
-        folder: "cordova",
-        platforms: ["ios", "android"],
+        folder: 'cordova',
+        platforms: ['ios', 'android'],
         plugins: [
-          "cordova-plugin-statusbar",
-          "cordova-plugin-keyboard",
-          "cordova-plugin-splashscreen",
+          'cordova-plugin-statusbar',
+          'cordova-plugin-keyboard',
+          'cordova-plugin-splashscreen',
         ],
       },
       capacitor: {
-        platforms: ["ios", "android"],
+        platforms: ['ios', 'android'],
       },
-      webpack: {
-        developmentSourceMap: true,
-        productionSourceMap: true,
-        hashAssets: false,
-        preserveAssetsPaths: false,
-        inlineAssets: true,
-      },
-      framework: "core",
-      template: "single-view",
-      bundler: "webpack",
+      framework: 'core',
+      template: 'single-view',
+      bundler: 'vite',
       cssPreProcessor: false,
 
       theming: {
         customColor: false,
-        color: "#007aff",
+        color: '#007aff',
         darkTheme: false,
         iconFonts: true,
         fillBars: false,
@@ -1095,7 +912,7 @@ export default {
         rtl: false,
         darkTheme: true,
         lightTheme: true,
-        themes: ["ios", "md", "aurora"],
+        themes: ['ios', 'md', 'aurora'],
         components: [...componentsList],
       },
     };
@@ -1105,11 +922,11 @@ export default {
       const self = this;
       const list = self.componentsList.sort().map((c) => {
         const name = c
-          .split("-")
+          .split('-')
           .map((word) => {
             return word[0].toUpperCase() + word.substring(1);
           })
-          .join(" ");
+          .join(' ');
         return {
           component: c,
           name,
@@ -1119,10 +936,10 @@ export default {
     },
   },
   watch: {
-    "theming.fillBars": function (fillBars) {
+    'theming.fillBars': function (fillBars) {
       const self = this;
       if (!self.barsStyleEl) {
-        self.barsStyleEl = document.createElement("style");
+        self.barsStyleEl = document.createElement('style');
         self.barsStyleEl.innerHTML = `
             /* Invert navigation bars to fill style */
             :root,
@@ -1155,22 +972,27 @@ export default {
           `;
       }
       if (fillBars) {
-        f7.$("head").append(self.barsStyleEl);
+        f7.$('head').append(self.barsStyleEl);
       } else {
         f7.$(self.barsStyleEl).remove();
       }
+      self.setDocumentThemeColor();
     },
-    "theming.darkTheme": function (darkTheme) {
+    'theming.darkTheme': function (darkTheme) {
       const self = this;
-      const html = f7.$("html");
-      if (darkTheme) html.addClass("theme-dark");
-      else html.removeClass("theme-dark");
+      const html = f7.$('html');
+      if (darkTheme) {
+        html.addClass('theme-dark');
+      } else {
+        html.removeClass('theme-dark');
+      }
+      self.setDocumentThemeColor();
     },
-    "theming.customColor": function (customColor) {
+    'theming.customColor': function (customColor) {
       const self = this;
       const color = self.theming.color;
       const cssVars = f7.utils.colorThemeCSSProperties(color);
-      const html = f7.$("html")[0];
+      const html = f7.$('html')[0];
       if (customColor) {
         Object.keys(cssVars).forEach((key) => {
           html.style.setProperty(key, cssVars[key]);
@@ -1180,20 +1002,22 @@ export default {
           html.style.removeProperty(key);
         });
       }
+      self.setDocumentThemeColor();
     },
-    "theming.color": function () {
+    'theming.color': function () {
       const self = this;
       const color = self.theming.color;
       const cssVars = f7.utils.colorThemeCSSProperties(color);
-      const html = f7.$("html")[0];
+      const html = f7.$('html')[0];
       Object.keys(cssVars).forEach((key) => {
         html.style.setProperty(key, cssVars[key]);
       });
+      self.setDocumentThemeColor();
     },
     customBuild() {
       const self = this;
-      self.bundler = "webpack";
-      self.cssPreProcessor = "less";
+      self.bundler = 'vite';
+      self.cssPreProcessor = 'less';
     },
     log() {
       const self = this;
@@ -1209,41 +1033,51 @@ export default {
         self.loading = true;
         self.iconFile = null;
         self.generatingAssets = true;
-        request
-          .postJSON("/api/assets/generate/", { keepLog: true })
-          .then(() => {
-            self.getLog();
-          });
+        request.postJSON('/api/assets/generate/', { keepLog: true }).then(() => {
+          self.getLog();
+        });
       }
     },
   },
   mounted() {
     const self = this;
-    request.json("/api/cwd/").then((res) => {
+    request.json('/api/cwd/').then((res) => {
       self.cwd = res.data.cwd;
     });
   },
   methods: {
+    setDocumentThemeColor() {
+      const { color, fillBars, darkTheme } = this.theming;
+      let newColor;
+      if (fillBars) {
+        newColor = color;
+      } else if (darkTheme) {
+        newColor = '#212121';
+      } else {
+        newColor = '#fff';
+      }
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', newColor);
+    },
     logText,
     exportSettings() {
       const self = this;
       const options = self.getOptions();
       delete options.cwd;
 
-      const data = [JSON.stringify(options, "", 2)];
+      const data = [JSON.stringify(options, '', 2)];
 
       let file;
-      const fileName = `${options.name || "framework7"}.json`;
-      const properties = { type: "application/json" };
+      const fileName = `${options.name || 'framework7'}.json`;
+      const properties = { type: 'application/json' };
       try {
         file = new File(data, fileName, properties);
       } catch (e) {
         file = new Blob(data, properties);
       }
       const url = URL.createObjectURL(file);
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.download = fileName;
-      link.target = "_blank";
+      link.target = '_blank';
       link.href = url;
       link.click();
     },
@@ -1263,14 +1097,10 @@ export default {
         template,
         theming,
         type,
-        webpack,
       } = data;
 
-      if (type && type.indexOf("cordova") >= 0) {
+      if (type && type.indexOf('cordova') >= 0) {
         self.cordovaAdvanced = true;
-      }
-      if (bundler === "webpack" && webpack) {
-        self.bundlerAdvanced = true;
       }
       Object.assign(self, {
         bundler,
@@ -1285,7 +1115,6 @@ export default {
         template,
         theming,
         type,
-        webpack,
       });
     },
     onImportInputChange(e) {
@@ -1314,9 +1143,7 @@ export default {
     },
     toggleComponents() {
       const self = this;
-      if (
-        self.customBuildConfig.components.length === self.componentsList.length
-      ) {
+      if (self.customBuildConfig.components.length === self.componentsList.length) {
         self.customBuildConfig.components = [];
       } else {
         self.customBuildConfig.components = [...self.componentsList];
@@ -1349,7 +1176,6 @@ export default {
         cssPreProcessor,
         cordova,
         capacitor,
-        webpack,
         theming,
         customBuild,
         customBuildConfig,
@@ -1366,28 +1192,22 @@ export default {
         customBuild,
       };
       if (options.customBuild) {
-        options.bundler = "webpack";
-        options.cssPreProcessor = "less";
+        options.bundler = 'vite';
+        options.cssPreProcessor = 'less';
         options.customBuildConfig = customBuildConfig;
       }
-      if (options.bundler !== "webpack") {
+      if (options.bundler !== 'vite') {
         options.cssPreProcessor = false;
       }
-      if (options.bundler === "webpack") {
-        options.webpack = webpack;
-      }
 
-      if (type.indexOf("cordova") >= 0 && cordova.platforms.length) {
+      if (type.indexOf('cordova') >= 0 && cordova.platforms.length) {
         options.pkg = pkg;
         options.cordova = cordova;
-        if (
-          cordova.platforms.indexOf("ios") < 0 &&
-          cordova.platforms.indexOf("android") < 0
-        ) {
+        if (cordova.platforms.indexOf('ios') < 0 && cordova.platforms.indexOf('android') < 0) {
           options.cordova.plugins = [];
         }
       }
-      if (type.indexOf("capacitor") >= 0 && capacitor.platforms.length) {
+      if (type.indexOf('capacitor') >= 0 && capacitor.platforms.length) {
         options.pkg = pkg;
         options.capacitor = capacitor;
       }
@@ -1399,50 +1219,45 @@ export default {
     },
     getLog() {
       const self = this;
-      getLog(
-        self,
-        self.generatingAssets ? "/api/assets/generate/" : "/api/create/"
-      );
+      getLog(self, self.generatingAssets ? '/api/assets/generate/' : '/api/create/');
     },
     createApp() {
       const self = this;
       if (self.loading) return;
       const options = self.getOptions();
       if (!options.type.length) {
-        self.showError(
-          "You must specify app type (Web app, PWA or Cordova app)"
-        );
+        self.showError('You must specify app type (Web app, PWA or Cordova app)');
         return;
       }
-      if (options.type.indexOf("cordova") >= 0) {
+      if (options.type.indexOf('cordova') >= 0) {
         if (!options.pkg.trim()) {
-          self.showError("You must specify app package (bundle ID)");
+          self.showError('You must specify app package (bundle ID)');
           return;
         }
         if (!options.cordova.platforms.length) {
-          self.showError("You must specify target cordova platform");
+          self.showError('You must specify target cordova platform');
           return;
         }
       }
-      if (options.type.indexOf("capacitor") >= 0) {
+      if (options.type.indexOf('capacitor') >= 0) {
         if (!options.pkg.trim()) {
-          self.showError("You must specify app package (bundle ID)");
+          self.showError('You must specify app package (bundle ID)');
           return;
         }
         if (!options.capacitor.platforms.length) {
-          self.showError("You must specify target Capacitor platform");
+          self.showError('You must specify target Capacitor platform');
           return;
         }
       }
       if (!options.name) {
-        self.showError("You must specify app name");
+        self.showError('You must specify app name');
         return;
       }
       self.loading = true;
       const data = new FormData();
-      data.set("iconFile", this.iconFile);
-      data.set("options", JSON.stringify(options));
-      request.post("/api/create/", data).then(() => {
+      data.set('iconFile', this.iconFile);
+      data.set('options', JSON.stringify(options));
+      request.post('/api/create/', data).then(() => {
         self.getLog();
       });
     },
