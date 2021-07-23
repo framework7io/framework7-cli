@@ -2,14 +2,13 @@ const templateIf = require('./template-if');
 const generateNpmScripts = require('./generate-npm-scripts');
 
 module.exports = (options) => {
-  const {
-    framework, bundler, type, name, cordova,
-  } = options;
+  const { framework, bundler, type, name, cordova, capacitor } = options;
 
   const npmScripts = generateNpmScripts(options).map((s) => {
     return `* ${s.icon} \`${s.name}\` - ${s.description}`;
   });
 
+  // prettier-ignore
   return `
 
 # ${name}
@@ -22,16 +21,21 @@ Framework7 app created with following options:
 ${JSON.stringify(options, null, 2)}
 \`\`\`
 
+## Install Dependencies
+
+First of all we need to install dependencies, run in terminal
+\`\`\`
+npm install
+\`\`\`
+
 ## NPM Scripts
 
 ${npmScripts.join('\n')}
 
 ${templateIf(bundler, () => `
-## WebPack
+## Vite
 
-There is a webpack bundler setup. It compiles and bundles all "front-end" resources. You should work only with files located in \`/src\` folder. Webpack config located in \`build/webpack.config.js\`.
-
-Webpack has specific way of handling static assets (CSS files, images, audios). You can learn more about correct way of doing things on [official webpack documentation](https://webpack.js.org/guides/asset-management/).
+There is a [Vite](http://vitejs.dev) bundler setup. It compiles and bundles all "front-end" resources. You should work only with files located in \`/src\` folder. Vite config located in \`vite.config.js\`.
 `)}
 
 ${templateIf(type.indexOf('pwa') >= 0, () => `
@@ -49,7 +53,13 @@ Cordova project located in \`${cordova.folder}\` folder. You shouldn't modify co
 ${templateIf(type.indexOf('capacitor') >= 0, () => `
 ## Capacitor
 
-This project created uses Capacitor. Check out [official Capacitor documentation](https://capacitorjs.com) for more examples and usage examples.
+This project created with Capacitor support. And first thing required before start is to add capacitor platforms, run in terminal:
+
+\`\`\`
+${capacitor.platforms.map((platform) => `npx cap add ${platform}`).join(' && ')}
+\`\`\`
+
+Check out [official Capacitor documentation](https://capacitorjs.com) for more examples and usage examples.
 `)}
 
 ${templateIf(type.indexOf('cordova') >= 0 && cordova.platforms.indexOf('electron') >= 0, () => `

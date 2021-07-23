@@ -6,7 +6,6 @@ const chalk = require('chalk');
 const logSymbols = require('log-symbols');
 const fse = require('../utils/fs-extra');
 const generatePackageJson = require('./utils/generate-package-json');
-const generateNpmScripts = require('./utils/generate-npm-scripts');
 
 const createFolders = require('./templates/create-folders');
 const copyAssets = require('./templates/copy-assets');
@@ -18,11 +17,7 @@ const log = require('../utils/log');
 
 const waitText = chalk.gray('(Please wait, it can take a while)');
 
-module.exports = async (
-  options = {},
-  logger,
-  { exitOnError = true, iconFile = null } = {},
-) => {
+module.exports = async (options = {}, logger, { exitOnError = true, iconFile = null } = {}) => {
   const cwd = options.cwd || process.cwd();
   const isRunningInCwd = cwd === process.cwd();
   function errorExit(err) {
@@ -49,10 +44,7 @@ module.exports = async (
 
   // Write Package.json and project json
   fse.writeFileSync(path.join(cwd, 'package.json'), packageJson.content);
-  fse.writeFileSync(
-    path.join(cwd, 'framework7.json'),
-    JSON.stringify(options, '', 2),
-  );
+  fse.writeFileSync(path.join(cwd, 'framework7.json'), JSON.stringify(options, '', 2));
 
   logger.statusDone('Generating package.json');
 
@@ -72,10 +64,7 @@ module.exports = async (
   try {
     if (!isRunningInCwd) {
       await exec.promise(
-        `cd ${cwd.replace(
-          / /g,
-          '\\ ',
-        )} && npm install ${packageJson.dependencies.join(
+        `cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.dependencies.join(
           ' ',
         )} --save --package-lock-only --no-package-lock --ignore-scripts`,
         true,
@@ -101,10 +90,7 @@ module.exports = async (
   try {
     if (!isRunningInCwd) {
       await exec.promise(
-        `cd ${cwd.replace(
-          / /g,
-          '\\ ',
-        )} && npm install ${packageJson.devDependencies.join(
+        `cd ${cwd.replace(/ /g, '\\ ')} && npm install ${packageJson.devDependencies.join(
           ' ',
         )} --save-dev --package-lock-only --no-package-lock --ignore-scripts`,
         true,
@@ -199,24 +185,18 @@ module.exports = async (
   }
 
   logger.statusDone('Creating project files');
-  const npmScripts = generateNpmScripts(options).map((s) => {
-    return `- ${s.icon} Run "npm run ${s.name}" - ${s.description}`;
-  });
 
   // Final Text
   const finalText = `
 ${chalk.bold(logSymbols.success)} ${chalk.bold('Done!')} 💪
 
 ${chalk.bold(logSymbols.info)} ${chalk.bold('Next steps:')}
-  ${npmScripts.join('\n  ')}
+  - 📥 Run "npm install" to install the dependencies
+  - 🔥 Run "npm start" to run development server
   - 📖 Visit documentation at ${chalk.bold('https://framework7.io/docs/')}
-  - 📖 Check ${chalk.bold(
-    'README.md',
-  )} in project root folder with further instructions
+  - 📖 Check ${chalk.bold('README.md')} in project root folder with further instructions
 
-${chalk.bold(
-  'Love Framework7? Support project by donating or pledging on patreon:',
-)}
+${chalk.bold('Love Framework7? Support project by donating or pledging on patreon:')}
 ${chalk.bold('https://patreon.com/vladimirkharlampidi')}
     `;
 

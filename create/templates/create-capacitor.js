@@ -40,20 +40,6 @@ module.exports = (options) => {
 
     fse.writeFileSync(path.resolve(cwd, 'www/index.html'), content);
 
-    // Add platforms
-    // TODO
-    // const command = capacitor.platforms.map((platform) => `npm install @capacitor/${platform} && npx cap add ${platform}`).join(' && ');
-    // try {
-    //   if (!isRunningInCwd) {
-    //     await exec.promise(`cd ${cwd.replace(/ /g, '\\ ')} && ${command}`, true);
-    //   } else {
-    //     await exec.promise(command, true);
-    //   }
-    // } catch (err) {
-    //   reject(err);
-    //   return;
-    // }
-
     // Upload res files
     try {
       await cpy('**/*.*', path.resolve(cwd, 'resources'), {
