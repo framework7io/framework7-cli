@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [v5.0.1](https://github.com/framework7io/framework7-cli/compare/v5.0.0...v5.0.1) (2021-07-26)
+
+### Bug Fixes
+
+- fix `cordova-electron` script ([9e3f63d](https://github.com/framework7io/framework7-cli/commit/9e3f63dee9b1be2704715f0ab2583c95c3240e56))
+
 # [v5.0.0](https://github.com/framework7io/framework7-cli/compare/v4.1.0...v5.0.0) (2021-07-26)
 
 ### Bug Fixes
