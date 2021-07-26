@@ -66,6 +66,12 @@ const npmScripts = {
         'cross-env TARGET=cordova cross-env NODE_ENV=development vite build && cd cordova && cordova run ios',
       description: 'run dev build cordova iOS app',
     },
+    ce: {
+      icon: '🖥',
+      script:
+        'cross-env TARGET=cordova cross-env NODE_ENV=development vite build && cd cordova && cordova run electron',
+      description: 'run dev build cordova Electron app',
+    },
     bce: {
       icon: '🖥',
       script:
