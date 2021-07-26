@@ -9,7 +9,8 @@
   },
   "scripts": {
     "release": "node scripts/release.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -u -s"
   },
   "repository": {
     "type": "git",
