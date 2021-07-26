@@ -2,6 +2,26 @@
 
 # Change Log
 
+# [v5.0.0](https://github.com/framework7io/framework7-cli/compare/v4.1.0...v5.0.0) (2021-07-26)
+
+### Bug Fixes
+
+- correct LESS imports in custom build ([4f97770](https://github.com/framework7io/framework7-cli/commit/4f9777099eb3e598f4bde04b898ddd9c24e6972c))
+- fix static assets paths ([39db56a](https://github.com/framework7io/framework7-cli/commit/39db56aff3c920c8c8b7217c1bea90b1101ff31c))
+
+### Features
+
+- automatically generate SW with workbox CLI ([7b23a38](https://github.com/framework7io/framework7-cli/commit/7b23a388947cabbbec3fe5ab23ab6805ffe568b1))
+- correctly generate document theme color ([c0e1914](https://github.com/framework7io/framework7-cli/commit/c0e1914a9e30abc1d631348dad76a428896ccd16))
+- don't auto add capacitor platforms on project creation ([51e538d](https://github.com/framework7io/framework7-cli/commit/51e538d272b633765209d30d2561a0545fca923e))
+- don't install NPM dependencies on project creation ([a27af0f](https://github.com/framework7io/framework7-cli/commit/a27af0f929ccef37a4de54d69e9823445a4a59a2))
+- remove `cordova` API commands ([5fc42c1](https://github.com/framework7io/framework7-cli/commit/5fc42c14d1459ac695ce4f180086e0706d6882f2))
+- update UI to use Vite ([7ee3419](https://github.com/framework7io/framework7-cli/commit/7ee3419d5a25b215764ba4444822d9724945d95e))
+- use `.f7` files instead of `.f7.html` ([39c5523](https://github.com/framework7io/framework7-cli/commit/39c5523476e36a75d83e64257ae73a38d8ae75dc))
+- use always up to date material icons from npm package ([97accb7](https://github.com/framework7io/framework7-cli/commit/97accb706d29df5e3d5ffe2dee78906784a729ad))
+- use Vite instead of webpack ([d5de54e](https://github.com/framework7io/framework7-cli/commit/d5de54ef922e0a1fe3e12d39bc62aaf0fffe84b3))
+- wrap generated custom cordova scripts with `deviceready` ([f7b99eb](https://github.com/framework7io/framework7-cli/commit/f7b99eb3de91c96f13d38ee93a749ef0d20256bf))
+
 # [v4.1.0](https://github.com/framework7io/framework7-cli/compare/v4.0.8...v.4.1.0) (2021-06-15)
 
 ### Features
