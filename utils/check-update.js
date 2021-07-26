@@ -1,4 +1,3 @@
-const logSymbols = require('log-symbols');
 const axios = require('axios');
 const pkg = require('../package.json');
 const spinner = require('./spinner');
