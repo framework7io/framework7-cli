@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 /* eslint no-console: off */
 const program = require('commander');
-const exec = require('exec-sh');
-const path = require('path');
 const logSymbols = require('log-symbols');
-const fse = require('./utils/fs-extra');
 const checkUpdate = require('./utils/check-update');
 const spinner = require('./utils/spinner');
 const log = require('./utils/log');
@@ -91,18 +88,6 @@ program
       await generateAssets({}, currentProject, logger);
       process.exit(0);
     }
-  });
-
-program
-  .command('cordova [args...]')
-  .description('Cordova CLI')
-  .action(async (args) => {
-    if (!fse.existsSync(path.resolve(cwd, './cordova'))) {
-      log.error('Looks like cordova project is not set up');
-      process.exit(1);
-      return;
-    }
-    exec.promise(`cd ./cordova && cordova ${args.join(' ')}`);
   });
 
 program.on('command:*', (cmd) => {
