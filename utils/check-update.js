@@ -32,9 +32,11 @@ async function checkUpdate() {
 
   if (hasUpdate) {
     spinner.error('Update available');
-    log.text(`\n${logSymbols.warning} Please update framework7-cli to latest version before continue.`, true);
-    log.text(`${logSymbols.warning} To update framework7-cli, run in terminal:`, true);
-    log.text('\nnpm install framework7-cli -g\n', true);
+    log.text(
+      `\nPlease update framework7-cli to latest version before continue.\nTo update framework7-cli, run in terminal:`,
+    );
+    log.text('\n> npm install framework7-cli -g', true);
+    log.text('\nTo skip update check run the command with --skipUpdate flag\n', false, 'gray');
     process.exit(1);
   } else {
     spinner.done('All good, you have latest framework7-cli version.');
