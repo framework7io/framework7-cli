@@ -2,6 +2,16 @@
 
 # Change Log
 
+# [v5.0.2](https://github.com/framework7io/framework7-cli/compare/v5.0.1...v5.0.2) (2021-08-06)
+
+### Bug Fixes
+
+- fix core template type ([14cc6a1](https://github.com/framework7io/framework7-cli/commit/14cc6a1e01d08e44df59763f7d9f37b6c0f2b88f))
+
+### Features
+
+- add `globIgnores` to workbox config ([837ada3](https://github.com/framework7io/framework7-cli/commit/837ada3eda7bb1548997a55a083f0e17b6a25d31))
+
 # [v5.0.1](https://github.com/framework7io/framework7-cli/compare/v5.0.0...v5.0.1) (2021-07-26)
 
 ### Bug Fixes
