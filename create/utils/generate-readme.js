@@ -35,7 +35,7 @@ ${npmScripts.join('\n')}
 ${templateIf(bundler, () => `
 ## Vite
 
-There is a [Vite](http://vitejs.dev) bundler setup. It compiles and bundles all "front-end" resources. You should work only with files located in \`/src\` folder. Vite config located in \`vite.config.js\`.
+There is a [Vite](https://vitejs.dev) bundler setup. It compiles and bundles all "front-end" resources. You should work only with files located in \`/src\` folder. Vite config located in \`vite.config.js\`.
 `)}
 
 ${templateIf(type.indexOf('pwa') >= 0, () => `
