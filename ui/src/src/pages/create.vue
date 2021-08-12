@@ -549,6 +549,21 @@
         </f7-list>
 
         <template v-if="bundler === 'vite'">
+          <f7-block
+            inset
+            strong
+            class="text-color-red no-margin border-color-red"
+            style="border-width: 2px; border-style: solid; margin-top: -32px !important"
+          >
+            <p><b>Attention!</b></p>
+            <p>
+              For Vite it is recommended to have modern and latest Node.js and NPM. Make sure you
+              have at least Node.js v14 and NPM v7 installed on your system.
+            </p>
+          </f7-block>
+        </template>
+
+        <template v-if="bundler === 'vite'">
           <f7-block-title>Do you want to setup CSS Pre-Processor?</f7-block-title>
           <f7-list>
             <f7-list-item
