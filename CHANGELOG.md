@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [v5.0.3](https://github.com/framework7io/framework7-cli/compare/v5.0.2...v5.0.3) (2021-08-12)
+
+### Features
+
+- added warning message about requirements for Node v14 and NPM v7
+
 # [v5.0.2](https://github.com/framework7io/framework7-cli/compare/v5.0.1...v5.0.2) (2021-08-06)
 
 ### Bug Fixes
