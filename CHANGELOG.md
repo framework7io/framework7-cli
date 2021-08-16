@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [v5.0.4](https://github.com/framework7io/framework7-cli/compare/v5.0.3...v.5.0.4) (2021-08-16)
+
+### Features
+
+- use specific versions of swiper and dom7 ([dffd8fb](https://github.com/framework7io/framework7-cli/commit/dffd8fbff14cebc9a3418f0c146ec70be0f84d2b))
+
 # [v5.0.3](https://github.com/framework7io/framework7-cli/compare/v5.0.2...v5.0.3) (2021-08-12)
 
 ### Features
