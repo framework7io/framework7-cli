@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [v5.0.5](https://github.com/framework7io/framework7-cli/compare/v5.0.4...v5.0.5) (2021-08-20)
+
+### Bug Fixes
+
+- double check for capacitor plugins in capacitor-app.js ([3502a0e](https://github.com/framework7io/framework7-cli/commit/3502a0e84f130dda06e4f234f8ed2ee5f7f77e04))
+
 # [v5.0.4](https://github.com/framework7io/framework7-cli/compare/v5.0.3...v.5.0.4) (2021-08-16)
 
 ### Features
