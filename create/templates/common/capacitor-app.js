@@ -7,7 +7,9 @@ var capacitorApp = {
     var f7 = capacitorApp.f7;
     if (!window.Capacitor || f7.device.electron) return;
     setTimeout(() => {
-      window.Capacitor.Plugins.SplashScreen.hide();
+      if (window.Capacitor.Plugins && window.Capacitor.Plugins.SplashScreen) {
+        window.Capacitor.Plugins.SplashScreen.hide();
+      }
     }, 2000);
   },
   /*
@@ -18,8 +20,7 @@ var capacitorApp = {
   handleAndroidBackButton: function () {
     var f7 = capacitorApp.f7;
     const $ = f7.$;
-    if (f7.device.electron || !window.Capacitor) return;
-
+    if (f7.device.electron || !window.Capacitor || !window.Capacitor.Plugins.App) return;
     window.Capacitor.Plugins.App.addListener('backButton', function () {
       if ($('.actions-modal.modal-in').length) {
         f7.actions.close('.actions-modal.modal-in');
@@ -82,7 +83,7 @@ var capacitorApp = {
   */
   handleKeyboard: function () {
     var f7 = capacitorApp.f7;
-    if (!window.Capacitor) return;
+    if (!window.Capacitor || !window.Capacitor.Plugins.Keyboard) return;
     var $ = f7.$;
     var Keyboard = window.Capacitor.Plugins.Keyboard;
     if (!Keyboard) return;
