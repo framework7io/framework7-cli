@@ -2,6 +2,16 @@
 
 # Change Log
 
+# [v5.0.6](https://github.com/framework7io/framework7-cli/compare/v5.0.5...v5.0.6) (2021-09-06)
+
+### Bug Fixes
+
+- **vue:** fix issue with demo data in blank template ([ad2a509](https://github.com/framework7io/framework7-cli/commit/ad2a509c2cb114df6f9429e08f50da7cce16cc62))
+
+### Features
+
+- **vite:** enable `host` by default in created project ([278f427](https://github.com/framework7io/framework7-cli/commit/278f427bbea37f69243cc3768de5adf08de7e6a0))
+
 # [v5.0.5](https://github.com/framework7io/framework7-cli/compare/v5.0.4...v5.0.5) (2021-08-20)
 
 ### Bug Fixes
