@@ -68,6 +68,9 @@ module.exports = (options) => {
           '@': SRC_DIR,
         },
       },
+      server: {
+        host: true,
+      },
       ${templateIf(framework === 'core', () => `
       esbuild: {
         jsxFactory: '$jsx',
