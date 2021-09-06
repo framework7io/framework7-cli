@@ -202,9 +202,11 @@ module.exports = (options) => {
 
           return {
             f7params,
+            ${templateIf(template !== 'blank', () => `
             username,
             password,
-            ${templateIf(template !== 'blank', () => 'alertLoginData')}
+            alertLoginData
+            `)}
           }
         }
       }
