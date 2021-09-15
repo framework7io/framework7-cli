@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [v5.0.7](https://github.com/framework7io/framework7-cli/compare/v5.0.6...v5.0.7) (2021-09-15)
+
+### Features
+
+- **vue:** add `@vue/compiler-sfc` dev dependency for Vue project ([80f3281](https://github.com/framework7io/framework7-cli/commit/80f32814b25baa39f5d9d954ab598c0e496f6f1b))
+
 # [v5.0.6](https://github.com/framework7io/framework7-cli/compare/v5.0.5...v5.0.6) (2021-09-06)
 
 ### Bug Fixes
