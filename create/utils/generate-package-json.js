@@ -45,7 +45,7 @@ module.exports = function generatePackageJson(options) {
         ...(framework === 'core' ? ['rollup-plugin-framework7'] : []),
         ...(framework === 'react' ? ['@vitejs/plugin-react-refresh'] : []),
         ...(framework === 'svelte' ? ['@sveltejs/vite-plugin-svelte'] : []),
-        ...(framework === 'vue' ? ['@vitejs/plugin-vue'] : []),
+        ...(framework === 'vue' ? ['@vitejs/plugin-vue', '@vue/compiler-sfc'] : []),
       ],
     );
   } else {
