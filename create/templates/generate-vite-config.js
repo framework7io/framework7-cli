@@ -74,6 +74,7 @@ module.exports = (options) => {
       ${templateIf(framework === 'core', () => `
       esbuild: {
         jsxFactory: '$jsx',
+        jsxFragment: '"Fragment"',
       },
       `)}
     };
