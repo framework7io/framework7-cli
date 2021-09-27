@@ -560,6 +560,11 @@
               For Vite it is recommended to have modern and latest Node.js and NPM. Make sure you
               have at least Node.js v14 and NPM v7 installed on your system.
             </p>
+            <p v-if="type.indexOf('cordova') >= 0">
+              For Cordova app Vite build will be rebundled with Rollup (to workaround unsupported
+              browser ES modules in Cordova web view), this means you should avoid dynamic imports
+              (code splitting) with <code>import().then()</code> in your source code.
+            </p>
           </f7-block>
         </template>
 

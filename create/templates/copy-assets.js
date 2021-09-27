@@ -139,6 +139,10 @@ module.exports = (options, iconFile) => {
         content: `${cordovaAppContent}\nexport default cordovaApp;\n`,
         to: path.resolve(cwd, srcFolder, 'js', 'cordova-app.js'),
       });
+      toCopy.push({
+        from: path.resolve(__dirname, 'common', 'build-cordova.js'),
+        to: path.resolve(cwd, 'build', 'build-cordova.js'),
+      });
     }
   }
 

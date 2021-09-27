@@ -1,6 +1,7 @@
-const npmScripts = require('./npm-scripts');
+const createNpmScripts = require('./npm-scripts');
 
 module.exports = (options) => {
+  const npmScripts = createNpmScripts(options);
   const { type, bundler, cordova, capacitor } = options;
   const tokens = [];
   let result = [];

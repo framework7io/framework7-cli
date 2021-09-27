@@ -34,7 +34,7 @@ module.exports = function generatePackageJson(options) {
         ...(type.indexOf('cordova') >= 0 && cordova.platforms.indexOf('electron') >= 0
           ? ['concurrently']
           : []),
-        ...(type.indexOf('cordova') >= 0 ? ['vite-plugin-html'] : []),
+        ...(type.indexOf('cordova') >= 0 ? ['vite-plugin-html', 'rollup'] : []),
         ...(type.indexOf('capacitor') >= 0 ? ['@capacitor/cli', 'cordova-res'] : []),
         'cross-env',
         'postcss-preset-env',
