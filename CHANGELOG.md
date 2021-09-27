@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [5.1.0](https://github.com/framework7io/framework7-cli/compare/v5.0.8...1553ae89bd9b10d2f9594f25d81e42948e1675e0) (2021-09-27)
+
+### Features
+
+- Re-bundle Vite's JS output with rollup for Cordova build to workaround unsupported ES modules in Android and Electron ([1553ae8](https://github.com/framework7io/framework7-cli/commit/1553ae89bd9b10d2f9594f25d81e42948e1675e0))
+
 # [5.0.8](https://github.com/framework7io/framework7-cli/compare/v5.0.7...v5.0.8) (2021-09-16)
 
 ### Features
