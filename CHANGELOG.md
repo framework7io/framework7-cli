@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [5.1.1](https://github.com/framework7io/framework7-cli/compare/v5.1.0...v5.1.1) (2021-10-28)
+
+### Features
+
+- fix skeleton-elements version to v3 ([b406559](https://github.com/framework7io/framework7-cli/commit/b406559c11fb2b74e0dd9ac1d68145e05e14a31f))
+
 # [5.1.0](https://github.com/framework7io/framework7-cli/compare/v5.0.8...1553ae89bd9b10d2f9594f25d81e42948e1675e0) (2021-09-27)
 
 ### Features
