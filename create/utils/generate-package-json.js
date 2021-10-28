@@ -8,7 +8,7 @@ module.exports = function generatePackageJson(options) {
     'framework7',
     'dom7@3',
     'swiper@6',
-    'skeleton-elements',
+    'skeleton-elements@3',
     ...(theming.iconFonts ? ['framework7-icons', 'material-icons'] : []),
     ...(framework === 'vue' ? ['framework7-vue', 'vue@3'] : []),
     ...(framework === 'react' ? ['framework7-react', 'react', 'react-dom', 'prop-types'] : []),
