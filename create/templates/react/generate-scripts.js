@@ -26,7 +26,7 @@ module.exports = (options) => {
     ${templateIf(customBuild, () => `
     import '../css/framework7-custom.less';
     `, () => `
-    import 'framework7/framework7-bundle.css';
+    import 'framework7/css/bundle';
     `)}
 
     // Import Icons and App Custom Styles

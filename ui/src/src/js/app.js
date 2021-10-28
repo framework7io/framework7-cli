@@ -16,7 +16,7 @@ import Tooltip from 'framework7/components/tooltip';
 import Framework7Vue, { registerComponents } from 'framework7-vue/bundle';
 
 // Import Framework7 Styles
-import 'framework7/framework7-bundle.css';
+import 'framework7/css/bundle';
 
 // Import Icons and App Custom Styles
 import '../css/icons.css';

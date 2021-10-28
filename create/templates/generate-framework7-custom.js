@@ -9,14 +9,15 @@ module.exports = (options) => {
     components = [],
   } = options.customBuildConfig || {};
 
+  const { framework } = options;
+
   const filterCharts = (comps) => {
+    if (framework === 'core') return comps;
     return comps.filter((c) => {
       if (c === 'gauge' || c === 'area-chart' || c === 'pie-chart') return false;
       return true;
     });
   };
-
-  const { framework } = options;
 
   const componentsImportsJS = filterCharts(components).map((c) => {
     const name = c
@@ -50,12 +51,12 @@ module.exports = (options) => {
   `);
 
   const componentsImportsLESS = components.map((c) => {
-    return `@import 'framework7/components/${c}/${c}.less';`;
+    return `@import 'framework7/components/${c}/less';`;
   });
   // prettier-ignore
   const styles = indent(0, `
     & {
-      @import 'framework7/framework7.less';
+      @import 'framework7/less';
       ${componentsImportsLESS.join('\n      ')}
 
       @includeIosTheme: ${themes.indexOf('ios') >= 0};

@@ -5,14 +5,14 @@ module.exports = function generatePackageJson(options) {
 
   // Dependencies
   const dependencies = [
-    'framework7',
-    'dom7@3',
-    'swiper@6',
+    'framework7@beta',
+    'dom7',
+    'swiper',
     'skeleton-elements',
     ...(theming.iconFonts ? ['framework7-icons', 'material-icons'] : []),
-    ...(framework === 'vue' ? ['framework7-vue', 'vue@3'] : []),
-    ...(framework === 'react' ? ['framework7-react', 'react', 'react-dom', 'prop-types'] : []),
-    ...(framework === 'svelte' ? ['framework7-svelte', 'svelte'] : []),
+    ...(framework === 'vue' ? ['framework7-vue@beta', 'vue@3'] : []),
+    ...(framework === 'react' ? ['framework7-react@beta', 'react', 'react-dom', 'prop-types'] : []),
+    ...(framework === 'svelte' ? ['framework7-svelte@beta', 'svelte'] : []),
     ...(type.indexOf('capacitor') >= 0
       ? [
           '@capacitor/core',
@@ -106,12 +106,11 @@ module.exports = function generatePackageJson(options) {
   "license" : "UNLICENSED",
   "scripts" : ${JSON.stringify(scripts)},
   "browserslist": [
-    "Android >= 7",
-    "IOS >= 11",
-    "Safari >= 11",
-    "Chrome >= 49",
-    "Firefox >= 31",
-    "Samsung >= 5"
+    "IOS >= 13",
+    "Safari >= 13",
+    "last 5 Chrome versions",
+    "last 5 Firefox versions",
+    "Samsung >= 12"
   ],
   "dependencies": {},
   "devDependencies": {}
