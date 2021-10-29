@@ -13,7 +13,7 @@ module.exports = (options) => {
   // Panels
   const leftPanelPlain = indent(6, `
     <!-- Left panel with cover effect-->
-    <Panel left cover themeDark>
+    <Panel left cover dark>
       <View>
         <Page>
           <Navbar title="Left Panel"/>
@@ -25,7 +25,7 @@ module.exports = (options) => {
 
   const leftPanelWithView = indent(6, `
     <!-- Left panel with cover effect when hidden -->
-    <Panel left cover themeDark visibleBreakpoint={960}>
+    <Panel left cover dark visibleBreakpoint={960}>
       <View>
         <Page>
           <Navbar title="Left Panel"/>
@@ -47,7 +47,7 @@ module.exports = (options) => {
   const leftPanel = template === 'split-view' ? leftPanelWithView : leftPanelPlain;
   const rightPanel = indent(6, `
     <!-- Right panel with reveal effect-->
-    <Panel right reveal themeDark>
+    <Panel right reveal dark>
       <View>
         <Page>
           <Navbar title="Right Panel"/>
@@ -91,11 +91,11 @@ module.exports = (options) => {
 
   return indent(0, `
     ${template === 'blank' ? `
-    <App { ...f7params } ${theming.darkTheme ? 'themeDark' : ''}>
+    <App { ...f7params } ${theming.darkTheme ? 'dark' : ''}>
       ${views}
     </App>
     `.trim() : `
-    <App { ...f7params } ${theming.darkTheme ? 'themeDark' : ''}>
+    <App { ...f7params } ${theming.darkTheme ? 'dark' : ''}>
       ${leftPanel}
       ${rightPanel}
       ${views}

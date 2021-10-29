@@ -9,7 +9,7 @@ module.exports = (options) => {
   // prettier-ignore
   const leftPanelPlain = `
     <!-- Left panel with cover effect-->
-    <div class="panel panel-left panel-cover theme-dark panel-init">
+    <div class="panel panel-left panel-cover dark panel-init">
       <div class="view">
         <div class="page">
           <div class="navbar">
@@ -29,7 +29,7 @@ module.exports = (options) => {
   // prettier-ignore
   const leftPanelWithView = `
     <!-- Left panel with cover effect -->
-    <div class="panel panel-left panel-cover theme-dark panel-init" data-visible-breakpoint="960">
+    <div class="panel panel-left panel-cover dark panel-init" data-visible-breakpoint="960">
       <div class="view view-init" data-name="left">
         <div class="page">
           <div class="navbar">
@@ -70,7 +70,7 @@ module.exports = (options) => {
   // prettier-ignore
   const rightPanel = `
     <!-- Right panel with reveal effect-->
-    <div class="panel panel-right panel-reveal theme-dark">
+    <div class="panel panel-right panel-reveal dark">
       <div class="view">
         <div class="page">
           <div class="navbar">

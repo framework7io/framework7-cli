@@ -13,7 +13,7 @@ module.exports = (options) => {
   // Panels
   const leftPanelPlain = indent(6, `
     <!-- Left panel with cover effect-->
-    <f7-panel left cover theme-dark>
+    <f7-panel left cover dark>
       <f7-view>
         <f7-page>
           <f7-navbar title="Left Panel"></f7-navbar>
@@ -25,7 +25,7 @@ module.exports = (options) => {
 
   const leftPanelWithView = indent(6, `
     <!-- Left panel with cover effect when hidden -->
-    <f7-panel left cover theme-dark :visible-breakpoint="960">
+    <f7-panel left cover dark :visible-breakpoint="960">
       <f7-view>
         <f7-page>
           <f7-navbar title="Left Panel"></f7-navbar>
@@ -47,7 +47,7 @@ module.exports = (options) => {
   const leftPanel = template === 'split-view' ? leftPanelWithView : leftPanelPlain;
   const rightPanel = indent(6, `
     <!-- Right panel with reveal effect-->
-    <f7-panel right reveal theme-dark>
+    <f7-panel right reveal dark>
       <f7-view>
         <f7-page>
           <f7-navbar title="Right Panel"></f7-navbar>
@@ -93,11 +93,11 @@ module.exports = (options) => {
   return indent(0, `
     <template>
       ${template === 'blank' ? `
-      <f7-app v-bind="f7params" ${theming.darkTheme ? 'theme-dark' : ''}>
+      <f7-app v-bind="f7params" ${theming.darkTheme ? 'dark' : ''}>
         ${views}
       </f7-app>
       `.trim() : `
-      <f7-app v-bind="f7params" ${theming.darkTheme ? 'theme-dark' : ''}>
+      <f7-app v-bind="f7params" ${theming.darkTheme ? 'dark' : ''}>
         ${leftPanel}
         ${rightPanel}
         ${views}

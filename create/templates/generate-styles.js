@@ -38,8 +38,8 @@ module.exports = (options) => {
     styles += indent(0, `
       /* Invert navigation bars to fill style */
       :root,
-      :root.theme-dark,
-      :root .theme-dark {
+      :root.dark,
+      :root .dark {
         --f7-bars-bg-color: var(--f7-theme-color);
         --f7-bars-bg-color-rgb: var(--f7-theme-color-rgb);
         --f7-bars-translucent-opacity: 0.9;
@@ -78,8 +78,8 @@ module.exports = (options) => {
           calc(var(--b) + (255 - var(--b)) * var(--progress))
         );
       }
-      .theme-dark .navbar-large-transparent,
-      .theme-dark .navbar-large.navbar-transparent {
+      .dark .navbar-large-transparent,
+      .dark .navbar-large.navbar-transparent {
         --f7-navbar-large-title-text-color: #fff;
       }
     `);

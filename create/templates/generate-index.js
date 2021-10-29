@@ -111,7 +111,7 @@ module.exports = (options) => {
   ${styles}
 </head>
 <body>
-  <div id="app"${framework === 'core' && theming.darkTheme ? ' class="theme-dark"' : ''}>${rootContent}</div>
+  <div id="app"${framework === 'core' && theming.darkTheme ? ' class="dark"' : ''}>${rootContent}</div>
   ${cordovaScript || ''}
   ${scripts}
 </body>
