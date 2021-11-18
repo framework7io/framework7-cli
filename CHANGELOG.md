@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [5.1.2](https://github.com/framework7io/framework7-cli/compare/v5.1.1...v5.1.2) (2021-11-18)
+
+### Features
+
+- stick `postcss-preset-env` to v6 due to issues with Vite with v7 ([fdab46c](https://github.com/framework7io/framework7-cli/commit/fdab46cdca55119e225042772bc30db0179325f6))
+
 # [5.1.1](https://github.com/framework7io/framework7-cli/compare/v5.1.0...v5.1.1) (2021-10-28)
 
 ### Features
