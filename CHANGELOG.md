@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [5.1.3](https://github.com/framework7io/framework7-cli/compare/v5.1.2...v5.1.3) (2021-12-13)
+
+### Features
+
+- use `electron@latest` cordova platform to fix issues on M1 macs
+
 # [5.1.2](https://github.com/framework7io/framework7-cli/compare/v5.1.1...v5.1.2) (2021-11-18)
 
 ### Features
