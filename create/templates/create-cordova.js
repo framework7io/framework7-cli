@@ -101,7 +101,7 @@ module.exports = (options) => {
 
     // Add cordova platforms
     const platforms = cordova.platforms.map((platform) => {
-      return platform === 'ios' ? 'ios@latest' : platform;
+      return platform === 'ios' ? 'ios@latest' : 'electron' ? 'electron@latest' : platform;
     });
     try {
       if (!isRunningInCwd) {
