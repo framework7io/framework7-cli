@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [5.1.4](https://github.com/framework7io/framework7-cli/compare/v5.1.3...v5.1.4) (2021-12-19)
+
+### Bug Fixes
+
+- fixed android platform installs electron ([c2d7d33](https://github.com/framework7io/framework7-cli/commit/c2d7d33d0b0276f854033c5a681de75b2cbfc33c))
+
 # [5.1.3](https://github.com/framework7io/framework7-cli/compare/v5.1.2...v5.1.3) (2021-12-13)
 
 ### Features
