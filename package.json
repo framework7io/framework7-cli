@@ -1,6 +1,6 @@
 {
   "name": "framework7-cli",
-  "version": "5.1.4",
+  "version": "5.1.5",
   "description": "Framework7 command line utility (CLI)",
   "main": "index.js",
   "bin": {

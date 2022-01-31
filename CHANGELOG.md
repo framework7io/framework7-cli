@@ -2,6 +2,16 @@
 
 # Change Log
 
+# [5.1.5](https://github.com/framework7io/framework7-cli/compare/v5.1.4...v5.1.5) (2022-01-31)
+
+### Bug Fixes
+
+- support latest version `vite-plugin-html` ([b0e5815](https://github.com/framework7io/framework7-cli/commit/b0e5815b5a7e1f19ba3bec571943fc690122b302))
+
+### Features
+
+- remove `gap:` from CSP ([327491f](https://github.com/framework7io/framework7-cli/commit/327491f7d430822c9bc49e46080325e29851735c))
+
 # [5.1.4](https://github.com/framework7io/framework7-cli/compare/v5.1.3...v5.1.4) (2021-12-19)
 
 ### Bug Fixes
