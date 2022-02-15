@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [5.1.6](https://github.com/framework7io/framework7-cli/compare/v5.1.5...v5.1.6) (2022-02-15)
+
+### Bug Fixes
+
+- temporary disable treeshaking ([fd6d222](https://github.com/framework7io/framework7-cli/commit/fd6d22252500ed6595033fbbc4188f02f6f2a02f))
+
 # [5.1.5](https://github.com/framework7io/framework7-cli/compare/v5.1.4...v5.1.5) (2022-01-31)
 
 ### Bug Fixes
