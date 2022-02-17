@@ -52,6 +52,7 @@ export default [
   'text-editor',
   'area-chart',
   'pie-chart',
+  'breadcrumbs',
   'elevation',
   'typography',
 ];

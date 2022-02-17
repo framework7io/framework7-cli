@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <polygon id="t-single-view-a" points="159.688 220.918 159.688 80 142.5 80 105 106.953 105 124.629 142.305 98.652 142.695 98.652 142.695 220.918"/>
+  </defs>
+  <g fill="none">
+    <rect width="300" height="300"/>
+    <use fill="#000" xlink:href="#t-single-view-a"/>
+    <use fill="#EE350F" xlink:href="#t-single-view-a"/>
+  </g>
+</svg>

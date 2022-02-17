@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <g fill="none">
+    <g fill="#000" fill-opacity=".25" transform="translate(0 89)">
+      <rect width="86" height="4"/>
+      <rect width="86" height="4" y="44"/>
+    </g>
+    <g fill="#000" fill-opacity=".25" transform="translate(0 177)">
+      <rect width="86" height="4"/>
+      <rect width="86" height="4" y="44"/>
+      <rect width="86" height="4" y="88"/>
+    </g>
+    <rect width="300" height="5" x="-61.5" y="147.5" fill="#000" fill-opacity=".25" transform="rotate(-90 88.5 150)"/>
+    <rect width="86" height="40" y="93" fill="#EE350F"/>
+  </g>
+</svg>
