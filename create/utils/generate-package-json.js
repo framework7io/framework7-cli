@@ -37,7 +37,7 @@ module.exports = function generatePackageJson(options) {
         ...(type.indexOf('cordova') >= 0 ? ['vite-plugin-html', 'rollup'] : []),
         ...(type.indexOf('capacitor') >= 0 ? ['@capacitor/cli', 'cordova-res'] : []),
         'cross-env',
-        'postcss-preset-env@6',
+        'postcss-preset-env',
         ...(cssPreProcessor === 'stylus' ? ['stylus'] : []),
         ...(cssPreProcessor === 'less' ? ['less'] : []),
         ...(cssPreProcessor === 'scss' ? ['sass'] : []),
