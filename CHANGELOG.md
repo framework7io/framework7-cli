@@ -2,6 +2,46 @@
 
 # Change Log
 
+# [5.1.6](https://github.com/framework7io/framework7-cli/compare/v5.1.5...v5.1.6) (2022-02-15)
+
+### Bug Fixes
+
+- temporary disable treeshaking ([fd6d222](https://github.com/framework7io/framework7-cli/commit/fd6d22252500ed6595033fbbc4188f02f6f2a02f))
+
+# [5.1.5](https://github.com/framework7io/framework7-cli/compare/v5.1.4...v5.1.5) (2022-01-31)
+
+### Bug Fixes
+
+- support latest version `vite-plugin-html` ([b0e5815](https://github.com/framework7io/framework7-cli/commit/b0e5815b5a7e1f19ba3bec571943fc690122b302))
+
+### Features
+
+- remove `gap:` from CSP ([327491f](https://github.com/framework7io/framework7-cli/commit/327491f7d430822c9bc49e46080325e29851735c))
+
+# [5.1.4](https://github.com/framework7io/framework7-cli/compare/v5.1.3...v5.1.4) (2021-12-19)
+
+### Bug Fixes
+
+- fixed android platform installs electron ([c2d7d33](https://github.com/framework7io/framework7-cli/commit/c2d7d33d0b0276f854033c5a681de75b2cbfc33c))
+
+# [5.1.3](https://github.com/framework7io/framework7-cli/compare/v5.1.2...v5.1.3) (2021-12-13)
+
+### Features
+
+- use `electron@latest` cordova platform to fix issues on M1 macs
+
+# [5.1.2](https://github.com/framework7io/framework7-cli/compare/v5.1.1...v5.1.2) (2021-11-18)
+
+### Features
+
+- stick `postcss-preset-env` to v6 due to issues with Vite with v7 ([fdab46c](https://github.com/framework7io/framework7-cli/commit/fdab46cdca55119e225042772bc30db0179325f6))
+
+# [5.1.1](https://github.com/framework7io/framework7-cli/compare/v5.1.0...v5.1.1) (2021-10-28)
+
+### Features
+
+- fix skeleton-elements version to v3 ([b406559](https://github.com/framework7io/framework7-cli/commit/b406559c11fb2b74e0dd9ac1d68145e05e14a31f))
+
 # [5.1.0](https://github.com/framework7io/framework7-cli/compare/v5.0.8...1553ae89bd9b10d2f9594f25d81e42948e1675e0) (2021-09-27)
 
 ### Features

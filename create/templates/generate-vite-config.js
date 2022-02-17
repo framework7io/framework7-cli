@@ -25,7 +25,7 @@ module.exports = (options) => {
     ${frameworkPlugin[framework][0]}
 
     ${templateIf(hasCordova, () => `
-    import { injectHtml } from 'vite-plugin-html';
+    import { createHtmlPlugin } from 'vite-plugin-html';
 
     process.env.TARGET = process.env.TARGET || 'web';
     const isCordova = process.env.TARGET === 'cordova';
@@ -48,9 +48,12 @@ module.exports = (options) => {
       plugins: [
         ${frameworkPlugin[framework][1]}
         ${templateIf(hasCordova, () => `
-        injectHtml({
-          injectData: {
-            TARGET: process.env.TARGET,
+        createHtmlPlugin({
+          minify: false,
+          inject: {
+            data: {
+              TARGET: process.env.TARGET,
+            },
           },
         }),
         `)}
@@ -62,6 +65,9 @@ module.exports = (options) => {
         outDir: BUILD_DIR,
         assetsInlineLimit: 0,
         emptyOutDir: true,
+        rollupOptions: {
+          treeshake: false,
+        },
       },
       resolve: {
         alias: {
