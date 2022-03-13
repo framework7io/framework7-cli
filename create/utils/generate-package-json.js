@@ -55,7 +55,7 @@ module.exports = function generatePackageJson(options) {
       devDependencies.push('cordova-res');
     }
     if (type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0) {
-      devDependencies.push(...['cpy', 'rimraf']);
+      devDependencies.push(...['cpy@8', 'rimraf']);
     }
   }
 
