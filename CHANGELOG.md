@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [5.1.7](https://github.com/framework7io/framework7-cli/compare/v5.1.6...5.1.7) (2022-03-13)
+
+### Bug Fixes
+
+- use `cpy@8` to prevent ES module issues ([b307d3f](https://github.com/framework7io/framework7-cli/commit/b307d3f1d1bf9f21fef7e3622d89b83f72e41fe8))
+
 # [5.1.6](https://github.com/framework7io/framework7-cli/compare/v5.1.5...v5.1.6) (2022-02-15)
 
 ### Bug Fixes
