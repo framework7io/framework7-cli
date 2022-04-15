@@ -74,17 +74,17 @@ module.exports = function generatePackageJson(options) {
   if (theming.iconFonts) {
     postInstall.push(
       ...[
-        `cpy ./node_modules/framework7-icons/fonts/*.* ./${bundler ? 'src' : 'www'}/fonts/`,
-        `cpy ./node_modules/material-icons/iconfont/*.* ./${bundler ? 'src' : 'www'}/fonts/`,
+        `cpy --flat ./node_modules/framework7-icons/fonts/*.* ./${bundler ? 'src' : 'www'}/fonts/`,
+        `cpy --flat ./node_modules/material-icons/iconfont/*.* ./${bundler ? 'src' : 'www'}/fonts/`,
       ],
     );
   }
   if (framework === 'core' && !bundler) {
     postInstall.push(
       ...[
-        `cpy ./node_modules/framework7/*.js ./www/framework7`,
-        `cpy ./node_modules/framework7/*.css ./www/framework7`,
-        `cpy ./node_modules/framework7/*.map ./www/framework7`,
+        `cpy --flat ./node_modules/framework7/*.js ./www/framework7`,
+        `cpy --flat ./node_modules/framework7/*.css ./www/framework7`,
+        `cpy --flat ./node_modules/framework7/*.map ./www/framework7`,
       ],
     );
   }
