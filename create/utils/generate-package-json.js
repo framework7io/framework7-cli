@@ -5,14 +5,14 @@ module.exports = function generatePackageJson(options) {
 
   // Dependencies
   const dependencies = [
-    'framework7@beta',
+    'framework7',
     'dom7',
     'swiper',
     'skeleton-elements',
     ...(theming.iconFonts ? ['framework7-icons', 'material-icons'] : []),
-    ...(framework === 'vue' ? ['framework7-vue@beta', 'vue@3'] : []),
-    ...(framework === 'react' ? ['framework7-react@beta', 'react', 'react-dom', 'prop-types'] : []),
-    ...(framework === 'svelte' ? ['framework7-svelte@beta', 'svelte'] : []),
+    ...(framework === 'vue' ? ['framework7-vue', 'vue@3'] : []),
+    ...(framework === 'react' ? ['framework7-react', 'react', 'react-dom', 'prop-types'] : []),
+    ...(framework === 'svelte' ? ['framework7-svelte', 'svelte'] : []),
     ...(type.indexOf('capacitor') >= 0
       ? [
           '@capacitor/core',
