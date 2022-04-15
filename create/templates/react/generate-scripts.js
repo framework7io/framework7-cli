@@ -3,18 +3,16 @@ const indent = require('../../utils/indent');
 const stylesExtension = require('../../utils/styles-extension');
 
 module.exports = (options) => {
-  const {
-    cssPreProcessor,
-    theming,
-    customBuild,
-  } = options;
+  const { cssPreProcessor, theming, customBuild } = options;
 
   let scripts = '';
 
-  scripts += indent(0, `
+  scripts += indent(
+    0,
+    `
     // Import React and ReactDOM
     import React from 'react';
-    import ReactDOM from 'react-dom';
+    import { createRoot } from 'react-dom/client';
 
     // Import Framework7
     import Framework7 from '${customBuild ? './framework7-custom.js' : 'framework7/lite-bundle'}';
@@ -23,16 +21,23 @@ module.exports = (options) => {
     import Framework7React from 'framework7-react';
 
     // Import Framework7 Styles
-    ${templateIf(customBuild, () => `
+    ${templateIf(
+      customBuild,
+      () => `
     import '../css/framework7-custom.less';
-    `, () => `
+    `,
+      () => `
     import 'framework7/css/bundle';
-    `)}
+    `,
+    )}
 
     // Import Icons and App Custom Styles
-    ${templateIf(theming.iconFonts, () => `
+    ${templateIf(
+      theming.iconFonts,
+      () => `
     import '../css/icons.css';
-    `)}
+    `,
+    )}
     import '../css/app.${stylesExtension(cssPreProcessor)}';
 
     // Import App Component
@@ -42,11 +47,10 @@ module.exports = (options) => {
     Framework7.use(Framework7React)
 
     // Mount React App
-    ReactDOM.render(
-      React.createElement(App),
-      document.getElementById('app'),
-    );
-  `);
+    const root = createRoot(document.getElementById('app'));
+    root.render(React.createElement(App));
+  `,
+  );
 
   return scripts.trim();
 };
