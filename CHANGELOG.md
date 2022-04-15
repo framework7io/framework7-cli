@@ -2,6 +2,20 @@
 
 # Change Log
 
+# [7.0.0](https://github.com/framework7io/framework7-cli/compare/v5.1.7...v7.0.0) (2022-04-15)
+
+### Bug Fixes
+
+- copy --flat ([82e0e42](https://github.com/framework7io/framework7-cli/commit/82e0e4288d7b72bde1b8f652bc5524c19ed35ad4))
+
+### Features
+
+- React 18 syntax ([1feb9d5](https://github.com/framework7io/framework7-cli/commit/1feb9d5f5c2d4f75c5a188f910306b381aa55cb1))
+- update UI with latest F7 v7 ([d22be01](https://github.com/framework7io/framework7-cli/commit/d22be01823123b95c7bcb823475e2f8baf38f5d8))
+- updates to match new v7 dark mode classes ([028f6a1](https://github.com/framework7io/framework7-cli/commit/028f6a1bafe67529612401e5d5bc95c3d85dae73))
+- updates to match new v7 imports paths ([ef7c479](https://github.com/framework7io/framework7-cli/commit/ef7c479033feb135a89848375eecd36dbeed1e02))
+- use latest version of postcss-preset-env ([e61ab44](https://github.com/framework7io/framework7-cli/
+
 # [5.1.7](https://github.com/framework7io/framework7-cli/compare/v5.1.6...5.1.7) (2022-03-13)
 
 ### Bug Fixes
