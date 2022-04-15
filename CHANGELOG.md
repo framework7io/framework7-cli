@@ -14,7 +14,7 @@
 - update UI with latest F7 v7 ([d22be01](https://github.com/framework7io/framework7-cli/commit/d22be01823123b95c7bcb823475e2f8baf38f5d8))
 - updates to match new v7 dark mode classes ([028f6a1](https://github.com/framework7io/framework7-cli/commit/028f6a1bafe67529612401e5d5bc95c3d85dae73))
 - updates to match new v7 imports paths ([ef7c479](https://github.com/framework7io/framework7-cli/commit/ef7c479033feb135a89848375eecd36dbeed1e02))
-- use latest version of postcss-preset-env ([e61ab44](https://github.com/framework7io/framework7-cli/
+- use latest version of postcss-preset-env [e61ab44]
 
 # [5.1.7](https://github.com/framework7io/framework7-cli/compare/v5.1.6...5.1.7) (2022-03-13)
 
