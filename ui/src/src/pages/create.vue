@@ -643,7 +643,7 @@
               modules: ['sb-spectrum', 'hue-slider', 'hex'],
               hexLabel: true,
               hexValueEditable: true,
-              cssClass: 'theme-dark',
+              cssClass: 'dark',
             }"
             @colorpicker:change="(v) => (theming.color = v.hex)"
           >
@@ -963,8 +963,8 @@ export default {
         self.barsStyleEl.innerHTML = `
             /* Invert navigation bars to fill style */
             :root,
-            :root.theme-dark,
-            :root .theme-dark {
+            :root.dark,
+            :root .dark {
               --f7-bars-bg-color: var(--f7-theme-color);
               --f7-bars-text-color: #fff;
               --f7-bars-link-color: #fff;
@@ -1002,9 +1002,9 @@ export default {
       const self = this;
       const html = f7.$('html');
       if (darkTheme) {
-        html.addClass('theme-dark');
+        html.addClass('dark');
       } else {
-        html.removeClass('theme-dark');
+        html.removeClass('dark');
       }
       self.setDocumentThemeColor();
     },
