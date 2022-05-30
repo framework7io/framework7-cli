@@ -59,7 +59,7 @@ module.exports = function generatePackageJson(options) {
     }
   }
 
-  if (theming.iconFonts || (framework === 'core' && !bundler)) {
+  if ((theming.iconFonts && framework !== 'svelte') || (framework === 'core' && !bundler)) {
     devDependencies.push('cpy-cli');
   }
 
@@ -71,7 +71,7 @@ module.exports = function generatePackageJson(options) {
 
   const postInstall = [];
 
-  if (theming.iconFonts) {
+  if (theming.iconFonts && framework !== 'svelte') {
     postInstall.push(
       ...[
         `cpy --flat ./node_modules/framework7-icons/fonts/*.* ./${bundler ? 'src' : 'www'}/fonts/`,

@@ -34,8 +34,8 @@ module.exports = (options, iconFile) => {
   if (framework === 'vue') toCopy.push(...copyVueAssets(options));
   if (framework === 'react') toCopy.push(...copyReactAssets(options));
   if (framework === 'svelte') toCopy.push(...copySvelteAssets(options));
-
-  if (theming.iconFonts) {
+  
+  if (theming.iconFonts && framework !== 'svelte') {
     // Copy Icons CSS
     toCopy.push({
       from: path.resolve(__dirname, 'common', 'css', 'icons.css'),
