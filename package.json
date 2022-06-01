@@ -45,7 +45,7 @@
     "opn": "^6.0.0",
     "ora": "^5.4.1",
     "rimraf": "^3.0.2",
-    "sharp": "^0.28.3"
+    "sharp": "^0.30.5"
   },
   "devDependencies": {
     "eslint": "^7.31.0",
