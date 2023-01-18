@@ -2,6 +2,13 @@
 
 # Change Log
 
+# [7.0.1](https://github.com/framework7io/framework7-cli/compare/v7.0.0...v7.0.1) (2023-01-18)
+
+### Bug Fixes
+
+- lock vite svelte plugin to v1 ([639372e](https://github.com/framework7io/framework7-cli/commit/639372e4ffee97576c25b3e2bfcb51d244d5c0be))
+- update build-cordova script to use new hash format used in Vite ([1adcec4](https://github.com/framework7io/framework7-cli/commit/1adcec4df46b7852a7933c8c57783b05f9d5b7cc))
+
 # [7.0.0](https://github.com/framework7io/framework7-cli/compare/v5.1.7...v7.0.0) (2022-04-15)
 
 ### Bug Fixes
