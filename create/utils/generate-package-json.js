@@ -7,7 +7,7 @@ module.exports = function generatePackageJson(options) {
   const dependencies = [
     'framework7',
     'dom7',
-    'swiper',
+    'swiper@8',
     'skeleton-elements',
     ...(theming.iconFonts ? ['framework7-icons', 'material-icons'] : []),
     ...(framework === 'vue' ? ['framework7-vue', 'vue@3'] : []),
@@ -44,7 +44,7 @@ module.exports = function generatePackageJson(options) {
         ...(type.indexOf('pwa') >= 0 ? ['workbox-cli'] : []),
         ...(framework === 'core' ? ['rollup-plugin-framework7'] : []),
         ...(framework === 'react' ? ['@vitejs/plugin-react-refresh'] : []),
-        ...(framework === 'svelte' ? ['@sveltejs/vite-plugin-svelte'] : []),
+        ...(framework === 'svelte' ? ['@sveltejs/vite-plugin-svelte@1'] : []),
         ...(framework === 'vue' ? ['@vitejs/plugin-vue', '@vue/compiler-sfc'] : []),
       ],
     );
