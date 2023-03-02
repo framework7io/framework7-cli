@@ -75,9 +75,7 @@ module.exports = (options) => {
   `.trim();
 
   let documentThemeColor = '#fff';
-  if (theming.fillBars && theming.color) {
-    documentThemeColor = theming.color;
-  } else if (theming.darkTheme) {
+  if (theming.darkMode) {
     documentThemeColor = '#212121';
   } else {
     documentThemeColor = '#fff';
@@ -111,7 +109,7 @@ module.exports = (options) => {
   ${styles}
 </head>
 <body>
-  <div id="app"${framework === 'core' && theming.darkTheme ? ' class="dark"' : ''}>${rootContent}</div>
+  <div id="app">${rootContent}</div>
   ${cordovaScript || ''}
   ${scripts}
 </body>

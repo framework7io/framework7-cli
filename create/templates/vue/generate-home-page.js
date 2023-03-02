@@ -1,10 +1,7 @@
 const indent = require('../../utils/indent');
 
 module.exports = (options) => {
-  const {
-    name,
-    template,
-  } = options;
+  const { name, template } = options;
 
   let description = '';
   if (template === 'single-view' || template === 'blank') {
@@ -29,40 +26,52 @@ module.exports = (options) => {
     `;
   }
 
-  return indent(0, `
+  return indent(
+    0,
+    `
     <template>
       <f7-page name="home">
         <!-- Top Navbar -->
-        ${template === 'blank' ? `
+        ${
+          template === 'blank'
+            ? `
         <f7-navbar large>
           <f7-nav-title>${name}</f7-nav-title>
           <f7-nav-title-large>${name}</f7-nav-title-large>
         </f7-navbar>
-        `.trim() : `
+        `.trim()
+            : `
         <f7-navbar large :sliding="false">
           <f7-nav-left>
-            <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" panel-open="left"></f7-link>
+            <f7-link icon-ios="f7:menu" icon-md="material:menu" panel-open="left"></f7-link>
           </f7-nav-left>
           <f7-nav-title sliding>${name}</f7-nav-title>
           <f7-nav-right>
-            <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" panel-open="right"></f7-link>
+            <f7-link icon-ios="f7:menu" icon-md="material:menu" panel-open="right"></f7-link>
           </f7-nav-right>
           <f7-nav-title-large>${name}</f7-nav-title-large>
         </f7-navbar>
-        `.trim()}
-        ${template !== 'tabs' ? `
+        `.trim()
+        }
+        ${
+          template !== 'tabs'
+            ? `
         <!-- Toolbar-->
         <f7-toolbar bottom>
           <f7-link>Left Link</f7-link>
           <f7-link>Right Link</f7-link>
         </f7-toolbar>
 
-        `.trim() : ''}
+        `.trim()
+            : ''
+        }
         <!-- Page content-->
         <f7-block strong>
           ${description.trim()}
         </f7-block>
-        ${template !== 'blank' ? `
+        ${
+          template !== 'blank'
+            ? `
         <f7-block-title>Navigation</f7-block-title>
         <f7-list>
           <f7-list-item link="/about/" title="About"></f7-list-item>
@@ -70,27 +79,15 @@ module.exports = (options) => {
         </f7-list>
 
         <f7-block-title>Modals</f7-block-title>
-        <f7-block strong>
-          <f7-row>
-            <f7-col width="50">
-              <f7-button fill raised popup-open="#my-popup">Popup</f7-button>
-            </f7-col>
-            <f7-col width="50">
-              <f7-button fill raised login-screen-open="#my-login-screen">Login Screen</f7-button>
-            </f7-col>
-          </f7-row>
+        <f7-block strong class="grid grid-cols-2 grid-gap">
+          <f7-button fill raised popup-open="#my-popup">Popup</f7-button>
+          <f7-button fill raised login-screen-open="#my-login-screen">Login Screen</f7-button>
         </f7-block>
 
         <f7-block-title>Panels</f7-block-title>
-        <f7-block strong>
-          <f7-row>
-            <f7-col width="50">
-              <f7-button fill raised panel-open="left">Left Panel</f7-button>
-            </f7-col>
-            <f7-col width="50">
-              <f7-button fill raised panel-open="right">Right Panel</f7-button>
-            </f7-col>
-          </f7-row>
+        <f7-block strong class="grid grid-cols-2 grid-gap">
+          <f7-button fill raised panel-open="left">Left Panel</f7-button>
+          <f7-button fill raised panel-open="right">Right Panel</f7-button>
         </f7-block>
 
         <f7-list>
@@ -107,8 +104,11 @@ module.exports = (options) => {
             link="/request-and-load/user/123456/"
           ></f7-list-item>
         </f7-list>
-        `.trim() : ''}
+        `.trim()
+            : ''
+        }
       </f7-page>
     </template>
-  `).trim();
+  `,
+  ).trim();
 };

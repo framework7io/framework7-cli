@@ -6,8 +6,6 @@ const map = {
   x: 'capacitor',
   a: 'android',
   i: 'ios',
-  e: 'electron',
-  o: 'osx',
   s: 'start',
   v: 'serve',
 };
@@ -62,21 +60,6 @@ const npmScripts = () => {
         script: `cross-env TARGET=cordova cross-env NODE_ENV=production vite build && node ./build/build-cordova.js && cd cordova && cordova run ios`,
         description: 'run dev build cordova iOS app',
       },
-      ce: {
-        icon: '🖥',
-        script: `cross-env TARGET=cordova cross-env NODE_ENV=production vite build && node ./build/build-cordova.js && cd cordova && cordova run electron`,
-        description: 'run dev build cordova Electron app',
-      },
-      bce: {
-        icon: '🖥',
-        script: `cross-env TARGET=cordova cross-env NODE_ENV=production vite build && node ./build/build-cordova.js && cd cordova && cordova build electron`,
-        description: 'build cordova Electron app',
-      },
-      bco: {
-        icon: '🖥',
-        script: `cross-env TARGET=cordova cross-env NODE_ENV=production vite build && node ./build/build-cordova.js && cd cordova && cordova build osx`,
-        description: 'build cordova macOS app',
-      },
       d: {
         icon: '🔧',
         script: 'cross-env NODE_ENV=development vite',
@@ -114,16 +97,6 @@ const npmScripts = () => {
         script: 'node ./build/build.js && cd cordova && cordova run ios',
         description: 'run cordova iOS app',
       },
-      bce: {
-        icon: '🖥',
-        script: 'node ./build/build.js && cd cordova && cordova build electron',
-        description: 'build cordova Electron app',
-      },
-      bco: {
-        icon: '🖥',
-        script: 'node ./build/build.js && cd cordova && cordova build osx',
-        description: 'build cordova macOS app',
-      },
       v: {
         icon: '🔧',
         script: 'http-server ./www/ -o -c 1 -a localhost -p 8080',
@@ -133,12 +106,6 @@ const npmScripts = () => {
         icon: '🔥',
         script: 'npm run serve',
         description: 'run development server',
-      },
-      ce: {
-        icon: '🖥',
-        script: 'node ./build/build.js && cd cordova && cordova run electron --nobuild',
-        description:
-          'launch quick preview (without full build process) of Electron app in development mode',
       },
       bxi: {
         icon: '📱',

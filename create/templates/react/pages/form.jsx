@@ -7,7 +7,6 @@ import {
   ListItem,
   Toggle,
   BlockTitle,
-  Row,
   Button,
   Range,
   Block
@@ -92,38 +91,38 @@ const FormPage = () => (
 
     <BlockTitle>Buttons</BlockTitle>
     <Block strong>
-      <Row tag="p">
+      <p className="grid grid-cols-2 grid-gap">
         <Button className="col">Button</Button>
-        <Button className="col" fill>Fill</Button>
-      </Row>
-      <Row tag="p">
-        <Button className="col" raised>Raised</Button>
-        <Button className="col" raised fill>Raised Fill</Button>
-      </Row>
-      <Row tag="p">
-        <Button className="col" round>Round</Button>
-        <Button className="col" round fill>Round Fill</Button>
-      </Row>
-      <Row tag="p">
-        <Button className="col" outline>Outline</Button>
-        <Button className="col" round outline>Outline Round</Button>
-      </Row>
-      <Row tag="p">
-        <Button className="col" small outline>Small</Button>
-        <Button className="col" small round outline>Small Round</Button>
-      </Row>
-      <Row tag="p">
-        <Button className="col" small fill>Small</Button>
-        <Button className="col" small round fill>Small Round</Button>
-      </Row>
-      <Row tag="p">
-        <Button className="col" large raised>Large</Button>
-        <Button className="col" large fill raised>Large Fill</Button>
-      </Row>
-      <Row tag="p">
-        <Button className="col" large fill raised color="red">Large Red</Button>
-        <Button className="col" large fill raised color="green">Large Green</Button>
-      </Row>
+        <Button fill>Fill</Button>
+      </p>
+      <p className="grid grid-cols-2 grid-gap">
+        <Button raised>Raised</Button>
+        <Button raised fill>Raised Fill</Button>
+      </p>
+      <p className="grid grid-cols-2 grid-gap">
+        <Button round>Round</Button>
+        <Button round fill>Round Fill</Button>
+      </p>
+      <p className="grid grid-cols-2 grid-gap">
+        <Button outline>Outline</Button>
+        <Button round outline>Outline Round</Button>
+      </p>
+      <p className="grid grid-cols-2 grid-gap">
+        <Button small outline>Small</Button>
+        <Button small round outline>Small Round</Button>
+      </p>
+      <p className="grid grid-cols-2 grid-gap">
+        <Button small fill>Small</Button>
+        <Button small round fill>Small Round</Button>
+      </p>
+      <p className="grid grid-cols-2 grid-gap">
+        <Button large raised>Large</Button>
+        <Button large fill raised>Large Fill</Button>
+      </p>
+      <p className="grid grid-cols-2 grid-gap">
+        <Button large fill raised color="red">Large Red</Button>
+        <Button large fill raised color="green">Large Green</Button>
+      </p>
     </Block>
 
     <BlockTitle>Checkbox group</BlockTitle>

@@ -17,15 +17,6 @@ module.exports = (options) => {
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
         tokens.push('bca', 'ca');
       }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
-        tokens.push('bce');
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('osx') >= 0) {
-        tokens.push('bco');
-      }
-      if (cordova.platforms.indexOf('electron') >= 0) {
-        tokens.push('ce');
-      }
     }
     if (type.indexOf('capacitor') >= 0) {
       if (capacitor.platforms.indexOf('ios') >= 0) {
@@ -56,15 +47,6 @@ module.exports = (options) => {
       }
       if (cordova.platforms.length > 1 && cordova.platforms.indexOf('android') >= 0) {
         tokens.push('bca', 'ca');
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('electron') >= 0) {
-        tokens.push('bce');
-      }
-      if (cordova.platforms.length > 1 && cordova.platforms.indexOf('osx') >= 0) {
-        tokens.push('bco');
-      }
-      if (cordova.platforms.indexOf('electron') >= 0) {
-        tokens.push('ce');
       }
     }
     if (type.indexOf('capacitor') >= 0) {

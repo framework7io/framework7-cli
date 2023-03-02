@@ -26,8 +26,6 @@ module.exports = (options, iconFile) => {
   const isVite = bundler === 'vite';
   const isIos = cordova && cordova.platforms.indexOf('ios') >= 0;
   const isAndroid = cordova && cordova.platforms.indexOf('android') >= 0;
-  const isElectron = cordova && cordova.platforms.indexOf('electron') >= 0;
-  const isOsx = cordova && cordova.platforms.indexOf('osx') >= 0;
 
   const toCopy = [];
   if (framework === 'core') toCopy.push(...copyCoreAssets(options));
@@ -186,19 +184,6 @@ module.exports = (options, iconFile) => {
       if (isAndroid) {
         fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'), iconFile);
       }
-      if (isElectron) {
-        fse.writeFileSync(
-          path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
-          iconFile,
-        );
-        fse.writeFileSync(
-          path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
-          iconFile,
-        );
-      }
-      if (isOsx) {
-        fse.writeFileSync(path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'), iconFile);
-      }
     } else {
       if (isIos) {
         toCopy.push({
@@ -224,36 +209,6 @@ module.exports = (options, iconFile) => {
             'playstore-icon.png',
           ),
           to: path.resolve(cwd, 'assets-src', 'cordova-android-icon.png'),
-        });
-      }
-      if (isElectron) {
-        toCopy.push({
-          from: path.resolve(__dirname, 'common', 'cordova-res', 'icon', 'electron', 'app.png'),
-          to: path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
-        });
-        toCopy.push({
-          from: path.resolve(
-            __dirname,
-            'common',
-            'cordova-res',
-            'icon',
-            'electron',
-            'installer.png',
-          ),
-          to: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
-        });
-      }
-      if (isOsx) {
-        toCopy.push({
-          from: path.resolve(
-            __dirname,
-            'common',
-            'cordova-res',
-            'icon',
-            'osx',
-            'icon-1024x1024.png',
-          ),
-          to: path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'),
         });
       }
     }

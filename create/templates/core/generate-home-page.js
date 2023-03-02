@@ -1,10 +1,7 @@
 const indent = require('../../utils/indent');
 
 module.exports = (options) => {
-  const {
-    name,
-    template,
-  } = options;
+  const { name, template } = options;
 
   const isBlank = template === 'blank';
 
@@ -31,10 +28,14 @@ module.exports = (options) => {
     `;
   }
 
-  return indent(0, `
+  return indent(
+    0,
+    `
     <div class="page" data-name="home">
       <!-- Top Navbar -->
-      ${template === 'blank' ? `
+      ${
+        template === 'blank'
+          ? `
       <div class="navbar navbar-large">
         <div class="navbar-bg"></div>
         <div class="navbar-inner sliding">
@@ -44,7 +45,8 @@ module.exports = (options) => {
           </div>
         </div>
       </div>
-      `.trim() : `
+      `.trim()
+          : `
       <div class="navbar navbar-large">
         <div class="navbar-bg"></div>
         <div class="navbar-inner">
@@ -66,8 +68,11 @@ module.exports = (options) => {
           </div>
         </div>
       </div>
-      `.trim()}
-      ${template !== 'tabs' ? `
+      `.trim()
+      }
+      ${
+        template !== 'tabs'
+          ? `
       <!-- Toolbar-->
       <div class="toolbar toolbar-bottom">
         <div class="toolbar-inner">
@@ -75,13 +80,17 @@ module.exports = (options) => {
           <a href="#" class="link">Right Link</a>
         </div>
       </div>
-      `.trim() : ''}
+      `.trim()
+          : ''
+      }
       <!-- Scrollable page content-->
       <div class="page-content">
         <div class="block block-strong">
           ${description.trim()}
         </div>
-        ${!isBlank ? `
+        ${
+          !isBlank
+            ? `
         <div class="block-title">Navigation</div>
         <div class="list">
           <ul>
@@ -103,27 +112,15 @@ module.exports = (options) => {
         </div>
 
         <div class="block-title">Modals</div>
-        <div class="block block-strong">
-          <div class="row">
-            <div class="col-50">
-              <a href="#" class="button button-raised button-fill popup-open" data-popup="#my-popup">Popup</a>
-            </div>
-            <div class="col-50">
-              <a href="#" class="button button-raised button-fill login-screen-open" data-login-screen="#my-login-screen">Login Screen</a>
-            </div>
-          </div>
+        <div class="block block-strong grid grid-cols-50 grid-gap">
+          <a href="#" class="button button-raised button-fill popup-open" data-popup="#my-popup">Popup</a>
+          <a href="#" class="button button-raised button-fill login-screen-open" data-login-screen="#my-login-screen">Login Screen</a>
         </div>
 
         <div class="block-title">Panels</div>
-        <div class="block block-strong">
-          <div class="row">
-            <div class="col-50">
-              <a href="#" class="button button-raised button-fill panel-open" data-panel="left">Left Panel</a>
-            </div>
-            <div class="col-50">
-              <a href="#" class="button button-raised button-fill panel-open" data-panel="right">Right Panel</a>
-            </div>
-          </div>
+        <div class="block block-strong grid grid-cols-50 grid-gap">
+          <a href="#" class="button button-raised button-fill panel-open" data-panel="left">Left Panel</a>
+          <a href="#" class="button button-raised button-fill panel-open" data-panel="right">Right Panel</a>
         </div>
 
         <div class="list links-list">
@@ -139,8 +136,11 @@ module.exports = (options) => {
             </li>
           </ul>
         </div>
-        `.trim() : ''}
+        `.trim()
+            : ''
+        }
       </div>
     </div>
-  `).trim();
+  `,
+  ).trim();
 };

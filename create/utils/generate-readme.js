@@ -62,15 +62,6 @@ ${capacitor.platforms.map((platform) => `npx cap add ${platform}`).join(' && ')}
 Check out [official Capacitor documentation](https://capacitorjs.com) for more examples and usage examples.
 `)}
 
-${templateIf(type.indexOf('cordova') >= 0 && cordova.platforms.indexOf('electron') >= 0, () => `
-## Cordova Electron
-
-There is also cordova Electron platform installed. To learn more about it and Electron check this guides:
-
-* [Cordova Electron Platform Guide](https://cordova.apache.org/docs/en/latest/guide/platforms/electron/index.html)
-* [Official Electron Documentation](https://electronjs.org/docs)
-`)}
-
 ## Assets
 
 Assets (icons, splash screens) source images located in \`assets-src\` folder. To generate your own icons and splash screen images, you will need to replace all assets in this directory with your own images (pay attention to image size and format), and run the following command in the project directory:

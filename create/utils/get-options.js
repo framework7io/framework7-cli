@@ -17,11 +17,11 @@ const questions = [
         value: 'pwa',
       },
       {
-        name: 'Cordova app (targets native iOS and Android apps, or native desktop app with Electron)',
+        name: 'Cordova app (targets native iOS and Android apps)',
         value: 'cordova',
       },
       {
-        name: 'Capacitor app (targets native iOS and Android apps, or native desktop app with Electron)',
+        name: 'Capacitor app (targets native iOS and Android apps)',
         value: 'capacitor',
       },
     ],
@@ -74,16 +74,6 @@ const questions = [
         name: 'Android',
         value: 'android',
         checked: true,
-      },
-      {
-        name: 'Electron (native desktop app)',
-        value: 'electron',
-        checked: false,
-      },
-      {
-        name: 'macOS (native macOS desktop app)',
-        value: 'osx',
-        checked: false,
       },
     ],
     validate(input) {
@@ -212,10 +202,6 @@ const questions = [
         value: 'less',
       },
       {
-        name: 'Stylus',
-        value: 'stylus',
-      },
-      {
         name: 'SCSS (SASS)',
         value: 'scss',
       },
@@ -305,9 +291,8 @@ module.exports = function getOptions() {
       customColor: options.themingCustomColor,
       color:
         options.themingCustomColor && options.themingColor ? `#${options.themingColor}` : '#007aff',
-      darkTheme: false,
+      darkMode: false,
       iconFonts: options.themingIconFonts,
-      fillBars: false,
     };
     options.customBuild = false;
     delete options.themingCustomColor;

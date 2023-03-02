@@ -26,10 +26,10 @@ export default function (log) {
     .replace(/ℹ/g, '<span class="text-color-yellow">ℹ</span>')
     .replace(
       'https://patreon.com/framework7',
-      '<a href="https://patreon.com/framework7" class="external color-blue" target="_blank">https://patreon.com/framework7</a>',
+      '<a href="https://patreon.com/framework7" class="external" target="_blank">https://patreon.com/framework7</a>',
     )
     .replace(
       'https://opencollective.com/framework7',
-      '<a href="https://opencollective.com/framework7" class="external color-blue" target="_blank">https://opencollective.com/framework7</a>',
+      '<a href="https://opencollective.com/framework7" class="external" target="_blank">https://opencollective.com/framework7</a>',
     );
 }

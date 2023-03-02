@@ -1,18 +1,18 @@
 const generateNpmScripts = require('./generate-npm-scripts');
 
 module.exports = function generatePackageJson(options) {
-  const { type, name, framework, bundler, cssPreProcessor, cordova, theming, capacitor } = options;
+  const { type, name, framework, bundler, cssPreProcessor, theming, capacitor } = options;
 
   // Dependencies
   const dependencies = [
-    'framework7',
+    'framework7@beta',
     'dom7',
-    'swiper@8',
+    'swiper',
     'skeleton-elements',
     ...(theming.iconFonts ? ['framework7-icons', 'material-icons'] : []),
-    ...(framework === 'vue' ? ['framework7-vue', 'vue@3'] : []),
-    ...(framework === 'react' ? ['framework7-react', 'react', 'react-dom', 'prop-types'] : []),
-    ...(framework === 'svelte' ? ['framework7-svelte', 'svelte'] : []),
+    ...(framework === 'vue' ? ['framework7-vue@beta', 'vue'] : []),
+    ...(framework === 'react' ? ['framework7-react@beta', 'react', 'react-dom', 'prop-types'] : []),
+    ...(framework === 'svelte' ? ['framework7-svelte@beta', 'svelte'] : []),
     ...(type.indexOf('capacitor') >= 0
       ? [
           '@capacitor/core',
@@ -31,20 +31,16 @@ module.exports = function generatePackageJson(options) {
     devDependencies.push(
       ...[
         'vite',
-        ...(type.indexOf('cordova') >= 0 && cordova.platforms.indexOf('electron') >= 0
-          ? ['concurrently']
-          : []),
         ...(type.indexOf('cordova') >= 0 ? ['vite-plugin-html', 'rollup'] : []),
         ...(type.indexOf('capacitor') >= 0 ? ['@capacitor/cli', 'cordova-res'] : []),
         'cross-env',
         'postcss-preset-env',
-        ...(cssPreProcessor === 'stylus' ? ['stylus'] : []),
         ...(cssPreProcessor === 'less' ? ['less'] : []),
         ...(cssPreProcessor === 'scss' ? ['sass'] : []),
         ...(type.indexOf('pwa') >= 0 ? ['workbox-cli'] : []),
         ...(framework === 'core' ? ['rollup-plugin-framework7'] : []),
-        ...(framework === 'react' ? ['@vitejs/plugin-react-refresh'] : []),
-        ...(framework === 'svelte' ? ['@sveltejs/vite-plugin-svelte@1'] : []),
+        ...(framework === 'react' ? ['@vitejs/plugin-react'] : []),
+        ...(framework === 'svelte' ? ['@sveltejs/vite-plugin-svelte'] : []),
         ...(framework === 'vue' ? ['@vitejs/plugin-vue', '@vue/compiler-sfc'] : []),
       ],
     );
@@ -55,7 +51,7 @@ module.exports = function generatePackageJson(options) {
       devDependencies.push('cordova-res');
     }
     if (type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0) {
-      devDependencies.push(...['cpy@8', 'rimraf']);
+      devDependencies.push(...['cpy', 'rimraf']);
     }
   }
 

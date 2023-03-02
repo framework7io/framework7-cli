@@ -1,5 +1,4 @@
 export default [
-  'appbar',
   'dialog',
   'popup',
   'login-screen',
@@ -33,7 +32,6 @@ export default [
   'picker',
   'infinite-scroll',
   'pull-to-refresh',
-  'lazy',
   'data-table',
   'fab',
   'searchbar',
@@ -46,13 +44,11 @@ export default [
   'tooltip',
   'gauge',
   'skeleton',
-  'menu',
   'color-picker',
   'treeview',
   'text-editor',
   'area-chart',
   'pie-chart',
   'breadcrumbs',
-  'elevation',
   'typography',
 ];

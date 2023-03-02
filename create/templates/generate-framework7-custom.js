@@ -39,7 +39,7 @@ module.exports = (options) => {
 
   // prettier-ignore
   const scripts = indent(0, `
-    import Framework7, { request, utils, getDevice, createStore } from '${framework === 'core' ? 'framework7' : 'framework7/lite'}';
+    import Framework7, { utils, getDevice, createStore } from '${framework === 'core' ? 'framework7' : 'framework7/lite'}';
     ${componentsImportsJS.join('\n    ')}
 
     Framework7.use([
@@ -47,7 +47,7 @@ module.exports = (options) => {
     ]);
 
     export default Framework7;
-    export { request, utils, getDevice, createStore };
+    export { utils, getDevice, createStore };
   `);
 
   const componentsImportsLESS = components.map((c) => {
@@ -61,7 +61,6 @@ module.exports = (options) => {
 
       @includeIosTheme: ${themes.indexOf('ios') >= 0};
       @includeMdTheme: ${themes.indexOf('md') >= 0};
-      @includeAuroraTheme: ${themes.indexOf('aurora') >= 0};
       @includeDarkTheme: ${darkTheme || false};
       @includeLightTheme: ${lightTheme || false};
       @rtl: ${rtl}

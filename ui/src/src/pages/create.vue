@@ -1,10 +1,10 @@
 <template>
   <f7-page name="create">
-    <f7-navbar :sliding="false" large>
-      <f7-nav-title>
+    <f7-navbar :sliding="false" large transparent>
+      <template #title>
         <i class="f7-navbar-logo"></i>
         <span>Create App</span>
-      </f7-nav-title>
+      </template>
       <template #right>
         <label
           class="tooltip-init link label-file-input"
@@ -44,7 +44,6 @@
         <f7-list no-hairlines-between class="inputs-list">
           <f7-list-input
             type="text"
-            outline
             clear-button
             required
             validate
@@ -61,8 +60,8 @@
           folder.</f7-block-footer
         >
 
-        <div class="row">
-          <div class="col-25">
+        <div class="display-flex">
+          <div style="width: 25%">
             <f7-block-title medium>App Icon</f7-block-title>
             <div class="create-app-icon">
               <label>
@@ -76,19 +75,18 @@
               <small><em>1024x1024 square PNG</em></small>
             </div>
           </div>
-          <div class="col-75">
-            <div class="row">
-              <div
-                class="col-100"
-                :class="{
-                  'medium-50': type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0,
-                }"
-              >
+          <div>
+            <div
+              :class="{
+                'grid grid-cols-2 grid-gap':
+                  type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0,
+              }"
+            >
+              <div>
                 <f7-block-title medium>App (project) name</f7-block-title>
                 <f7-list no-hairlines-between class="inputs-list">
                   <f7-list-input
                     type="text"
-                    outline
                     clear-button
                     required
                     validate
@@ -98,15 +96,11 @@
                   ></f7-list-input>
                 </f7-list>
               </div>
-              <div
-                class="col-100 medium-50"
-                v-if="type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0"
-              >
+              <div v-if="type.indexOf('cordova') >= 0 || type.indexOf('capacitor') >= 0">
                 <f7-block-title medium>App package (Bundle ID)</f7-block-title>
                 <f7-list no-hairlines-between class="inputs-list">
                   <f7-list-input
                     type="text"
-                    outline
                     clear-button
                     required
                     validate
@@ -121,20 +115,14 @@
             <f7-block-header
               >What types of the app are you targeting? (multiple allowed)</f7-block-header
             >
-            <div class="row checkbox-row">
-              <div
-                class="col-50 medium-25 checkbox-col"
-                :class="{ checked: type.indexOf('web') >= 0 }"
-              >
+            <div class="grid grid-cols-2 medium-grid-cols-4 grid-gap checkbox-row">
+              <div class="checkbox-col" :class="{ checked: type.indexOf('web') >= 0 }">
                 <div class="col-icon" @click="toggleArrayValue(type, 'web')">
                   <span class="text-icon">www</span>
                 </div>
                 <div class="col-label">Simple web app</div>
               </div>
-              <div
-                class="col-50 medium-25 checkbox-col"
-                :class="{ checked: type.indexOf('pwa') >= 0 }"
-              >
+              <div class="checkbox-col" :class="{ checked: type.indexOf('pwa') >= 0 }">
                 <div class="col-icon" @click="toggleArrayValue(type, 'pwa')">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -157,10 +145,7 @@
                 </div>
                 <div class="col-label">PWA (Progressive Web App)</div>
               </div>
-              <div
-                class="col-50 medium-25 checkbox-col"
-                :class="{ checked: type.indexOf('cordova') >= 0 }"
-              >
+              <div class="checkbox-col" :class="{ checked: type.indexOf('cordova') >= 0 }">
                 <div
                   class="col-icon"
                   @click="
@@ -184,16 +169,10 @@
                 </div>
                 <div class="col-label">
                   Cordova app
-                  <small
-                    >(targets native iOS and Android apps, or native desktop app with
-                    Electron)</small
-                  >
+                  <small>(targets native iOS and Android apps)</small>
                 </div>
               </div>
-              <div
-                class="col-50 medium-25 checkbox-col"
-                :class="{ checked: type.indexOf('capacitor') >= 0 }"
-              >
+              <div class="checkbox-col" :class="{ checked: type.indexOf('capacitor') >= 0 }">
                 <div
                   class="col-icon"
                   @click="
@@ -255,18 +234,15 @@
         </f7-block-title>
 
         <f7-block-title>Target Capacitor platform (multiple allowed)</f7-block-title>
-        <div class="row checkbox-row">
-          <div
-            class="col-50 checkbox-col"
-            :class="{ checked: capacitor.platforms.indexOf('ios') >= 0 }"
-          >
+        <div class="grid grid-cols-2 grid-gap checkbox-row">
+          <div class="checkbox-col" :class="{ checked: capacitor.platforms.indexOf('ios') >= 0 }">
             <div class="col-icon" @click="toggleArrayValue(capacitor.platforms, 'ios')">
               <i class="icon f7-icons">logo_apple</i>
             </div>
             <div class="col-label">iOS</div>
           </div>
           <div
-            class="col-50 checkbox-col"
+            class="checkbox-col"
             :class="{ checked: capacitor.platforms.indexOf('android') >= 0 }"
           >
             <div class="col-icon" @click="toggleArrayValue(capacitor.platforms, 'android')">
@@ -285,7 +261,6 @@
           <div class="right">
             <span class="toggle-label disabled">Advanced</span>
             <f7-toggle
-              color="green"
               :checked="cordovaAdvanced"
               @change="cordovaAdvanced = $event.target.checked"
             />
@@ -293,60 +268,18 @@
         </f7-block-title>
 
         <f7-block-title>Target Cordova platform (multiple allowed)</f7-block-title>
-        <div class="row checkbox-row">
-          <div
-            class="col-50 medium-25 checkbox-col"
-            :class="{ checked: cordova.platforms.indexOf('ios') >= 0 }"
-          >
+        <div class="grid grid-cols-2 grid-gap checkbox-row">
+          <div class="checkbox-col" :class="{ checked: cordova.platforms.indexOf('ios') >= 0 }">
             <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'ios')">
               <i class="icon f7-icons">logo_apple</i>
             </div>
             <div class="col-label">iOS</div>
           </div>
-          <div
-            class="col-50 medium-25 checkbox-col"
-            :class="{ checked: cordova.platforms.indexOf('android') >= 0 }"
-          >
+          <div class="checkbox-col" :class="{ checked: cordova.platforms.indexOf('android') >= 0 }">
             <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'android')">
               <i class="icon f7-icons">logo_android</i>
             </div>
             <div class="col-label">Android</div>
-          </div>
-          <div
-            class="col-50 medium-25 checkbox-col"
-            :class="{ checked: cordova.platforms.indexOf('electron') >= 0 }"
-          >
-            <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'electron')">
-              <!-- <i class="icon f7-icons">device_desktop</i> -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="46" height="50" viewBox="0 0 46 50">
-                <g fill="var(--checkbox-col-text-color)" transform="translate(.232 .132)">
-                  <path
-                    d="M16.26709,10.8502718 C9.80877563,9.67399702 4.70244235,10.9051268 2.66730029,14.4300962 C1.14863171,17.0605074 1.5827308,20.5479943 3.72007728,24.2759036 C3.90199702,24.5932037 4.30669467,24.7029512 4.62399477,24.5210315 C4.94129487,24.3391118 5.05104235,23.9344141 4.86912262,23.617114 C2.94377645,20.2589706 2.56913221,17.249135 3.81435381,15.0923479 C5.504955,12.1641407 10.0597158,11.0659943 16.029758,12.1533384 C16.3895899,12.2188758 16.7344199,11.9803029 16.7999573,11.620471 C16.8654947,11.2606391 16.6269219,10.9158092 16.26709,10.8502718 Z M7.07861563,28.8071517 C9.68999775,31.6768672 13.0826192,34.3685159 16.9517131,36.6023384 C26.3201118,42.0111858 36.2934338,43.4569053 41.2087007,40.105396 C41.5108891,39.8993467 41.5888252,39.4873387 41.3827762,39.1851503 C41.1767268,38.8829619 40.7647185,38.8050255 40.4625301,39.0110748 C36.0634245,42.0106361 26.5894906,40.6373073 17.6139648,35.4552848 C13.8605087,33.2882262 10.5753367,30.6818258 8.05823533,27.9157179 C7.81207268,27.6452034 7.39322308,27.6254623 7.12270858,27.871625 C6.85219407,28.1177876 6.83245298,28.5366372 7.07861563,28.8071517 Z"
-                  />
-                  <path
-                    d="M39.6407377,28.0015087 C43.8694858,23.0059033 45.3460182,17.9814478 43.3150669,14.4637368 C41.8206546,11.8753386 38.6614245,10.508773 34.4628576,10.4541703 C34.0971371,10.4494141 33.7968063,10.7420335 33.79205,11.107754 C33.7872937,11.4734746 34.0799132,11.7738054 34.4456338,11.7785616 C38.2217152,11.8276699 40.943457,13.0049943 42.1680132,15.1259884 C43.8549613,18.0478679 42.5382228,22.528564 38.6297993,27.145756 C38.3934897,27.4249189 38.4282291,27.8427919 38.7073921,28.0791015 C38.986555,28.3154111 39.4044281,28.2806716 39.6407377,28.0015087 Z M28.7729049,11.0707934 C24.9494197,11.8899918 20.8796646,13.4916898 16.9711355,15.7482801 C7.30003301,21.3318937 0.991353487,29.5651322 1.86752366,35.5349762 C1.92063458,35.896851 2.25704699,36.1471536 2.61892181,36.0940427 C2.98079663,36.0409318 3.23109922,35.7045192 3.17798829,35.3426444 C2.40004159,30.0420527 8.38005162,22.2377494 17.6333872,16.8953336 C21.424971,14.7062617 25.3655808,13.1553903 29.0503881,12.3659042 C29.4080231,12.2892794 29.6358268,11.9372422 29.559202,11.5796073 C29.4825771,11.2219723 29.1305399,10.9941685 28.7729049,11.0707934 Z"
-                  />
-                  <path
-                    d="M13.1053499 39.6738308C15.3163366 45.847701 18.9335091 49.6489149 23.0008948 49.6489149 25.9673153 49.6489149 28.7118359 47.626797 30.851997 44.0667086 31.0404405 43.7532391 30.9390868 43.3463579 30.6256172 43.1579146 30.3121476 42.9694712 29.9052666 43.0708248 29.7168231 43.3842944 27.7934636 46.5837404 25.4309366 48.3244116 23.0008948 48.3244116 19.6222193 48.3244116 16.3960206 44.9340642 14.3523037 39.2272715 14.2289898 38.8829348 13.849884 38.7037603 13.5055472 38.8270742 13.1612104 38.9503881 12.982036 39.329494 13.1053499 39.6738308zM33.301094 38.466153C34.4456795 34.8084911 35.0604132 30.5890416 35.0604132 26.1921295 35.0604132 15.2205809 31.2204221 5.76269344 25.7508624 3.33404268 25.4165831 3.18561253 25.0252698 3.33627301 24.8768396 3.67055228 24.7284095 4.00483159 24.87907 4.3961449 25.2133492 4.54457507 30.0915353 6.71063791 33.7359099 15.6867225 33.7359099 26.1921295 33.7359099 30.4578502 33.1405877 34.5440609 32.0370364 38.0705937 31.9278057 38.4196536 32.1222257 38.7911715 32.4712856 38.900402 32.8203455 39.0096328 33.1918636 38.8152129 33.301094 38.466153zM45.7738444 37.8173417C45.7738444 36.0667924 44.3547434 34.6476914 42.604194 34.6476914 40.8536444 34.6476914 39.4345434 36.0667924 39.4345434 37.8173417 39.4345434 39.5678914 40.8536444 40.9869921 42.604194 40.9869921 44.3547434 40.9869921 45.7738444 39.5678914 45.7738444 37.8173417zM44.4493411 37.8173417C44.4493411 38.8363884 43.6232404 39.6624887 42.604194 39.6624887 41.5851474 39.6624887 40.7590467 38.8363884 40.7590467 37.8173417 40.7590467 36.7982954 41.5851474 35.9721947 42.604194 35.9721947 43.6232404 35.9721947 44.4493411 36.7982954 44.4493411 37.8173417zM3.35200735 40.9869921C5.10255692 40.9869921 6.52165772 39.5678914 6.52165772 37.8173417 6.52165772 36.0667924 5.10255692 34.6476914 3.35200735 34.6476914 1.60145778 34.6476914.182356966 36.0667924.182356966 37.8173417.182356966 39.5678914 1.60145778 40.9869921 3.35200735 40.9869921zM3.35200735 39.6624887C2.33296076 39.6624887 1.50686028 38.8363884 1.50686028 37.8173417 1.50686028 36.7982954 2.33296076 35.9721947 3.35200735 35.9721947 4.37105394 35.9721947 5.1971544 36.7982954 5.1971544 37.8173417 5.1971544 38.8363884 4.37105394 39.6624887 3.35200735 39.6624887z"
-                  />
-                  <path
-                    d="M23.0008948 6.56724609C24.7514444 6.56724609 26.1705452 5.14814526 26.1705452 3.39759573 26.1705452 1.64704615 24.7514444.227945338 23.0008948.227945338 21.2503452.227945338 19.8312444 1.64704615 19.8312444 3.39759573 19.8312444 5.14814526 21.2503452 6.56724609 23.0008948 6.56724609zM23.0008948 5.24274278C21.9818482 5.24274278 21.1557477 4.41664228 21.1557477 3.39759573 21.1557477 2.37854913 21.9818482 1.55244865 23.0008948 1.55244865 24.0199414 1.55244865 24.8460419 2.37854913 24.8460419 3.39759573 24.8460419 4.41664228 24.0199414 5.24274278 23.0008948 5.24274278zM23.4850352 28.4336682C22.2470065 28.7011662 21.0272995 27.9143767 20.7592781 26.676348 20.4923036 25.4383192 21.2785696 24.2186123 22.5165984 23.9505908 23.7546271 23.6830929 24.9743341 24.4698824 25.2423555 25.7079111 25.5098535 26.9459398 24.723064 28.1656468 23.4850352 28.4336682z"
-                  />
-                </g>
-              </svg>
-            </div>
-            <div class="col-label">Electron</div>
-          </div>
-          <div
-            class="col-50 medium-25 checkbox-col"
-            :class="{ checked: cordova.platforms.indexOf('osx') >= 0 }"
-          >
-            <div class="col-icon" @click="toggleArrayValue(cordova.platforms, 'osx')">
-              <i class="icon f7-icons">logo_macos</i>
-            </div>
-            <div class="col-label">
-              macOS<small>(when you don't need Electron functionality)</small>
-            </div>
           </div>
         </div>
         <template v-if="cordovaAdvanced">
@@ -425,14 +358,14 @@
         </f7-block-title>
 
         <f7-block-title>What type of framework do you prefer?</f7-block-title>
-        <div class="row checkbox-row">
-          <div class="col-50 medium-25 checkbox-col" :class="{ checked: framework === 'core' }">
+        <div class="grid grid-cols-4 grid-gap checkbox-row">
+          <div class="checkbox-col" :class="{ checked: framework === 'core' }">
             <div class="col-icon" @click="framework = 'core'">
               <img src="../assets/logo.svg" />
             </div>
             <div class="col-label">Framework7 Core</div>
           </div>
-          <div class="col-50 medium-25 checkbox-col" :class="{ checked: framework === 'vue' }">
+          <div class="checkbox-col" :class="{ checked: framework === 'vue' }">
             <div
               class="col-icon"
               @click="
@@ -445,7 +378,7 @@
             </div>
             <div class="col-label">Framework7 with Vue.js</div>
           </div>
-          <div class="col-50 medium-25 checkbox-col" :class="{ checked: framework === 'react' }">
+          <div class="checkbox-col" :class="{ checked: framework === 'react' }">
             <div
               class="col-icon"
               @click="
@@ -458,7 +391,7 @@
             </div>
             <div class="col-label">Framework7 with React</div>
           </div>
-          <div class="col-50 medium-25 checkbox-col" :class="{ checked: framework === 'svelte' }">
+          <div class="checkbox-col" :class="{ checked: framework === 'svelte' }">
             <div
               class="col-icon"
               @click="
@@ -482,9 +415,9 @@
         </f7-block-title>
 
         <f7-block-title>Choose starter template</f7-block-title>
-        <div class="row checkbox-row">
+        <div class="grid grid-cols-4 grid-gap checkbox-row">
           <div
-            class="col-50 medium-25 checkbox-col checkbox-template-col"
+            class="checkbox-col checkbox-template-col"
             :class="{ checked: template === 'blank' }"
           >
             <div class="col-icon" @click="template = 'blank'">
@@ -493,7 +426,7 @@
             <div class="col-label">Blank</div>
           </div>
           <div
-            class="col-50 medium-25 checkbox-col checkbox-template-col"
+            class="checkbox-col checkbox-template-col"
             :class="{ checked: template === 'single-view' }"
           >
             <div class="col-icon" @click="template = 'single-view'">
@@ -501,17 +434,14 @@
             </div>
             <div class="col-label">Single View</div>
           </div>
-          <div
-            class="col-50 medium-25 checkbox-col checkbox-template-col"
-            :class="{ checked: template === 'tabs' }"
-          >
+          <div class="checkbox-col checkbox-template-col" :class="{ checked: template === 'tabs' }">
             <div class="col-icon" @click="template = 'tabs'">
               <img src="../assets/t-tabs.svg" />
             </div>
             <div class="col-label">Tabbed Views (Tabs)</div>
           </div>
           <div
-            class="col-50 medium-25 checkbox-col checkbox-template-col"
+            class="checkbox-col checkbox-template-col"
             :class="{ checked: template === 'split-view' }"
           >
             <div class="col-icon" @click="template = 'split-view'">
@@ -588,14 +518,6 @@
             <f7-list-item
               :class="{ disabled: customBuild }"
               radio
-              title="Stylus"
-              @change="cssPreProcessor = 'stylus'"
-              :checked="cssPreProcessor === 'stylus' && !customBuild"
-              :disabled="customBuild"
-            ></f7-list-item>
-            <f7-list-item
-              :class="{ disabled: customBuild }"
-              radio
               title="SCSS (SASS)"
               @change="cssPreProcessor = 'scss'"
               :checked="cssPreProcessor === 'scss' && !customBuild"
@@ -662,15 +584,8 @@
             title="Dark theme"
             text="Enables dark theme by default"
             checkbox
-            :checked="theming.darkTheme === true"
-            @change="theming.darkTheme = $event.target.checked"
-          />
-          <f7-list-item
-            title="Fill style navigation bars"
-            text="Enables navigation bars to be fill with color"
-            checkbox
-            :checked="theming.fillBars === true"
-            @change="theming.fillBars = $event.target.checked"
+            :checked="theming.darkMode === true"
+            @change="theming.darkMode = $event.target.checked"
           />
         </f7-list>
       </f7-block>
@@ -682,11 +597,7 @@
           <span>Framework7 Custom Build</span>
           <div class="right">
             <span class="toggle-label disabled">Enable</span>
-            <f7-toggle
-              :checked="customBuild"
-              @change="customBuild = $event.target.checked"
-              color="green"
-            />
+            <f7-toggle :checked="customBuild" @change="customBuild = $event.target.checked" />
           </div>
         </f7-block-title>
         <template v-if="!customBuild">
@@ -697,8 +608,8 @@
         </template>
         <template v-if="customBuild">
           <f7-block-title medium>Core components (required)</f7-block-title>
-          <div class="row">
-            <div class="col-50">
+          <div class="grid grid-cols-2 grid-gap">
+            <div>
               <f7-list class="no-margin-top" no-hairlines-between>
                 <template v-for="(coreComponent, index) in coreComponentsList">
                   <f7-list-item
@@ -712,7 +623,7 @@
                 </template>
               </f7-list>
             </div>
-            <div class="col-50">
+            <div>
               <f7-list class="no-margin-top" no-hairlines-between>
                 <template v-for="(coreComponent, index) in coreComponentsList">
                   <f7-list-item
@@ -733,8 +644,8 @@
             <a class="link" @click="toggleComponents">Toggle all</a></f7-block-title
           >
 
-          <div class="row">
-            <div class="col-33">
+          <div class="grid grid-cols-3 grid-gap">
+            <div>
               <f7-list class="no-margin-top" no-hairlines-between>
                 <template v-for="(component, index) in componentsListComputed">
                   <f7-list-item
@@ -748,7 +659,7 @@
                 </template>
               </f7-list>
             </div>
-            <div class="col-33">
+            <div>
               <f7-list class="no-margin-top" no-hairlines-between>
                 <template v-for="(component, index) in componentsListComputed">
                   <f7-list-item
@@ -762,7 +673,7 @@
                 </template>
               </f7-list>
             </div>
-            <div class="col-33">
+            <div>
               <f7-list class="no-margin-top" no-hairlines-between>
                 <template v-for="(component, index) in componentsListComputed">
                   <f7-list-item
@@ -790,12 +701,6 @@
               @change="toggleArrayValue(customBuildConfig.themes, 'md')"
               checkbox
               title="Include MD theme"
-            />
-            <f7-list-item
-              :checked="customBuildConfig.themes.indexOf('aurora') >= 0"
-              @change="toggleArrayValue(customBuildConfig.themes, 'aurora')"
-              checkbox
-              title="Include Aurora theme"
             />
             <f7-list-item
               :checked="customBuildConfig.darkTheme"
@@ -864,7 +769,6 @@
 </template>
 <script>
 import { f7 } from 'framework7-vue';
-import { request } from 'framework7';
 import logText from '../utils/log-text';
 import getLog from '../utils/get-log';
 import componentsList from '../utils/components-list';
@@ -922,9 +826,8 @@ export default {
       theming: {
         customColor: false,
         color: '#007aff',
-        darkTheme: false,
+        darkMode: false,
         iconFonts: true,
-        fillBars: false,
       },
 
       customBuild: false,
@@ -932,7 +835,7 @@ export default {
         rtl: false,
         darkTheme: true,
         lightTheme: true,
-        themes: ['ios', 'md', 'aurora'],
+        themes: ['ios', 'md'],
         components: [...componentsList],
       },
     };
@@ -956,83 +859,15 @@ export default {
     },
   },
   watch: {
-    'theming.fillBars': function (fillBars) {
-      const self = this;
-      if (!self.barsStyleEl) {
-        self.barsStyleEl = document.createElement('style');
-        self.barsStyleEl.innerHTML = `
-            /* Invert navigation bars to fill style */
-            :root,
-            :root.dark,
-            :root .dark {
-              --f7-bars-bg-color: var(--f7-theme-color);
-              --f7-bars-text-color: #fff;
-              --f7-bars-link-color: #fff;
-              --f7-navbar-subtitle-text-color: rgba(255,255,255,0.85);
-              --f7-bars-border-color: transparent;
-              --f7-tabbar-link-active-color: #fff;
-              --f7-tabbar-link-inactive-color: rgba(255,255,255,0.54);
-              --f7-searchbar-bg-color: var(--f7-bars-bg-color);
-              --f7-searchbar-input-bg-color: #fff;
-              --f7-searchbar-input-text-color: #000;
-              --f7-sheet-border-color: transparent;
-              --f7-tabbar-link-active-border-color: #fff;
-            }
-            .appbar,
-            .navbar,
-            .toolbar,
-            .subnavbar,
-            .calendar-header,
-            .calendar-footer {
-              --f7-touch-ripple-color: var(--f7-touch-ripple-white);
-              --f7-link-highlight-color: var(--f7-link-highlight-white);
-              --f7-button-text-color: #fff;
-              --f7-button-pressed-bg-color: rgba(255,255,255,0.1);
-            }
-          `;
-      }
-      if (fillBars) {
-        f7.$('head').append(self.barsStyleEl);
-      } else {
-        f7.$(self.barsStyleEl).remove();
-      }
-      self.setDocumentThemeColor();
-    },
-    'theming.darkTheme': function (darkTheme) {
-      const self = this;
-      const html = f7.$('html');
-      if (darkTheme) {
-        html.addClass('dark');
-      } else {
-        html.removeClass('dark');
-      }
-      self.setDocumentThemeColor();
-    },
     'theming.customColor': function (customColor) {
       const self = this;
       const color = self.theming.color;
-      const cssVars = f7.utils.colorThemeCSSProperties(color);
-      const html = f7.$('html')[0];
-      if (customColor) {
-        Object.keys(cssVars).forEach((key) => {
-          html.style.setProperty(key, cssVars[key]);
-        });
-      } else {
-        Object.keys(cssVars).forEach((key) => {
-          html.style.removeProperty(key);
-        });
-      }
-      self.setDocumentThemeColor();
+      f7.setColorTheme(customColor ? color : '#EE350F');
     },
     'theming.color': function () {
       const self = this;
       const color = self.theming.color;
-      const cssVars = f7.utils.colorThemeCSSProperties(color);
-      const html = f7.$('html')[0];
-      Object.keys(cssVars).forEach((key) => {
-        html.style.setProperty(key, cssVars[key]);
-      });
-      self.setDocumentThemeColor();
+      f7.setColorTheme(color);
     },
     customBuild() {
       const self = this;
@@ -1053,7 +888,13 @@ export default {
         self.loading = true;
         self.iconFile = null;
         self.generatingAssets = true;
-        request.postJSON('/api/assets/generate/', { keepLog: true }).then(() => {
+        fetch('/api/assets/generate/', {
+          method: 'POST',
+          body: JSON.stringify({ keepLog: true }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(() => {
           self.getLog();
         });
       }
@@ -1061,23 +902,13 @@ export default {
   },
   mounted() {
     const self = this;
-    request.json('/api/cwd/').then((res) => {
-      self.cwd = res.data.cwd;
-    });
+    fetch('/api/cwd/')
+      .then((res) => res.json())
+      .then((res) => {
+        self.cwd = res.cwd;
+      });
   },
   methods: {
-    setDocumentThemeColor() {
-      const { color, fillBars, darkTheme } = this.theming;
-      let newColor;
-      if (fillBars) {
-        newColor = color;
-      } else if (darkTheme) {
-        newColor = '#212121';
-      } else {
-        newColor = '#fff';
-      }
-      document.querySelector('meta[name="theme-color"]').setAttribute('content', newColor);
-    },
     logText,
     exportSettings() {
       const self = this;
@@ -1277,7 +1108,10 @@ export default {
       const data = new FormData();
       data.set('iconFile', this.iconFile);
       data.set('options', JSON.stringify(options));
-      request.post('/api/create/', data).then(() => {
+      fetch('/api/create/', {
+        body: data,
+        method: 'POST',
+      }).then(() => {
         self.getLog();
       });
     },

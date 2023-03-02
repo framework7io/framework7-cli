@@ -84,25 +84,9 @@ module.exports = (options) => {
       return;
     }
 
-    // Add electron settings
-    if (cordova.platforms.indexOf('electron') >= 0) {
-      const electronConfig = {
-        browserWindow: {
-          webPreferences: {
-            nodeIntegration: true,
-          },
-        },
-      };
-      fse.writeFileSync(
-        path.resolve(cwd, cordova.folder, 'electron-settings.json'),
-        JSON.stringify(electronConfig, '', 2),
-      );
-    }
-
     // Add cordova platforms
     const platforms = cordova.platforms.map((platform) => {
       if (platform === 'ios') return 'ios@latest';
-      if (platform === 'electron') return 'electron@latest';
       return platform;
     });
     try {

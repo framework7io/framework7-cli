@@ -1,10 +1,7 @@
 const indent = require('../../utils/indent');
 
 module.exports = (options) => {
-  const {
-    name,
-    template,
-  } = options;
+  const { name, template } = options;
 
   let description = '';
   if (template === 'single-view' || template === 'blank') {
@@ -29,9 +26,13 @@ module.exports = (options) => {
     `;
   }
 
-  return indent(0, `
+  return indent(
+    0,
+    `
     import React from 'react';
-    ${template === 'blank' ? `
+    ${
+      template === 'blank'
+        ? `
     import {
       Page,
       Navbar,
@@ -41,7 +42,8 @@ module.exports = (options) => {
       Toolbar,
       Block,
     } from 'framework7-react';
-    `.trim() : `
+    `.trim()
+        : `
     import {
       Page,
       Navbar,
@@ -55,45 +57,54 @@ module.exports = (options) => {
       BlockTitle,
       List,
       ListItem,
-      Row,
-      Col,
       Button
     } from 'framework7-react';
-    `.trim()}
+    `.trim()
+    }
 
     const HomePage = () => (
       <Page name="home">
         {/* Top Navbar */}
-        ${template === 'blank' ? `
+        ${
+          template === 'blank'
+            ? `
         <Navbar large>
           <NavTitle>${name}</NavTitle>
           <NavTitleLarge>${name}</NavTitleLarge>
         </Navbar>
-        `.trim() : `
+        `.trim()
+            : `
         <Navbar large sliding={false}>
           <NavLeft>
-            <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
+            <Link iconIos="f7:menu" iconMd="material:menu" panelOpen="left" />
           </NavLeft>
           <NavTitle sliding>${name}</NavTitle>
           <NavRight>
-            <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="right" />
+            <Link iconIos="f7:menu" iconMd="material:menu" panelOpen="right" />
           </NavRight>
           <NavTitleLarge>${name}</NavTitleLarge>
         </Navbar>
-        `.trim()}
-        ${template !== 'tabs' ? `
+        `.trim()
+        }
+        ${
+          template !== 'tabs'
+            ? `
         {/* Toolbar */}
         <Toolbar bottom>
           <Link>Left Link</Link>
           <Link>Right Link</Link>
         </Toolbar>
 
-        `.trim() : ''}
+        `.trim()
+            : ''
+        }
         {/* Page content */}
         <Block strong>
           ${description.trim()}
         </Block>
-        ${template !== 'blank' ? `
+        ${
+          template !== 'blank'
+            ? `
         <BlockTitle>Navigation</BlockTitle>
         <List>
           <ListItem link="/about/" title="About"/>
@@ -101,27 +112,15 @@ module.exports = (options) => {
         </List>
 
         <BlockTitle>Modals</BlockTitle>
-        <Block strong>
-          <Row>
-            <Col width="50">
-              <Button fill raised popupOpen="#my-popup">Popup</Button>
-            </Col>
-            <Col width="50">
-              <Button fill raised loginScreenOpen="#my-login-screen">Login Screen</Button>
-            </Col>
-          </Row>
+        <Block strong className="grid grid-cols-2 grid-gap">
+          <Button fill raised popupOpen="#my-popup">Popup</Button>
+          <Button fill raised loginScreenOpen="#my-login-screen">Login Screen</Button>
         </Block>
 
         <BlockTitle>Panels</BlockTitle>
-        <Block strong>
-          <Row>
-            <Col width="50">
-              <Button fill raised panelOpen="left">Left Panel</Button>
-            </Col>
-            <Col width="50">
-              <Button fill raised panelOpen="right">Right Panel</Button>
-            </Col>
-          </Row>
+        <Block strong className="grid grid-cols-2 grid-gap">
+          <Button fill raised panelOpen="left">Left Panel</Button>
+          <Button fill raised panelOpen="right">Right Panel</Button>
         </Block>
 
         <List>
@@ -138,9 +137,12 @@ module.exports = (options) => {
             link="/request-and-load/user/123456/"
           />
         </List>
-        `.trim() : ''}
+        `.trim()
+            : ''
+        }
       </Page>
     );
     export default HomePage;
-  `).trim();
+  `,
+  ).trim();
 };

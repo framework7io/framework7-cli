@@ -25,9 +25,6 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
     cordovaIosSplashScreen: { src, output },
     cordovaAndroidIcon: { src, output },
     cordovaAndroidSplashScreen: { src, output },
-    cordovaElectronAppIcon: { src, output },
-    cordovaElectronInstallerIcon: { src, output },
-    cordovaOsxIcon: { src, output },
   };
   */
   if (project) {
@@ -52,22 +49,6 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
         options.cordovaAndroidSplashScreen = {
           src: path.resolve(cwd, 'assets-src', 'cordova-splash-screen.png'),
           output: path.resolve(cwd, `${cordova.folder}/res/screen/android`),
-        };
-      }
-      if (cordova.platforms.indexOf('electron') >= 0) {
-        options.cordovaElectronAppIcon = {
-          src: path.resolve(cwd, 'assets-src', 'cordova-electron-app-icon.png'),
-          output: path.resolve(cwd, `${cordova.folder}/res/icon/electron`),
-        };
-        options.cordovaElectronInstallerIcon = {
-          src: path.resolve(cwd, 'assets-src', 'cordova-electron-installer-icon.png'),
-          output: path.resolve(cwd, `${cordova.folder}/res/icon/electron`),
-        };
-      }
-      if (cordova.platforms.indexOf('osx') >= 0) {
-        options.cordovaOsxIcon = {
-          src: path.resolve(cwd, 'assets-src', 'cordova-osx-icon.png'),
-          output: path.resolve(cwd, `${cordova.folder}/res/icon/osx`),
         };
       }
     }
@@ -140,18 +121,6 @@ async function generateAssets(options, project, logger, { exitOnError = true } =
         xxxhdpi: 1282,
       },
       fileName: 'drawable-{{key}}/screen.png',
-    },
-    cordovaElectronAppIcon: {
-      size: 1024,
-      fileName: 'app.png',
-    },
-    cordovaElectronInstallerIcon: {
-      size: 1024,
-      fileName: 'installer.png',
-    },
-    cordovaOsxIcon: {
-      size: [16, 32, 64, 128, 256, 512, 1024],
-      fileName: 'icon-{{size}}x{{size}}.png',
     },
   };
 

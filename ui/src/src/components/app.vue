@@ -22,7 +22,11 @@ export default {
     return {
       f7params: {
         name: 'Framework7 CLI',
-        theme: 'aurora',
+        theme: 'md',
+        colors: {
+          primary: '#EE350F',
+        },
+        darkMode: true,
         iosTranslucentBars: false,
         routes,
         navbar: {

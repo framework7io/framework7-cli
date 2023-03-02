@@ -2,9 +2,13 @@ const indent = require('../utils/indent');
 
 module.exports = (options) => {
   const { cordova } = options;
-  return indent(4, `
+  return indent(
+    4,
+    `
     <allow-navigation href="*" />
-    ${cordova.platforms.indexOf('android') >= 0 ? `
+    ${
+      cordova.platforms.indexOf('android') >= 0
+        ? `
     <platform name="android">
       <preference name="StatusBarOverlaysWebView" value="false" />
       <preference name="android-minSdkVersion" value="22" />
@@ -26,8 +30,12 @@ module.exports = (options) => {
       <icon density="xxhdpi" src="res/icon/android/mipmap-xxhdpi/ic_launcher.png" />
       <icon density="xxxhdpi" src="res/icon/android/mipmap-xxxhdpi/ic_launcher.png" />
     </platform>
-    ` : ''}
-    ${cordova.platforms.indexOf('ios') >= 0 ? `
+    `
+        : ''
+    }
+    ${
+      cordova.platforms.indexOf('ios') >= 0
+        ? `
     <platform name="ios">
       <config-file parent="CFBundleAllowMixedLocalizations" platform="ios" target="*-Info.plist">
         <true />
@@ -57,29 +65,10 @@ module.exports = (options) => {
       <icon height="167" src="res/icon/ios/icon-83.5x83.5@2x.png" width="167" />
       <icon height="1024" src="res/icon/ios/icon-512x512@2x.png" width="1024" />
     </platform>
-    ` : ''}
-    ${cordova.platforms.indexOf('electron') >= 0 ? `
-    <platform name="electron">
-      <preference name="ElectronSettingsFilePath" value="electron-settings.json" />
-      <icon src="res/icon/electron/app.png" target="app" />
-      <icon src="res/icon/electron/installer.png" target="installer" />
-      <preference name="ShowSplashScreen" value="false" />
-      <preference name="AutoHideSplashScreen" value="true" />
-    </platform>
-    ` : ''}
-    ${cordova.platforms.indexOf('osx') >= 0 ? `
-    <platform name="osx">
-      <icon src="res/icon/osx/icon-16x16.png" width="16" height="16" />
-      <icon src="res/icon/osx/icon-32x32.png" width="32" height="32" />
-      <icon src="res/icon/osx/icon-64x64.png" width="64" height="64" />
-      <icon src="res/icon/osx/icon-128x128.png" width="128" height="128" />
-      <icon src="res/icon/osx/icon-256x256.png" width="256" height="256" />
-      <icon src="res/icon/osx/icon-512x512.png" width="512" height="512" />
-      <icon src="res/icon/osx/icon-1024x1024.png" width="1024" height="1024" />
-      <preference name="ShowSplashScreen" value="false" />
-      <preference name="AutoHideSplashScreen" value="true" />
-    </platform>
-    ` : ''}
+    `
+        : ''
+    }
+
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="local" />
     <preference name="AutoHideSplashScreen" value="false" />
@@ -89,5 +78,6 @@ module.exports = (options) => {
     <preference name="Allow3DTouchLinkPreview" value="false" />
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
     <preference name="AllowInlineMediaPlayback" value="true" />
-  `);
+  `,
+  );
 };

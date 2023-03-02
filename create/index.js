@@ -24,11 +24,6 @@ module.exports = async (options = {}, logger, { exitOnError = true, iconFile = n
     log.error(err.stderr || err);
     if (exitOnError) process.exit(1);
   }
-  if (options.bundler) {
-    log.error('Attention!');
-    log.error('For Vite it is recommended to have modern and latest Node.js and NPM.');
-    log.error('Make sure you have at least Node.js v14 and NPM v7 installed on your system.');
-  }
 
   if (!logger) {
     // eslint-disable-next-line

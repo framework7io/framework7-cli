@@ -5,7 +5,7 @@ var cordovaApp = {
   */
   handleSplashscreen: function () {
     var f7 = cordovaApp.f7;
-    if (!window.navigator.splashscreen || f7.device.electron) return;
+    if (!window.navigator.splashscreen) return;
     setTimeout(() => {
       window.navigator.splashscreen.hide();
     }, 2000);
@@ -18,7 +18,6 @@ var cordovaApp = {
   handleAndroidBackButton: function () {
     var f7 = cordovaApp.f7;
     const $ = f7.$;
-    if (f7.device.electron) return;
 
     document.addEventListener(
       'backbutton',
@@ -97,7 +96,7 @@ var cordovaApp = {
   */
   handleKeyboard: function () {
     var f7 = cordovaApp.f7;
-    if (!window.Keyboard || !window.Keyboard.shrinkView || f7.device.electron) return;
+    if (!window.Keyboard || !window.Keyboard.shrinkView) return;
     var $ = f7.$;
     window.Keyboard.shrinkView(false);
     window.Keyboard.disableScrollingInShrinkView(true);

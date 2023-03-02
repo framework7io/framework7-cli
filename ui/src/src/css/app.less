@@ -1,37 +1,15 @@
 /* Your app custom styles here */
 :root {
   --custom-color: #ee350f;
-  --color-green: #4cd964;
   --f7-list-button-text-align: center;
-  --f7-popup-tablet-border-radius: 15px;
-
-  --f7-bars-bg-color: #fff;
-  --f7-navbar-height: 64px;
-  --f7-navbar-large-title-height: 56px;
-  --f7-block-inset-border-radius: 10px;
 
   --f7-color-picker-popover-width: 240px;
   --f7-color-picker-sb-spectrum-height: 180px;
-  --f7-input-outline-border-color: #ccc;
-}
-.dark {
-  --f7-bars-bg-color: #1b1b1b;
-}
-.ios {
-  .list {
-    .icon-radio {
-      border: 1px solid var(--f7-checkbox-inactive-color);
-      border-radius: 50%;
-    }
-    input:checked ~ .icon-radio {
-      border-color: var(--f7-theme-color);
-    }
-  }
 }
 
 .navbar {
   .title {
-    display: inline-flex;
+    display: flex;
     align-items: center;
   }
   .title-large-text {
@@ -45,7 +23,7 @@
   width: 36px;
   height: 36px;
   display: block;
-  margin-right: 10px;
+  margin-right: 12px;
   flex-shrink: 0;
   .title-large & {
     width: 48px;
@@ -99,7 +77,7 @@ i.block-icon {
   height: 40px;
   border-radius: calc(var(--f7-block-inset-border-radius) - 2px);
   line-height: 40px;
-  background: #3e444c;
+  background: #ee350f;
   display: block;
   background-repeat: no-repeat;
   background-position: center;
@@ -117,33 +95,9 @@ i.block-icon {
     background-size: 28px auto;
   }
 }
-.inputs-list {
-  --f7-label-font-size: 14px;
-  .item-input-wrap {
-    margin-top: 5px;
-  }
-  .item-label {
-    margin-bottom: 2px;
-  }
-}
 .content-block {
-  --f7-block-title-text-color: #333;
-  --f7-block-padding-horizontal: 20px;
-  --f7-block-padding-vertical: 20px;
-  --f7-list-item-padding-horizontal: 20px;
-  --f7-list-media-item-padding-horizontal: 20px;
   --f7-list-item-text-max-lines: 20;
-  --f7-list-border-color: transparent;
-  --f7-list-bg-color: transparent;
-  .dark & {
-    --f7-block-title-text-color: #fff;
-  }
 
-  .block-title,
-  .list,
-  .block {
-    --f7-block-margin-vertical: 20px;
-  }
   .block:last-child,
   .list:last-child {
     margin-bottom: 0;
@@ -258,7 +212,6 @@ i.block-icon {
     padding: 0;
     background: none;
     overflow: hidden;
-    border-color: #f1f1f1;
     img {
       width: 100%;
       height: auto;
