@@ -4,7 +4,7 @@ import { Page, Navbar, Block } from 'framework7-react';
 const NotFoundPage = () => (
   <Page>
     <Navbar title="Not found" backLink="Back" />
-    <Block strong>
+    <Block strong inset>
       <p>Sorry</p>
       <p>Requested content not found.</p>
     </Block>

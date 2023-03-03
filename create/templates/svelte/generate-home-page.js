@@ -65,7 +65,7 @@ module.exports = (options) => {
           : ''
       }
       <!-- Page content -->
-      <Block strong>
+      <Block>
         ${description.trim()}
       </Block>
 
@@ -73,24 +73,24 @@ module.exports = (options) => {
         template !== 'blank'
           ? `
       <BlockTitle>Navigation</BlockTitle>
-      <List>
+      <List strong inset dividersIos>
         <ListItem link="/about/" title="About"/>
         <ListItem link="/form/" title="Form"/>
       </List>
 
       <BlockTitle>Modals</BlockTitle>
-      <Block strong class="grid grid-cols-2 grid-gap">
-        <Button fill raised popupOpen="#my-popup">Popup</Button>
-        <Button fill raised loginScreenOpen="#my-login-screen">Login Screen</Button>
+      <Block class="grid grid-cols-2 grid-gap">
+        <Button fill popupOpen="#my-popup">Popup</Button>
+        <Button fill loginScreenOpen="#my-login-screen">Login Screen</Button>
       </Block>
 
       <BlockTitle>Panels</BlockTitle>
-      <Block strong class="grid grid-cols-2 grid-gap">
-        <Button fill raised panelOpen="left">Left Panel</Button>
-        <Button fill raised panelOpen="right">Right Panel</Button>
+      <Block class="grid grid-cols-2 grid-gap">
+        <Button fill panelOpen="left">Left Panel</Button>
+        <Button fill panelOpen="right">Right Panel</Button>
       </Block>
 
-      <List>
+      <List strong inset dividersIos>
         <ListItem
           title="Dynamic (Component) Route"
           link="/dynamic-route/blog/45/post/125/?foo=bar#about"

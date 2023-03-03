@@ -7,17 +7,23 @@
       </div>
     </div>
     <div class="page-content">
-      <div class="list links-list">
+      <div class="list list-strong list-dividers-ios list-outline-ios inset-md">
         <ul>
           ${products.value.map((product) => $h`
-            <li><a href="/product/${product.id}/">${product.title}</a></li>
+          <li>
+            <a class="item-content item-link" href="/product/${product.id}/">
+              <div class="item-inner">
+                <div class="item-title">${product.title}</div>
+              </div>
+            </a>
+          </li>
           `)}
         </ul>
       </div>
       ${products.value.length === 3 && $h`
-        <div class="block">
-          <button class="button button-fill" @click=${addProduct}>Add Product</Button>
-        </div>
+      <div class="block">
+        <button class="button button-fill" @click=${addProduct}>Add Product</Button>
+      </div>
       `}
     </div>
   </div>

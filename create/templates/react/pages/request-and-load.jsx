@@ -7,10 +7,10 @@ const RequestAndLoad = (props) => {
   return (
     <Page>
       <Navbar title={`${user.firstName} ${user.lastName}`} backLink="Back" />
-      <Block strong>
+      <Block strong inset>
         {user.about}
       </Block>
-      <List>
+      <List strong inset dividersIos>
         {user.links.map((link, index) => (
           <ListItem
             key={index}
@@ -23,6 +23,6 @@ const RequestAndLoad = (props) => {
       </List>
     </Page>
   );
-}
+};
 
 export default RequestAndLoad;

@@ -1,7 +1,7 @@
 <Page name="product">
   <Navbar title={currentProduct.title} backLink="Back" />
   <BlockTitle>About {currentProduct.title}</BlockTitle>
-  <Block strong>
+  <Block>
     {currentProduct.description}
   </Block>
 </Page>

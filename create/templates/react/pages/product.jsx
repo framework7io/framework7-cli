@@ -15,11 +15,9 @@ const ProductPage = (props) => {
     <Page name="product">
       <Navbar title={currentProduct.title} backLink="Back" />
       <BlockTitle>About {currentProduct.title}</BlockTitle>
-      <Block strong>
-        {currentProduct.description}
-      </Block>
+      <Block>{currentProduct.description}</Block>
     </Page>
   );
-}
+};
 
 export default ProductPage;

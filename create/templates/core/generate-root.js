@@ -65,8 +65,7 @@ module.exports = (options) => {
       </div>
     </div>
   `;
-  const leftPanel =
-    template === 'split-view' ? leftPanelWithView : leftPanelPlain;
+  const leftPanel = template === 'split-view' ? leftPanelWithView : leftPanelPlain;
   // prettier-ignore
   const rightPanel = `
     <!-- Right panel with reveal effect-->
@@ -108,7 +107,7 @@ module.exports = (options) => {
     <!-- Views/Tabs container -->
     <div class="views tabs safe-areas">
       <!-- Tabbar for switching views-tabs -->
-      <div class="toolbar toolbar-bottom tabbar-labels">
+      <div class="toolbar toolbar-bottom tabbar-icons">
         <div class="toolbar-inner">
           <a href="#view-home" class="tab-link tab-link-active">
             <i class="icon f7-icons if-not-md">house_fill</i>

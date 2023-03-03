@@ -2,7 +2,7 @@
   <Navbar title="Settings" />
 
   <BlockTitle>Form Example</BlockTitle>
-  <List noHairlinesMd>
+  <List strongIos outlineIos dividersIos>
     <ListInput
       label="Name"
       type="text"
@@ -60,7 +60,7 @@
       label="Range"
       input={false}
     >
-      <span slot="after">
+      <span slot="input">
         <Range value={50} min={0} max={100} step={1} />
       </span>
     </ListInput>
@@ -79,43 +79,34 @@
   </List>
 
   <BlockTitle>Buttons</BlockTitle>
-  <Block strong>
-    <p class="grid grid-cols-2 grid-gap">
-      <Button>Button</Button>
-      <Button fill>Fill</Button>
-    </p>
-    <p class="grid grid-cols-2 grid-gap">
-      <Button raised>Raised</Button>
-      <Button raised fill>Raised Fill</Button>
-    </p>
-    <p class="grid grid-cols-2 grid-gap">
-      <Button round>Round</Button>
-      <Button round fill>Round Fill</Button>
-    </p>
-    <p class="grid grid-cols-2 grid-gap">
-      <Button outline>Outline</Button>
-      <Button round outline>Outline Round</Button>
-    </p>
-    <p class="grid grid-cols-2 grid-gap">
-      <Button small outline>Small</Button>
-      <Button small round outline>Small Round</Button>
-    </p>
-    <p class="grid grid-cols-2 grid-gap">
-      <Button small fill>Small</Button>
-      <Button small round fill>Small Round</Button>
-    </p>
-    <p class="grid grid-cols-2 grid-gap">
-      <Button large raised>Large</Button>
-      <Button large fill raised>Large Fill</Button>
-    </p>
-    <p class="grid grid-cols-2 grid-gap">
-      <Button large fill raised color="red">Large Red</Button>
-      <Button large fill raised color="green">Large Green</Button>
-    </p>
+  <Block strongIos outlineIos class="grid grid-cols-2 grid-gap">
+    <Button>Button</Button>
+    <Button fill>Fill</Button>
+
+    <Button raised>Raised</Button>
+    <Button raised fill>Raised Fill</Button>
+
+    <Button round>Round</Button>
+    <Button round fill>Round Fill</Button>
+
+    <Button outline>Outline</Button>
+    <Button round outline>Outline Round</Button>
+
+    <Button small outline>Small</Button>
+    <Button small round outline>Small Round</Button>
+
+    <Button small fill>Small</Button>
+    <Button small round fill>Small Round</Button>
+
+    <Button large raised>Large</Button>
+    <Button large fill raised>Large Fill</Button>
+
+    <Button large fill raised color="red">Large Red</Button>
+    <Button large fill raised color="green">Large Green</Button>
   </Block>
 
   <BlockTitle>Checkbox group</BlockTitle>
-  <List>
+  <List strongIos outlineIos dividersIos>
     <ListItem
       checkbox
       name="my-checkbox"
@@ -137,7 +128,7 @@
   </List>
 
   <BlockTitle>Radio buttons group</BlockTitle>
-  <List>
+  <List strongIos outlineIos dividersIos>
     <ListItem
       radio
       name="radio"

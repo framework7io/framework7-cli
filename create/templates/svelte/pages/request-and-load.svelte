@@ -1,9 +1,9 @@
 <Page>
   <Navbar title={`${user.firstName} ${user.lastName}`} backLink="Back" />
-  <Block strong>
+  <Block strong inset>
     {user.about}
   </Block>
-  <List>
+  <List strong inset dividersIos>
     {#each user.links as link}
       <ListItem
         link={link.url}

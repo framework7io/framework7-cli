@@ -1,6 +1,6 @@
 <Page>
   <Navbar title="Dynamic Route" backLink="Back" />
-  <Block strong>
+  <Block strong inset>
     <ul>
       <li><b>Url:</b> {f7route.url}</li>
       <li><b>Path:</b> {f7route.path}</li>
@@ -22,7 +22,7 @@
       <li><b>Route:</b> {f7route.route.path}</li>
     </ul>
   </Block>
-  <Block strong>
+  <Block strong inset>
     <Link onClick={() => f7router.back()}>Go back via Router API</Link>
   </Block>
 </Page>

@@ -85,14 +85,14 @@ module.exports = (options) => {
       }
       <!-- Scrollable page content-->
       <div class="page-content">
-        <div class="block block-strong">
+        <div class="block">
           ${description.trim()}
         </div>
         ${
           !isBlank
             ? `
         <div class="block-title">Navigation</div>
-        <div class="list">
+        <div class="list list-strong inset list-dividers-ios">
           <ul>
             <li>
               <a href="/about/" class="item-content item-link">
@@ -112,18 +112,18 @@ module.exports = (options) => {
         </div>
 
         <div class="block-title">Modals</div>
-        <div class="block block-strong grid grid-cols-50 grid-gap">
-          <a href="#" class="button button-raised button-fill popup-open" data-popup="#my-popup">Popup</a>
-          <a href="#" class="button button-raised button-fill login-screen-open" data-login-screen="#my-login-screen">Login Screen</a>
+        <div class="block grid grid-cols-2 grid-gap">
+          <a href="#" class="button button-fill popup-open" data-popup="#my-popup">Popup</a>
+          <a href="#" class="button button-fill login-screen-open" data-login-screen="#my-login-screen">Login Screen</a>
         </div>
 
         <div class="block-title">Panels</div>
-        <div class="block block-strong grid grid-cols-50 grid-gap">
-          <a href="#" class="button button-raised button-fill panel-open" data-panel="left">Left Panel</a>
-          <a href="#" class="button button-raised button-fill panel-open" data-panel="right">Right Panel</a>
+        <div class="block grid grid-cols-2 grid-gap">
+          <a href="#" class="button button-fill panel-open" data-panel="left">Left Panel</a>
+          <a href="#" class="button button-fill panel-open" data-panel="right">Right Panel</a>
         </div>
 
-        <div class="list links-list">
+        <div class="list list-strong inset list-dividers-ios links-list">
           <ul>
             <li>
               <a href="/dynamic-route/blog/45/post/125/?foo=bar#about">Dynamic (Component) Route</a>

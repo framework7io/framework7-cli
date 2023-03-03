@@ -1,6 +1,6 @@
 <Page name="catalog">
   <Navbar title="Catalog" />
-  <List>
+  <List strong dividersIos outlineIos insetMd>
     {#each products as product, index (product.id)}
       <ListItem
         title={product.title}

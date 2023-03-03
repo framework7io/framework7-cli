@@ -13,13 +13,13 @@
       </div>
     </div>
     <div class="page-content">
-      <div class="block block-strong">
+      <div class="block block-strong inset">
         ${user.about}
       </div>
-      <div class="list links-list">
+      <div class="list list-strong inset list-dividers-ios links-list">
         <ul>
           ${user.links.map((link) => $h`
-            <li><a class="external" target="_blank" href="${link.url}">${link.title}</a></li>
+          <li><a class="external" target="_blank" href="${link.url}">${link.title}</a></li>
           `)}
         </ul>
       </div>

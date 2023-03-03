@@ -3,7 +3,7 @@
     <f7-navbar title="Settings"></f7-navbar>
 
     <f7-block-title>Form Example</f7-block-title>
-    <f7-list no-hairlines-md>
+    <f7-list strong-ios dividers-ios outline-ios>
       <f7-list-input label="Name" type="text" placeholder="Your name"></f7-list-input>
 
       <f7-list-input label="E-mail" type="email" placeholder="E-mail"></f7-list-input>
@@ -43,50 +43,41 @@
     </f7-list>
 
     <f7-block-title>Buttons</f7-block-title>
-    <f7-block strong>
-      <p class="grid grid-cols-2 grid-gap">
-        <f7-button>Button</f7-button>
-        <f7-button fill>Fill</f7-button>
-      </p>
-      <p class="grid grid-cols-2 grid-gap">
-        <f7-button raised>Raised</f7-button>
-        <f7-button raised fill>Raised Fill</f7-button>
-      </p>
-      <p class="grid grid-cols-2 grid-gap">
-        <f7-button round>Round</f7-button>
-        <f7-button round fill>Round Fill</f7-button>
-      </p>
-      <p class="grid grid-cols-2 grid-gap">
-        <f7-button outline>Outline</f7-button>
-        <f7-button round outline>Outline Round</f7-button>
-      </p>
-      <p class="grid grid-cols-2 grid-gap">
-        <f7-button small outline>Small</f7-button>
-        <f7-button small round outline>Small Round</f7-button>
-      </p>
-      <p class="grid grid-cols-2 grid-gap">
-        <f7-button small fill>Small</f7-button>
-        <f7-button small round fill>Small Round</f7-button>
-      </p>
-      <p class="grid grid-cols-2 grid-gap">
-        <f7-button large raised>Large</f7-button>
-        <f7-button large fill raised>Large Fill</f7-button>
-      </p>
-      <p class="grid grid-cols-2 grid-gap">
-        <f7-button large fill raised color="red">Large Red</f7-button>
-        <f7-button large fill raised color="green">Large Green</f7-button>
-      </p>
+    <f7-block strong-ios outline-ios class="grid grid-cols-2 grid-gap">
+      <f7-button>Button</f7-button>
+      <f7-button fill>Fill</f7-button>
+
+      <f7-button raised>Raised</f7-button>
+      <f7-button raised fill>Raised Fill</f7-button>
+
+      <f7-button round>Round</f7-button>
+      <f7-button round fill>Round Fill</f7-button>
+
+      <f7-button outline>Outline</f7-button>
+      <f7-button round outline>Outline Round</f7-button>
+
+      <f7-button small outline>Small</f7-button>
+      <f7-button small round outline>Small Round</f7-button>
+
+      <f7-button small fill>Small</f7-button>
+      <f7-button small round fill>Small Round</f7-button>
+
+      <f7-button large raised>Large</f7-button>
+      <f7-button large fill raised>Large Fill</f7-button>
+
+      <f7-button large fill raised color="red">Large Red</f7-button>
+      <f7-button large fill raised color="green">Large Green</f7-button>
     </f7-block>
 
     <f7-block-title>Checkbox group</f7-block-title>
-    <f7-list>
+    <f7-list strong-ios outline-ios dividers-ios>
       <f7-list-item checkbox name="my-checkbox" value="Books" title="Books"></f7-list-item>
       <f7-list-item checkbox name="my-checkbox" value="Movies" title="Movies"></f7-list-item>
       <f7-list-item checkbox name="my-checkbox" value="Food" title="Food"></f7-list-item>
     </f7-list>
 
     <f7-block-title>Radio buttons group</f7-block-title>
-    <f7-list>
+    <f7-list strong-ios outline-ios dividers-ios>
       <f7-list-item radio name="radio" value="Books" title="Books"></f7-list-item>
       <f7-list-item radio name="radio" value="Movies" title="Movies"></f7-list-item>
       <f7-list-item radio name="radio" value="Food" title="Food"></f7-list-item>
