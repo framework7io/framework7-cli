@@ -13,7 +13,7 @@ module.exports = (options) => {
     core: [`import framework7 from 'rollup-plugin-framework7';`, 'framework7({ emitCss: false }),'],
     react: [`import react from '@vitejs/plugin-react';`, 'react(),'],
     vue: [`import vue from '@vitejs/plugin-vue';`, 'vue(),'],
-    svelte: [`import { svelte } from '@sveltejs/vite-plugin-svelte';`, 'svelte(),'],
+    svelte: [``, 'svelte(),'],
   };
 
   // prettier-ignore
@@ -37,46 +37,50 @@ module.exports = (options) => {
     `, () => `
     const BUILD_DIR = path.resolve(__dirname, './www',);
     `)}
-
-    export default {
-      plugins: [
-        ${frameworkPlugin[framework][1]}
-        ${templateIf(hasCordova, () => `
-        createHtmlPlugin({
-          minify: false,
-          inject: {
-            data: {
-              TARGET: process.env.TARGET,
-            },
-          },
-        }),
-        `)}
-      ],
-      root: SRC_DIR,
-      base: '',
-      publicDir: PUBLIC_DIR,
-      build: {
-        outDir: BUILD_DIR,
-        assetsInlineLimit: 0,
-        emptyOutDir: true,
-        rollupOptions: {
-          treeshake: false,
-        },
-      },
-      resolve: {
-        alias: {
-          '@': SRC_DIR,
-        },
-      },
-      server: {
-        host: true,
-      },
-      ${templateIf(framework === 'core', () => `
-      esbuild: {
-        jsxFactory: '$jsx',
-        jsxFragment: '"Fragment"',
-      },
+    export default async () => {
+      ${templateIf(framework === 'svelte', () => `
+      const { svelte } = await import('@sveltejs/vite-plugin-svelte');
       `)}
-    };
+      return  {
+        plugins: [
+          ${frameworkPlugin[framework][1]}
+          ${templateIf(hasCordova, () => `
+          createHtmlPlugin({
+            minify: false,
+            inject: {
+              data: {
+                TARGET: process.env.TARGET,
+              },
+            },
+          }),
+          `)}
+        ],
+        root: SRC_DIR,
+        base: '',
+        publicDir: PUBLIC_DIR,
+        build: {
+          outDir: BUILD_DIR,
+          assetsInlineLimit: 0,
+          emptyOutDir: true,
+          rollupOptions: {
+            treeshake: false,
+          },
+        },
+        resolve: {
+          alias: {
+            '@': SRC_DIR,
+          },
+        },
+        server: {
+          host: true,
+        },
+        ${templateIf(framework === 'core', () => `
+        esbuild: {
+          jsxFactory: '$jsx',
+          jsxFragment: '"Fragment"',
+        },
+        `)}
+      };
+    }
   `);
 };
