@@ -25,6 +25,16 @@ export default function (log) {
     .replace(/✔/g, '<span class="text-color-green">✔</span>')
     .replace(/ℹ/g, '<span class="text-color-yellow">ℹ</span>')
     .replace(
+      /LOADING/g,
+      `<span class="preloader">
+        <span class="preloader-inner">
+          <svg viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="16"></circle>
+          </svg>
+        </span>
+      </span>`,
+    )
+    .replace(
       'https://patreon.com/framework7',
       '<a href="https://patreon.com/framework7" class="external" target="_blank">https://patreon.com/framework7</a>',
     )

@@ -26,7 +26,7 @@ module.exports = (startPage = '/', port = 3001) => {
   let pendingIconFile = false;
 
   const logger = {
-    statusStart: (text) => log.push(text),
+    statusStart: (text) => log.push(`LOADING ${text}`),
     statusDone: (text) => log.push(`✔ ${text}`),
     statusError: (text) => log.push(`✖ ${text}`),
     text: (text) => log.push(text),
@@ -55,7 +55,8 @@ module.exports = (startPage = '/', port = 3001) => {
   });
 
   // Create App
-  app.route('/api/create/')
+  app
+    .route('/api/create/')
     .get((req, res) => {
       res.json({ log, done, error });
       if (done && !pendingIconFile) {
@@ -73,14 +74,10 @@ module.exports = (startPage = '/', port = 3001) => {
       if (file && file.buffer) {
         pendingIconFile = true;
       }
-      createApp(
-        options,
-        logger,
-        {
-          exitOnError: true,
-          iconFile: file ? file.buffer : null,
-        },
-      )
+      createApp(options, logger, {
+        exitOnError: true,
+        iconFile: file ? file.buffer : null,
+      })
         .then(() => {
           done = true;
         })
@@ -96,7 +93,8 @@ module.exports = (startPage = '/', port = 3001) => {
     fse.writeFileSync(path.resolve(cwd, 'assets-src', `${file.fieldname}.png`), file.buffer);
     res.send('Ok');
   });
-  app.route('/api/assets/generate/')
+  app
+    .route('/api/assets/generate/')
     .get((req, res) => {
       res.json({ log, done, error });
       if (done) {
@@ -123,17 +121,14 @@ module.exports = (startPage = '/', port = 3001) => {
       generateAssets({}, currentProject, logger, { exitOnError: true })
         .then(() => {
           done = true;
-        }).catch((err) => {
+        })
+        .catch((err) => {
           error = true;
           console.log(err);
         });
     });
 
-  const availablePaths = [
-    '/',
-    '/create/',
-    '/assets/',
-  ];
+  const availablePaths = ['/', '/create/', '/assets/'];
   availablePaths.forEach((availablePath) => {
     app.get(availablePath, (req, res) => {
       res.sendFile('www/index.html', { root: __dirname });
@@ -141,7 +136,11 @@ module.exports = (startPage = '/', port = 3001) => {
   });
 
   app.listen(port, () => {
-    console.log(`${chalk.bold(`\nFramework7 CLI UI is running on http://localhost:${port}`)} ${chalk.gray('(CTRL + C to exit)')}`);
+    console.log(
+      `${chalk.bold(`\nFramework7 CLI UI is running on http://localhost:${port}`)} ${chalk.gray(
+        '(CTRL + C to exit)',
+      )}`,
+    );
   });
 
   opn(`http://localhost:${port}${startPage}`);
