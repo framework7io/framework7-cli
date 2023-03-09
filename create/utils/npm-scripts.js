@@ -74,27 +74,27 @@ const npmScripts = () => {
     no_vite: {
       bc: {
         icon: '📱',
-        script: 'node ./build/build.js && cd cordova && cordova build',
+        script: 'node ./build/build.mjs && cd cordova && cordova build',
         description: 'build cordova app',
       },
       bci: {
         icon: '📱',
-        script: 'node ./build/build.js && cd cordova && cordova build ios',
+        script: 'node ./build/build.mjs && cd cordova && cordova build ios',
         description: 'build cordova iOS app',
       },
       bca: {
         icon: '📱',
-        script: 'node ./build/build.js && cd cordova && cordova build android',
+        script: 'node ./build/build.mjs && cd cordova && cordova build android',
         description: 'build cordova Android app',
       },
       ca: {
         icon: '📱',
-        script: 'node ./build/build.js && cd cordova && cordova run android',
+        script: 'node ./build/build.mjs && cd cordova && cordova run android',
         description: 'run cordova Android app',
       },
       ci: {
         icon: '📱',
-        script: 'node ./build/build.js && cd cordova && cordova run ios',
+        script: 'node ./build/build.mjs && cd cordova && cordova run ios',
         description: 'run cordova iOS app',
       },
       v: {

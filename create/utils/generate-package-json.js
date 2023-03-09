@@ -102,11 +102,10 @@ module.exports = function generatePackageJson(options) {
   "license" : "UNLICENSED",
   "scripts" : ${JSON.stringify(scripts)},
   "browserslist": [
-    "IOS >= 13",
-    "Safari >= 13",
+    "IOS >= 15",
+    "Safari >= 15",
     "last 5 Chrome versions",
-    "last 5 Firefox versions",
-    "Samsung >= 12"
+    "last 5 Firefox versions"
   ],
   "dependencies": {},
   "devDependencies": {}

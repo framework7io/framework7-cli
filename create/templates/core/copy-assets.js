@@ -63,8 +63,8 @@ module.exports = (options) => {
     toCopy.push(...[]);
     if (type.indexOf('cordova') >= 0) {
       toCopy.push({
-        from: path.resolve(__dirname, 'cordova-plain-build', 'build.js'),
-        to: path.resolve(cwd, 'build', 'build.js'),
+        from: path.resolve(__dirname, 'cordova-plain-build', 'build.mjs'),
+        to: path.resolve(cwd, 'build', 'build.mjs'),
       });
     }
   }

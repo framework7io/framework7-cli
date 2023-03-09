@@ -11,13 +11,10 @@
     "start": "npm run dev"
   },
   "browserslist": [
-    "Android >= 5",
-    "IOS >= 9.3",
-    "Edge >= 15",
-    "Safari >= 9.1",
-    "Chrome >= 49",
-    "Firefox >= 31",
-    "Samsung >= 5"
+    "IOS >= 15",
+    "Safari >= 15",
+    "last 5 Chrome versions",
+    "last 5 Firefox versions"
   ],
   "dependencies": {
     "dom7": "^4.0.6",
