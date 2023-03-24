@@ -12,7 +12,10 @@ module.exports = (options) => {
   const frameworkPlugin = {
     core: [`import framework7 from 'rollup-plugin-framework7';`, 'framework7({ emitCss: false }),'],
     react: [`import react from '@vitejs/plugin-react';`, 'react(),'],
-    vue: [`import vue from '@vitejs/plugin-vue';`, 'vue(),'],
+    vue: [
+      `import vue from '@vitejs/plugin-vue';`,
+      `vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.includes('swiper-') } } }),,`,
+    ],
     svelte: [``, 'svelte(),'],
   };
 
