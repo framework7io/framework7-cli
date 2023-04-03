@@ -478,18 +478,13 @@
           ></f7-list-item>
         </f7-list>
 
-        <template v-if="bundler === 'vite'">
+        <template v-if="bundler === 'vite' && type.indexOf('cordova') >= 0">
           <f7-block
             inset
             strong
             class="text-color-red no-margin border-color-red"
             style="border-width: 2px; border-style: solid; margin-top: -32px !important"
           >
-            <p><b>Attention!</b></p>
-            <p>
-              For Vite it is recommended to have modern and latest Node.js and NPM. Make sure you
-              have at least Node.js v14 and NPM v7 installed on your system.
-            </p>
             <p v-if="type.indexOf('cordova') >= 0">
               For Cordova app Vite build will be rebundled with Rollup (to workaround unsupported
               browser ES modules in Cordova web view), this means you should avoid dynamic imports

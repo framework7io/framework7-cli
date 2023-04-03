@@ -2,6 +2,20 @@
 
 # Change Log
 
+# [8.0.0](https://github.com/framework7io/framework7-cli/compare/v7.0.1...067ab4685737f87ffa1d9dd69ad73ff481ff065a) (2023-04-03)
+
+### Bug Fixes
+
+- fix vite config for latest svelte plugin ([33ee429](https://github.com/framework7io/framework7-cli/commit/33ee429614cba1b3195ab6ec73736eafa3d16471))
+- use ES module syntax in cordova's build.js ([fc05d99](https://github.com/framework7io/framework7-cli/commit/fc05d99fad6efce3cb6a2f3a56417b39a081e622))
+
+### Features
+
+- support for latest Framework7 v8
+- removed options to generate Desktop app with Electron
+- **vue:** add swiper- custom elements ([067ab46](https://github.com/framework7io/framework7-cli/commit/067ab4685737f87ffa1d9dd69ad73ff481ff065a))
+-
+
 # [7.0.1](https://github.com/framework7io/framework7-cli/compare/v7.0.0...v7.0.1) (2023-01-18)
 
 ### Bug Fixes

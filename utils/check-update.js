@@ -36,7 +36,6 @@ async function checkUpdate() {
     );
     log.text('\n> npm install framework7-cli -g', true);
     log.text('\nTo skip update check run the command with --skipUpdate flag\n', false, 'gray');
-    process.exit(1);
   } else {
     spinner.done('All good, you have latest framework7-cli version.');
   }
