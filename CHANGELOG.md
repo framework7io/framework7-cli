@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [8.0.1](https://github.com/framework7io/framework7-cli/compare/v8.0.0...v8.0.1) (2023-04-08)
+
+### Bug Fixes
+
+- use fetch in `assets` ([60cdb83](https://github.com/framework7io/framework7-cli/commit/60cdb835185b619a2851005eeda8d924b81ec935))
+
 # [8.0.0](https://github.com/framework7io/framework7-cli/compare/v7.0.1...067ab4685737f87ffa1d9dd69ad73ff481ff065a) (2023-04-03)
 
 ### Bug Fixes
