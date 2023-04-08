@@ -213,14 +213,14 @@ export default {
       const fd = new FormData();
       fd.append(name, file);
       self.uploading = name;
-      request({
-        method: 'post',
-        contentType: 'multipart/form-data',
-        url: '/api/assets/upload/',
-        data: fd,
-        complete() {
-          self.uploading = null;
+      fetch('/api/assets/upload/', {
+        method: 'POST',
+        body: fd,
+        headers: {
+          contentType: 'multipart/form-data',
         },
+      }).then(() => {
+        self.uploading = false;
       });
     },
     generateAssets() {
