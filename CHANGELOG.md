@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [8.0.3](https://github.com/framework7io/framework7-cli/compare/v8.0.2...v8.0.3) (2023-04-17)
+
+### Reverts
+
+- Revert "feat: remove cordova-plugin-splashscreen as it is part of the core" ([e856116](https://github.com/framework7io/framework7-cli/commit/e856116329a2f0b7c40a885915bd86f4440e1c2d))
+
 # [8.0.2](https://github.com/framework7io/framework7-cli/compare/v8.0.1...v8.0.2) (2023-04-14)
 
 ### Features
