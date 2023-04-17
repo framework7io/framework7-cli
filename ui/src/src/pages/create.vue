@@ -303,6 +303,13 @@
               title="cordova-plugin-keyboard"
               text="Allows to correctly handle native keyboard and shrink/expand webview on keyboard open/close"
             />
+            <f7-list-item
+              checkbox
+              :checked="cordova.plugins.indexOf('cordova-plugin-splashscreen') >= 0"
+              @change="toggleArrayValue(cordova.plugins, 'cordova-plugin-splashscreen')"
+              title="cordova-plugin-splashscreen"
+              text="Display and hide splash screen during application launch"
+            />
 
             <f7-list-item
               checkbox
@@ -797,7 +804,11 @@ export default {
       cordova: {
         folder: 'cordova',
         platforms: ['ios', 'android'],
-        plugins: ['cordova-plugin-statusbar', 'cordova-plugin-keyboard'],
+        plugins: [
+          'cordova-plugin-statusbar',
+          'cordova-plugin-keyboard',
+          'cordova-plugin-splashscreen',
+        ],
       },
       capacitor: {
         platforms: ['ios', 'android'],

@@ -273,7 +273,11 @@ module.exports = function getOptions() {
         options.cordovaPlatforms.indexOf('ios') >= 0 ||
         options.cordovaPlatforms.indexOf('android') >= 0
       ) {
-        options.cordova.plugins = ['cordova-plugin-statusbar', 'cordova-plugin-keyboard'];
+        options.cordova.plugins = [
+          'cordova-plugin-statusbar',
+          'cordova-plugin-keyboard',
+          'cordova-plugin-splashscreen',
+        ];
       }
       delete options.cordovaPlatforms;
     }
