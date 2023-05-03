@@ -1,4 +1,4 @@
-import rm from 'rimraf';
+import { rimraf } from 'rimraf';
 import cpy from 'cpy';
 import fs from 'fs';
 import path from 'path';
@@ -21,7 +21,7 @@ function removeWebBlocks(content) {
     .replace(/([\n]{2,})/g, '\n');
 }
 
-rm('./cordova/www').then(() => {
+rimraf('./cordova/www').then(() => {
   fs.mkdirSync(path.resolve('cordova', 'www'));
   cpy(['./www/**/*.*'], 'cordova/www', {
     parents: true,
