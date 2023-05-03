@@ -2,7 +2,7 @@ const indent = require('../utils/indent');
 const templateIf = require('../utils/template-if');
 
 module.exports = (options) => {
-  const { type, framework, pkg, name, bundler, theming } = options;
+  const { type, framework, name, bundler, theming } = options;
 
   const hasCordova = type.indexOf('cordova') >= 0;
   const hasCapacitor = type.indexOf('capacitor') >= 0;
@@ -26,9 +26,6 @@ module.exports = (options) => {
     `)}
     ${templateIf(framework === 'core' && bundler, () => `
     component: App, // App main component
-    `)}
-    ${templateIf(pkg, () => `
-    id: '${pkg}', // App bundle ID
     `)}
     // App store
     store: store,
