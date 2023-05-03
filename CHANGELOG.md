@@ -2,6 +2,13 @@
 
 # Change Log
 
+# [8.0.4](https://github.com/framework7io/framework7-cli/compare/v8.0.3...v8.0.4) (2023-05-03)
+
+### Bug Fixes
+
+- do not set obsolete `id` parameter ([08b49c1](https://github.com/framework7io/framework7-cli/commit/08b49c17d1974bbfab9ab8fb9cfea8d3bd87790d)), closes [#211](https://github.com/framework7io/framework7-cli/issues/211)
+- fixed wrong rimraf import ([29b160a](https://github.com/framework7io/framework7-cli/commit/29b160a2111024cc15e891c3d8491912715d403d)), closes [#212](https://github.com/framework7io/framework7-cli/issues/212)
+
 # [8.0.3](https://github.com/framework7io/framework7-cli/compare/v8.0.2...v8.0.3) (2023-04-17)
 
 ### Reverts
