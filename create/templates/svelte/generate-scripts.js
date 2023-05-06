@@ -27,7 +27,10 @@ module.exports = (options) => {
 
     // Import Icons and App Custom Styles
     ${templateIf(theming.iconFonts, () => `
-    import '../css/icons.css';
+    // Framework7 Icons Font (for iOS theme)
+    import 'framework7-icons/css/framework7-icons.css';
+    // Material Icons Font (for MD theme) 
+    import 'material-icons/iconfont/filled.css'
     `)}
     import '../css/app.${stylesExtension(cssPreProcessor)}';
 
