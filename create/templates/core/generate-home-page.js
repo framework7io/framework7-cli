@@ -76,8 +76,10 @@ module.exports = (options) => {
       <!-- Toolbar-->
       <div class="toolbar toolbar-bottom">
         <div class="toolbar-inner">
-          <a href="#" class="link">Left Link</a>
-          <a href="#" class="link">Right Link</a>
+          <div class="toolbar-pane">
+            <a href="#" class="link">Left Link</a>
+            <a href="#" class="link">Right Link</a>
+          </div>
         </div>
       </div>
       `.trim()

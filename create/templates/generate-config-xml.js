@@ -11,7 +11,7 @@ module.exports = (options) => {
         ? `
     <platform name="android">
       <preference name="StatusBarOverlaysWebView" value="false" />
-      <preference name="android-minSdkVersion" value="22" />
+      <preference name="android-minSdkVersion" value="24" />
       <preference name="SplashMaintainAspectRatio" value="true" />
       <splash density="land-hdpi" src="res/screen/android/drawable-hdpi/screen.png" />
       <splash density="land-mdpi" src="res/screen/android/drawable-mdpi/screen.png" />

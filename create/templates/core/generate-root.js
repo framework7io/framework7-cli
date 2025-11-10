@@ -109,21 +109,23 @@ module.exports = (options) => {
       <!-- Tabbar for switching views-tabs -->
       <div class="toolbar toolbar-bottom tabbar-icons">
         <div class="toolbar-inner">
-          <a href="#view-home" class="tab-link tab-link-active">
-            <i class="icon f7-icons if-not-md">house_fill</i>
-            <i class="icon material-icons if-md">home</i>
-            <span class="tabbar-label">Home</span>
-          </a>
-          <a href="#view-catalog" class="tab-link">
-            <i class="icon f7-icons if-not-md">square_list_fill</i>
-            <i class="icon material-icons if-md">view_list</i>
-            <span class="tabbar-label">Catalog</span>
-          </a>
-          <a href="#view-settings" class="tab-link">
-            <i class="icon f7-icons if-not-md">gear</i>
-            <i class="icon material-icons if-md">settings</i>
-            <span class="tabbar-label">Settings</span>
-          </a>
+          <div class="toolbar-pane">
+            <a href="#view-home" class="tab-link tab-link-active">
+              <i class="icon f7-icons if-not-md">house_fill</i>
+              <i class="icon material-icons if-md">home</i>
+              <span class="tabbar-label">Home</span>
+            </a>
+            <a href="#view-catalog" class="tab-link">
+              <i class="icon f7-icons if-not-md">square_list_fill</i>
+              <i class="icon material-icons if-md">view_list</i>
+              <span class="tabbar-label">Catalog</span>
+            </a>
+            <a href="#view-settings" class="tab-link">
+              <i class="icon f7-icons if-not-md">gear</i>
+              <i class="icon material-icons if-md">settings</i>
+              <span class="tabbar-label">Settings</span>
+            </a>
+          </div>
         </div>
       </div>
 

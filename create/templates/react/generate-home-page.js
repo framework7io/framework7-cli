@@ -40,6 +40,7 @@ module.exports = (options) => {
       NavTitleLarge,
       Link,
       Toolbar,
+      ToolbarPane,
       Block,
     } from 'framework7-react';
     `.trim()
@@ -53,6 +54,7 @@ module.exports = (options) => {
       NavRight,
       Link,
       Toolbar,
+      ToolbarPane,
       Block,
       BlockTitle,
       List,
@@ -91,8 +93,10 @@ module.exports = (options) => {
             ? `
         {/* Toolbar */}
         <Toolbar bottom>
-          <Link>Left Link</Link>
-          <Link>Right Link</Link>
+          <ToolbarPane>
+            <Link>Left Link</Link>
+            <Link>Right Link</Link>
+          </ToolbarPane>
         </Toolbar>
 
         `.trim()

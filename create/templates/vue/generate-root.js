@@ -70,9 +70,11 @@ module.exports = (options) => {
       <f7-views tabs class="safe-areas">
         <!-- Tabbar for switching views-tabs -->
         <f7-toolbar tabbar icons bottom>
-          <f7-link tab-link="#view-home" tab-link-active icon-ios="f7:house_fill" icon-md="material:home" text="Home"></f7-link>
-          <f7-link tab-link="#view-catalog" icon-ios="f7:square_list_fill" icon-md="material:view_list" text="Catalog"></f7-link>
-          <f7-link tab-link="#view-settings" icon-ios="f7:gear" icon-md="material:settings" text="Settings"></f7-link>
+          <f7-toolbar-pane>
+            <f7-link tab-link="#view-home" tab-link-active icon-ios="f7:house_fill" icon-md="material:home" text="Home"></f7-link>
+            <f7-link tab-link="#view-catalog" icon-ios="f7:square_list_fill" icon-md="material:view_list" text="Catalog"></f7-link>
+            <f7-link tab-link="#view-settings" icon-ios="f7:gear" icon-md="material:settings" text="Settings"></f7-link>
+          </f7-toolbar-pane>
         </f7-toolbar>
 
         <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->

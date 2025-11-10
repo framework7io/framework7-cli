@@ -58,8 +58,10 @@ module.exports = (options) => {
             ? `
         <!-- Toolbar-->
         <f7-toolbar bottom>
-          <f7-link>Left Link</f7-link>
-          <f7-link>Right Link</f7-link>
+          <f7-toolbar-pane>
+            <f7-link>Left Link</f7-link>
+            <f7-link>Right Link</f7-link>
+          </f7-toolbar-pane>
         </f7-toolbar>
 
         `.trim()

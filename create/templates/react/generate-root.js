@@ -70,9 +70,11 @@ module.exports = (options) => {
       <Views tabs className="safe-areas">
         {/* Tabbar for switching views-tabs */}
         <Toolbar tabbar icons bottom>
-          <Link tabLink="#view-home" tabLinkActive iconIos="f7:house_fill" iconMd="material:home" text="Home" />
-          <Link tabLink="#view-catalog" iconIos="f7:square_list_fill" iconMd="material:view_list" text="Catalog" />
-          <Link tabLink="#view-settings" iconIos="f7:gear" iconMd="material:settings" text="Settings" />
+          <ToolbarPane>
+            <Link tabLink="#view-home" tabLinkActive iconIos="f7:house_fill" iconMd="material:home" text="Home" />
+            <Link tabLink="#view-catalog" iconIos="f7:square_list_fill" iconMd="material:view_list" text="Catalog" />
+            <Link tabLink="#view-settings" iconIos="f7:gear" iconMd="material:settings" text="Settings" />
+          </ToolbarPane>
         </Toolbar>
 
         {/* Your main view/tab, should have "view-main" class. It also has "tabActive" prop */}
@@ -112,6 +114,7 @@ module.exports = (options) => {
       Page,
       Navbar,
       Toolbar,
+      ToolbarPane,
       NavRight,
       Link,
       Block,
