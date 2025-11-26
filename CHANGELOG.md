@@ -2,6 +2,10 @@
 
 # Change Log
 
+# [9.0.1](https://github.com/framework7io/framework7-cli/compare/v9.0.0...v9.0.1) (2025-11-26)
+
+- update for F7 v9
+
 # [9.0.0](https://github.com/framework7io/framework7-cli/compare/v8.0.4...v9.0.0) (2025-11-25)
 
 - update for F7 v9
