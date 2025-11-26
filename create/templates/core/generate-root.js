@@ -107,7 +107,7 @@ module.exports = (options) => {
     <!-- Views/Tabs container -->
     <div class="views tabs safe-areas">
       <!-- Tabbar for switching views-tabs -->
-      <div class="toolbar toolbar-bottom tabbar-icons">
+      <div class="toolbar tabbar toolbar-bottom tabbar-icons">
         <div class="toolbar-inner">
           <div class="toolbar-pane">
             <a href="#view-home" class="tab-link tab-link-active">

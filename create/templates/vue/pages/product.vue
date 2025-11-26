@@ -1,6 +1,6 @@
 <template>
   <f7-page name="product">
-    <f7-navbar :title="product.title" back-link="Back"></f7-navbar>
+    <f7-navbar :title="product.title" back-link></f7-navbar>
     <f7-block-title>About {{ product.title }}</f7-block-title>
     <f7-block>
       {{ product.description }}

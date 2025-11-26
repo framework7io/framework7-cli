@@ -1,5 +1,5 @@
 <Page>
-  <Navbar title="Left Page 1" backLink="Back" />
+  <Navbar title="Left Page 1" backLink />
   <Block strong>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit deserunt vel accusamus voluptatem neque! Laborum, et facilis at. Est dolorem, reprehenderit, sed repellendus at cum incidunt labore vel perferendis excepturi?</p>
     <p>Tempore accusantium quaerat officiis dolores ullam, perferendis labore assumenda. A sint quo necessitatibus temporibus ipsam adipisci et quos aliquid officiis, facilis nulla ut aperiam assumenda magnam blanditiis exercitationem facere non!</p>

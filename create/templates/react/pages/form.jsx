@@ -14,7 +14,7 @@ import {
 
 const FormPage = () => (
   <Page name="form">
-    <Navbar title="Form" backLink="Back"></Navbar>
+    <Navbar title="Form" backLink />
 
     <BlockTitle>Form Example</BlockTitle>
     <List strongIos outlineIos dividersIos>

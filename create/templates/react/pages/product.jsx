@@ -13,7 +13,7 @@ const ProductPage = (props) => {
   });
   return (
     <Page name="product">
-      <Navbar title={currentProduct.title} backLink="Back" />
+      <Navbar title={currentProduct.title} backLink />
       <BlockTitle>About {currentProduct.title}</BlockTitle>
       <Block>{currentProduct.description}</Block>
     </Page>

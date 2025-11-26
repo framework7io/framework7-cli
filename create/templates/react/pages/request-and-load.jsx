@@ -6,7 +6,7 @@ const RequestAndLoad = (props) => {
 
   return (
     <Page>
-      <Navbar title={`${user.firstName} ${user.lastName}`} backLink="Back" />
+      <Navbar title={`${user.firstName} ${user.lastName}`} backLink />
       <Block strong inset>
         {user.about}
       </Block>

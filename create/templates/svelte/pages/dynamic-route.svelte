@@ -1,5 +1,5 @@
 <Page>
-  <Navbar title="Dynamic Route" backLink="Back" />
+  <Navbar title="Dynamic Route" backLink />
   <Block strong inset>
     <ul>
       <li><b>Url:</b> {f7route.url}</li>

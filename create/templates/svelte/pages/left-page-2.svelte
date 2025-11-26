@@ -1,5 +1,5 @@
 <Page>
-  <Navbar title="Left Page 2" backLink="Back" />
+  <Navbar title="Left Page 2" backLink />
   <Block strong>
     <p>Maxime tempore, repellendus? Sequi saepe provident quas, neque assumenda dicta odit eaque nesciunt facere mollitia totam voluptate aspernatur vel corporis repudiandae commodi ad cumque repellendus. Saepe officia iure repellat repellendus.</p>
     <p>Ea maiores accusantium non fuga dicta, vero minus veniam! Ipsum eveniet vero voluptate veritatis aspernatur hic dicta adipisci, debitis. Sint quam aperiam repellat quis perspiciatis accusantium ipsum nulla soluta temporibus.</p>

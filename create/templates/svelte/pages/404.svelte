@@ -1,5 +1,5 @@
 <Page>
-  <Navbar title="Not found" backLink="Back" />
+  <Navbar title="Not found" backLink />
   <Block strong inset>
     <p>Sorry</p>
     <p>Requested content not found.</p>
