@@ -10,6 +10,7 @@ module.exports = (options) => {
   const { template, bundler, type } = options;
   const toCopy = [];
   const srcFolder = bundler ? 'src' : 'www';
+  const fileExtension = bundler ? 'f7' : 'html';
 
   // Copy Pages
   const pages = [
@@ -21,35 +22,30 @@ module.exports = (options) => {
   pages.forEach((p) => {
     const src = path.resolve(__dirname, 'pages', `${p}.html`);
     const dest = path.resolve(cwd, srcFolder, 'pages');
-    if (bundler !== 'vite') {
-      toCopy.push({
-        from: src,
-        to: path.resolve(dest, `${p}.html`),
-      });
-    } else {
-      let content = fse.readFileSync(src);
-      if (content.trim().indexOf('<template') !== 0) {
-        content = `<template>\n${content.trim()}\n</template>\n<script>\nexport default () => {\n  return $render;\n};\n</script>`;
-      }
-      toCopy.push({
-        content,
-        to: path.resolve(dest, `${p}.f7`),
-      });
+
+    let content = fse.readFileSync(src);
+    if (content.trim().indexOf('<template') !== 0) {
+      content = `<template>\n${content.trim()}\n</template>\n<script>\nexport default function (props, ctx) {\n  return $render;\n};\n</script>`;
     }
+    toCopy.push({
+      content,
+      to: path.resolve(dest, `${p}.${fileExtension}`),
+    });
   });
   toCopy.push({
     content: generateStore(options),
     to: path.resolve(cwd, srcFolder, 'js', 'store.js'),
   });
 
+  toCopy.push({
+    content: `<template>\n${indent(
+      2,
+      generateHomePage(options).trim(),
+    )}\n</template>\n<script>\nexport default function (props, ctx) {\n  return $render;\n}\n</script>`,
+    to: path.resolve(cwd, srcFolder, 'pages', `home.${fileExtension}`),
+  });
+
   if (bundler) {
-    toCopy.push({
-      content: `<template>\n${indent(
-        2,
-        generateHomePage(options).trim(),
-      )}\n</template>\n<script>\nexport default () => {\n  return $render;\n}\n</script>`,
-      to: path.resolve(cwd, srcFolder, 'pages', 'home.f7'),
-    });
     toCopy.push({
       content: generateRoot(options),
       to: path.resolve(cwd, srcFolder, 'app.f7'),

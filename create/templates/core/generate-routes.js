@@ -23,7 +23,7 @@ module.exports = (options) => {
         var routes = [
           {
             path: '/',
-            url: './index.html',
+            componentUrl: './pages/home.html',
           },
         ];
       `);
@@ -147,7 +147,7 @@ module.exports = (options) => {
       var routes = [
         {
           path: '/',
-          url: './index.html',
+          componentUrl: './pages/home.html',
         },
         {
           path: '/about/',

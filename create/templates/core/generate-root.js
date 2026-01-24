@@ -92,13 +92,7 @@ module.exports = (options) => {
   if (template === 'single-view' || template === 'split-view' || template === 'blank') {
     views = indent(4, `
       <!-- Your main view, should have "view-main" class -->
-      ${templateIf(bundler === 'vite', () => `
       <div class="view view-main view-init safe-areas" data-url="/"></div>
-      `, () => `
-      <div class="view view-main view-init safe-areas">
-        ${indent(8, generateHomePage(options)).trim()}
-      </div>
-      `)}
     `);
   }
   // prettier-ignore
@@ -130,15 +124,9 @@ module.exports = (options) => {
       </div>
 
       <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->
-      ${templateIf(bundler === 'vite', () => `
       <div id="view-home" class="view view-main view-init tab tab-active" data-url="/">
         <!-- Home page will be loaded here dynamically from / route -->
       </div>
-      `, () => `
-      <div id="view-home" class="view view-main view-init tab tab-active">
-        ${indent(8, generateHomePage(options)).trim()}
-      </div>
-      `)}
 
       <!-- Catalog View -->
       <div id="view-catalog" class="view view-init tab" data-name="catalog" data-url="/catalog/">
