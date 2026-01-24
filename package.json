@@ -41,11 +41,11 @@
     "express": "^4.17.1",
     "inquirer": "^8.1.0",
     "log-symbols": "^4.0.5",
-    "multer": "^1.4.2",
+    "multer": "^1.4.4",
     "opn": "^6.0.0",
     "ora": "^5.4.1",
     "rimraf": "^3.0.2",
-    "sharp": "^0.28.3"
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "eslint": "^7.31.0",
