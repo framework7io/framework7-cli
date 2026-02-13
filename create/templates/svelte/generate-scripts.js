@@ -12,6 +12,7 @@ module.exports = (options) => {
   let scripts = '';
 
   scripts += indent(0, `
+    import { mount } from 'svelte';
     // Import Framework7
     import Framework7 from '${customBuild ? './framework7-custom.js' : 'framework7/lite-bundle'}';
 
@@ -38,7 +39,7 @@ module.exports = (options) => {
     Framework7.use(Framework7Svelte)
 
     // Mount Svelte App
-    const app = new App({
+    const app = mount(App, {
       target: document.getElementById('app'),
     });
   `);
