@@ -2,6 +2,12 @@
 
 # Change Log
 
+# [9.0.2](https://github.com/framework7io/framework7-cli/compare/v9.0.1...v9.0.2) (2026-02-13)
+
+### Bug Fixes
+
+- update to Svelte v5 ([68d28b6](https://github.com/framework7io/framework7-cli/commit/68d28b65fe6f009d08fdad4cdb13eea565491c46)), closes [#219](https://github.com/framework7io/framework7-cli/issues/219)
+
 # [9.0.1](https://github.com/framework7io/framework7-cli/compare/v9.0.0...v9.0.1) (2025-11-26)
 
 - update for F7 v9
