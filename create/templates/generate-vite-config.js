@@ -16,7 +16,7 @@ module.exports = (options) => {
       `import vue from '@vitejs/plugin-vue';`,
       `vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.includes('swiper-') } } }),,`,
     ],
-    svelte: [``, 'svelte(),'],
+    svelte: [``, 'svelte({preprocess: vitePreprocess()}),'],
   };
 
   // prettier-ignore
@@ -42,7 +42,7 @@ module.exports = (options) => {
     `)}
     export default async () => {
       ${templateIf(framework === 'svelte', () => `
-      const { svelte } = await import('@sveltejs/vite-plugin-svelte');
+      const { svelte, vitePreprocess } = await import('@sveltejs/vite-plugin-svelte');
       `)}
       return  {
         plugins: [
